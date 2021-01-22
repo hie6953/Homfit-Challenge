@@ -24,21 +24,16 @@ export default {
 
 // 스크롤 방향 판단
 // 스크롤 올릴 때 NavBarSecondary 보여짐
-// let prevScrollpos = window.pageYOffset;
+let prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
-  // if (prevScrollpos > currentScrollPos) {
-  //   document.getElementById('navbar-second').style.top = '0';
-  // } else {
-  //   document.getElementById('navbar-second').style.top = '-50px';
-  // }
-
-  if (currentScrollPos == 0) {
+  if (prevScrollpos > currentScrollPos) {
     document.getElementById('navbar-second').style.top = '0';
   } else {
     document.getElementById('navbar-second').style.top = '-50px';
   }
-  // prevScrollpos = currentScrollPos;
+
+  prevScrollpos = currentScrollPos;
 };
 </script>
 
