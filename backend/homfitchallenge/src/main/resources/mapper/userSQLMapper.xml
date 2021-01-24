@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssafy.user">
+
+    <insert id="signup" parameterType="user">
+        insert into user(uid, email, password, nick_name, phone_number, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
+        values (#{uid},#{email},#{password},#{nick_name},#{phone_number},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
+    </insert>
+
+    <select id="getUid" parameterType="String">
+        select uid from user where #{uid}
+    </select>
+</mapper>
