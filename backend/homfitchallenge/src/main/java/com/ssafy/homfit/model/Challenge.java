@@ -1,10 +1,13 @@
 package com.ssafy.homfit.model;
 
 import java.sql.Date;
+import java.util.Arrays;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/** 챌린지 정보 */
 public class Challenge {
+	
 	private int challenge_id;
 	private String challenge_title;
 	private String challenge_contents;
@@ -14,18 +17,19 @@ public class Challenge {
 	private String bad_img;
 	private int day_certify_count;
 	private int only_cam;
-	
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date start_date;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date end_date;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date make_date;
-    
+	private String start_date;
+	private String end_date;
+	private String make_date;
 	private String make_uid;
-	private int fit_id;
+	private String fit_id;
 	private int check_date;
+	private int period;
 	
+	//요일리스트
+	private int[] dayList;
+	//태그리스트
+	private String[] tagList;
+
 	public int getChallenge_id() {
 		return challenge_id;
 	}
@@ -80,22 +84,22 @@ public class Challenge {
 	public void setOnly_cam(int only_cam) {
 		this.only_cam = only_cam;
 	}
-	public Date getStart_date() {
+	public String getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(Date start_date) {
+	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
-	public Date getMake_date() {
+	public String getMake_date() {
 		return make_date;
 	}
-	public void setMake_date(Date make_date) {
+	public void setMake_date(String make_date) {
 		this.make_date = make_date;
 	}
 	public String getMake_uid() {
@@ -104,10 +108,10 @@ public class Challenge {
 	public void setMake_uid(String make_uid) {
 		this.make_uid = make_uid;
 	}
-	public int getFit_id() {
+	public String getFit_id() {
 		return fit_id;
 	}
-	public void setFit_id(int fit_id) {
+	public void setFit_id(String fit_id) {
 		this.fit_id = fit_id;
 	}
 	public int getCheck_date() {
@@ -116,7 +120,24 @@ public class Challenge {
 	public void setCheck_date(int check_date) {
 		this.check_date = check_date;
 	}
-	
+	public int getPeriod() {
+		return period;
+	}
+	public void setPeriod(int period) {
+		this.period = period;
+	}
+	public int[] getDayList() {
+		return dayList;
+	}
+	public void setDayList(int[] dayList) {
+		this.dayList = dayList;
+	}
+	public String[] getTagList() {
+		return tagList;
+	}
+	public void setTagList(String[] tagList) {
+		this.tagList = tagList;
+	}
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -124,8 +145,8 @@ public class Challenge {
 				+ ", challenge_certify_contents=" + challenge_certify_contents + ", good_img=" + good_img + ", bad_img="
 				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
-				+ ", fit_id=" + fit_id + ", check_date=" + check_date + "]";
+				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", dayList="
+				+ Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + "]";
 	}
-	
 	
 }
