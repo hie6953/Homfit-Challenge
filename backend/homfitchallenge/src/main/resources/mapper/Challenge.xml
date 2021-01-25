@@ -22,16 +22,16 @@
 	</select>
 	
 	
-	<!-- 챌린지 등록 -->
+	<!-- 챌린지 정보 등록 -->
 	<!-- public int insertChallenge(Challenge challenge); -->
-	<insert id="insertChallenge" parameterType="Challenge">
+	<insert id="insertChallenge" parameterType="Challenge" useGeneratedKeys="true" keyProperty="challenge_id"  >
 		insert into challenge 
-		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date)
-		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date})
+		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date, period)
+		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period})
 	</insert>
 	
 	
-	<!-- 챌린지 수정 -->
+	<!-- 챌린지 정보 수정 -->
 	<!-- public int updateChallenge(Challenge challenge); -->
 	<update id="updateChallenge" parameterType="Challenge">
 		update challenge
@@ -49,18 +49,29 @@
 		make_uid = #{make_uid},
 		fit_id = #{fit_id},
 		check_date = #{check_date}
+		period = #{period}
 		where challenge_id = #{challenge_id}
 	</update>
 	
 	
-	<!-- 챌린지 삭제 -->
+	<!-- 챌린지 정보 삭제 -->
 	<!-- public int deleteChallenge(int challenge_id); -->
 	<delete id="deleteChallenge" parameterType="int">
 		delete
 		from challenge
 		where challenge_id = #{challenge_id}
 	</delete>
-
+	
+	
+	<!-- 챌린지 요일 등록 -->
+	<!--public int insertChallengeDay(Challenge_day c_day);  -->
+	<insert id="insertChallengeDay" parameterType="Challenge_day">
+		insert
+		into challenge_day
+		(challenge_id, day_id)
+		values (#{challenge_id}, #{day_id})
+	</insert>
+	
 
 
 </mapper>
