@@ -26,4 +26,10 @@ public class TagServiceImpl implements TagService {
 		return tagDao.selectAllTag();
 	}
 
+
+	@Override
+	public String selectTag(String tag_name) {
+		return tagDao.selectTag(tag_name);
+	}
+
 }

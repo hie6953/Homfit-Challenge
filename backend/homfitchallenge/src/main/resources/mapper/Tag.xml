@@ -4,6 +4,7 @@
 	
 	<mapper namespace="com.ssafy.homfit.model.dao.TagDAO">
 	
+	<!--태그 등록-->
 	<!--public int insertTag (Tag tag);  -->
 	<insert id="insertTag" parameterType="String">
 		insert into
@@ -11,11 +12,23 @@
 		values (#{tag_name})
 	</insert>
 	
+	<!--태그 하나 select-->
+	<!--public String selectTag(String tag_name);-->
+	<select id="selectTag" parameterType="String" resultType="String">
+		select tag_name
+		from tag
+		where tag_name = #{tag_name}
+	</select>
 	
+	
+	<!--전체 태그 리스트-->
 	<!--public List<Tag> selectAllTag ();  -->
 	<select id="selectAllTag" resultType="String">
 		select tag_name
 		from tag
 		order by tag_name
 	</select>
+	
+	<!--tag in challenge에 태그와 챌린지 등록  -->
+	
 	</mapper>

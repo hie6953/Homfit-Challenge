@@ -60,13 +60,12 @@ public class ChallengeController {
 		HttpStatus status = HttpStatus.OK;
 		String result = SUCCESS;
 		try {
-			if (challengeService.writeChallenge(challenge)) {
-				
+			if (challengeService.writeChallenge(challenge)) {		
 				// 요일처리
 				int c_id = challenge.getChallenge_id();
 				int day_list[] = challenge.getDayList();
-				if (day_list == null || day_list.length == 0) {
-					result = "day_list is null or length == 0";
+				if (day_list == null || day_list.length == 0) { //요일 리스트 안받았다면
+					result = FAIL;
 					throw new Exception();
 				} else {
 					for (int i = 0; i < day_list.length; i++) {
@@ -76,23 +75,20 @@ public class ChallengeController {
 				
 				//태그처리
 				String tag_list[] = challenge.getTagList();
-				//태그 입력 받았다면 태그 테이블과 비교해서 넣음 
+				//태그 입력 받았다면
 				if(tag_list != null || tag_list.length != 0) { 
-					String[] db_tag_list = tagService.AllTagList();
-					 for (int i = 0; i < tag_list.length; i++) {
-						for (int j = 0; j < db_tag_list.length; j++) {
-							if(!tag_list[i].equals(db_tag_list[j])) {
-								tagService.writeTag(tag_list[i]);
-								break;
-							} 
+					for (int i = 0; i < tag_list.length; i++) {
+						if(tagService.selectTag(tag_list[i])==null) { //태그가 없다면 추가
+							tagService.writeTag(tag_list[i]);
+							
 						}
 					}
 				}
 
-//				//태그 다 긁어와. 입력된 태그가 있는지 봐. 없다면 태그에 인서트. 챌린지별 태그에 인서트.둘중에 하나 오류나면 exception
+			//챌린지별 태그에 인서트.둘중에 하나 오류나면 exception
 
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			logger.error("챌린지 등록 실패 : {}", e);
 			result = e.getMessage();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

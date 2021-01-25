@@ -8,5 +8,5 @@ public interface TagService {
 
 	public boolean writeTag(String tag);
 	public String[] AllTagList();
-	
+	public String selectTag(String tag);
 }
