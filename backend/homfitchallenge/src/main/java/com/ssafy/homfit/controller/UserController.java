@@ -1,6 +1,7 @@
 package com.ssafy.homfit.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.ssafy.homfit.model.User;
@@ -76,8 +77,9 @@ public class UserController {
         HttpStatus status = null;
         try {
             User loginUser = userService.login(user);
+            System.out.println(loginUser);
             if (loginUser != null) {
-                String token = jwtService.create("uid", loginUser.getEmail(), "access-token");
+                String token = jwtService.create("uid", loginUser.getUid(), "access-token");
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("access-token", token);
                 resultMap.put("message", SUCCESS);
@@ -138,4 +140,22 @@ public class UserController {
         }
         return new ResponseEntity<String>(msg, status);
     }
+
+    // @GetMapping("/test")
+    // public ResponseEntity<Map<String,Object>> test(@RequestBody User uid){
+    //     HttpStatus status = HttpStatus.OK;
+    //     Map<String, Object> resultMap = new HashMap<>();
+    //     List<User> list = null;
+    //     User user = null;
+    //     System.out.println(uid.getUid());
+    //     try {
+    //         list = userService.test();
+    //         user = userService.getUid(uid.getUid());
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    //     resultMap.put("uid", user.getUid());
+    //     resultMap.put("list", list);
+    //     return new ResponseEntity<Map<String,Object>>(resultMap, status);
+    // }
 }

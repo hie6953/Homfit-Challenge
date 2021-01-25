@@ -1,5 +1,7 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.List;
+
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.dao.UserDAO;
 
@@ -87,4 +89,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public List<User> test() throws Exception{
+        List<User> list = null;
+        try {
+            list = sqlSession.getMapper(UserDAO.class).test();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

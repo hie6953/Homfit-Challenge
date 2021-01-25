@@ -1,5 +1,7 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.List;
+
 import com.ssafy.homfit.model.User;
 
 public interface UserService {
@@ -9,5 +11,6 @@ public interface UserService {
 	public String findPassword(String email) throws Exception;
     public boolean duplicateEmailCheck(String email) throws Exception;
     public void updateGrade(String uid) throws Exception;
-	public boolean updateDetail(User user) throws Exception;
+    public boolean updateDetail(User user) throws Exception;
+    public List<User> test() throws Exception;
 }
