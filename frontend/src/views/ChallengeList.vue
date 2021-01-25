@@ -106,7 +106,7 @@
       <challenge-list-card
         v-for="(challenge, index) in challengeList"
         :key="`${index}_challenge`"
-        class="col-md-6 col-lg-4 col-xl-3"
+        class="col-md-6 col-lg-4 col-xl-3 challenge-list-card"
         :challenge="challenge"
       ></challenge-list-card>
     </div>
@@ -115,7 +115,7 @@
 
 <script>
 import ChallengeListCard from '../components/ChallengeListCard.vue';
-import "@/assets/css/challengelist.css";
+import '@/assets/css/challengelist.css';
 
 export default {
   name: 'ChallengeList',
@@ -134,7 +134,17 @@ export default {
       sortValue: '인기순',
       period: [],
       day: [],
-      challengeList: [{ id: 'id' }, { id: 'id' }, { id: 'id' }, { id: 'id' },{ id: 'id' }, { id: 'id' }, { id: 'id' }, { id: 'id' }],
+      challengeList: [
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+      ],
     };
   },
 };
