@@ -4,12 +4,42 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ssafy.user">
 
+    <select id="login" parameterType="user">
+        select * from user where email= #{email} and password=#{password}
+    </select>
+
     <insert id="signup" parameterType="user">
         insert into user(uid, email, password, nick_name, phone_number, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
         values (#{uid},#{email},#{password},#{nick_name},#{phone_number},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
     </insert>
 
     <select id="getUid" parameterType="String">
-        select uid from user where #{uid}
+        select uid from user where uid=#{uid}
     </select>
+
+    <select id="findPassword" parameterType="String" resultType="user">
+        select password from user where email=#{email}
+    </select>
+
+    <select id="duplicateEmailCheck" parameterType="String" resultType="user">
+        select uid from user where email=#{email}
+    </select>
+
+    <update id="updateUserImg" parameterType="user">
+        update user
+        set user_img = #{user_img}
+        where uid = #{uid}
+    </update>
+
+    <update id="updatePassword" parameterType="user">
+        update user
+        set password = #{password}
+        where uid = #{uid}
+    </update>
+
+    <update id="updateNickName" parameterType="user">
+        update user
+        set nick_name = #{nick_name}
+        where uid = #{uid}
+    </update>
 </mapper>
