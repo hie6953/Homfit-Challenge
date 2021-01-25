@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.Challenge_day;
 import com.ssafy.homfit.model.dao.ChallengeDAO;
 
 @Service
@@ -22,7 +23,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 	}
 
 	
-	//쓰기
+	//챌린지 등록
 	@Override
 	@Transactional
 	public boolean writeChallenge(Challenge challenge) {
@@ -47,6 +48,14 @@ public class ChallengeServiceImpl implements ChallengeService{
 	@Override
 	public List<Challenge> AllChallengeList() {
 		return challengeDAO.selectAllChallenge();
+	}
+
+
+	//챌린지 인증요일 등록
+	@Override
+	@Transactional
+	public boolean writeChallengeDay(Challenge_day c_day) {
+		return challengeDAO.insertChallengeDay(c_day) == 1;
 	}
 
 }
