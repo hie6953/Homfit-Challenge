@@ -2,7 +2,9 @@
   <div>
     <b-navbar variant="white">
       <!-- 로고 -->
-      <b-navbar-brand href="/">HomFit</b-navbar-brand>
+      <b-navbar-brand href="/">
+        <img id="logo-image" src="@/assets/NavBar/logo.png" />
+      </b-navbar-brand>
 
       <!-- 알림 -->
       <b-navbar-nav class="ml-auto">
@@ -97,6 +99,11 @@ export default {
 </script>
 
 <style>
+#logo-image {
+  width: 90px;
+  margin-left: 5px;
+}
+
 /* 종 아이콘 옆 화살표 지우기 */
 #bellDropdown > a::after {
   display: none;
