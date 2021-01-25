@@ -7,7 +7,7 @@
       img-top
       tag="article"
       style="max-width: 30rem;"
-      class="mb-2"
+      class="mb-2 shadow"
     >
       <b-card-text>
         Some quick example text to build on the card title and make up the bulk
