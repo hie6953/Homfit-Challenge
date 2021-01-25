@@ -1,15 +1,35 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
+    path: '/login',
+    name: 'login',
+    component: () => import('../components/Login.vue')
   },
+  {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import('../components/ForgotPassword.vue')
+  },
+  {
+    path: '/forgot-password-code',
+    name: 'forgot-password-code',
+    component: () => import('../components/ForgotPasswordCode.vue')
+  },
+  {
+    path: '/forgot-password-final',
+    name: 'forgot-password-final',
+    component: () => import('../components/ForgotPasswordFinal.vue')
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../components/SignUp.vue')
+  }
+
 ];
 
 const router = new VueRouter({
