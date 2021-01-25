@@ -1,14 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
-body {
-  line-height: 1;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
-  font-family: 'Nanum Gothic', sans-serif;
-  letter-spacing: -0.4px;
-  font-size: 13px;
-}
+
 
 .hr {
   height: 0.5px;

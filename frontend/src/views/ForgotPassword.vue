@@ -1,5 +1,6 @@
 <template>
-    <div class="vue-tempalte">
+<div class="background">
+    <div class="container col-sm-10 col-lg-6">
         <form>
             <h3>비밀번호 재설정</h3>
 
@@ -39,6 +40,7 @@
 
         </form>
     </div>
+</div>
 </template>
 
 <script>

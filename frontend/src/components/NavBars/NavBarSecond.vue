@@ -3,7 +3,7 @@
     <b-navbar variant="white">
       <!-- 메뉴 -->
       <b-navbar-nav class="ml-auto mr-auto">
-        <router-link to="/링크" class="second-menu">
+        <router-link to="/challengelist" class="second-menu">
           <span>챌린지 리스트</span>
         </router-link>
         <router-link :to="PageMove('/링크')" class="second-menu">
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import "@/assets/css/NavBar/navbarsecond.css";
 export default {
   data() {
     return {
@@ -38,48 +39,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/* 기본 메뉴 */
-.second-menu {
-  font-weight: 700;
-  color: black;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-/* hover시 메뉴 색 변경 */
-.second-menu:hover {
-  text-decoration: none;
-  color: #e65c2e;
-  transition: all 0.3s ease;
-}
-
-.second-menu > span {
-  position: relative;
-}
-
-/*밑줄넣기 부분*/
-.second-menu > span::after {
-  content: '';
-  width: 0%;
-  left: 50%;
-  height: 1px;
-  display: block;
-  position: absolute;
-  margin-top: 3px;
-  border-bottom: 2px solid #e65c2e;
-  transition: all 0.3s ease;
-}
-.second-menu:hover > span::after {
-  content: '';
-  width: 100%;
-  left: 0px;
-  height: 1px;
-  display: block;
-  position: absolute;
-  margin-top: 3px;
-  border-bottom: 2px solid #e65c2e;
-  transition: all 0.3s ease;
-}
-</style>

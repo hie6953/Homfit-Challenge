@@ -4,7 +4,6 @@
       <NavBar class="navbar-first"></NavBar>
       <NavBarSecond id="navbar-second" class="navbar-second"></NavBarSecond>
     </header>
-
     <router-view />
   </div>
 </template>
@@ -38,11 +37,11 @@ window.onscroll = function() {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -53,7 +52,7 @@ window.onscroll = function() {
 
 /* 상단고정 */
 .sticky-top {
-  position: sticky;
+  position: fixed;
   top: 0;
 }
 
@@ -66,7 +65,7 @@ window.onscroll = function() {
 /* NavbarSecondary*/
 .navbar-second {
   position: relative;
-  transition: top 1s;
+  transition: top 0.5s;
   z-index: 1;
 }
 </style>

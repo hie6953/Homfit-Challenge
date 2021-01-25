@@ -1,8 +1,9 @@
 <template>
   <div>
-    <b-card :title="notice.type" class="mb-2">
+    <b-card class="mb-2">
       <b-card-text>
-        {{ notice.comment }}
+        <p id="notice-title">{{notice.type}}</p>
+        <span id="notice-comment">{{ notice.comment }}</span>
       </b-card-text>
     </b-card>
   </div>

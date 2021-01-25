@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto col-8">
+  <div class="mt-3 mx-auto col-8">
     <div class="mx-0">
       <!-- 정렬 -->
       <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
@@ -18,6 +18,7 @@
         <h5>기간</h5>
         <input
           type="checkbox"
+          class="filter-period"
           v-model="period"
           id="fruit1"
           name="fruit-1"
@@ -26,6 +27,7 @@
         <label for="fruit1">1일~1주</label>
         <input
           type="checkbox"
+          class="filter-period"
           v-model="period"
           id="fruit2"
           name="fruit-2"
@@ -34,6 +36,7 @@
         <label for="fruit2">1주~2주</label>
         <input
           type="checkbox"
+          class="filter-period"
           v-model="period"
           id="fruit3"
           name="fruit-3"
@@ -42,6 +45,7 @@
         <label for="fruit3">2주~3주</label>
         <input
           type="checkbox"
+          class="filter-period"
           v-model="period"
           id="fruit4"
           name="fruit-4"
@@ -111,6 +115,7 @@
 
 <script>
 import ChallengeListCard from '../components/ChallengeListCard.vue';
+import "@/assets/css/challengelist.css";
 
 export default {
   name: 'ChallengeList',
@@ -129,126 +134,8 @@ export default {
       sortValue: '인기순',
       period: [],
       day: [],
-      challengeList: [{ id: 'id' }, { id: 'id' }, { id: 'id' }, { id: 'id' }],
+      challengeList: [{ id: 'id' }, { id: 'id' }, { id: 'id' }, { id: 'id' },{ id: 'id' }, { id: 'id' }, { id: 'id' }, { id: 'id' }],
     };
   },
 };
 </script>
-
-<style>
-/* 정렬 */
-#sort-dropdown {
-  float: left;
-}
-
-.dropdown-item:active {
-  background-color: #e65c2e !important;
-}
-
-/* 필터 */
-#filter-dropdown {
-  float: right;
-}
-
-#filter-dropdown > .dropdown-menu {
-  width: 320px;
-}
-
-/* 필터 드롭다운 화살표 지우기 */
-#filter-dropdown > button::after {
-  display: none;
-}
-
-h5 {
-  margin-left: 5px;
-}
-
-/* 필터 - 체크박스 */
-input[type='checkbox'] + label {
-  display: block;
-  margin: 0.2em;
-  cursor: pointer;
-  padding: 0.2em;
-}
-
-input[type='checkbox'] {
-  display: none;
-}
-
-input[type='checkbox'] + label:before {
-  content: '\2714';
-  border: 0.2px solid #aaa;
-  border-radius: 0.2em;
-  display: inline-block;
-  width: 1.3em;
-  height: 1.3em;
-  padding-left: 0.1em;
-  padding-bottom: 0.3em;
-  margin-right: 0.2em;
-  vertical-align: bottom;
-  color: transparent;
-  transition: 0.2s;
-}
-
-input[type='checkbox'] + label:active:before {
-  transform: scale(0);
-}
-
-input[type='checkbox']:checked + label:before {
-  background-color: #e65c2e;
-  border-color: #e65c2e;
-  color: #fff;
-}
-
-input[type='checkbox']:disabled + label:before {
-  transform: scale(1);
-  border-color: #aaa;
-}
-
-input[type='checkbox']:checked:disabled + label:before {
-  transform: scale(1);
-  background-color: #eac03a;
-  border-color: #eac03a;
-}
-
-/* 필터 - 요일 */
-ul.day-checkbox {
-  list-style: none;
-  padding: 0 5px;
-}
-ul.day-checkbox li {
-  display: inline;
-}
-ul.day-checkbox li label {
-  display: inline-block;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(139, 139, 139, 0.3);
-  color: #aaa;
-  border-radius: 25px;
-  margin: 3px 0px;
-  user-select: none;
-  transition: all 0.2s;
-}
-
-ul.day-checkbox li label {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-ul.day-checkbox li label::before {
-  display: none;
-}
-
-ul.day-checkbox li input[type='checkbox']:checked + label {
-  border: 2px solid #e2a591;
-  background-color: #e65c2e;
-  color: #fff;
-  transition: all 0.2s;
-}
-
-/* 카드 */
-.list-card {
-  clear: both;
-  padding-top: 15px;
-}
-</style>

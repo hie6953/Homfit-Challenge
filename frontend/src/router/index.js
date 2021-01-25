@@ -7,28 +7,33 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../components/Login.vue')
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/forgot-password',
     name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
+    component: () => import('../views/ForgotPassword.vue')
   },
   {
     path: '/forgot-password-code',
     name: 'forgot-password-code',
-    component: () => import('../components/ForgotPasswordCode.vue')
+    component: () => import('../views/ForgotPasswordCode.vue')
   },
   {
     path: '/forgot-password-final',
     name: 'forgot-password-final',
-    component: () => import('../components/ForgotPasswordFinal.vue')
+    component: () => import('../views/ForgotPasswordFinal.vue')
   },
   {
     path: '/signup',
     name: 'signup',
-    component: () => import('../components/SignUp.vue')
-  }
+    component: () => import('../views/SignUp.vue')
+  },
+  {
+    path: '/challengelist',
+    name: 'ChallengeList',
+    component: () => import('../views/ChallengeList.vue')
+  },
 
 ];
 

@@ -1,5 +1,6 @@
 <template>
-    <div class="vue-tempalte">
+<div class="background">
+    <div class="container  col-sm-10 col-lg-6">
         <form>
             <div class="justtext">
                 비밀번호를 재설정하시려면 아래에 인증 코드를 입력하세요.
@@ -20,6 +21,7 @@
 
         </form>
     </div>
+</div>
 </template>
 
 <script>

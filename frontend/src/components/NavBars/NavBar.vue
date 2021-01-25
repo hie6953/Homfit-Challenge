@@ -8,7 +8,7 @@
 
       <!-- 알림 -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown id="bellDropdown" class="notice-dropdown">
+        <b-nav-item-dropdown id="bellDropdown" right class="notice-dropdown">
           <template slot="button-content">
             <b-icon
               id="bellIcon"
@@ -41,7 +41,7 @@
         </router-link>
 
         <!-- 마이페이지 -->
-        <router-link :to="PageMove('/링크')" class=" mt-auto mb-auto main-menu">
+        <router-link :to="PageMove('/login')" class=" mt-auto mb-auto main-menu">
           <img
             id="userIcon"
             class="circle-user-image"
@@ -71,6 +71,7 @@
 
 <script>
 import NavBarNoticeCard from '@/components/NavBars/NavBarNoticeCard.vue';
+import "@/assets/css/NavBar/navbar.css";
 
 export default {
   components: {
@@ -79,7 +80,7 @@ export default {
 
   data() {
     return {
-      login: false,
+      login: true,
       notices: [
         { type: 'ranking', comment: '실버로의 승급을 축하드립니다!' },
         { type: 'ToDo', comment: '1시간 요가하기 챌린지 인증하세요.' },
@@ -91,6 +92,7 @@ export default {
     // 로그인여부에 따른 이동 페이지 결정
     // 파라미터 : 로그인시 이동할 페이지
     PageMove: function(page) {
+      console.log(page);
       if (this.login) return page;
       else return '/링크';
     },
@@ -98,31 +100,3 @@ export default {
 };
 </script>
 
-<style>
-#logo-image {
-  width: 90px;
-  margin-left: 5px;
-}
-
-/* 종 아이콘 옆 화살표 지우기 */
-#bellDropdown > a::after {
-  display: none;
-}
-
-.notice-dropdown {
-  padding-right: 15px;
-}
-
-/* 아이콘 간격 */
-.main-menu {
-  padding-right: 20px;
-}
-
-/* 원형 사용자 이미지 */
-.circle-user-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-</style>
