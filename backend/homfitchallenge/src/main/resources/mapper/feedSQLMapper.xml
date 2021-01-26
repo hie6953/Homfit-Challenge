@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.FeedDAO">
+    <insert id="create" parameterType="feed">
+        insert into feed(feed_picture, maked_uid, challenge_id, register_date, feed_contents)
+        values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
+    </insert>
+
+    <select id="searchByUser" parameterType="String" resultType="feed">
+        select * from feed
+        where maked_uid = #{maked_uid}
+        order by register_date desc
+    </select>
+
+    <select id="searchByChallenge" parameterType="int" resultType="feed">
+        select * from feed
+        where challenge_id = #{challenge_id}
+        order by register_date desc
+    </select>
+</mapper>
