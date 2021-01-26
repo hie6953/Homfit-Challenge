@@ -13,11 +13,29 @@
 import NavBar from '@/components/NavBars/NavBar.vue';
 import NavBarSecond from '@/components/NavBars/NavBarSecond.vue';
 
+//mapGetters 등록
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'App',
   components: {
     NavBar,
     NavBarSecond,
+  },
+  data() {
+    return {
+      isLogin: false,
+    };
+  },
+  computed: {
+    ...mapGetters(['getAccessToken', 'getUserEmail']),
+  },
+  methods: {
+    onClickLogout() {
+      this.$store
+        .dispatch('LOGOUT')
+        .then(() => this.$router.replace('/').catch(() => {}));
+    },
   },
 };
 

@@ -1,9 +1,4 @@
-
-
-
-
-
-.background {
+.user-background {
   line-height: 1;
   padding: 40px 40px 40px 40px;
   background-color: #eee;
@@ -11,7 +6,7 @@
   font-size: 13px;
 }
 
-.container{
+.user-container {
   background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
   padding: 40px 55px 45px 55px;
@@ -24,5 +19,3 @@
   text-align: left;
   justify-content: center;
 }
-
-

@@ -1,20 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import API_BASE_URL from '@/config';
 
 Vue.use(Vuex);
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+const SERVER_URL = API_BASE_URL;
 
 export default new Vuex.Store({
   state: {
     accessToken: null,
-    userEmail: '',  //dao랑 변수명 같게
+    userEmail: '',
   },
   getters: {
     getAccessToken(state) {
       return state.accessToken;
     },
-    getUserEmail(state) {
+    getuserEmail(state) {
       return state.userEmail;
     }
   },
@@ -33,13 +34,11 @@ export default new Vuex.Store({
       return axios
         .post(`${SERVER_URL}/user/login`, user)
         .then((response) => {
-          alert('성공!');
           context.commit('LOGIN', response.data);
           axios.defaults.headers.common[
             'access-token'
           ] = `${response.data['access-token']}`;
-        })
-        .catch((error)=>{alert("실패ㅠㅠ"+error)});
+        });
     },
     LOGOUT(context) {
       context.commit('LOGOUT');

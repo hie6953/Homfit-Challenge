@@ -39,7 +39,7 @@ export default new Vuex.Store({
             'access-token'
           ] = `${response.data['access-token']}`;
         })
-        .catch((error)=>{alert("실패ㅠㅠ"+error)});
+        .catch((error)=>{alert("실패ㅠㅠ")});
     },
     LOGOUT(context) {
       context.commit('LOGOUT');

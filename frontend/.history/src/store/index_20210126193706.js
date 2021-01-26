@@ -33,13 +33,11 @@ export default new Vuex.Store({
       return axios
         .post(`${SERVER_URL}/user/login`, user)
         .then((response) => {
-          alert('성공!');
           context.commit('LOGIN', response.data);
           axios.defaults.headers.common[
             'access-token'
           ] = `${response.data['access-token']}`;
-        })
-        .catch((error)=>{alert("실패ㅠㅠ"+error)});
+        });
     },
     LOGOUT(context) {
       context.commit('LOGOUT');

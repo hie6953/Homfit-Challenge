@@ -115,7 +115,7 @@ export default {
       // 서버와 통신해 토큰값을 얻어야 하므로 Actions를 호출.
       this.$store
         .dispatch('LOGIN', this.user)
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.replace(`/`))
         .catch(({ message }) => (this.msg = message));
     },
   },

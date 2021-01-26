@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     login: function() {
-      //콘솔 확인
+      //콘솔창 찍어보기
       console.log(this.user.email);
 
       if (this.auto_login) {
@@ -110,12 +110,11 @@ export default {
       } else {
         this.$cookie.delete('auto_login');
       }
-
-      // LOGIN
-      // 서버와 통신해 토큰값을 얻어야 하므로 Actions를 호출.
+      // LOGIN 액션 실행
+      // 서버와 통신(axios)을 해 토큰값을 얻어야 하므로 Actions를 호출.
       this.$store
         .dispatch('LOGIN', this.user)
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.replace(`/`))
         .catch(({ message }) => (this.msg = message));
     },
   },
