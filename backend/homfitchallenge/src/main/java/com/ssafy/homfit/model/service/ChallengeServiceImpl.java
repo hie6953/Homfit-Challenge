@@ -1,7 +1,9 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,5 +59,31 @@ public class ChallengeServiceImpl implements ChallengeService{
 	public boolean writeChallengeDay(Challenge_day c_day) {
 		return challengeDAO.insertChallengeDay(c_day) == 1;
 	}
+
+
+	//챌린지 부위 등록
+	@Override
+	@Transactional
+	public boolean writeChallengeBody(HashMap<String, Integer> map) {
+		return challengeDAO.insertChallengeBody(map) ==1;
+	}
+
+
+	//챌린지 참여 등록
+	@Override
+	@Transactional
+	public boolean joinChallenge(int challenge_id, String uid) {
+		return challengeDAO.joinChallenge(challenge_id, uid ) == 1;
+	}
+
+	//챌린지 참여 삭제
+	@Override
+	@Transactional
+	public boolean quitChallenge(int challenge_id, String uid) {
+		return challengeDAO.quitChallenge(challenge_id, uid) == 1;
+	}
+
+
+
 
 }

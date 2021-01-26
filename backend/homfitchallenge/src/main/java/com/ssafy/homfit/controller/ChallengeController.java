@@ -1,6 +1,7 @@
 package com.ssafy.homfit.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,50 +44,102 @@ public class ChallengeController {
 
 	
 	// 이미지 따로 빼야함
+	
+	//유저가 탈퇴하면 챌린지 참여테이블 자동 삭제
+	//개설자가 삭제되면 챌린지 자동삭제
+	
 
 	/** 테스트 */
 	@PostMapping("/test")
-	public String testChallenge(@RequestBody Challenge challenge) throws JsonMappingException, JsonProcessingException {
-
-		System.out.println(challenge);
+	public String testChallenge(@RequestBody String[] test){
+		
 		return null;
 	}
 
+	/** 챌린지 참여*/
+	@GetMapping("/join/{challengeId}")
+	@Transactional
+	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody String uid){
+		if (challengeService.joinChallenge(challengeId, uid)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	
+	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함*/ 
+	@DeleteMapping("/join/{challengeId}")
+	@Transactional
+	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody String uid){
+
+		if (challengeService.quitChallenge(challengeId, uid)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> intsertChallenge(@RequestBody Challenge challenge) {
+	public ResponseEntity<String> insertChallenge(@RequestBody Challenge challenge) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = SUCCESS;
+		
 		try {
-			if (challengeService.writeChallenge(challenge)) {		
-				// 요일처리
-				int c_id = challenge.getChallenge_id();
-				int day_list[] = challenge.getDayList();
-				if (day_list == null || day_list.length == 0) { //요일 리스트 안받았다면
+			if (challengeService.writeChallenge(challenge)) {
+				
+				int challengeId = challenge.getChallenge_id();
+				
+				//1. 요일처리
+				int dayList[] = challenge.getDayList();
+				dayList.toString();
+				if (dayList == null || dayList.length == 0) { //요일 리스트 안받았다면
 					result = FAIL;
 					throw new Exception();
 				} else {
-					for (int i = 0; i < day_list.length; i++) {
-						challengeService.writeChallengeDay(new Challenge_day(c_id, day_list[i]));
+					for (int i = 0; i < dayList.length; i++) {
+						challengeService.writeChallengeDay(new Challenge_day(challengeId, dayList[i]));
 					}
 				}
 				
-				//태그처리
-				String tag_list[] = challenge.getTagList();
-				//태그 입력 받았다면
-				if(tag_list != null || tag_list.length != 0) { 
-					for (int i = 0; i < tag_list.length; i++) {
-						if(tagService.selectTag(tag_list[i])==null) { //태그가 없다면 추가
-							tagService.writeTag(tag_list[i]);
-							
-						}
+				//2. 부위처리
+				int bodyList[] = challenge.getBodyList();
+				if(bodyList == null || bodyList.length == 0) {
+					result = FAIL;
+					throw new Exception();
+				}else {
+					for (int i = 0; i < bodyList.length; i++) {
+						HashMap<String, Integer> map = new HashMap<String, Integer>();
+						map.put("challenge_id", challengeId);
+						map.put("body_id", bodyList[i]);
+						challengeService.writeChallengeBody(map);
 					}
 				}
-
-			//챌린지별 태그에 인서트.둘중에 하나 오류나면 exception
-
+				
+				//3. 태그처리
+				String tagList[] = challenge.getTagList();
+				//태그 입력 받았다면
+				if(tagList != null && tagList.length != 0) { //null이면 길이세는데 익셉션 나와. 
+					for (int i = 0; i < tagList.length; i++) {
+						HashMap<String, Integer> map = new HashMap<String, Integer>();
+						map.put("challenge_id",challengeId);
+						Tag tag = tagService.selectTag(tagList[i]);
+						if(tag == null) { //태그가 없다면 추가
+							Tag addTag = new Tag(tagList[i]);
+							tagService.writeTag(addTag);
+							map.put("tag_id",addTag.getTag_id());
+							tagService.writeTagInChallenge(map); //tag in challenge
+							continue;
+						}
+						map.put("tag_id",tag.getTag_id());
+						tagService.writeTagInChallenge(map); ////tag in challenge
+					}
+				}
+				
+				//4. 개설자는 참여테이블에 바로 insert
+				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
+						
 			}
 		}catch (Exception e) {
 			logger.error("챌린지 등록 실패 : {}", e);
@@ -94,45 +147,44 @@ public class ChallengeController {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-
 		return new ResponseEntity<String>(result, status);
 	}
 
+	
 	/** 챌린지 수정 */
-	@PutMapping("{no}")
+	@PutMapping("{challengeId}")
+	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
-	//
-
-	/** 진행상태 처리 필요 */
-	// 12시 지나면 업데이트 시켜서 진행중, 완료중으로 바꿔야함.
-
 	
-	/** 챌린지 삭제 */
-	// delete매핑
-	@DeleteMapping("{no}")
-	public ResponseEntity<String> deleteChallenge(@PathVariable int no) {
-		if (challengeService.deleteChallenge(no)) {
+	
+	/** 챌린지 삭제 - 태그테이블은 연쇄삭제 x */
+	@DeleteMapping("{challengeId}")
+	@Transactional
+	public ResponseEntity<String> deleteChallenge(@PathVariable int challengeId) {
+		if (challengeService.deleteChallenge(challengeId)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
+	
 	/** 챌린지 상세보기 */
-	@GetMapping("{no}")
-	public ResponseEntity<Challenge> detailChallenge(@PathVariable int no) {
+	@GetMapping("{challengeId}")
+	public ResponseEntity<Challenge> detailChallenge(@PathVariable int challengeId) {
 		// 요일, 운동종류해서 같이담아서 줘야해
-		return new ResponseEntity<Challenge>(challengeService.detailChallenge(no), HttpStatus.OK);
+		return new ResponseEntity<Challenge>(challengeService.detailChallenge(challengeId), HttpStatus.OK);
 	}
 
-	/** 챌린지 전체리스트 반환 */
-	@GetMapping("/all")
+	
+	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등*/
+	@GetMapping("/all") 
 	public ResponseEntity<List<Challenge>> AllChallengeList() {
-		// 요일, 운동종류해서 같이담아서 줘야해
+		//대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원
 		return new ResponseEntity<List<Challenge>>(challengeService.AllChallengeList(), HttpStatus.OK);
 	}
 

@@ -25,10 +25,14 @@ public class Challenge {
 	private int check_date;
 	private int period;
 	
+	
 	//요일리스트
 	private int[] dayList;
 	//태그리스트
 	private String[] tagList;
+	//부위리스트
+	private int[] bodyList;
+
 
 	public int getChallenge_id() {
 		return challenge_id;
@@ -138,6 +142,12 @@ public class Challenge {
 	public void setTagList(String[] tagList) {
 		this.tagList = tagList;
 	}
+	public int[] getBodyList() {
+		return bodyList;
+	}
+	public void setBodyList(int[] bodyList) {
+		this.bodyList = bodyList;
+	}
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -146,7 +156,13 @@ public class Challenge {
 				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
 				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", dayList="
-				+ Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + "]";
+				+ Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + ", bodyList="
+				+ Arrays.toString(bodyList) + "]";
 	}
+	
+	
+	
+
+	
 	
 }

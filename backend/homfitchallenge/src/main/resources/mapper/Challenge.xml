@@ -4,6 +4,8 @@
 
 <mapper namespace="com.ssafy.homfit.model.dao.ChallengeDAO">
 
+	
+
 	<!-- 챌린지 전체 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
@@ -29,7 +31,50 @@
 		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date, period)
 		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period})
 	</insert>
+		
+	<!-- 챌린지 요일 등록 -->
+	<!--public int insertChallengeDay(Challenge_day c_day);  -->
+	<insert id="insertChallengeDay" parameterType="Challenge_day">
+		insert
+		into challenge_day
+		(challenge_id, day_id)
+		values (#{challenge_id}, #{day_id})
+	</insert>
 	
+	<!--챌린지 부위 등록 -->
+	<!--public int insertChallengeBody (HashMap<String, Integer> map);  -->
+	<insert id="insertChallengeBody" parameterType="HashMap">
+		insert
+		into search_body
+		(challenge_id, body_id)
+		values (#{challenge_id}, #{body_id})
+	</insert>
+	
+	<!--챌린지 참여 등록 -->
+	<!--public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid  );-->
+	<insert id="joinChallenge">
+		insert
+		into participate
+		(challenge_id, uid)
+		values (#{challenge_id}, #{uid})
+	</insert>
+	
+	
+	<!-- 챌린지 정보 삭제 -->
+	<!-- public int deleteChallenge(int challenge_id); -->
+	<delete id="deleteChallenge" parameterType="int">
+		delete
+		from challenge
+		where challenge_id = #{challenge_id}
+	</delete>
+	
+	<!--챌린지 참여 삭제-->
+	<!--public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);  -->
+	<delete id="quitChallenge">
+		delete
+		from participate
+		where challenge_id = #{challenge_id} and uid = #{uid}
+	</delete>
 	
 	<!-- 챌린지 정보 수정 -->
 	<!-- public int updateChallenge(Challenge challenge); -->
@@ -53,25 +98,5 @@
 		where challenge_id = #{challenge_id}
 	</update>
 	
-	
-	<!-- 챌린지 정보 삭제 -->
-	<!-- public int deleteChallenge(int challenge_id); -->
-	<delete id="deleteChallenge" parameterType="int">
-		delete
-		from challenge
-		where challenge_id = #{challenge_id}
-	</delete>
-	
-	
-	<!-- 챌린지 요일 등록 -->
-	<!--public int insertChallengeDay(Challenge_day c_day);  -->
-	<insert id="insertChallengeDay" parameterType="Challenge_day">
-		insert
-		into challenge_day
-		(challenge_id, day_id)
-		values (#{challenge_id}, #{day_id})
-	</insert>
-	
-
 
 </mapper>
