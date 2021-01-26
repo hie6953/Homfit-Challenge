@@ -1,5 +1,6 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class TagServiceImpl implements TagService {
 	
 	@Override
 	@Transactional
-	public boolean writeTag(String tag) {
+	public boolean writeTag(Tag tag) {
 		return tagDao.insertTag(tag) == 1;
 	}
 
@@ -28,8 +29,14 @@ public class TagServiceImpl implements TagService {
 
 
 	@Override
-	public String selectTag(String tag_name) {
+	public Tag selectTag(String tag_name) {
 		return tagDao.selectTag(tag_name);
+	}
+
+	@Override
+	@Transactional
+	public boolean writeTagInChallenge(HashMap<String, Integer> map) {
+		return tagDao.insertTagInChallenge(map) == 1;
 	}
 
 }

@@ -6,16 +6,16 @@
 	
 	<!--태그 등록-->
 	<!--public int insertTag (Tag tag);  -->
-	<insert id="insertTag" parameterType="String">
+	<insert id="insertTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="tag_id" >
 		insert into
 		tag (tag_name)
 		values (#{tag_name})
 	</insert>
 	
-	<!--태그 하나 select-->
+	<!--조건에 맞는 태그 하나 select-->
 	<!--public String selectTag(String tag_name);-->
-	<select id="selectTag" parameterType="String" resultType="String">
-		select tag_name
+	<select id="selectTag" parameterType="String" resultType="Tag">
+		select *
 		from tag
 		where tag_name = #{tag_name}
 	</select>
@@ -30,5 +30,12 @@
 	</select>
 	
 	<!--tag in challenge에 태그와 챌린지 등록  -->
+	<!--public int insertTagInChallenge (HashMap<String,Integer> map);-->
+	<insert id="insertTagInChallenge" parameterType="HashMap">
+		insert into
+		tag_in_challenge
+		(challenge_id, tag_id)
+		values (#{challenge_id}, #{tag_id})
+	</insert>
 	
 	</mapper>

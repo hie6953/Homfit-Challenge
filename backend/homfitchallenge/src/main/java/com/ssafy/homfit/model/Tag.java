@@ -5,6 +5,13 @@ public class Tag {
 	private int tag_id;
 	private String tag_name;
 	
+	public Tag() {
+		
+	}
+	
+	public Tag(String tag_name) {
+		this.tag_name = tag_name;
+	}
 	public int getTag_id() {
 		return tag_id;
 	}

@@ -1,12 +1,17 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ssafy.homfit.model.Tag;
 
 public interface TagService {
 
-	public boolean writeTag(String tag);
+	/**tag*/
+	public boolean writeTag(Tag tag);
 	public String[] AllTagList();
-	public String selectTag(String tag);
+	public Tag selectTag(String tag);
+	
+	/**tag in challenge */
+	public boolean writeTagInChallenge (HashMap<String, Integer> map);
 }
