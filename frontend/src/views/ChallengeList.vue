@@ -1,6 +1,104 @@
 <template>
   <div class="mt-3 mx-auto col-8">
     <div class="mx-0">
+      <div class="row mx-auto">
+        <div class="col-12 category">
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-total"
+            checked
+          />
+          <label class="for-checkbox-tools" for="category-total">
+            전체
+          </label>
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-yoga"
+          />
+          <label class="for-checkbox-tools" for="category-yoga"> 요가 </label
+          ><!--
+						--><input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-pilates"
+          />
+          <label class="for-checkbox-tools" for="category-pilates">
+            필라테스 </label
+          ><!--
+						--><input class="checkbox-tools" type="radio" name="tools" id="category-food" />
+          <label class="for-checkbox-tools" for="category-food"> 식단 </label
+          ><!--
+						--><input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-aerobic"
+          />
+          <label class="for-checkbox-tools" for="category-aerobic">
+            유산소운동
+          </label>
+
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-dance"
+          />
+          <label class="for-checkbox-tools" for="category-dance">
+            댄스
+          </label>
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-stretching"
+          />
+          <label class="for-checkbox-tools" for="category-stretching">
+            스트레칭
+          </label>
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-strength"
+          />
+          <label class="for-checkbox-tools" for="category-strength">
+            근력운동
+          </label>
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-kids"
+          />
+          <label class="for-checkbox-tools" for="category-kids">
+            키즈
+          </label>
+          <input
+            class="checkbox-tools"
+            type="radio"
+            name="tools"
+            v-model="category"
+            id="category-boxing"
+          />
+          <label class="for-checkbox-tools" for="category-boxing">
+            복싱
+          </label>
+        </div>
+      </div>
       <!-- 정렬 -->
       <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
         <b-dropdown-item
@@ -127,9 +225,13 @@ export default {
     day: function() {
       //필터-요일 바뀔 때
     },
+    category: function() {
+      console.log(this.category);
+    },
   },
   data() {
     return {
+      category: 'category-total',
       sortList: ['인기순', '최신순'],
       sortValue: '인기순',
       period: [],
