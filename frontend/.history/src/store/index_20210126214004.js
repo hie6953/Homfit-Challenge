@@ -39,9 +39,8 @@ export default new Vuex.Store({
             axios.defaults.headers.common[
               'access-token'
             ] = `${response.data['access-token']}`;
-            return response;
           } else {
-            alert("실패");
+            console.log("실패");
           }
         })
         .catch((error)=>{alert("실패ㅠㅠ"+error)});

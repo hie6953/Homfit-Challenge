@@ -1,11 +1,11 @@
 .user-background {
   line-height: 1;
   padding: 40px 40px 40px 40px;
+  justify-content: center;
+  align-items: center;
   background-color: #eee;
   letter-spacing: -0.4px;
   font-size: 13px;
-  display: flex;
-  justify-content: center;
 }
 
 .user-container {

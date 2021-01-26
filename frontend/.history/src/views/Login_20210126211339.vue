@@ -4,9 +4,13 @@
       <form class="form-signin" role="form">
         <!-- <h2 class="form-signin-heading">HomFit</h2> -->
         <img id="login-logo-image" src="@/assets/NavBar/logo.png" />
-        <form class="sign-in-form__form" id="new_user" accept-charset="UTF-8">
+        <form
+          class="sign-in-form__form"
+          id="new_user"
+          accept-charset="UTF-8"
+          method="post"
+        >
           <!--            <b-icon icon="person"></b-icon> -->
-
           <b-form-input
             placeholder="이메일"
             autofocus="autofocus"
@@ -37,8 +41,18 @@
           </label>
 
           <input
+            type="hidden"
+            name="remember_me"
+            id="remember_me"
+            value="checked"
+          />
+          <input type="hidden" name="is_pro" id="is_pro" value="false" />
+          <input
+            type="submit"
+            name="commit"
             value="로그인"
             class="sign-in-form__form__submit btn btn-priority"
+            data-disable-with="로그인"
             @click="login"
           />
         </form>
@@ -102,8 +116,8 @@ export default {
       this.$store
         .dispatch('LOGIN', this.user)
         .then((response) => {
-          console.log(response.data);
-          if (response.data.message == 'success') this.$router.push('/');
+          console.log(response);
+          // this.$router.push('/');
         })
         .catch(({ message }) => (this.msg = message));
     },

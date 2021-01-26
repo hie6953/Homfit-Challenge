@@ -4,8 +4,7 @@
   background-color: #eee;
   letter-spacing: -0.4px;
   font-size: 13px;
-  display: flex;
-  justify-content: center;
+  margin: auto;
 }
 
 .user-container {
@@ -14,6 +13,7 @@
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all 0.3s;
+  display: inline-block;
 }
 
 .vertical-center {

@@ -6,7 +6,6 @@
         <img id="login-logo-image" src="@/assets/NavBar/logo.png" />
         <form class="sign-in-form__form" id="new_user" accept-charset="UTF-8">
           <!--            <b-icon icon="person"></b-icon> -->
-
           <b-form-input
             placeholder="이메일"
             autofocus="autofocus"
