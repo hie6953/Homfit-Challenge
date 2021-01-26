@@ -27,7 +27,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getAccessToken', 'getUserEmail']),
+    ...mapGetters([
+      'getAccessToken',
+      'getUserId',
+      'getUserName',
+      'getSidebarDetail',
+    ]),
   },
   methods: {
     onClickLogout() {

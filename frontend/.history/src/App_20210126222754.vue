@@ -13,6 +13,7 @@
 import NavBar from '@/components/NavBars/NavBar.vue';
 import NavBarSecond from '@/components/NavBars/NavBarSecond.vue';
 
+import Vue from 'vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -27,7 +28,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getAccessToken', 'getUserEmail']),
+    ...mapGetters([
+      'getAccessToken',
+      'getUserId',
+      'getUserName',
+      'getSidebarDetail',
+    ]),
   },
   methods: {
     onClickLogout() {
