@@ -1,8 +1,16 @@
 /* 카테고리 */
+#category-hr-top {
+  margin: 8px 0 !important;
+}
+
+#category-hr-bottom {
+  margin: 0 0 15px 0 !important;
+}
+
 .category {
   padding: 0 !important;
-  display: block;
-  margin: 10px 0;
+  white-space: nowrap;
+  overflow: auto;
 }
 
 .checkbox-tools:checked,
@@ -19,7 +27,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 1px;
-  margin: 5px 5px 10px 5px;
+  margin: 5px 10px 10px 5px;
   text-align: center;
   border-radius: 4px;
   overflow: hidden;
