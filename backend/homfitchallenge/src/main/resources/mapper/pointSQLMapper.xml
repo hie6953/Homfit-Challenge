@@ -6,6 +6,7 @@
     <select id="inquiry" parameterType="String" resultType="point">
         select point_id, point, point_date from point
         where uid = #{uid}
+        order by point_date desc
     </select>
 
     <insert id="earn" parameterType="point">

@@ -26,4 +26,6 @@ public interface UserDAO {
     public void updateUserImg(User user) throws SQLException;
     
     public List<User> test() throws SQLException;
+
+	public void updateGrade(User user) throws SQLException;
 }

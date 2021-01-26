@@ -14,7 +14,7 @@
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
-        select uid from user where uid=#{uid}
+        select * from user where uid=#{uid}
     </select>
 
     <select id="findPassword" parameterType="String" resultType="user">
@@ -40,6 +40,12 @@
     <update id="updateNickName" parameterType="user">
         update user
         set nick_name = #{nick_name}
+        where uid = #{uid}
+    </update>
+
+    <update id="updateGrade" parameterType="user">
+        update user
+        set grade = #{grade}
         where uid = #{uid}
     </update>
 

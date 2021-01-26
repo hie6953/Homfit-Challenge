@@ -2,7 +2,10 @@ package com.ssafy.homfit.model.service;
 
 import java.util.List;
 
+import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.dao.BadgeDAO;
+import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,12 +18,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SqlSession sqlSession;
 
+    @Autowired
+    FavoriteService favoriteService;
+    
+    @Autowired
+    BadgeService badgeService;
+
+    @Autowired
+    PointService pointService;
+
     @Override
     public User getUid(String uid) throws Exception {
         return sqlSession.getMapper(UserDAO.class).getUid(uid);
     }
 
     @Override
+    @Transactional
     public boolean signup(User user) throws Exception {
         user.setGrade("bronze");
         user.setAdmin_check(false);
@@ -35,6 +48,13 @@ public class UserServiceImpl implements UserService {
         }
 
         sqlSession.getMapper(UserDAO.class).signup(user);
+        try {
+            if(!favoriteService.init(user.getUid())) new Exception();
+            if(!badgeService.init(user.getUid())) new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -66,12 +86,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateGrade(String uid) throws Exception {
-        // 회원의 모든 포인트의 합계를 가지고온다
-
-        // 회원의 포인트가 어느 등급에 해당하는지 확인한다
-
-        // 회원을 해당 등급으로 업데이트 한다
+    public void updateGrade(User user) throws Exception {
+        User userData = this.getUid(user.getUid());
+        // 회원 등급이 이전과 다르다면 회원을 해당 등급으로 업데이트 한다
+        if(userData.getGrade() != user.getGrade()){
+            sqlSession.getMapper(UserDAO.class).updateGrade(user);
+        }
     }
 
     @Override

@@ -10,4 +10,5 @@ public interface PointService {
 
 	public boolean earn(Point point) throws Exception;
     
+    public long sumPoint(String uid) throws Exception;
 }
