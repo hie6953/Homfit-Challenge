@@ -4,7 +4,8 @@ import com.ssafy.homfit.model.dao.FavoriteDAO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+@Service
 public class FavoriteServiceImpl implements FavoriteService{
 
     @Autowired
