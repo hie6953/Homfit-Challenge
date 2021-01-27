@@ -84,6 +84,16 @@ public class UserServiceImpl implements UserService {
             return true;
         return false;
     }
+    
+    @Override
+    public boolean duplicateNickNameCheck(String nick_name) throws Exception {
+        User user = null;
+        user = sqlSession.getMapper(UserDAO.class).duplicateNickNameCheck(nick_name);
+
+        if (user == null)
+            return false;
+        return true;
+    }
 
     @Override
     public void updateGrade(User user) throws Exception {

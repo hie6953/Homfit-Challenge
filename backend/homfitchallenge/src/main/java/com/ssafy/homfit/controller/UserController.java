@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Api("UserController V1")
 @RestController
@@ -141,6 +143,23 @@ public class UserController {
         }
         return new ResponseEntity<String>(msg, status);
     }
+
+    @ApiOperation(value = "중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
+    @GetMapping(value="/check/{nickName}")
+    public ResponseEntity<Boolean> checkNickName(@RequestParam String nickName) {
+        boolean check = true;
+        HttpStatus status = null;
+
+        try {
+            check = userService.duplicateNickNameCheck(nickName);
+        } catch (Exception e) {
+            logger.error("중복확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(check, status);
+    }
+    
 
     // @GetMapping("/test")
     // public ResponseEntity<Map<String,Object>> test(@RequestBody User uid){

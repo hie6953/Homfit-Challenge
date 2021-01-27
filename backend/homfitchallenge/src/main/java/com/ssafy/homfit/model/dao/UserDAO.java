@@ -28,4 +28,6 @@ public interface UserDAO {
     public List<User> test() throws SQLException;
 
 	public void updateGrade(User user) throws SQLException;
+
+	public User duplicateNickNameCheck(String nick_name) throws SQLException;
 }
