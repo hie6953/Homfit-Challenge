@@ -13,6 +13,8 @@
 import NavBar from '@/components/NavBars/NavBar.vue';
 import NavBarSecond from '@/components/NavBars/NavBarSecond.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'App',
   components: {

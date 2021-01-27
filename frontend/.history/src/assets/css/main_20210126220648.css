@@ -1,0 +1,23 @@
+.user-background {
+  line-height: 1;
+  padding: 40px 40px 40px 40px;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  letter-spacing: -0.4px;
+  font-size: 13px;
+}
+
+.user-container {
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.vertical-center {
+  display: flex;
+  text-align: left;
+  justify-content: center;
+}

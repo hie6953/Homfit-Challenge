@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(value = "com.ssafy.hofit.model.dao")
+@MapperScan(value = "com.ssafy.homfit.model.dao")
 public class HomfitchallengeApplication {
 
 	public static void main(String[] args) {
