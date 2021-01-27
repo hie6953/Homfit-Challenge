@@ -8,7 +8,7 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="total"
+          value="0"
           v-model="category"
           id="category-total"
           checked
@@ -20,7 +20,7 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="yoga"
+          value="1"
           v-model="category"
           id="category-yoga"
         />
@@ -30,7 +30,7 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="pilates"
+          value="2"
           v-model="category"
           id="category-pilates"
         />
@@ -44,19 +44,19 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="aerobic"
+          value="3"
           v-model="category"
           id="category-aerobic"
         />
         <label class="for-checkbox-tools" for="category-aerobic">
-          유산소운동
+          유산소
         </label>
 
         <input
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="dance"
+          value="4"
           v-model="category"
           id="category-dance"
         />
@@ -67,7 +67,7 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="stretching"
+          value="5"
           v-model="category"
           id="category-stretching"
         />
@@ -78,18 +78,18 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="strength"
+          value="6"
           v-model="category"
           id="category-strength"
         />
         <label class="for-checkbox-tools" for="category-strength">
-          근력운동
+          근력
         </label>
         <input
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="kids"
+          value="7"
           v-model="category"
           id="category-kids"
         />
@@ -100,12 +100,34 @@
           class="checkbox-tools"
           type="radio"
           name="tools"
-          value="boxing"
+          value="8"
           v-model="category"
           id="category-boxing"
         />
         <label class="for-checkbox-tools" for="category-boxing">
           복싱
+        </label>
+        <input
+          class="checkbox-tools"
+          type="radio"
+          name="tools"
+          value="9"
+          v-model="category"
+          id="category-food"
+        />
+        <label class="for-checkbox-tools" for="category-food">
+          식단
+        </label>
+        <input
+          class="checkbox-tools"
+          type="radio"
+          name="tools"
+          value="10"
+          v-model="category"
+          id="category-etc"
+        />
+        <label class="for-checkbox-tools" for="category-etc">
+          기타
         </label>
       </div>
     </div>
@@ -243,7 +265,7 @@ export default {
   },
   data() {
     return {
-      category: 'total',
+      category: '0',
       sortList: ['인기순', '최신순'],
       sortValue: '인기순',
       period: [],
@@ -260,6 +282,12 @@ export default {
         { id: 'id' },
       ],
     };
+  },
+  created() {
+    let category_number = this.$route.params.category_number;
+    if (category_number) {
+      this.category = category_number;
+    }
   },
 };
 </script>

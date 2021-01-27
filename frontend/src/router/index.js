@@ -1,10 +1,7 @@
-
-
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
-import MainPage from "../views/MainPage"
-
+import MainPage from '../views/MainPage';
 
 Vue.use(VueRouter);
 
@@ -52,6 +49,11 @@ const routes = [
     component: () => import('../views/ChallengeList.vue'),
   },
   {
+    path: '/challengelist/:category_number',
+    name: 'ChallengeList',
+    component: () => import('../views/ChallengeList.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
@@ -60,7 +62,7 @@ const routes = [
   {
     path: '/',
     name: 'MainPage',
-    component: MainPage
+    component: MainPage,
   },
 ];
 
