@@ -1,112 +1,40 @@
-.category-row {
+.category-rows {
     width: 100%;
-    list-style: none;
     display: flex;
     flex-flow: row wrap;
     justify-content: stretch;
 }
-.first-row {
-    margin-bottom: 20px;
-}
 
-.first-row,
-.second-row {
+.category-row {
     display: flex;
     flex-flow: row;
     justify-content: stretch;
-    
 }
 
-.underlay {
-    background-color: black;
-    box-sizing: border-box;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
+/* 마우스 호버시 밑줄 제거 */
+.category-box:hover {
     text-decoration: none;
 }
 
-.underlay:after {
-    content: "";
-    display: block;
-    padding-bottom: 75%;
-}
-  
-.content {
-    position: absolute;
-    width: 100%;
-    height: 75%;
+/* 텍스트 가운데 정렬 및 폰트굵기 */
+.category-name {
+    color: black;
+    text-align: center;
+    font-weight: 700;
 }
 
+/* 이미지 길이 및 투명도 */
 .category-circle {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    
-    height: 100%;
     width: 100%;
-    background-color: black;
     transition-duration: 0.2s;
+    opacity: 0.5;
+}
+
+/* 호버시 투명도  */
+.category-circle:hover {
     opacity: 1;
 }
-
-.category-circle:hover {
-    opacity: 0.85;
-}
-
-
-.category-circle p {
-    font-size: medium;
-    font-style: normal;
-    font-weight: 900;
-    /* line-height: 32px; */
-    letter-spacing: 0px;
-    text-align: center;
-    color: black;
-    z-index: 1;
-    text-decoration: none;
-}
-
-#main-category-yoga {
-    background-image: url("../category/요가.png");
-}
-
-#main-category-pilates {
-    background-image: url("../category/필라테스.png");
-}
-
-#main-category-diet {
-    background-image: url("../category/식단.png");
-}
-
-#main-category-cardiovascular {
-    background-image: url("../category/유산소.png");
-}
-
-#main-category-dance {
-    background-image: url("../category/댄스.png")
-}
-
-#main-category-stretching {
-    background-image: url("../category/스트레칭.png")
-}
-
-#main-category-strength {
-    background-image: url("../category/근력.png")
-}
-
-#main-category-kids {
-    background-image: url("../category/키즈.png")
-}
-
-#main-category-boxing {
-    background-image: url("../category/복싱.png")
-}
-
-#main-category-etc {
-    background-image: url("../category/기타.png")
-}
-
