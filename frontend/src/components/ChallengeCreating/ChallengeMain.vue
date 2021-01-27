@@ -91,11 +91,12 @@
       <hr />
       챌린지 명 : <input type="text" v-model="challenge_title" />
       <br />
-      챌린지 설명
+      챌린지 설명 :
       <textarea v-model="challenge_contents" />
     </div>
 
     <b-button
+      class="next-page-button"
       @click="NextPage(fit_id, body_id, challenge_title, challenge_contents)"
       >Next</b-button
     >

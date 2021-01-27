@@ -5,8 +5,10 @@
       <!-- <input @keyup.enter="makeTagg()" @keyup.space="makeTagg" /> -->
     </div>
 
-    <b-button @click="PrevPage()">Previous</b-button>
-    <b-button @click="CreateChallenge()">Create</b-button>
+    <b-button class="prev-page-button" @click="PrevPage()">Previous</b-button>
+    <b-button class="next-page-button" @click="CreateChallenge()"
+      >Create</b-button
+    >
   </div>
 </template>
 

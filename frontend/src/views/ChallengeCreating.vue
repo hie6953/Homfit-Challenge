@@ -1,6 +1,6 @@
 <template>
-  <div class="background mx-auto">
-    <div class="component">
+  <div class="background">
+    <div class="component col-8 mx-auto">
       <div v-if="page == 1">
         <ChallengeMain
           :props_fit_id="challenge.fit_id"

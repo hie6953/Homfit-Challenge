@@ -46,8 +46,8 @@
       <input type="radio" value="0" v-model="only_cam" id="NotOnlyCam" />
       <label for="NotOnlyCam">카메라, 갤러리 사용</label>
     </div>
-    <b-button @click="PrevPage()">Previous</b-button>
-    <b-button @click="NextPage()">Next</b-button>
+    <b-button class="prev-page-button" @click="PrevPage()">Previous</b-button>
+    <b-button class="next-page-button" @click="NextPage()">Next</b-button>
   </div>
 </template>
 
@@ -82,7 +82,6 @@ export default {
 
   methods: {
     PrevPage: function() {
-      this.$emit('PrevPage', this.start_date, this.end_date);
       this.$emit(
         'PrevPage',
         this.dayList,

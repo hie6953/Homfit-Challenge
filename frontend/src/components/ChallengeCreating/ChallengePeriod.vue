@@ -1,10 +1,11 @@
 <template>
   <div>
-    챌린지 시작일 : <input type="date" v-model="start_date" /> 챌린지 종료일 :
+    챌린지 시작일 : <input type="date" v-model="start_date" />
+    챌린지 종료일 :
     <input type="date" v-model="end_date" />
 
-    <b-button @click="PrevPage()">Previous</b-button>
-    <b-button @click="NextPage()">Next</b-button>
+    <b-button class="prev-page-button" @click="PrevPage()">Previous</b-button>
+    <b-button class="next-page-button" @click="NextPage()">Next</b-button>
   </div>
 </template>
 
