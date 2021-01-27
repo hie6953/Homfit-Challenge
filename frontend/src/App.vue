@@ -21,9 +21,14 @@ export default {
     NavBar,
     NavBarSecond,
   },
+
   data() {
     return {
       isLogin: false,
+      user: {
+        email: '',
+        password: '',
+      },
     };
   },
   computed: {

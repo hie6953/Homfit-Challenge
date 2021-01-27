@@ -1,10 +1,11 @@
-
-
-
 .hr {
   height: 0.5px;
   margin: 40px 0 27px 0;
   background: rgba(0, 0, 0, 0.2);
+}
+
+.error-text {
+  color: red;
 }
 
 .sign-in-form__action {

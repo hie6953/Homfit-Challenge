@@ -22,10 +22,12 @@ export default new Vuex.Store({
     LOGIN(state, payload) {
       state.accessToken = payload['access-token'];
       state.userEmail = payload['user-email'];
+      sessionStorage.setItem('loginInfo', JSON.stringify(payload));
     },
     LOGOUT(state) {
       state.accessToken = null;
       state.userEmail = '';
+      sessionStorage.removeItem('loginInfo');
     }
   },
   actions: {
@@ -36,6 +38,7 @@ export default new Vuex.Store({
           console.log(response.data.message );
           if (response.data.message == "success") {
             context.commit('LOGIN', response.data);
+            document.cookie = `access-token=${response.data['access-token']}`;
             axios.defaults.headers.common[
               'access-token'
             ] = `${response.data['access-token']}`;
@@ -49,6 +52,7 @@ export default new Vuex.Store({
       context.commit('LOGOUT');
       axios.defaults.headers.common['access-token'] = undefined;
     },
+    
   },
   modules: {},
 });
