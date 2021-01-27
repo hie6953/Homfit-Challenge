@@ -1,4 +1,23 @@
 <template>
+  <!-- <div>
+    <b-card
+      title="Card Title"
+      img-src="https://picsum.photos/600/300/?image=25"
+      img-alt="Image"
+      img-top
+      tag="article"
+      style="max-width: 30rem;"
+      class="mb-2 shadow"
+    >
+      <b-card-text>
+        Some quick example text to build on the card title and make up the bulk
+        of the card's content.
+      </b-card-text>
+
+      <b-button href="#" variant="primary">Go somewhere</b-button>
+    </b-card>
+  </div> -->
+
   <div>
     <b-card
       img-src="https://picsum.photos/600/300/?image=25"
@@ -10,13 +29,13 @@
       class="mb-2 shadow"
     >
       <div class="challenge-list-card-body">
-        <span id="card-title">{{ challenge.challenge_title }}</span>
+        <span id="card-title">땅끄</span>
         <br />
         <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-        <span id="card-user-nick-name">{{ challenge.make_uid }}</span>
+        <span id="card-user-nick-name">땅끄</span>
         <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">{{ challenge.period }}일</span>
+        <span id="card-day">월/화/수/목/금/토/일</span>
+        <span id="card-period">30일</span>
       </div>
       <hr class="challenge-list-card-hr" />
       <div class="challenge-list-card-footer">
@@ -27,7 +46,7 @@
 </template>
 
 <script>
-const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
+// const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 // const bodyList = [
 //   '',
 //   '전신',
@@ -41,21 +60,6 @@ const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 //   '기타',
 // ];
 export default {
-  props: {
-    challenge: Object,
-  },
-  methods: {
-    GetDayList() {
-      let list = this.challenge.daylist_string;
-      for (
-        let index = 0;
-        index < this.challnege.daylist_string.length;
-        index++
-      ) {
-        list[index] = dayList[this.challnege.daylist_string[index]];
-      }
-      return list.join('/');
-    },
-  },
+  props: {},
 };
 </script>

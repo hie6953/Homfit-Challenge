@@ -36,11 +36,7 @@
         />
         <label class="for-checkbox-tools" for="category-pilates">
           필라테스 </label
-        ><!--
-						--><input class="checkbox-tools" type="radio" name="tools" id="category-food" />
-        <label class="for-checkbox-tools" for="category-food"> 식단 </label
-        ><!--
-						--><input
+        ><input
           class="checkbox-tools"
           type="radio"
           name="tools"
@@ -132,7 +128,7 @@
       </div>
     </div>
     <hr id="category-hr-bottom" />
-    <div class="mx-auto col-8">
+    <div class="mx-auto col-10 col-md-8">
       <!-- 정렬 -->
       <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
         <b-dropdown-item
@@ -237,7 +233,7 @@
         <challenge-list-card
           v-for="(challenge, index) in challengeList"
           :key="`${index}_challenge`"
-          class="col-md-6 col-lg-4 col-xl-3 challenge-list-card"
+          class="col-6 col-md-4 col-lg-3 challenge-list-card"
           :challenge="challenge"
         ></challenge-list-card>
       </div>
