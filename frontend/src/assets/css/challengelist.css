@@ -1,118 +1,263 @@
+/* 카테고리 */
+#category-hr-top {
+  margin: 8px 0 !important;
+}
+
+#category-hr-bottom {
+  margin: 0 0 15px 0 !important;
+}
+
+.category {
+  padding: 0 !important;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.checkbox-tools:checked,
+.checkbox-tools:not(:checked) {
+  display: none;
+}
+
+.checkbox-tools:checked + label,
+.checkbox-tools:not(:checked) + label {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  width: 100px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  margin: 5px 10px 10px 5px;
+  text-align: center;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  color: #353746;
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+
+.checkbox-tools:checked + label {
+  color: #fff;
+}
+
+.checkbox-tools:not(:checked) + label {
+  background-color: #ecedf3;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.checkbox-tools:checked + label {
+  background-color: transparent;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.checkbox-tools:not(:checked) + label:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.checkbox-tools:checked + label::before,
+.checkbox-tools:not(:checked) + label::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-image: linear-gradient(298deg, #e65c2e, #eac03a);
+  z-index: -1;
+}
+.checkbox-tools:checked + label .uil,
+.checkbox-tools:not(:checked) + label .uil {
+  font-size: 24px;
+  line-height: 24px;
+  display: block;
+}
+
+.checkbox:checked
+  ~ .section
+  .container
+  .row
+  .col-12
+  .checkbox-tools:not(:checked)
+  + label {
+  background-color: #f0eff3;
+  color: #000000;
+  box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
+}
+
 /* 정렬 */
 #sort-dropdown {
-    float: left;
-  }
-  
-  .dropdown-item:active {
-    background-color: #e65c2e !important;
-  }
-  
-  /* 필터 */
-  #filter-dropdown {
-    float: right;
-  }
-  
-  #filter-dropdown > .dropdown-menu {
-    width: 320px;
-  }
-  
-  /* 필터 드롭다운 화살표 지우기 */
-  #filter-dropdown > button::after {
-    display: none;
-  }
-  
-  h5 {
-    margin-left: 5px;
-  }
-  
-  /* 필터 - 체크박스 */
-  .filter-period + label {
-    display: block;
-    margin: 0.2em;
-    cursor: pointer;
-    padding: 0.2em;
-  }
-  
-  .filter-period {
-    display: none;
-  }
-  
-  .filter-period + label:before {
-    content: '\2714';
-    border: 0.2px solid #aaa;
-    border-radius: 0.2em;
-    display: inline-block;
-    width: 1.3em;
-    height: 1.3em;
-    padding-left: 0.1em;
-    padding-bottom: 0.3em;
-    margin-right: 0.2em;
-    vertical-align: bottom;
-    color: transparent;
-    transition: 0.2s;
-  }
-  
-  .filter-period + label:active:before {
-    transform: scale(0);
-  }
-  
-  .filter-period:checked + label:before {
-    background-color: #e65c2e;
-    border-color: #e65c2e;
-    color: #fff;
-  }
-  
-  .filter-period:disabled + label:before {
-    transform: scale(1);
-    border-color: #aaa;
-  }
-  
-  .filter-period:checked:disabled + label:before {
-    transform: scale(1);
-    background-color: #eac03a;
-    border-color: #eac03a;
-  }
-  
-  /* 필터 - 요일 */
-  ul.day-checkbox {
-    list-style: none;
-    padding: 0 5px;
-  }
-  ul.day-checkbox li {
-    display: inline;
-  }
-  ul.day-checkbox li input {
-    display: none;
-  }
-  ul.day-checkbox li label {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 2px solid rgba(139, 139, 139, 0.3);
-    color: #aaa;
-    border-radius: 25px;
-    margin: 3px 0px;
-    user-select: none;
-    transition: all 0.2s;
-  }
-  
-  ul.day-checkbox li label {
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  ul.day-checkbox li label::before {
-    display: none;
-  }
-  
-  ul.day-checkbox li input[type=checkbox]:checked + label {
-    border: 2px solid #e2a591;
-    background-color: #e65c2e;
-    color: #fff;
-    transition: all 0.2s;
-  }
-  
-  /* 카드 */
-  .list-card {
-    clear: both;
-    padding-top: 15px;
-  }
+  float: left;
+}
+
+.dropdown-item:active {
+  background-color: #e65c2e !important;
+}
+
+/* 필터 */
+#filter-dropdown {
+  float: right;
+}
+
+#filter-dropdown > .dropdown-menu {
+  width: 320px;
+}
+
+/* 필터 드롭다운 화살표 지우기 */
+#filter-dropdown > button::after {
+  display: none;
+}
+
+h5 {
+  margin-left: 5px;
+}
+
+/* 필터 - 체크박스 */
+.filter-period + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+.filter-period {
+  display: none;
+}
+
+.filter-period + label:before {
+  content: '\2714';
+  border: 0.2px solid #aaa;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1.3em;
+  height: 1.3em;
+  padding-left: 0.1em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: 0.2s;
+}
+
+.filter-period + label:active:before {
+  transform: scale(0);
+}
+
+.filter-period:checked + label:before {
+  background-color: #e65c2e;
+  border-color: #e65c2e;
+  color: #fff;
+}
+
+.filter-period:disabled + label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+.filter-period:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #eac03a;
+  border-color: #eac03a;
+}
+
+/* 필터 - 요일 */
+ul.day-checkbox {
+  list-style: none;
+  padding: 0 5px;
+}
+ul.day-checkbox li {
+  display: inline;
+}
+ul.day-checkbox li input {
+  display: none;
+}
+ul.day-checkbox li label {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(139, 139, 139, 0.3);
+  color: #aaa;
+  border-radius: 25px;
+  margin: 3px 0px;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+ul.day-checkbox li label {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+ul.day-checkbox li label::before {
+  display: none;
+}
+
+ul.day-checkbox li input[type='checkbox']:checked + label {
+  border: 2px solid #e2a591;
+  background-color: #e65c2e;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+/* 카드 */
+.list-card {
+  clear: both;
+  padding-top: 15px;
+  display: flex;
+}
+
+.challenge-list-card {
+  padding: 8px 8px !important;
+  transition: transform 300ms ease 100ms;
+}
+
+.list-card .challenge-list-card:hover {
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.challenge-list-card-body {
+  margin: 5px 10px;
+}
+
+.challenge-list-card-footer {
+  margin: 5px 10px;
+}
+
+.challenge-list-card-hr {
+  margin: 0px !important;
+}
+
+#card-title {
+  font-size: large;
+  font-weight: 700;
+}
+
+.card-user-image {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#card-user-nick-name {
+  font-size: small;
+  font-weight: 500;
+  color: #aaa;
+  margin-left: 5px;
+}
+
+#card-day {
+  background-color: #eac03a;
+  border-radius: 7%;
+  font-size: small;
+  color: #fff;
+  padding: 4px 3px;
+  margin-right: 3px;
+}
+
+#card-period {
+  background-color: #eac03a;
+  border-radius: 10%;
+  font-size: small;
+  color: #fff;
+  padding: 4px 3px;
+  margin-right: 3px;
+}

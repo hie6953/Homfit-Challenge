@@ -41,7 +41,10 @@
         </router-link>
 
         <!-- 마이페이지 -->
-        <router-link :to="PageMove('/login')" class=" mt-auto mb-auto main-menu">
+        <router-link
+          :to="PageMove('/login')"
+          class=" mt-auto mb-auto main-menu"
+        >
           <img
             id="userIcon"
             class="circle-user-image"
@@ -71,7 +74,7 @@
 
 <script>
 import NavBarNoticeCard from '@/components/NavBars/NavBarNoticeCard.vue';
-import "@/assets/css/NavBar/navbar.css";
+import '@/assets/css/NavBar/navbar.css';
 
 export default {
   components: {
@@ -92,11 +95,9 @@ export default {
     // 로그인여부에 따른 이동 페이지 결정
     // 파라미터 : 로그인시 이동할 페이지
     PageMove: function(page) {
-      console.log(page);
       if (this.login) return page;
       else return '/링크';
     },
   },
 };
 </script>
-
