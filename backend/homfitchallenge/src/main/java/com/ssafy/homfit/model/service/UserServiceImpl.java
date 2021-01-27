@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
             user.setProvider_id(false);
 
             // 이메일 중복확인
-            if (this.duplicateEmailCheck(user.getEmail()))
+            if (!this.duplicateEmailCheck(user.getEmail()))
                 return false;
         } else {
             user.setProvider_id(true);

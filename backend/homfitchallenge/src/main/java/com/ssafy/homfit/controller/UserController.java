@@ -54,6 +54,7 @@ public class UserController {
                 if (userService.getUid(uidToken) == null)
                     break;
             }
+            user.setUid(uidToken);
             if (userService.signup(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.OK;
