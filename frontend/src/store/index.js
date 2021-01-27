@@ -29,9 +29,6 @@ export default new Vuex.Store({
       state.userEmail = '';
       sessionStorage.removeItem('loginInfo');
     },
-    AutoLogin(accessToken) {
-      state.accessToken = accessToken;
-    },
   },
   actions: {
     LOGIN(context, user) {
