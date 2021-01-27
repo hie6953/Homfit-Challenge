@@ -51,8 +51,8 @@ import ChallengeTag from '@/components/ChallengeCreating/ChallengeTag.vue';
 
 import '@/assets/css/challengecreating.css';
 
-// import axios from 'axios';
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'ChallengeCreating',
@@ -108,14 +108,14 @@ export default {
       }
       this.challenge.dayList = tempDayList.sort();
       console.log(this.challenge);
-      //   axios
-      //     .post(`${SERVER_URL}/qna/create`, this.challenge)
-      //     .then(({ data }) => {
-      //       alert('챌린지가 생성되었습니다.' + data);
-      //     })
-      //     .catch(() => {
-      //       alert('등록 처리시 에러가 발생했습니다.');
-      //     });
+      axios
+        .post(`${SERVER_URL}/challenge`, this.challenge)
+        .then(() => {
+          alert('챌린지가 생성되었습니다.');
+        })
+        .catch(() => {
+          alert('등록 처리시 에러가 발생했습니다.');
+        });
     },
 
     PageOneNext: function(

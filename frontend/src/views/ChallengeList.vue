@@ -245,6 +245,9 @@
 import ChallengeListCard from '../components/ChallengeListCard.vue';
 import '@/assets/css/challengelist.css';
 
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 export default {
   name: 'ChallengeList',
   components: { ChallengeListCard },
@@ -284,6 +287,15 @@ export default {
     if (category_number) {
       this.category = category_number;
     }
+
+    axios
+      .get(`${SERVER_URL}/challenge/all`)
+      .then(({ data }) => {
+        this.challengeList = data;
+      })
+      .catch(() => {
+        alert('챌린지 목록을 불러오지 못했습니다.');
+      });
   },
 };
 </script>
