@@ -6,14 +6,22 @@
 
 	
 
-	<!-- 챌린지 전체 조회 -->
+	<!-- 챌린지 리스트 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
-		select *
-		from challenge
-		order by challenge_id desc
+		select c.challenge_id, c.challenge_img, c.challenge_title, c.period, c.daylist_string, u.nick_name
+		from challenge as c join user as u
+		on c.make_uid = u.uid
+		order by challenge_id;
 	</select>
 	
+	<!--챌린지 참여자수 조회  -->
+	<!--public List<Challenge> selectParticipants();  -->
+	<select id="selectParticipants" resultType="Challenge">
+		select challenge_id, count(uid) as 'people'
+		from participate group by challenge_id
+		order by challenge_id;
+	</select>
 	
 	<!-- 챌린지 상세 조회 -->
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
@@ -28,18 +36,19 @@
 	<!-- public int insertChallenge(Challenge challenge); -->
 	<insert id="insertChallenge" parameterType="Challenge" useGeneratedKeys="true" keyProperty="challenge_id"  >
 		insert into challenge 
-		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date, period)
-		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period})
+		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date, period, daylist_string)
+		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period}, #{daylist_string})
 	</insert>
 		
 	<!-- 챌린지 요일 등록 -->
 	<!--public int insertChallengeDay(Challenge_day c_day);  -->
-	<insert id="insertChallengeDay" parameterType="Challenge_day">
-		insert
-		into challenge_day
-		(challenge_id, day_id)
-		values (#{challenge_id}, #{day_id})
-	</insert>
+	<insert id="insertChallengeDay" parameterType = "Map">
+		insert into challenge_day
+		(challenge_id, day_id) values
+		<foreach collection="list" item="item" separator=" , ">
+			 (#{challenge_id}, #{item})
+		</foreach>
+	</insert> 
 	
 	<!--챌린지 부위 등록 -->
 	<!--public int insertChallengeBody (HashMap<String, Integer> map);  -->
@@ -90,11 +99,10 @@
 		only_cam = #{only_cam},
 		start_date = #{start_date} ,
 		end_date = #{end_date},
-		make_date = #{make_date},
-		make_uid = #{make_uid},
 		fit_id = #{fit_id},
 		check_date = #{check_date}
 		period = #{period}
+		daylist_string = #{daylist_string}
 		where challenge_id = #{challenge_id}
 	</update>
 	

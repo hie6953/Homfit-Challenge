@@ -2,6 +2,7 @@ package com.ssafy.homfit.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.homfit.model.Challenge;
-import com.ssafy.homfit.model.Challenge_day;
 import com.ssafy.homfit.model.dao.ChallengeDAO;
 
 @Service
@@ -48,7 +48,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 
 	//전체리스트 반환
 	@Override
-	public List<Challenge> AllChallengeList() {
+	public Challenge[] AllChallengeList() {
 		return challengeDAO.selectAllChallenge();
 	}
 
@@ -56,8 +56,8 @@ public class ChallengeServiceImpl implements ChallengeService{
 	//챌린지 인증요일 등록
 	@Override
 	@Transactional
-	public boolean writeChallengeDay(Challenge_day c_day) {
-		return challengeDAO.insertChallengeDay(c_day) == 1;
+	public boolean writeChallengeDay(Map<String,Object> map) {
+		return challengeDAO.insertChallengeDay(map) == 1;
 	}
 
 
@@ -83,6 +83,11 @@ public class ChallengeServiceImpl implements ChallengeService{
 		return challengeDAO.quitChallenge(challenge_id, uid) == 1;
 	}
 
+	
+	@Override
+	public Challenge[] selectParticipants() {
+		return challengeDAO.selectParticipants();
+	}
 
 
 
