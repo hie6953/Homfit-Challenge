@@ -1,9 +1,22 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
+const requireAuth = () => (to, from, next) => {
+  const nextRoute = to.path;
+  if (store.getters.getAccessToken) {
+    return next();
+  } else next('/login' + nextRoute);
+};
+
 const routes = [
+  {
+    path: '/login/:nextRoute',
+    name: 'login',
+    component: () => import('../views/Login.vue'),
+  },
   {
     path: '/login',
     name: 'login',
@@ -38,6 +51,7 @@ const routes = [
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
+    beforeEnter: requireAuth(),
   },
 ];
 
@@ -46,6 +60,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
 router.beforeEach((to, from, next) => {
   if (
     from.name == 'ChallengeCreating' &&
@@ -56,4 +71,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 export default router;

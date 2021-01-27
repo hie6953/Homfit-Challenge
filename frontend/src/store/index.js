@@ -8,7 +8,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default new Vuex.Store({
   state: {
     accessToken: null,
-    userEmail: '',  //dao랑 변수명 같게
+    userEmail: '', //dao랑 변수명 같게
   },
   getters: {
     getAccessToken(state) {
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     },
     getUserEmail(state) {
       return state.userEmail;
-    }
+    },
   },
   mutations: {
     LOGIN(state, payload) {
@@ -28,31 +28,31 @@ export default new Vuex.Store({
       state.accessToken = null;
       state.userEmail = '';
       sessionStorage.removeItem('loginInfo');
-    }
+    },
+    AutoLogin(accessToken) {
+      state.accessToken = accessToken;
+    },
   },
   actions: {
     LOGIN(context, user) {
-      return axios
-        .post(`${SERVER_URL}/user/login`, user)
-        .then((response) => {
-          console.log(response.data.message );
-          if (response.data.message == "success") {
-            context.commit('LOGIN', response.data);
-            document.cookie = `access-token=${response.data['access-token']}`;
-            axios.defaults.headers.common[
-              'access-token'
-            ] = `${response.data['access-token']}`;
-            return response;
-          } else {
-            alert("아이디 및 비밀번호를 다시 확인해주세요.");
-          }
-        })
+      return axios.post(`${SERVER_URL}/user/login`, user).then((response) => {
+        console.log(response.data.message);
+        if (response.data.message == 'success') {
+          context.commit('LOGIN', response.data);
+          document.cookie = `access-token=${response.data['access-token']}`;
+          axios.defaults.headers.common[
+            'access-token'
+          ] = `${response.data['access-token']}`;
+          return response;
+        } else {
+          alert('아이디 및 비밀번호를 다시 확인해주세요.');
+        }
+      });
     },
     LOGOUT(context) {
       context.commit('LOGOUT');
       axios.defaults.headers.common['access-token'] = undefined;
     },
-    
   },
   modules: {},
 });

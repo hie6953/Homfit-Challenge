@@ -1,7 +1,7 @@
 <template>
   <div class="user-background">
     <div class="user-container  col-sm-10 col-lg-6">
-      <form class="user-sign-up__form" name="signup">
+      <form class="user-sign-up__form" name="signup" @submit.prevent="signup">
         <h3>회원가입</h3>
         <br />
         <br />
@@ -115,6 +115,7 @@
                 id="phone2"
                 v-model="phone2"
                 size="1"
+                required
               />
               <span class="email-input__separator">-</span>
               <input
@@ -123,6 +124,7 @@
                 id="phone3"
                 v-model="phone3"
                 size="1"
+                required
               />
 
               <input
@@ -165,6 +167,7 @@
               name="nick_name"
               id="nick_name"
               v-model="nick_name"
+              required
             />
           </div>
         </div>
@@ -208,14 +211,12 @@
             >
           </div>
         </div>
+        <input
+          type="submit"
+          value="회원가입"
+          class="sign-up-form__form__submit btn btn-priority"
+        />
       </form>
-
-      <input
-        type="button"
-        value="회원가입"
-        @click="signup"
-        class="sign-up-form__form__submit btn btn-priority"
-      />
 
       <div class="hr"></div>
 
@@ -241,11 +242,11 @@ export default {
       emailid: '',
       emaildomain: '',
       password: '',
-      phone1: '',
+      phone1: '010',
       phone2: '',
       phone3: '',
       nick_name: '',
-      age: '',
+      age: '20',
       passwordcheck: '',
       ageOptions: [
         { text: '10대', value: '10' },
@@ -254,7 +255,7 @@ export default {
         { text: '40대', value: '40' },
         { text: '50대 이상', value: '50' },
       ],
-      sex: '',
+      sex: 'f',
       errormsg: [],
     };
   },

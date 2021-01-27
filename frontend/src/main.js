@@ -17,5 +17,12 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  created() {
+    const login = localStorage.getItem('loginInfo');
+    if (login) {
+      const userData = JSON.parse(login);
+      this.$store.commit('AutoLogin', userData);
+    }
+  },
   render: (h) => h(App),
 }).$mount('#app');

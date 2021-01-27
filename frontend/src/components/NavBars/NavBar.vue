@@ -8,7 +8,12 @@
 
       <!-- 알림 -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown id="bellDropdown" right class="notice-dropdown">
+        <b-nav-item-dropdown
+          id="bellDropdown"
+          v-if="getAccessToken"
+          right
+          class="notice-dropdown"
+        >
           <template slot="button-content">
             <b-icon
               id="bellIcon"
@@ -28,7 +33,10 @@
         </b-nav-item-dropdown>
 
         <!-- 북마크 -->
-        <router-link :to="PageMove('/링크')" class="mt-auto mb-auto main-menu"
+        <router-link
+          to="/링크"
+          v-if="getAccessToken"
+          class="mt-auto mb-auto main-menu"
           ><b-icon
             id="bookmarkIcon"
             icon="bookmark"
@@ -42,7 +50,8 @@
 
         <!-- 마이페이지 -->
         <router-link
-          :to="PageMove('/login')"
+          to="/mypage"
+          v-if="getAccessToken"
           class=" mt-auto mb-auto main-menu"
         >
           <img
@@ -54,6 +63,15 @@
             마이페이지
           </b-tooltip>
         </router-link>
+
+        <b-button
+          v-if="!getAccessToken"
+          class="login-button"
+          @click="Login"
+          variant="outline-dark"
+        >
+          로그인
+        </b-button>
 
         <!-- 검색 -->
         <router-link to="/링크" class="mt-auto mb-auto main-menu"
@@ -75,6 +93,7 @@
 <script>
 import NavBarNoticeCard from '@/components/NavBars/NavBarNoticeCard.vue';
 import '@/assets/css/NavBar/navbar.css';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -83,21 +102,19 @@ export default {
 
   data() {
     return {
-      login: true,
       notices: [
         { type: 'ranking', comment: '실버로의 승급을 축하드립니다!' },
         { type: 'ToDo', comment: '1시간 요가하기 챌린지 인증하세요.' },
       ],
     };
   },
-
   methods: {
-    // 로그인여부에 따른 이동 페이지 결정
-    // 파라미터 : 로그인시 이동할 페이지
-    PageMove: function(page) {
-      if (this.login) return page;
-      else return '/링크';
+    Login: function() {
+      this.$router.push('/login');
     },
+  },
+  computed: {
+    ...mapGetters(['getAccessToken']),
   },
 };
 </script>
