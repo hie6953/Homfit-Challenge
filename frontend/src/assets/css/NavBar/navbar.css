@@ -1,38 +1,42 @@
 #logo-image {
-    height: 35px;
-    margin: 5px 0px 0px 10px;
-  }
-  
-  /* 종 아이콘 옆 화살표 지우기 */
-  #bellDropdown > a::after {
-    display: none;
-  }
+  height: 35px;
+  margin: 5px 0px 0px 10px;
+}
 
-  #bellDropdown > .dropdown-menu {
-    width: 250px;
-  }
-  
-  .notice-dropdown {
-    padding-right: 15px;
-  }
-  
-  /* 아이콘 간격 */
-  .main-menu {
-    padding-right: 20px;
-  }
-  
-  /* 원형 사용자 이미지 */
-  .circle-user-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
+/* 종 아이콘 옆 화살표 지우기 */
+#bellDropdown > a::after {
+  display: none;
+}
 
-  #notice-title{
-    font-size: medium;
-  }
+#bellDropdown > .dropdown-menu {
+  width: 250px;
+}
 
-  #notice-comment{
-    font-size: small;
-  }
+.notice-dropdown {
+  padding-right: 15px;
+}
+
+/* 아이콘 간격 */
+.main-menu {
+  padding-right: 20px;
+}
+
+/* 원형 사용자 이미지 */
+.circle-user-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#notice-title {
+  font-size: medium;
+}
+
+#notice-comment {
+  font-size: small;
+}
+
+.login-button {
+  margin-right: 15px;
+}
