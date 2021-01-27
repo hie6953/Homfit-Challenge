@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <div class="component col-8 mx-auto">
+    <div class="component col-md-8 col-10 mx-auto">
       <div v-if="page == 1">
         <ChallengeMain
           :props_fit_id="challenge.fit_id"
@@ -112,6 +112,7 @@ export default {
         .post(`${SERVER_URL}/challenge`, this.challenge)
         .then(() => {
           alert('챌린지가 생성되었습니다.');
+          this.$router.push('/challengelist');
         })
         .catch(() => {
           alert('등록 처리시 에러가 발생했습니다.');

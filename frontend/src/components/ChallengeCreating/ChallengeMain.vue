@@ -115,11 +115,7 @@
       <textarea v-model="challenge_contents" />
     </div>
 
-    <b-button
-      class="next-page-button"
-      @click="NextPage(fit_id, bodyList, challenge_title, challenge_contents)"
-      >Next</b-button
-    >
+    <b-button class="next-page-button" @click="NextPage()">Next</b-button>
   </div>
 </template>
 
