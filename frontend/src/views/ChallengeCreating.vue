@@ -4,7 +4,7 @@
       <div v-if="page == 1">
         <ChallengeMain
           :props_fit_id="challenge.fit_id"
-          :props_body_id="challenge.body_id"
+          :props_bodyList="challenge.bodyList"
           :props_challenge_title="challenge.challenge_title"
           :props_challenge_contents="challenge.challenge_contents"
           @NextPage="PageOneNext"
@@ -66,10 +66,11 @@ export default {
     return {
       page: 1,
       challenge: {
-        fit_id: 0,
-        body_id: [],
+        fit_id: 1,
+        bodyList: [],
         challenge_title: '',
         challenge_contents: '',
+        challenge_img: '',
         start_date: '',
         end_date: '',
         dayList: [],
@@ -80,7 +81,7 @@ export default {
         only_cam: 1,
         tagList: [],
         make_date: '',
-        make_uid: '',
+        make_uid: '관리자',
         check_date: 0,
         period: 0,
       },
@@ -90,7 +91,23 @@ export default {
   methods: {
     CreateChallenge: function(tagList) {
       this.challenge.tagList = tagList;
-
+      this.challenge.make_date = this.FormatedMakeDate();
+      this.challenge.period = Math.ceil(
+        (new Date(this.challenge.end_date) -
+          new Date(this.challenge.start_date)) /
+          (1000 * 3600 * 24)
+      );
+      let tempBodyList = new Array(this.challenge.bodyList.length);
+      for (let index = 0; index < this.challenge.bodyList.length; index++) {
+        tempBodyList[index] = parseInt(this.challenge.bodyList[index]);
+      }
+      this.challenge.bodyList = tempBodyList.sort();
+      let tempDayList = new Array(this.challenge.dayList.length);
+      for (let index = 0; index < this.challenge.dayList.length; index++) {
+        tempDayList[index] = parseInt(this.challenge.dayList[index]);
+      }
+      this.challenge.dayList = tempDayList.sort();
+      console.log(this.challenge);
       //   axios
       //     .post(`${SERVER_URL}/qna/create`, this.challenge)
       //     .then(({ data }) => {
@@ -103,12 +120,12 @@ export default {
 
     PageOneNext: function(
       fit_id,
-      body_id,
+      bodyList,
       challenge_title,
       challenge_contents
     ) {
       this.challenge.fit_id = fit_id;
-      this.challenge.body_id = body_id;
+      this.challenge.bodyList = bodyList;
       this.challenge.challenge_title = challenge_title;
       this.challenge.challenge_contents = challenge_contents;
       this.NextPage();
@@ -116,6 +133,7 @@ export default {
     PageTwoPrev: function(start_date, end_date) {
       this.challenge.start_date = start_date;
       this.challenge.end_date = end_date;
+
       this.PrevPage();
     },
     PageTwoNext: function(start_date, end_date) {
@@ -157,6 +175,17 @@ export default {
     },
     PrevPage: function() {
       --this.page;
+    },
+    FormatedMakeDate: function() {
+      var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
     },
   },
 };

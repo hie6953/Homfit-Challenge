@@ -52,37 +52,57 @@
       <hr />
       <div>
         <h4>부위별 선택</h4>
-        <input type="checkbox" value="1" v-model="body_id" id="body_id_whole" />
-        <label for="body_id_whole">전신</label>
+        <input
+          type="checkbox"
+          value="1"
+          v-model="bodyList"
+          id="bodyList_whole"
+        />
+        <label for="bodyList_whole">전신</label>
         <br />
-        <input type="checkbox" value="2" v-model="body_id" id="body_id_upper" />
-        <label for="body_id_upper">상체</label>
+        <input
+          type="checkbox"
+          value="2"
+          v-model="bodyList"
+          id="bodyList_upper"
+        />
+        <label for="bodyList_upper">상체</label>
         <br />
-        <input type="checkbox" value="3" v-model="body_id" id="body_id_lower" />
-        <label for="body_id_lower">하체</label>
+        <input
+          type="checkbox"
+          value="3"
+          v-model="bodyList"
+          id="bodyList_lower"
+        />
+        <label for="bodyList_lower">하체</label>
         <br />
-        <input type="checkbox" value="4" v-model="body_id" id="body_id_chest" />
-        <label for="body_id_chest">가슴</label>
+        <input
+          type="checkbox"
+          value="4"
+          v-model="bodyList"
+          id="bodyList_chest"
+        />
+        <label for="bodyList_chest">가슴</label>
         <br />
-        <input type="checkbox" value="5" v-model="body_id" id="body_id_arm" />
-        <label for="body_id_arm">팔</label>
+        <input type="checkbox" value="5" v-model="bodyList" id="bodyList_arm" />
+        <label for="bodyList_arm">팔</label>
         <br />
         <input
           type="checkbox"
           value="6"
-          v-model="body_id"
-          id="body_id_abdominal"
+          v-model="bodyList"
+          id="bodyList_abdominal"
         />
-        <label for="body_id_abdominal">복부</label>
+        <label for="bodyList_abdominal">복부</label>
         <br />
-        <input type="checkbox" value="7" v-model="body_id" id="body_id_hip" />
-        <label for="body_id_hip">엉덩이</label>
+        <input type="checkbox" value="7" v-model="bodyList" id="bodyList_hip" />
+        <label for="bodyList_hip">엉덩이</label>
         <br />
-        <input type="checkbox" value="8" v-model="body_id" id="body_id_leg" />
-        <label for="body_id_leg">다리</label>
+        <input type="checkbox" value="8" v-model="bodyList" id="bodyList_leg" />
+        <label for="bodyList_leg">다리</label>
         <br />
-        <input type="checkbox" value="9" v-model="body_id" id="body_id_etc" />
-        <label for="body_id_etc">기타</label>
+        <input type="checkbox" value="9" v-model="bodyList" id="bodyList_etc" />
+        <label for="bodyList_etc">기타</label>
       </div>
     </div>
 
@@ -97,7 +117,7 @@
 
     <b-button
       class="next-page-button"
-      @click="NextPage(fit_id, body_id, challenge_title, challenge_contents)"
+      @click="NextPage(fit_id, bodyList, challenge_title, challenge_contents)"
       >Next</b-button
     >
   </div>
@@ -107,7 +127,7 @@
 export default {
   props: {
     props_fit_id: Number,
-    props_body_id: Array,
+    props_bodyList: Array,
     props_challenge_title: String,
     props_challenge_contents: String,
   },
@@ -115,7 +135,7 @@ export default {
     return {
       fit_category: '1',
       fit_id: 0,
-      body_id: [],
+      bodyList: [],
       challenge_title: '',
       challenge_contents: '',
     };
@@ -123,7 +143,7 @@ export default {
   created() {
     if (this.props_fit_id == 9) this.fit_category = '2';
     this.fit_id = String(this.props_fit_id);
-    this.body_id = this.props_body_id;
+    this.bodyList = this.props_bodyList;
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
   },
@@ -136,7 +156,7 @@ export default {
       this.$emit(
         'NextPage',
         parseInt(this.fit_id),
-        this.body_id,
+        this.bodyList,
         this.challenge_title,
         this.challenge_contents
       );
