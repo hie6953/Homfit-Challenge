@@ -1,6 +1,10 @@
+
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
+import MainPage from "../views/MainPage"
+
 
 Vue.use(VueRouter);
 
@@ -52,6 +56,11 @@ const routes = [
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
     beforeEnter: requireAuth(),
+  },
+  {
+    path: '/',
+    name: 'MainPage',
+    component: MainPage
   },
 ];
 
