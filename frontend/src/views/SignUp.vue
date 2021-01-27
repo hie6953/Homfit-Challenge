@@ -1,6 +1,6 @@
 <template>
-  <div class="background">
-    <div class="container  col-sm-10 col-lg-6">
+  <div class="user-background">
+    <div class="user-container  col-sm-10 col-lg-6">
       <form class="user-sign-up__form">
         <h3>회원가입</h3>
         <br />
@@ -187,11 +187,11 @@
 </template>
 
 <script>
-import "../assets/css/signUp.css";
+import '../assets/css/signUp.css';
 
 export default {
   data: () => ({
-    genderselected: "",
+    genderselected: '',
   }),
 
   methods: {},
