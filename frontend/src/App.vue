@@ -19,6 +19,26 @@ export default {
     NavBar,
     NavBarSecond,
   },
+
+  data() {
+    return {
+      isLogin: false,
+      user: {
+        email: '',
+        password: '',
+      },
+    };
+  },
+  computed: {
+    ...mapGetters(['getAccessToken', 'getUserEmail']),
+  },
+  methods: {
+    onClickLogout() {
+      this.$store
+        .dispatch('LOGOUT')
+        .then(() => this.$router.replace('/').catch(() => {}));
+    },
+  },
 };
 
 // 스크롤 방향 판단

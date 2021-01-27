@@ -1,10 +1,9 @@
 <template>
   <div class="background">
     <div class="container col-sm-10 col-lg-6">
-     
       <form class="form-signin" role="form">
         <!-- <h2 class="form-signin-heading">HomFit</h2> -->
-         <img id="login-logo-image" src="@/assets/NavBar/logo.png" />
+        <img id="login-logo-image" src="@/assets/NavBar/logo.png" />
         <form
           class="sign-in-form__form"
           id="new_user"
@@ -69,11 +68,52 @@
 </template>
 
 <script>
-import "../assets/css/login.css";
+import '../assets/css/login.css';
 
 export default {
-  data() {
-    return {};
+  name: 'Login',
+  data: function() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      },
+      message: '',
+      auto_login: false,
+    };
+  },
+  created() {
+    this.user.email = this.$cookie.get('auto_login');
+    if (this.user.email != null) this.auto_login = true;
+  },
+  computed: {
+    nextRoute() {
+      return this.$route.params.nextRoute ? this.$route.params.nextRoute : '';
+    },
+  },
+  methods: {
+    login: function() {
+      //콘솔 확인
+      console.log(this.user.email);
+
+      if (this.auto_login) {
+        this.$cookie.set('auto_login', this.user.email);
+      } else {
+        this.$cookie.delete('auto_login');
+      }
+
+      // LOGIN
+      // 서버와 통신해 토큰값을 얻어야 하므로 Actions를 호출.
+      this.$store
+        .dispatch('LOGIN', this.user)
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.message == 'success') {
+            this.$router.push('/');
+          }
+        })
+        .catch(({ message }) => (this.msg = message));
+    },
   },
 };
 </script>
