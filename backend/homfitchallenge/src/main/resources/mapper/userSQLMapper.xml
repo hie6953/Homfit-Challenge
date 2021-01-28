@@ -25,6 +25,10 @@
         select uid from user where email=#{email}
     </select>
 
+    <select id="duplicateNickNameCheck" parameterType="String" resultType="user">
+        select uid from user where nick_name=#{nick_name}
+    </select>
+
     <update id="updateUserImg" parameterType="user">
         update user
         set user_img = #{user_img}
