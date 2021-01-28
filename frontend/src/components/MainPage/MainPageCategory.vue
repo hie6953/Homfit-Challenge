@@ -55,13 +55,7 @@
 import "@/assets/css/mainPageCategory.css"
 
 export default {
-  mounted() {
-    // width값이 변화하면 height값을 width값과 같게 변경
-    window.addEventListener('resize', function() {
-      const categoryBox = document.querySelector('.category-circle')
-      categoryBox.style.height = categoryBox.width
-    });
-  },
+  
 }
 </script>
 
