@@ -55,7 +55,7 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 참여 */
-	@GetMapping("/join/{challengeId}")
+	@PostMapping("/join/{challengeId}")
 	@Transactional
 	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody String uid) {
 		if (challengeService.joinChallenge(challengeId, uid)) {
