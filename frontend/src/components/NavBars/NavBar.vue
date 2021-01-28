@@ -7,7 +7,7 @@
       </b-navbar-brand>
 
       <!-- 알림 -->
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="ml-auto navbar-right">
         <b-nav-item-dropdown
           id="bellDropdown"
           v-if="getAccessToken"
@@ -64,14 +64,14 @@
           </b-tooltip>
         </router-link>
 
-        <b-button
+        <button
           v-if="!getAccessToken"
           class="login-button"
           @click="Login"
           variant="outline-dark"
         >
           로그인
-        </b-button>
+        </button>
 
         <!-- 검색 -->
         <router-link to="/링크" class="mt-auto mb-auto main-menu"
@@ -87,6 +87,7 @@
         </router-link>
       </b-navbar-nav>
     </b-navbar>
+    <hr id="navbar-boundary" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar variant="white">
+    <b-navbar class="navbar-second-menu" variant="white">
       <!-- 메뉴 -->
       <b-navbar-nav class="ml-auto mr-auto">
         <router-link to="/challengelist" class="second-menu">
@@ -17,6 +17,7 @@
         </router-link>
       </b-navbar-nav>
     </b-navbar>
+    <!-- <hr id="navbar-second-boundary" /> -->
   </div>
 </template>
 

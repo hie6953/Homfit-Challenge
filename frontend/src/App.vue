@@ -49,9 +49,9 @@ let prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {
-    document.getElementById('navbar-second').style.top = '0';
+    document.getElementById('navbar-second').style.top = '-1px';
   } else {
-    document.getElementById('navbar-second').style.top = '-50px';
+    document.getElementById('navbar-second').style.top = '-60px';
   }
 
   prevScrollpos = currentScrollPos;
