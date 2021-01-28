@@ -40,7 +40,17 @@
                 >>
                 <option value="icloud.com">icloud.com</option>
               </select>
+
+              <input
+                type="button"
+                value="중복체크"
+                class="phonecode-btn"
+                @click="EmailCheck()"
+              />
             </div>
+            <span class="error-text" v-if="emailcheck"
+              >이미 동일한 이메일이 존재합니다.</span
+            >
           </div>
         </div>
 
@@ -161,14 +171,26 @@
             다른 유저와 겹치지 않는 별명을 입력해주세요. (2~15자)
           </div>
           <div class="user-sign-up-form__form-group__input">
-            <input
-              placeholder="별명 (2~15자)"
-              class="form-control"
-              name="nick_name"
-              id="nick_name"
-              v-model="nick_name"
-              required
-            />
+            <div class="input-group email-input">
+              <input
+                placeholder="별명 (2~15자)"
+                class="form-control"
+                name="nick_name"
+                id="nick_name"
+                v-model="nick_name"
+                required
+              />
+
+              <input
+                type="button"
+                value="중복체크"
+                class="phonecode-btn"
+                @click="NicknameCheck()"
+              />
+            </div>
+            <span class="error-text" v-if="nicknamecheck"
+              >이미 동일한 별명이 존재합니다.</span
+            >
           </div>
         </div>
 
@@ -248,6 +270,8 @@ export default {
       nick_name: '',
       age: '20',
       passwordcheck: '',
+      nicknamecheck: false,
+      emailcheck: false,
       ageOptions: [
         { text: '10대', value: '10' },
         { text: '20대', value: '20' },
@@ -271,6 +295,39 @@ export default {
   },
 
   methods: {
+    NicknameCheck() {
+      axios
+        .get(`${SERVER_URL}/user/check/${this.nick_name}`)
+        .then(({ data }) => {
+          //console.log(data);
+          if (data === true) {
+            this.nicknamecheck = true;
+          } else this.nicknamecheck = false;
+          //console.log(this.nicknamecheck);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+    EmailCheck() {
+      var email = this.emailid + '@' + this.emaildomain;
+      axios
+        .get(`${SERVER_URL}/user/checkemail/${email}`)
+        .then(({ data }) => {
+          //console.log(data);
+          //console.log(email);
+          if (data === true) {
+            this.emailcheck = true;
+          } else {
+            this.emailcheck = false;
+            alert('사용 가능한 이메일입니다.');
+          }
+          //console.log(this.emailcheck);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
     checkPassword(value) {
       if (value.length < 8) {
         this.errormsg['password'] = `비밀번호를 8자 이상으로 입력해주세요.`;
