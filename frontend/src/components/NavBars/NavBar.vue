@@ -2,9 +2,9 @@
   <div>
     <b-navbar variant="white">
       <!-- 로고 -->
-      <b-navbar-brand href="/">
+      <router-link to="/">
         <img id="logo-image" src="@/assets/NavBar/logo.png" />
-      </b-navbar-brand>
+      </router-link>
 
       <!-- 알림 -->
       <b-navbar-nav class="ml-auto navbar-right">
