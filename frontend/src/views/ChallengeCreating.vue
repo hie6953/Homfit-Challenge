@@ -51,6 +51,8 @@ import ChallengeTag from '@/components/ChallengeCreating/ChallengeTag.vue';
 
 import '@/assets/css/challengecreating.css';
 
+import { mapGetters } from 'vuex';
+
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -81,17 +83,22 @@ export default {
         only_cam: 1,
         tagList: [],
         make_date: '',
-        make_uid: '관리자',
+        make_uid: '',
         check_date: 0,
         period: 0,
       },
     };
   },
 
+  computed: {
+    ...mapGetters(['getUserUid']),
+  },
+
   methods: {
     CreateChallenge: function(tagList) {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
+      this.challenge.make_uid = this.getUserUid;
       this.challenge.period = Math.ceil(
         (new Date(this.challenge.end_date) -
           new Date(this.challenge.start_date)) /
