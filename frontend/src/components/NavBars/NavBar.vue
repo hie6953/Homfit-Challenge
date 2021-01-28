@@ -7,7 +7,7 @@
       </b-navbar-brand>
 
       <!-- 알림 -->
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="ml-auto navbar-right">
         <b-nav-item-dropdown
           id="bellDropdown"
           v-if="getAccessToken"
@@ -64,14 +64,25 @@
           </b-tooltip>
         </router-link>
 
-        <b-button
-          v-if="!getAccessToken"
+        <button
+          v-if="!getAccessToken && !isMobile"
           class="login-button"
           @click="Login"
-          variant="outline-dark"
         >
           로그인
-        </b-button>
+        </button>
+
+        <button
+          v-if="!getAccessToken && isMobile"
+          class="login-button-mobile"
+          @click="Login"
+        >
+          <b-icon
+            id="login-icon"
+            icon="box-arrow-in-down-right"
+            scale="1.5"
+          ></b-icon>
+        </button>
 
         <!-- 검색 -->
         <router-link to="/링크" class="mt-auto mb-auto main-menu"
@@ -87,6 +98,7 @@
         </router-link>
       </b-navbar-nav>
     </b-navbar>
+    <hr id="navbar-boundary" />
   </div>
 </template>
 
@@ -102,6 +114,7 @@ export default {
 
   data() {
     return {
+      isMobile: false,
       notices: [
         { type: 'ranking', comment: '실버로의 승급을 축하드립니다!' },
         { type: 'ToDo', comment: '1시간 요가하기 챌린지 인증하세요.' },
@@ -112,9 +125,16 @@ export default {
     Login: function() {
       this.$router.push('/login');
     },
+    handleResize: function() {
+      this.isMobile = window.innerWidth <= 480;
+    },
   },
   computed: {
     ...mapGetters(['getAccessToken']),
+  },
+  mounted() {
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
   },
 };
 </script>
