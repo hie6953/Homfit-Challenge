@@ -25,7 +25,7 @@ export default {
   padding: 1rem;
 }
 .main-component-margin {
-  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 </style>
