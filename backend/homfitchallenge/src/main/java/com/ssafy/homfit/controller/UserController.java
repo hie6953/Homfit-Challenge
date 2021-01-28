@@ -152,6 +152,7 @@ public class UserController {
 
         try {
             check = userService.duplicateNickNameCheck(nickName);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("중복확인 실패 : {}", e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
