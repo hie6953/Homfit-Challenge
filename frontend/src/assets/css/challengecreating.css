@@ -43,7 +43,7 @@ h4 {
 }
 
 #tag:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   background-color: #e65c2e;
   box-shadow: 4px 4px 4px rgba(10, 10, 17, 0.2);
 }

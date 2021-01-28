@@ -48,14 +48,15 @@ export default {
   created() {
     this.tagList = this.props_tagList;
   },
-
   methods: {
     addTag: function() {
-      this.tagList.unshift(this.input);
-      this.input = '';
+      this.input = this.input.replace(' ', '');
+      if (this.input != '') {
+        this.tagList.unshift(this.input);
+        this.input = '';
+      }
     },
     deleteTag: function(index) {
-      console.log(index);
       this.tagList.splice(index, 1);
     },
     PrevPage: function() {
