@@ -38,6 +38,8 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.accessToken = null;
       state.userEmail = '';
+      state.userNickName = '';
+      state.userUid = '';
       sessionStorage.removeItem('loginInfo');
     },
   },
