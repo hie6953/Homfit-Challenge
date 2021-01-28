@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,6 +86,7 @@ public class UserController {
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("access-token", token);
                 resultMap.put("message", SUCCESS);
+                resultMap.put("uid",loginUser.getUid());
                 resultMap.put("nickName", loginUser.getNick_name());
                 status = HttpStatus.ACCEPTED;
             } else {
