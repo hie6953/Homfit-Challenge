@@ -162,7 +162,7 @@ public class UserController {
     }
     
     @ApiOperation(value = "이메일 중복확인 체크", notes = "해당 이메일이 중복인지 체크한다 중복시 true 반환")
-    @GetMapping(value="/check/{email}")
+    @GetMapping(value="/checkemail/{email}")
     public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
         boolean check = true;
         HttpStatus status = null;
