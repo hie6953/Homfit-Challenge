@@ -102,8 +102,8 @@ public class UserController {
     }
 
     @ApiOperation(value = "비밀번호 찾기", notes = "회원 이메일을 통한 비밀번호 찾기", response = String.class)
-    @GetMapping("/findPw")
-    public ResponseEntity<String> findPassword(@RequestBody @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
+    @GetMapping("/findPw/{email}")
+    public ResponseEntity<String> findPassword(@PathVariable @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
         HttpStatus status = null;
         String msg = null;
         String password = null;

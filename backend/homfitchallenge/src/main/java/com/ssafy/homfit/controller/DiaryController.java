@@ -1,5 +1,7 @@
 package com.ssafy.homfit.controller;
 
+import java.sql.Date;
+
 import com.ssafy.homfit.model.Diary;
 import com.ssafy.homfit.model.service.DiaryService;
 
@@ -73,12 +75,14 @@ public class DiaryController {
     }
 
     @ApiOperation(value = "기록 내용 검색", notes = "사용자의 해당일자 기록 데이터를 반환")
-    @GetMapping(value="/search")
-    public ResponseEntity<Diary> search(@RequestBody Diary diary) {
+    @GetMapping(value="/search/{uid}/{date}")
+    public ResponseEntity<Diary> search(@PathVariable String uid, @PathVariable Date date) {
         Diary data = null;
+        Diary diary = null;
         HttpStatus status = null;
-        
         try {
+            diary.setDate(date);
+            diary.setUid(uid);
             data = diaryService.search(diary);
         } catch (Exception e) {
             logger.error("기록 검색 실패 : {}", e);

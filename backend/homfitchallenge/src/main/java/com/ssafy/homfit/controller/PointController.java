@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +35,14 @@ public class PointController {
     private PointService pointService;
 
     @ApiOperation(value = "포인트 조회", notes = "해당 회원의 포인트를 조회한다")
-    @GetMapping("/inquiry")
-    public ResponseEntity<Map<String, Object>> inquery(@RequestBody User user){
+    @GetMapping("/inquiry/{uid}")
+    public ResponseEntity<Map<String, Object>> inquery(@PathVariable String uid){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String msg = null;
         List<Point> list = null;
         try {
-            list = pointService.inquiry(user.getUid());
+            list = pointService.inquiry(uid);
             if(list != null){
                 msg = SUCCESS;
                 status = HttpStatus.OK;
