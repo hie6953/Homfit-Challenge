@@ -1,8 +1,8 @@
 <template>
   <div class="mt-3">
     <!-- 카테고리 -->
-    <hr id="category-hr-top" />
-    <div class="row mx-auto">
+    <!-- <hr id="category-hr-top" /> -->
+    <div class="category-background row mx-auto">
       <div class="category mx-auto">
         <input
           class="checkbox-tools"
@@ -127,7 +127,7 @@
         </label>
       </div>
     </div>
-    <hr id="category-hr-bottom" />
+    <!-- <hr id="category-hr-bottom" /> -->
     <div class="mx-auto col-10 col-md-8">
       <!-- 정렬 -->
       <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
