@@ -146,9 +146,10 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 수정 */
-	@PutMapping("{challengeId}")
+	@PutMapping()
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
+		System.out.println(challenge.getChallenge_id());
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
@@ -168,7 +169,25 @@ public class ChallengeController {
 	/** 챌린지 상세보기 */
 	@GetMapping("{challengeId}")
 	public ResponseEntity<Challenge> detailChallenge(@PathVariable int challengeId) {
-		return new ResponseEntity<Challenge>(challengeService.detailChallenge(challengeId), HttpStatus.OK);
+
+		Challenge challenge = challengeService.detailChallenge(challengeId);
+		if (challenge == null) {
+			return new ResponseEntity<Challenge>(challenge, HttpStatus.NO_CONTENT);
+		} else {
+			// 태그리스트
+			Tag tag[] = tagService.selectTagInChallenge(challengeId);
+			System.out.println(Arrays.toString(tag));
+			if (tag.length != 0) {
+				String[] taglist = new String[tag.length];
+				for (int i = 0; i < tag.length; i++) {
+					taglist[i] = tag[i].getTag_name();
+				}
+				challenge.setTagList(taglist);
+			}
+			// 부위리스트
+			challenge.setBodyList(challengeService.selectBodyPart(challengeId));
+		}
+		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}
 
 	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */
@@ -179,7 +198,7 @@ public class ChallengeController {
 		Challenge[] list = challengeService.AllChallengeList();
 		Challenge[] people = challengeService.selectParticipants();
 
-		while (people.length != list.length) { //둘의 길이가 같지 않다 => 도중에 crud일어났을 수도 있음 
+		while (people.length != list.length) { // 둘의 길이가 같지 않다 => 도중에 crud일어났을 수도 있음
 			list = challengeService.AllChallengeList();
 			people = challengeService.selectParticipants();
 		}
@@ -189,9 +208,9 @@ public class ChallengeController {
 				list[i].setPeople(people[i].getPeople());
 			}
 		}
-		
-		//인기순, 신규순 필터 적용
-		
+
+		// 인기순, 신규순 필터 적용
+
 		return new ResponseEntity<Challenge[]>(list, HttpStatus.OK);
 	}
 
