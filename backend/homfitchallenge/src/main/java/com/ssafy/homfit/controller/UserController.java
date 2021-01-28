@@ -144,7 +144,7 @@ public class UserController {
         return new ResponseEntity<String>(msg, status);
     }
 
-    @ApiOperation(value = "중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
+    @ApiOperation(value = "닉네임 중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
     @GetMapping(value="/check/{nickName}")
     public ResponseEntity<Boolean> checkNickName(@PathVariable String nickName) {
         boolean check = true;
@@ -161,6 +161,22 @@ public class UserController {
         return new ResponseEntity<Boolean>(check, status);
     }
     
+    @ApiOperation(value = "이메일 중복확인 체크", notes = "해당 이메일이 중복인지 체크한다 중복시 true 반환")
+    @GetMapping(value="/check/{email}")
+    public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
+        boolean check = true;
+        HttpStatus status = null;
+
+        try {
+            check = userService.duplicateEmailCheck(email);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("중복확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(check, status);
+    }
 
     // @GetMapping("/test")
     // public ResponseEntity<Map<String,Object>> test(@RequestBody User uid){
