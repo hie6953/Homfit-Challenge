@@ -30,6 +30,7 @@ public class PointServiceImpl implements PointService {
     @Override    
     public boolean earn(Point point) throws Exception {
         if(point.getPoint() > 0 && sqlSession.getMapper(UserDAO.class).getUid(point.getUid()) != null){
+            
             sqlSession.getMapper(PointDAO.class).earn(point);
             long sum = 0;
             String grade = null;
