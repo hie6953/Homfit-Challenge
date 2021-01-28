@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     FavoriteService favoriteService;
-    
+
     @Autowired
     BadgeService badgeService;
 
@@ -49,8 +49,10 @@ public class UserServiceImpl implements UserService {
 
         sqlSession.getMapper(UserDAO.class).signup(user);
         try {
-            if(!favoriteService.init(user.getUid())) new Exception();
-            if(!badgeService.init(user.getUid())) new Exception();
+            if (!favoriteService.init(user.getUid()))
+                new Exception();
+            if (!badgeService.init(user.getUid()))
+                new Exception();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
             return false;
         return true;
     }
-    
+
     @Override
     public boolean duplicateNickNameCheck(String nick_name) throws Exception {
         User user = null;
@@ -99,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public void updateGrade(User user) throws Exception {
         User userData = this.getUid(user.getUid());
         // 회원 등급이 이전과 다르다면 회원을 해당 등급으로 업데이트 한다
-        if(userData.getGrade() != user.getGrade()){
+        if (userData.getGrade() != user.getGrade()) {
             sqlSession.getMapper(UserDAO.class).updateGrade(user);
         }
     }
@@ -108,9 +110,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean updateDetail(User user) throws Exception {
         try {
-            sqlSession.getMapper(UserDAO.class).updatePassword(user);
-            sqlSession.getMapper(UserDAO.class).updateNickName(user);
-            sqlSession.getMapper(UserDAO.class).updateUserImg(user);
+            if (user.getPassword() != null)
+                sqlSession.getMapper(UserDAO.class).updatePassword(user);
+
+            if (user.getNick_name() != null)
+                sqlSession.getMapper(UserDAO.class).updateNickName(user);
+
+            if (user.getUser_img() != null)
+                sqlSession.getMapper(UserDAO.class).updateUserImg(user);
 
             return true;
 
@@ -119,7 +126,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public List<User> test() throws Exception{
+    public List<User> test() throws Exception {
         List<User> list = null;
         try {
             list = sqlSession.getMapper(UserDAO.class).test();
