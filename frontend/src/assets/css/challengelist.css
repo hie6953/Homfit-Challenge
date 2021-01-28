@@ -7,6 +7,11 @@
   margin: 0 0 15px 0 !important;
 }
 
+.category-background {
+  background-color: #fafafa;
+  margin: 10px 0px;
+}
+
 .category {
   padding: 0 !important;
   white-space: nowrap;
@@ -27,7 +32,7 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 1px;
-  margin: 5px 10px 10px 5px;
+  margin: 15px 10px 10px 5px;
   text-align: center;
   border-radius: 4px;
   overflow: hidden;
@@ -39,21 +44,30 @@
 
 .checkbox-tools:checked + label {
   color: #fff;
+  background-image: linear-gradient(298deg, #e65c2e, #eac03a);
+  z-index: 1;
 }
 
 .checkbox-tools:not(:checked) + label {
-  background-color: #ecedf3;
+  background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 .checkbox-tools:checked + label {
-  background-color: transparent;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .checkbox-tools:not(:checked) + label:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-.checkbox-tools:checked + label::before,
-.checkbox-tools:not(:checked) + label::before {
+/* .checkbox-tools:checked + label::before {
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-image: linear-gradient(298deg, #e65c2e, #eac03a);
+} */
+/* .checkbox-tools:not(:checked) + label::before {
   position: absolute;
   content: '';
   top: 0;
@@ -63,15 +77,15 @@
   border-radius: 4px;
   background-image: linear-gradient(298deg, #e65c2e, #eac03a);
   z-index: -1;
-}
-.checkbox-tools:checked + label .uil,
+} */
+/* .checkbox-tools:checked + label .uil,
 .checkbox-tools:not(:checked) + label .uil {
   font-size: 24px;
   line-height: 24px;
   display: block;
-}
+} */
 
-.checkbox:checked
+/* .checkbox:checked
   ~ .section
   .container
   .row
@@ -81,7 +95,7 @@
   background-color: #f0eff3;
   color: #000000;
   box-shadow: 0 1x 4px 0 rgba(0, 0, 0, 0.05);
-}
+} */
 
 /* 정렬 */
 #sort-dropdown {

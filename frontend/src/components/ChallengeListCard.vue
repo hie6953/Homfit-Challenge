@@ -13,14 +13,14 @@
         <span id="card-title">{{ challenge.challenge_title }}</span>
         <br />
         <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-        <span id="card-user-nick-name">{{ challenge.make_uid }}</span>
+        <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
         <span id="card-day">{{ GetDayList() }}</span>
         <span id="card-period">{{ challenge.period }}일</span>
       </div>
       <hr class="challenge-list-card-hr" />
       <div class="challenge-list-card-footer">
-        <span>20명 참여중</span>
+        <span>{{ challenge.people }}명 참여중</span>
       </div>
     </b-card>
   </div>
@@ -45,16 +45,18 @@ export default {
     challenge: Object,
   },
   methods: {
-    GetDayList() {
-      let list = this.challenge.daylist_string;
-      for (
-        let index = 0;
-        index < this.challnege.daylist_string.length;
-        index++
-      ) {
-        list[index] = dayList[this.challnege.daylist_string[index]];
+    GetDayList: function() {
+      if (this.challenge.daylist_string != null) {
+        let list = this.challenge.daylist_string
+          .substring(1, this.challenge.daylist_string.length - 1)
+          .split(',');
+        let temp = new Array(list.length);
+        for (let index = 0; index < list.length; index++) {
+          temp[index] = dayList[parseInt(list[index].replace(' ', ''))];
+        }
+        return temp.join('/');
       }
-      return list.join('/');
+      return '';
     },
   },
 };
