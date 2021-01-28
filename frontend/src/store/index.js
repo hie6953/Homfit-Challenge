@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     userEmail: '', //dao랑 변수명 같게
+    userNickName:'',
   },
   getters: {
     getAccessToken(state) {
@@ -17,11 +18,15 @@ export default new Vuex.Store({
     getUserEmail(state) {
       return state.userEmail;
     },
+    getUserNickName(state) { 
+      return state.userNickName;
+    }
   },
   mutations: {
     LOGIN(state, payload) {
       state.accessToken = payload['access-token'];
       state.userEmail = payload['user-email'];
+      state.userNickName = payload['user-nickname'];
       sessionStorage.setItem('loginInfo', JSON.stringify(payload));
     },
     LOGOUT(state) {
