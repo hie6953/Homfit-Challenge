@@ -65,12 +65,23 @@
         </router-link>
 
         <button
-          v-if="!getAccessToken"
+          v-if="!getAccessToken && !isMobile"
           class="login-button"
           @click="Login"
-          variant="outline-dark"
         >
           로그인
+        </button>
+
+        <button
+          v-if="!getAccessToken && isMobile"
+          class="login-button-mobile"
+          @click="Login"
+        >
+          <b-icon
+            id="login-icon"
+            icon="box-arrow-in-down-right"
+            scale="1.5"
+          ></b-icon>
         </button>
 
         <!-- 검색 -->
@@ -103,6 +114,7 @@ export default {
 
   data() {
     return {
+      isMobile: false,
       notices: [
         { type: 'ranking', comment: '실버로의 승급을 축하드립니다!' },
         { type: 'ToDo', comment: '1시간 요가하기 챌린지 인증하세요.' },
@@ -113,9 +125,16 @@ export default {
     Login: function() {
       this.$router.push('/login');
     },
+    handleResize: function() {
+      this.isMobile = window.innerWidth <= 480;
+    },
   },
   computed: {
     ...mapGetters(['getAccessToken']),
+  },
+  mounted() {
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
   },
 };
 </script>

@@ -3,6 +3,10 @@
     height: 35px;
     margin: 10px 0px 3px 10px;
   }
+
+  .navbar-right {
+    margin-right: 0px;
+  }
 }
 
 @media (min-width: 480px) {
@@ -10,9 +14,10 @@
     height: 50px;
     margin: 10px 0px 3px 7vw;
   }
-}
-.navbar-right {
-  margin-right: 7vw;
+
+  .navbar-right {
+    margin-right: 7vw;
+  }
 }
 
 /* 종 아이콘 옆 화살표 지우기 */
@@ -52,17 +57,41 @@
 .login-button {
   margin-right: 20px;
 
-  background: #e65c2e;
+  background: #fc6d3d;
   color: white;
 
   padding: 10px 20px;
 
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
 
   border: none;
   border-radius: 20px;
+
+  display: inline-block;
+  width: auto;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}
+
+.login-button-mobile {
+  margin-right: 20px;
+
+  background: #fc6d3d;
+  color: white;
+
+  padding: 5px 9px;
+
+  font-size: 1rem;
+  text-align: center;
+
+  border: none;
+  border-radius: 25%;
 
   display: inline-block;
   width: auto;
