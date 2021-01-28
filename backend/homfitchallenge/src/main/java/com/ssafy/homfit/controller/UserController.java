@@ -1,7 +1,6 @@
 package com.ssafy.homfit.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.ssafy.homfit.model.User;
@@ -86,6 +85,7 @@ public class UserController {
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("access-token", token);
                 resultMap.put("message", SUCCESS);
+                resultMap.put("nickName", loginUser.getNick_name());
                 status = HttpStatus.ACCEPTED;
             } else {
                 resultMap.put("message", FAIL);
