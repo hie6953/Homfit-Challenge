@@ -5,7 +5,7 @@
 @media (max-width: 480px) {
   /* 기본 메뉴 */
   .second-menu {
-    font-weight: 500;
+    font-weight: 700;
     font-size: medium;
     color: black;
     padding-left: 10px;
@@ -16,7 +16,7 @@
 @media (min-width: 480px) {
   /* 기본 메뉴 */
   .second-menu {
-    font-weight: 500;
+    font-weight: 700;
     font-size: large;
     color: black;
     padding: 5px 2vw;
