@@ -83,10 +83,17 @@ public class ChallengeServiceImpl implements ChallengeService{
 		return challengeDAO.quitChallenge(challenge_id, uid) == 1;
 	}
 
-	
+	//챌린지 참여자수 계산
 	@Override
 	public Challenge[] selectParticipants() {
 		return challengeDAO.selectParticipants();
+	}
+
+
+	//해당 챌린지 부위리스트
+	@Override
+	public int[] selectBodyPart(int ChallengeId) {
+		return challengeDAO.selectBodyPart(ChallengeId);
 	}
 
 
