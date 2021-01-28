@@ -1,0 +1,40 @@
+.category-rows {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: stretch;
+}
+
+.category-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+}
+
+/* 마우스 호버시 밑줄 제거 */
+.category-box:hover {
+    text-decoration: none;
+}
+
+/* 텍스트 가운데 정렬 및 폰트굵기 */
+.category-name {
+    color: black;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* 이미지 길이 및 투명도 */
+.category-circle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    transition-duration: 0.2s;
+    opacity: 0.5;
+}
+
+/* 호버시 투명도  */
+.category-circle:hover {
+    opacity: 1;
+}

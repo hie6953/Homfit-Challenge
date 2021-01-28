@@ -4,7 +4,12 @@
       <form class="form-signin" role="form">
         <!-- <h2 class="form-signin-heading">HomFit</h2> -->
         <img id="login-logo-image" src="@/assets/NavBar/logo.png" />
-        <form class="sign-in-form__form" id="new_user" accept-charset="UTF-8">
+        <form
+          class="sign-in-form__form"
+          id="new_user"
+          accept-charset="UTF-8"
+          @submit.prevent="login"
+        >
           <!--            <b-icon icon="person"></b-icon> -->
 
           <b-form-input
@@ -39,7 +44,7 @@
           <input
             value="로그인"
             class="sign-in-form__form__submit btn btn-priority"
-            @click="login"
+            type="submit"
           />
         </form>
 
@@ -103,7 +108,8 @@ export default {
         .dispatch('LOGIN', this.user)
         .then((response) => {
           console.log(response.data);
-          if (response.data.message == 'success') this.$router.push('/');
+          if (response.data.message == 'success')
+            this.$router.replace(`/${this.nextRoute}`);
         })
         .catch(({ message }) => (this.msg = message));
     },

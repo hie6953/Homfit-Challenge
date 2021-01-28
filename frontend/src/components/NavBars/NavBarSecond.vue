@@ -1,41 +1,36 @@
 <template>
   <div>
-    <b-navbar variant="white">
+    <b-navbar class="navbar-second-menu" variant="white">
       <!-- 메뉴 -->
       <b-navbar-nav class="ml-auto mr-auto">
         <router-link to="/challengelist" class="second-menu">
           <span>챌린지 리스트</span>
         </router-link>
-        <router-link :to="PageMove('/링크')" class="second-menu">
+        <router-link to="/challenge-creating" class="second-menu">
           <span>챌린지 개설</span>
         </router-link>
-        <router-link to="/링크" class="second-menu">
+        <router-link to="/feed" class="second-menu">
           <span>피드</span>
         </router-link>
-        <router-link :to="PageMove('/링크')" class="second-menu">
+        <router-link to="/recommand-challenge" class="second-menu">
           <span>추천 챌린지</span>
         </router-link>
       </b-navbar-nav>
     </b-navbar>
+    <!-- <hr id="navbar-second-boundary" /> -->
   </div>
 </template>
 
 <script>
-import "@/assets/css/NavBar/navbarsecond.css";
+import '@/assets/css/NavBar/navbarsecond.css';
+
 export default {
   data() {
     return {
-      login: false,
+      login: true,
     };
   },
 
-  methods: {
-    // 로그인여부에 따른 이동 페이지 결정
-    // 파라미터 : 로그인시 이동할 페이지
-    PageMove: function(page) {
-      if (this.login) return page;
-      else return '/링크';
-    },
-  },
+  methods: {},
 };
 </script>
