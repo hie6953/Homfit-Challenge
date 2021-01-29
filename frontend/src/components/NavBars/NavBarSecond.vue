@@ -26,9 +26,7 @@ import '@/assets/css/NavBar/navbarsecond.css';
 
 export default {
   data() {
-    return {
-      login: true,
-    };
+    return {};
   },
 
   methods: {},

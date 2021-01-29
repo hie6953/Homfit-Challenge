@@ -104,7 +104,9 @@
 
 <script>
 import NavBarNoticeCard from '@/components/NavBars/NavBarNoticeCard.vue';
+
 import '@/assets/css/NavBar/navbar.css';
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -122,9 +124,11 @@ export default {
     };
   },
   methods: {
+    // 로그인
     Login: function() {
       this.$router.push('/login');
     },
+    // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
     },
@@ -133,6 +137,7 @@ export default {
     ...mapGetters(['getAccessToken']),
   },
   mounted() {
+    // 화면 너비 측정 이벤트 추가/
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
   },
