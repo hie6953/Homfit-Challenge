@@ -42,17 +42,6 @@ public class ChallengeController {
 	@Autowired
 	TagService tagService;
 
-	// 이미지 따로 빼야함
-
-	// 유저가 탈퇴하면 챌린지 참여테이블 자동 삭제
-	// 개설자가 삭제되면 챌린지 자동삭제
-
-	/** 테스트 */
-	@PostMapping("/test")
-	public String testChallenge(@RequestBody String[] test) {
-
-		return null;
-	}
 
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
