@@ -1,6 +1,43 @@
 <template>
-  <div class="background">
+  <div class="background-creating ">
     <div class="component col-md-8 col-10 mx-auto">
+      <div class="creating-progress-bar">
+        <ul id="creating-progress-list">
+          <li>
+            <img src="@/assets/challengeCreating/information.png" />
+            <br />
+            <span class="creating-progress-check-icon"
+              ><b-icon icon="check"></b-icon
+            ></span>
+            <p>소개</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/calendar.png" />
+            <br />
+            <span class="creating-progress-check-icon"
+              ><b-icon icon="check"></b-icon
+            ></span>
+            <p>기간</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/certification.png" />
+            <br />
+            <span class="creating-progress-check-icon"
+              ><b-icon icon="check"></b-icon
+            ></span>
+            <p>인증</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/hashtag.png" />
+            <br />
+            <span class="creating-progress-check-icon"
+              ><b-icon icon="check"></b-icon
+            ></span>
+            <p>태그</p>
+          </li>
+        </ul>
+      </div>
+
       <div v-if="page == 1">
         <ChallengeMain
           :props_fit_id="challenge.fit_id"
