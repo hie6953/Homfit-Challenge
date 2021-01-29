@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 인증 요일 선택 -->
     <div>
       <h4>인증 요일 선택</h4>
       <input type="checkbox" value="1" v-model="dayList" id="Mon" />
@@ -23,11 +24,15 @@
       <input type="checkbox" value="7" v-model="dayList" id="Sun" />
       <label for="Sun">일</label>
     </div>
+
+    <!-- 하루 인증 횟수 -->
     <div>
       <br />
       <h4>하루 인증 횟수</h4>
       <input type="number" v-model="day_certify_count" />회
     </div>
+
+    <!-- 인증 방법 설명 -->
     <div>
       <br />
       <h4>인증 방법 설명</h4>
@@ -37,6 +42,8 @@
         rows="10"
       ></textarea>
     </div>
+
+    <!-- 인증 수단 -->
     <div>
       <br />
       <h4>인증 수단</h4>
@@ -46,6 +53,8 @@
       <input type="radio" value="0" v-model="only_cam" id="NotOnlyCam" />
       <label for="NotOnlyCam">카메라, 갤러리 사용</label>
     </div>
+
+    <!-- 페이지 이동 버튼 -->
     <b-button class="prev-page-button" @click="PrevPage()">Previous</b-button>
     <b-button class="next-page-button" @click="NextPage()">Next</b-button>
   </div>
@@ -81,6 +90,7 @@ export default {
   },
 
   methods: {
+    // 페이지 이동
     PrevPage: function() {
       this.$emit(
         'PrevPage',

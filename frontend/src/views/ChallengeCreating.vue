@@ -1,6 +1,7 @@
 <template>
   <div class="background">
     <div class="component col-md-8 col-10 mx-auto">
+      <!-- 챌린지 개설 페이지 -->
       <div v-if="page == 1">
         <ChallengeMain
           :props_fit_id="challenge.fit_id"
@@ -66,7 +67,10 @@ export default {
   },
   data() {
     return {
+      // 페이지
       page: 1,
+
+      // 챌린지
       challenge: {
         fit_id: 1,
         bodyList: [],
@@ -95,6 +99,7 @@ export default {
   },
 
   methods: {
+    // 챌린지 개설
     CreateChallenge: function(tagList) {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
@@ -104,6 +109,7 @@ export default {
           new Date(this.challenge.start_date)) /
           (1000 * 3600 * 24)
       );
+      // 리스트 내 string -> integer 변환
       let tempBodyList = new Array(this.challenge.bodyList.length);
       for (let index = 0; index < this.challenge.bodyList.length; index++) {
         tempBodyList[index] = parseInt(this.challenge.bodyList[index]);
@@ -114,6 +120,8 @@ export default {
         tempDayList[index] = parseInt(this.challenge.dayList[index]);
       }
       this.challenge.dayList = tempDayList.sort();
+
+      // 챌린지 개설 axios
       console.log(this.challenge);
       axios
         .post(`${SERVER_URL}/challenge`, this.challenge)
@@ -126,6 +134,7 @@ export default {
         });
     },
 
+    // 1페이지
     PageOneNext: function(
       fit_id,
       bodyList,
@@ -138,6 +147,8 @@ export default {
       this.challenge.challenge_contents = challenge_contents;
       this.NextPage();
     },
+
+    // 2페이지
     PageTwoPrev: function(start_date, end_date) {
       this.challenge.start_date = start_date;
       this.challenge.end_date = end_date;
@@ -149,6 +160,8 @@ export default {
       this.challenge.end_date = end_date;
       this.NextPage();
     },
+
+    // 3페이지
     PageThreePrev: function(
       dayList,
       day_certify_count,
@@ -173,17 +186,22 @@ export default {
       this.challenge.only_cam = only_cam;
       this.NextPage();
     },
+
+    // 4페이지
     PageFourPrev: function(tagList) {
       this.challenge.tagList = tagList;
       this.PrevPage();
     },
 
+    // 페이지전환
     NextPage: function() {
       ++this.page;
     },
     PrevPage: function() {
       --this.page;
     },
+
+    // 개설 날짜 형식 구성
     FormatedMakeDate: function() {
       var d = new Date(),
         month = '' + (d.getMonth() + 1),
