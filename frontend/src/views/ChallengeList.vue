@@ -24,9 +24,8 @@
           v-model="category"
           id="category-yoga"
         />
-        <label class="for-checkbox-tools" for="category-yoga"> 요가 </label
-        ><!--
-						--><input
+        <label class="for-checkbox-tools" for="category-yoga"> 요가 </label>
+        <input
           class="checkbox-tools"
           type="radio"
           name="tools"
@@ -269,25 +268,17 @@ export default {
       sortValue: '인기순',
       period: [],
       day: [],
-      challengeList: [
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-      ],
+      challengeList: [],
     };
   },
   created() {
+    // 메인페이지 카테고리를 통해 챌린지 리스트로 이동 시 파라미터 받기
     let category_number = this.$route.params.category_number;
     if (category_number) {
       this.category = category_number;
     }
 
+    // 챌린지 리스트 조회
     axios
       .get(`${SERVER_URL}/challenge/all`)
       .then(({ data }) => {

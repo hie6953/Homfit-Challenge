@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 챌린지 리스트 카드 -->
     <b-card
       img-src="https://picsum.photos/600/300/?image=25"
       img-alt="Image"
@@ -28,23 +29,13 @@
 
 <script>
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
-// const bodyList = [
-//   '',
-//   '전신',
-//   '상체',
-//   '하체',
-//   '가슴',
-//   '팔',
-//   '복부',
-//   '엉덩이',
-//   '다리',
-//   '기타',
-// ];
+
 export default {
   props: {
     challenge: Object,
   },
   methods: {
+    // 날짜 숫자 -> 요일로 변경
     GetDayList: function() {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
