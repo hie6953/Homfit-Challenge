@@ -74,13 +74,44 @@
     </div>
 
     <!-- 챌린지 현황 -->
-    <div class="mx-auto col-8">
+    <div class="mx-auto col-8 user-status-todo">
       <!-- 과제 -->
-
-      <!-- 나의피드 -->
-
-      <!-- 나의눈바디 -->
+      <div class="user-challenge-status">
+        <h3 class="label-challenge-status">챌린지 현황</h3>
+        <div class="move-challenge-list">
+          <div class="status-list">
+            <div class="status">
+              <span>참가중</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+          <div class="status-list">
+            <div class="status">
+              <span>완료</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+          <div class="status-list">
+            <div class="status">
+              <span>개설</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-bar-second"></div>
+      <!-- 나의 과제 -->
+      <div class="user-todo-list"></div>
     </div>
+
+    <!-- 나의피드 -->
+    <!-- 나의눈바디 -->
   </div>
 </template>
 
@@ -95,6 +126,11 @@ export default {
         nick_name: '이건내닉네임이야',
         point: '200',
         grade: 'bronze',
+      },
+      challenge: {
+        ing: '3',
+        done: '5',
+        create: '1',
       },
     };
   },
