@@ -23,7 +23,7 @@ public interface UserDAO {
 
 	public void updateNickName(User user) throws SQLException;
 
-    public void updateUserImg(User user) throws SQLException;
+    public void updateUserImg(String uid, String user_img) throws SQLException;
     
     public List<User> test() throws SQLException;
 

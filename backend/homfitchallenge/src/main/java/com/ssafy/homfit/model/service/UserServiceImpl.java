@@ -7,11 +7,13 @@ import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.dao.BadgeDAO;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
+import com.ssafy.homfit.util.UploadImg;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -108,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean updateDetail(User user) throws Exception {
+    public boolean updateDetail(User user, MultipartFile imgFile) throws Exception {
         try {
             if (user.getPassword() != null)
                 sqlSession.getMapper(UserDAO.class).updatePassword(user);
@@ -116,8 +118,8 @@ public class UserServiceImpl implements UserService {
             if (user.getNick_name() != null)
                 sqlSession.getMapper(UserDAO.class).updateNickName(user);
 
-            if (user.getUser_img() != null)
-                sqlSession.getMapper(UserDAO.class).updateUserImg(user);
+            if (imgFile != null)
+                sqlSession.getMapper(UserDAO.class).updateUserImg(user.getUid(), UploadImg.writeImg(imgFile));
 
             return true;
 
