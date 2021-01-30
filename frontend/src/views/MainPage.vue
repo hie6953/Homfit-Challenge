@@ -12,6 +12,15 @@
         </div>
       </div>
       <MainPageList class="main-content-margin" />
+      <div class="main-component-margin">
+        <div class="d-flex bd-highlight px-4">
+          <div class="p-2 bd-highlight main-list">신규 챌린지</div>
+          <router-link to="/challengelist" class="ml-auto p-2 bd-highlight main-more">
+            <div class="main-more">전체보기 ></div>
+          </router-link>
+        </div>
+      </div>
+      <MainPageList class="main-content-margin" />
     </div>
   </div>
 </template>
