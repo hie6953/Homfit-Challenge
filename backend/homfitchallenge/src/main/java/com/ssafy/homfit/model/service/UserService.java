@@ -14,6 +14,7 @@ public interface UserService {
     public boolean duplicateEmailCheck(String email) throws Exception;
     public boolean duplicateNickNameCheck(String nick_name) throws Exception;
     public void updateGrade(User user) throws Exception;
-    public boolean updateDetail(User user, MultipartFile imgFile) throws Exception;
+    public boolean updateDetail(User user) throws Exception;
     public List<User> test() throws Exception;
+	public boolean updateImg(String uid, MultipartFile imgFile) throws Exception;
 }

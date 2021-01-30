@@ -29,4 +29,11 @@ public class WebConfiguration implements WebMvcConfigurer{
         registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 
+    // @Bean(name = "multipartResolver")
+    // public CommonsMultipartResolver multipartResolver() {
+    //     CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    //     multipartResolver.setDefaultEncoding("UTF-8");
+    //     multipartResolver.setMaxUploadSizePerFile(100 *1024*1024);
+    //     return multipartResolver;
+    // }
 }

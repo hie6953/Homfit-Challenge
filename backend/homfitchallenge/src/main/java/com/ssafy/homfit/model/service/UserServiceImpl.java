@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.UserUpdateVo;
 import com.ssafy.homfit.model.dao.BadgeDAO;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
@@ -110,16 +111,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean updateDetail(User user, MultipartFile imgFile) throws Exception {
+    public boolean updateDetail(User user) throws Exception {
         try {
             if (user.getPassword() != null)
                 sqlSession.getMapper(UserDAO.class).updatePassword(user);
 
             if (user.getNick_name() != null)
                 sqlSession.getMapper(UserDAO.class).updateNickName(user);
-
-            if (imgFile != null)
-                sqlSession.getMapper(UserDAO.class).updateUserImg(user.getUid(), UploadImg.writeImg(imgFile));
 
             return true;
 
@@ -136,5 +134,19 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public boolean updateImg(String uid, MultipartFile imgFile) throws Exception {
+        try {
+            if (uid != null && imgFile != null)
+                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, UploadImg.writeImg(imgFile));
+
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+        
     }
 }

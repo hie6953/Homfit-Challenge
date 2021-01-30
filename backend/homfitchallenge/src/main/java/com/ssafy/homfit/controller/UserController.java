@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -128,11 +128,11 @@ public class UserController {
 
     @ApiOperation(value = "회원 정보 수정", notes = "회원이 입력한 정보대로 회원 정보를 수정한다(바꿀수 있는 정보 : 비밀번호, 닉네임, 사용자 이미지")
     @PutMapping("/updateDetail")
-    public ResponseEntity<String> updateDetail(@RequestBody User user, @ModelAttribute MultipartFile imgFile){
+    public ResponseEntity<String> updateDetail(@RequestBody User user){
         HttpStatus status = null;
         String msg = null;
         try {
-            if(userService.updateDetail(user, imgFile)){
+            if(userService.updateDetail(user)){
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
             }else{
@@ -141,6 +141,26 @@ public class UserController {
             }
         } catch (Exception e) {
             logger.error("회원 정보수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<String>(msg, status);
+    }
+    
+    @PutMapping("/updateImg")
+    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile, @RequestPart("uid") String uid){
+        HttpStatus status = null;
+        String msg = null;
+        try {
+            if(userService.updateImg(uid, imgFile)){
+                msg = SUCCESS;
+                status = HttpStatus.ACCEPTED;
+            }else{
+                msg = FAIL;
+                status = HttpStatus.ACCEPTED;
+            }
+        } catch (Exception e) {
+            logger.error("회원 프로필 사진수정 실패 : {}", e);
             msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

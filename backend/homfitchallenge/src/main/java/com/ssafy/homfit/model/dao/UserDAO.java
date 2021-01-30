@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.UserUpdateVo;
 
 import org.apache.ibatis.annotations.Mapper;
 
