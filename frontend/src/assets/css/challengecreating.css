@@ -12,8 +12,7 @@
   transition: all 0.3s;
 }
 
-/* 프로그래스 바 */
-
+/* 프로그래스바 */
 .creating-progress-bar img {
   width: 50px;
   margin-bottom: 15px;
