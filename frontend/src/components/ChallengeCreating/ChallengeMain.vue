@@ -5,7 +5,7 @@
         type="radio"
         name="fit_category"
         value="1"
-        v-model="fit_category"
+        v-model="kind"
         id="fit_id_exercise"
       />
       <label for="fit_id_exercise">운동</label>
@@ -13,13 +13,12 @@
         type="radio"
         name="fit_category"
         value="2"
-        v-model="fit_category"
+        v-model="kind"
         id="fit_id_diet"
-        @click="FitIdToDiet"
       />
       <label for="fit_id_diet">식단</label>
     </div>
-    <div v-if="fit_category == '1'">
+    <div v-if="kind == '1'">
       <h4>운동종류 선택</h4>
       <div>
         <input type="radio" value="1" v-model="fit_id" id="fit_id_yoga" />
@@ -122,6 +121,7 @@
 <script>
 export default {
   props: {
+    props_kind: Number,
     props_fit_id: Number,
     props_bodyList: Array,
     props_challenge_title: String,
@@ -129,7 +129,7 @@ export default {
   },
   data() {
     return {
-      fit_category: '1',
+      kind: 0,
       fit_id: 0,
       bodyList: [],
       challenge_title: '',
@@ -137,20 +137,26 @@ export default {
     };
   },
   created() {
-    if (this.props_fit_id == 9) this.fit_category = '2';
+    this.kind = String(this.props_kind);
     this.fit_id = String(this.props_fit_id);
     this.bodyList = this.props_bodyList;
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
   },
-  methods: {
-    FitIdToDiet: function() {
-      this.fit_id = 9;
+  watch: {
+    kind: function() {
+      if (this.kind == '1') {
+        this.fit_id = '1';
+      } else {
+        this.fit_id = '9';
+      }
     },
-
+  },
+  methods: {
     NextPage: function() {
       this.$emit(
         'NextPage',
+        parseInt(this.kind),
         parseInt(this.fit_id),
         this.bodyList,
         this.challenge_title,

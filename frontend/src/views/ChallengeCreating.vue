@@ -40,6 +40,7 @@
 
       <div v-if="page == 1">
         <ChallengeMain
+          :props_kind="challenge.kind"
           :props_fit_id="challenge.fit_id"
           :props_bodyList="challenge.bodyList"
           :props_challenge_title="challenge.challenge_title"
@@ -105,6 +106,7 @@ export default {
     return {
       page: 1,
       challenge: {
+        kind: 1,
         fit_id: 1,
         bodyList: [],
         challenge_title: '',
@@ -164,11 +166,13 @@ export default {
     },
 
     PageOneNext: function(
+      kind,
       fit_id,
       bodyList,
       challenge_title,
       challenge_contents
     ) {
+      this.challenge.kind = kind;
       this.challenge.fit_id = fit_id;
       this.challenge.bodyList = bodyList;
       this.challenge.challenge_title = challenge_title;
