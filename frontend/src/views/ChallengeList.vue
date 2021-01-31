@@ -128,7 +128,7 @@
       </div>
     </div>
     <!-- <hr id="category-hr-bottom" /> -->
-    <div class="mx-auto col-10 col-md-8">
+    <div class="mx-auto col-11 col-md-8">
       <!-- 정렬 -->
       <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
         <b-dropdown-item

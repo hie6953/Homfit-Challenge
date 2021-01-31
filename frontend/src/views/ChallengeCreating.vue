@@ -1,38 +1,70 @@
 <template>
   <div class="background-creating ">
-    <div class="component col-md-8 col-10 mx-auto">
+    <div class="component col-md-8 col-11 mx-auto">
       <div class="creating-progress-bar">
         <ul id="creating-progress-list">
           <li>
             <img src="@/assets/challengeCreating/information.png" />
             <br />
-            <span class="creating-progress-check-icon"
-              ><b-icon icon="check"></b-icon
-            ></span>
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 1 }"
+            >
+              <b-icon v-if="pageComplete[0] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[0] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[0] == 2" icon="check"></b-icon>
+            </span>
             <p>소개</p>
           </li>
           <li>
             <img src="@/assets/challengeCreating/calendar.png" />
             <br />
-            <span class="creating-progress-check-icon"
-              ><b-icon icon="check"></b-icon
-            ></span>
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 2 }"
+            >
+              <b-icon v-if="pageComplete[1] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[1] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[1] == 2" icon="check"></b-icon>
+            </span>
             <p>기간</p>
           </li>
           <li>
             <img src="@/assets/challengeCreating/certification.png" />
             <br />
-            <span class="creating-progress-check-icon"
-              ><b-icon icon="check"></b-icon
-            ></span>
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 3 }"
+            >
+              <b-icon v-if="pageComplete[2] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[2] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[2] == 2" icon="check"></b-icon>
+            </span>
             <p>인증</p>
           </li>
           <li>
             <img src="@/assets/challengeCreating/hashtag.png" />
             <br />
-            <span class="creating-progress-check-icon"
-              ><b-icon icon="check"></b-icon
-            ></span>
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 4 }"
+            >
+              <b-icon v-if="pageComplete[3] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[3] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[3] == 2" icon="check"></b-icon>
+            </span>
             <p>태그</p>
           </li>
         </ul>
@@ -105,8 +137,9 @@ export default {
   data() {
     return {
       page: 1,
+      pageComplete: [1, 0, 0, 0], //0:안함, 1:진행중, 2:완료
       challenge: {
-        kind: 1,
+        kind: 0,
         fit_id: 1,
         bodyList: [],
         challenge_title: '',
@@ -220,7 +253,9 @@ export default {
     },
 
     NextPage: function() {
+      this.pageComplete[this.page] == 2;
       ++this.page;
+      this.pageComplete[this.page] == 1;
     },
     PrevPage: function() {
       --this.page;

@@ -6,7 +6,7 @@
 
 .component {
   /* background-color: #ffffff; */
-  box-shadow: 0px 14px 30px rgba(34, 35, 58, 0.3);
+  box-shadow: 0px 14px 30px rgba(34, 35, 58, 0.4);
   padding: 45px 55px;
   border-radius: 15px;
   transition: all 0.3s;
@@ -49,12 +49,12 @@
   z-index: -1;
 }
 
-.creating-progress-bar li:nth-child(3) .creating-progress-check-icon {
-  background-color: #e65c2e;
+.this-page {
+  background-color: #e65c2e !important;
 }
 
-.creating-progress-bar li:nth-child(3) .creating-progress-check-icon::after {
-  background-color: #e65c2e;
+.this-page::after {
+  background-color: #e65c2e !important;
 }
 
 .creating-progress-bar li:first-child .creating-progress-check-icon::after {
@@ -74,6 +74,233 @@ h4 {
 
 .next-page-button {
   float: right;
+}
+
+/* 챌린지 개설 페이지 */
+
+@media (min-width: 480px) {
+  .challenge_kind_area {
+    text-align: center;
+  }
+}
+
+.challenge_bodyList:checked,
+.challenge_bodyList:not(:checked),
+.challenge_kind:checked,
+.challenge_kind:not(:checked) {
+  visibility: hidden;
+}
+
+.challenge_kind:checked + label,
+.challenge_kind:not(:checked) + label {
+  position: relative;
+  display: inline-block;
+  padding: 10px 3vw;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0 auto;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+  -webkit-text-stroke: 1px #ffffff;
+  text-stroke: 1px #ffffff;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  color: transparent;
+}
+.challenge_kind:not(:checked) + label {
+  background-color: #dbdbdb;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.challenge_kind:checked + label {
+  background-color: transparent;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.challenge_kind:not(:checked) + label:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.challenge_kind:checked + label::before,
+.challenge_kind:not(:checked) + label::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-image: linear-gradient(298deg, #e65c2e, #eac03a);
+  z-index: -1;
+}
+.challenge_kind:checked + label span,
+.challenge_kind:not(:checked) + label span {
+  position: relative;
+  display: block;
+}
+.challenge_kind:checked + label span::before {
+  position: absolute;
+  content: attr(data-hover);
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-text-stroke: transparent;
+  text-stroke: transparent;
+  -webkit-text-fill-color: #ffffff;
+  text-fill-color: #ffffff;
+  color: #ffffff;
+  -webkit-transition: max-height 0.3s;
+  -moz-transition: max-height 0.3s;
+  transition: max-height 0.3s;
+}
+
+.challenge_kind:not(:checked) + label span::before {
+  position: absolute;
+  content: attr(data-hover);
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  -webkit-text-stroke: transparent;
+  text-stroke: transparent;
+  -webkit-text-fill-color: #ffffff;
+  text-fill-color: #ffffff;
+  color: #ffffff;
+  -webkit-transition: max-height 0.3s;
+  -moz-transition: max-height 0.3s;
+  transition: max-height 0.3s;
+}
+.challenge_kind:not(:checked) + label span::before {
+  max-height: 0;
+}
+.challenge_kind:checked + label span::before {
+  max-height: 100%;
+}
+
+:root {
+  --white: #ffffff;
+  --light: #f0eff3;
+  --black: #000000;
+  --dark-blue: #1f2029;
+  --dark-light: #353746;
+  --red: #da2c4d;
+  --yellow: #f8ab37;
+  --grey: #ecedf3;
+}
+
+.challenge_bodyList:checked + label,
+.challenge_bodyList:not(:checked) + label {
+  position: relative;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  padding: 0;
+  padding: 6px 25px;
+  font-size: 14px;
+  line-height: 30px;
+  letter-spacing: 1px;
+  margin: 0 auto;
+  margin-left: 6px;
+  margin-right: 6px;
+  margin-bottom: 16px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  text-transform: uppercase;
+  background-color: var(--dark-light);
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.challenge_bodyList:not(:checked) + label::before {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.challenge_bodyList:checked + label::before {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.challenge_bodyList:not(:checked) + label:hover::before {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.challenge_bodyList:checked + label::before,
+.challenge_bodyList:not(:checked) + label::before {
+  position: absolute;
+  content: '';
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 4px;
+  z-index: -2;
+  background-image: linear-gradient(138deg, var(--red), var(--yellow));
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.challenge_bodyList:not(:checked) + label::before {
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+}
+.challenge_bodyList:checked + label::after,
+.challenge_bodyList:not(:checked) + label::after {
+  position: absolute;
+  content: '';
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 4px;
+  z-index: -2;
+  background-color: var(--dark-light);
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.challenge_bodyList:checked + label::after {
+  opacity: 0;
+}
+.challenge_bodyList:checked + label .uil,
+.challenge_bodyList:not(:checked) + label .uil {
+  font-size: 20px;
+}
+.challenge_bodyList:checked + label .text,
+.challenge_bodyList:not(:checked) + label .text {
+  position: relative;
+  display: inline-block;
+  -webkit-transition: opacity 300ms linear;
+  transition: opacity 300ms linear;
+}
+.challenge_bodyList:checked + label .text {
+  opacity: 0.6;
+}
+.challenge_bodyList:checked + label .text::after,
+.challenge_bodyList:not(:checked) + label .text::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  left: 0;
+  top: 50%;
+  margin-top: -1px;
+  height: 2px;
+  background-image: linear-gradient(138deg, var(--red), var(--yellow));
+  z-index: 1;
+  -webkit-transition: all 300ms linear;
+  transition: all 300ms linear;
 }
 
 /* 태그페이지 */

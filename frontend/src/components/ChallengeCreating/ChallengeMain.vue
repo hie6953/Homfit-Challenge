@@ -1,23 +1,63 @@
 <template>
-  <div>
+  <form>
+    <!-- 챌린지 명, 챌린지 이미지, 챌린지소개 -->
     <div>
-      <input
-        type="radio"
-        name="fit_category"
-        value="1"
-        v-model="kind"
-        id="fit_id_exercise"
-      />
-      <label for="fit_id_exercise">운동</label>
-      <input
-        type="radio"
-        name="fit_category"
-        value="2"
-        v-model="kind"
-        id="fit_id_diet"
-      />
-      <label for="fit_id_diet">식단</label>
+      <h4>챌린지 정보</h4>
+      <br />
+      <b-container>
+        <b-row>
+          <b-col sm="3">
+            <label for="challenge_title_input">챌린지 이름</label>
+          </b-col>
+          <b-col sm="9">
+            <b-form-input
+              id="challenge_title_input"
+              type="text"
+              :state="challengeTitleState"
+              placeholder="챌린지 이름을 입력하세요(1~20자)"
+              v-model="challenge_title"
+            ></b-form-input>
+            <b-form-invalid-feedback id="challenge_title_input">
+              챌린지 이름을 20자 이내로 입력하세요.
+            </b-form-invalid-feedback>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          <b-col sm="3">
+            <label for="challenge_contents_texteditor">챌린지 설명</label>
+          </b-col>
+          <b-col sm="9"><TextEditor></TextEditor> </b-col>
+        </b-row>
+      </b-container>
     </div>
+    <div>
+      <div class="challenge_kind_area mx-auto">
+        <input
+          class="challenge_kind"
+          type="radio"
+          name="kind"
+          value="1"
+          id="fit_id_exercise"
+          v-model="kind"
+        />
+        <label for="fit_id_exercise">
+          <span data-hover="운동">운동</span>
+        </label>
+        <input
+          class="challenge_kind"
+          type="radio"
+          name="kind"
+          value="2"
+          id="fit_id_diet"
+          v-model="kind"
+        />
+        <label for="fit_id_diet">
+          <span data-hover="식단">식단</span>
+        </label>
+      </div>
+    </div>
+
     <div v-if="kind == '1'">
       <h4>운동종류 선택</h4>
       <div>
@@ -103,23 +143,86 @@
         <input type="checkbox" value="9" v-model="bodyList" id="bodyList_etc" />
         <label for="bodyList_etc">기타</label>
       </div>
-    </div>
 
-    <!-- 챌린지 명, 챌린지 이미지, 챌린지소개 -->
-    <div>
-      <hr />
-      챌린지 명 : <input type="text" v-model="challenge_title" />
-      <br />
-      챌린지 설명 :
-      <textarea v-model="challenge_contents" />
+      <div class="col-12 pb-5">
+        <input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-1"
+        />
+        <label for="booking-1"> <span class="text">전신</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-2"
+        />
+        <label for="booking-2"> <span class="text">상체</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-3"
+        />
+        <label for="booking-3"> <span class="text">하체</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-4"
+        />
+        <label for="booking-4"> <span class="text">가슴</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-5"
+        />
+        <label for="booking-5"> <span class="text">팔</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-6"
+        />
+        <label for="booking-6"> <span class="text">복부</span> </label
+        ><input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-7"
+        />
+        <label for="booking-7"> <span class="text">엉덩이</span> </label>
+        <input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-7"
+        />
+        <label for="booking-7"> <span class="text">다리</span> </label>
+        <input
+          class="challenge_bodyList"
+          type="checkbox"
+          name="bodyList"
+          id="booking-7"
+        />
+        <label for="booking-7"> <span class="text">기타</span> </label>
+      </div>
     </div>
 
     <b-button class="next-page-button" @click="NextPage()">Next</b-button>
-  </div>
+  </form>
 </template>
 
 <script>
+import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
+
 export default {
+  components: {
+    TextEditor,
+  },
+
   props: {
     props_kind: Number,
     props_fit_id: Number,
@@ -162,6 +265,13 @@ export default {
         this.challenge_title,
         this.challenge_contents
       );
+    },
+  },
+
+  computed: {
+    challengeTitleState() {
+      if (this.challenge_title.length == 0) return null;
+      return this.challenge_title.length <= 20;
     },
   },
 };
