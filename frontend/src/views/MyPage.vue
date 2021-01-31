@@ -74,27 +74,99 @@
     </div>
 
     <!-- 챌린지 현황 -->
-    <div class="mx-auto col-8">
+    <div class="mx-auto col-8 user-status-todo">
       <!-- 과제 -->
+      <div class="user-challenge-status">
+        <h3 class="label-challenge-status">챌린지 현황</h3>
+        <div class="move-challenge-list">
+          <div class="status-list">
+            <div class="status">
+              <span>참가중</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+          <div class="status-list">
+            <div class="status">
+              <span>완료</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+          <div class="status-list">
+            <div class="status">
+              <span>개설</span>
+            </div>
+            <div class="status-amount">
+              <span>{{ challenge.ing }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-bar-second"></div>
+      <!-- 나의 과제 -->
+      <div class="user-todo-list">
+        <h3 class="label-today-todo">오늘의 과제</h3>
+        <ToDoList />
+      </div>
+    </div>
 
-      <!-- 나의피드 -->
+    <!-- 나의피드 -->
+    <div class="mx-auto col-8 myfeeds">
+      <div class="mypage-myfeed">
+        <h3 class="my-feed-label">나의 피드</h3>
+        <div class="my-feed-plus">
+          <p class="mb-2">
+            <b-icon icon="plus"></b-icon>
+            전체보기
+          </p>
+        </div>
+        <div class="grid-feed">
+          <MyPageFeed />
+        </div>
+        <br />
+      </div>
+      <br />
 
       <!-- 나의눈바디 -->
+      <h3 class="my-body-label">나의 눈바디</h3>
+      <div class="my-feed-plus">
+        <p class="mb-2">
+          <b-icon icon="plus"></b-icon>
+          전체보기
+        </p>
+      </div>
+      <div class="grid-feed">
+        <MyPageFeed />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ToDoList from '../components/ToDoList.vue';
+import MyPageFeed from '../components/MyPageFeed.vue';
 import '../assets/css/mypage.css';
 
 export default {
   name: 'Mypage',
+  components: {
+    ToDoList,
+    MyPageFeed,
+  },
   data: function() {
     return {
       user: {
         nick_name: '이건내닉네임이야',
         point: '200',
         grade: 'bronze',
+      },
+      challenge: {
+        ing: '3',
+        done: '5',
+        create: '1',
       },
     };
   },
