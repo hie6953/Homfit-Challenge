@@ -1,15 +1,32 @@
 <template>
-  <ul class="list">
-    <li class="list__item" v-for="todoItem in todoItems" v-bind:key="todoItem">
-      <input type="checkbox" v-bind:id="todoItem.item" />
-      <label v-bind:for="todoItem.item" class="list__label">
-        <p class="list__text">{{ todoItem }}</p>
-      </label>
-    </li>
-  </ul>
+  <div class="todoList">
+    <div class="content">
+      <ul class="todos align">
+        <li>
+          <input type="checkbox" id="todo_1" />
+          <label for="todo_1">
+            <span class="check"></span>
+            땅끄부부와 운동해요
+          </label>
+          <i class="far fa-trash-alt delete"></i>
+        </li>
+
+        <li>
+          <input type="checkbox" id="todo_2" />
+          <label for="todo_2">
+            <span class="check"></span>
+            이불 밖은 위험해요
+          </label>
+          <i class="far fa-trash-alt delete"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
+import '../assets/css/todolist.css';
+
 export default {
   data() {
     return {

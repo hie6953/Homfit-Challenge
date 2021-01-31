@@ -107,19 +107,34 @@
       </div>
       <div class="vertical-bar-second"></div>
       <!-- 나의 과제 -->
-      <div class="user-todo-list"></div>
+      <div class="user-todo-list">
+        <h3 class="label-today-todo">오늘의 과제</h3>
+        <ToDoList />
+      </div>
     </div>
 
     <!-- 나의피드 -->
+    <div class="mx-auto col-8 myfeeds">
+      <h3 class="my-feed-label">나의 피드</h3>
+      <div class="grid-feed">
+        <MyPageFeed />
+      </div>
+    </div>
     <!-- 나의눈바디 -->
   </div>
 </template>
 
 <script>
+import ToDoList from '../components/ToDoList.vue';
+import MyPageFeed from '../components/MyPageFeed.vue';
 import '../assets/css/mypage.css';
 
 export default {
   name: 'Mypage',
+  components: {
+    ToDoList,
+    MyPageFeed,
+  },
   data: function() {
     return {
       user: {
