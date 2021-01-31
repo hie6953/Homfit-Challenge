@@ -2,8 +2,7 @@
   <form>
     <!-- 챌린지 명, 챌린지 이미지, 챌린지소개 -->
     <div>
-      <h4>챌린지 정보</h4>
-      <br />
+      <h4 class="challenge-creating-title">챌린지 정보</h4>
       <b-container>
         <b-row>
           <b-col sm="3">
@@ -27,12 +26,14 @@
           <b-col sm="3">
             <label for="challenge_contents_texteditor">챌린지 설명</label>
           </b-col>
-          <b-col sm="9"><TextEditor></TextEditor> </b-col>
+          <b-col sm="9">
+            <!-- <TextEditor></TextEditor>  -->
+            </b-col>
         </b-row>
       </b-container>
     </div>
     <div>
-      <div class="challenge_kind_area mx-auto">
+      <div class="align-center mx-auto">
         <input
           class="challenge_kind"
           type="radio"
@@ -59,169 +60,188 @@
     </div>
 
     <div v-if="kind == '1'">
-      <h4>운동종류 선택</h4>
-      <div>
-        <input type="radio" value="1" v-model="fit_id" id="fit_id_yoga" />
-        <label for="fit_id_yoga">요가</label>
-        <br />
-        <input type="radio" value="2" v-model="fit_id" id="fit_id_pilates" />
-        <label for="fit_id_pilates">필라테스</label>
-        <br />
-        <input type="radio" value="3" v-model="fit_id" id="fit_id_aerobic" />
-        <label for="fit_id_aerobic">유산소운동</label>
-        <br />
-        <input type="radio" value="4" v-model="fit_id" id="fit_id_dance" />
-        <label for="fit_id_dance">댄스</label>
-        <br />
-        <input type="radio" value="5" v-model="fit_id" id="fit_id_stretching" />
-        <label for="fit_id_stretching">스트레칭</label>
-        <br />
-        <input type="radio" value="6" v-model="fit_id" id="fit_id_strength" />
-        <label for="fit_id_strength">근력운동</label>
-        <br />
-        <input type="radio" value="7" v-model="fit_id" id="fit_id_kids" />
-        <label for="fit_id_kids">키즈</label>
-        <br />
-        <input type="radio" value="8" v-model="fit_id" id="fit_id_boxing" />
-        <label for="fit_id_boxing">복싱</label>
-        <br />
-        <input type="radio" value="10" v-model="fit_id" id="fit_id_etc" />
-        <label for="fit_id_etc">기타</label>
+      <h4 class="challenge-creating-title">운동종류 선택</h4>
+      <div class="challenge-fit align-center">
+        <b-button
+          :class="{ choice: fit_id == '1', 'not-choice': fit_id != '1' }"
+          @click="FitId('1')"
+        >
+          <img src="@/assets/category/요가.png" />
+          <br />
+          <span>요가</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '2', 'not-choice': fit_id != '2' }"
+          @click="FitId('2')"
+        >
+          <img src="@/assets/category/필라테스.png" />
+          <br />
+          <span>필라테스</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '3', 'not-choice': fit_id != '3' }"
+          @click="FitId('3')"
+        >
+          <img src="@/assets/category/유산소.png" />
+          <br />
+          <span>유산소</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '4', 'not-choice': fit_id != '4' }"
+          @click="FitId('4')"
+        >
+          <img src="@/assets/category/댄스.png" />
+          <br />
+          <span>댄스</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '5', 'not-choice': fit_id != '5' }"
+          @click="FitId('5')"
+        >
+          <img src="@/assets/category/스트레칭.png" />
+          <br />
+          <span>스트레칭</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '6', 'not-choice': fit_id != '6' }"
+          @click="FitId('6')"
+        >
+          <img src="@/assets/category/근력.png" />
+          <br />
+          <span>근력</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '7', 'not-choice': fit_id != '7' }"
+          @click="FitId('7')"
+        >
+          <img src="@/assets/category/키즈.png" />
+          <br />
+          <span>키즈</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '8', 'not-choice': fit_id != '8' }"
+          @click="FitId('8')"
+        >
+          <img src="@/assets/category/복싱.png" />
+          <br />
+          <span>복싱</span>
+        </b-button>
+        <b-button
+          :class="{ choice: fit_id == '10', 'not-choice': fit_id != '10' }"
+          @click="FitId('10')"
+        >
+          <img src="@/assets/category/기타.png" />
+          <br />
+          <span>기타</span>
+        </b-button>
       </div>
-      <hr />
-      <div>
-        <h4>부위별 선택</h4>
+
+      <div class="align-center col-12 col-md-8 pb-5 mx-auto">
+        <h4 class="challenge-creating-title">부위별 선택</h4>
         <input
+          class="challenge-bodyList"
           type="checkbox"
+          name="bodyList"
           value="1"
           v-model="bodyList"
           id="bodyList_whole"
         />
-        <label for="bodyList_whole">전신</label>
-        <br />
-        <input
+        <label for="bodyList_whole"> <span class="text">전신</span> </label
+        ><input
+          class="challenge-bodyList"
           type="checkbox"
+          name="bodyList"
           value="2"
           v-model="bodyList"
           id="bodyList_upper"
         />
-        <label for="bodyList_upper">상체</label>
-        <br />
-        <input
+        <label for="bodyList_upper"> <span class="text">상체</span> </label
+        ><input
+          class="challenge-bodyList"
           type="checkbox"
+          name="bodyList"
           value="3"
           v-model="bodyList"
           id="bodyList_lower"
         />
-        <label for="bodyList_lower">하체</label>
-        <br />
-        <input
+        <label for="bodyList_lower"> <span class="text">하체</span> </label
+        ><input
+          class="challenge-bodyList"
           type="checkbox"
+          name="bodyList"
           value="4"
           v-model="bodyList"
           id="bodyList_chest"
         />
-        <label for="bodyList_chest">가슴</label>
-        <br />
-        <input type="checkbox" value="5" v-model="bodyList" id="bodyList_arm" />
-        <label for="bodyList_arm">팔</label>
-        <br />
-        <input
+        <label for="bodyList_chest"> <span class="text">가슴</span> </label
+        ><input
+          class="challenge-bodyList"
           type="checkbox"
+          name="bodyList"
+          value="5"
+          v-model="bodyList"
+          id="bodyList_arm"
+        />
+        <label for="bodyList_arm"> <span class="text">팔</span> </label
+        ><input
+          class="challenge-bodyList"
+          type="checkbox"
+          name="bodyList"
           value="6"
           v-model="bodyList"
           id="bodyList_abdominal"
         />
-        <label for="bodyList_abdominal">복부</label>
-        <br />
-        <input type="checkbox" value="7" v-model="bodyList" id="bodyList_hip" />
-        <label for="bodyList_hip">엉덩이</label>
-        <br />
-        <input type="checkbox" value="8" v-model="bodyList" id="bodyList_leg" />
-        <label for="bodyList_leg">다리</label>
-        <br />
-        <input type="checkbox" value="9" v-model="bodyList" id="bodyList_etc" />
-        <label for="bodyList_etc">기타</label>
-      </div>
-
-      <div class="col-12 pb-5">
+        <label for="bodyList_abdominal"> <span class="text">복부</span> </label
+        ><input
+          class="challenge-bodyList"
+          type="checkbox"
+          name="bodyList"
+          value="7"
+          v-model="bodyList"
+          id="bodyList_hip"
+        />
+        <label for="bodyList_hip"> <span class="text">엉덩이</span> </label>
         <input
-          class="challenge_bodyList"
+          class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          id="booking-1"
+          value="8"
+          v-model="bodyList"
+          id="bodyList_leg"
         />
-        <label for="booking-1"> <span class="text">전신</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-2"
-        />
-        <label for="booking-2"> <span class="text">상체</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-3"
-        />
-        <label for="booking-3"> <span class="text">하체</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-4"
-        />
-        <label for="booking-4"> <span class="text">가슴</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-5"
-        />
-        <label for="booking-5"> <span class="text">팔</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-6"
-        />
-        <label for="booking-6"> <span class="text">복부</span> </label
-        ><input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-7"
-        />
-        <label for="booking-7"> <span class="text">엉덩이</span> </label>
+        <label for="bodyList_leg"> <span class="text">다리</span> </label>
         <input
-          class="challenge_bodyList"
+          class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          id="booking-7"
+          id="bodyList_etc"
+          value="9"
+          v-model="bodyList"
         />
-        <label for="booking-7"> <span class="text">다리</span> </label>
-        <input
-          class="challenge_bodyList"
-          type="checkbox"
-          name="bodyList"
-          id="booking-7"
-        />
-        <label for="booking-7"> <span class="text">기타</span> </label>
+        <label for="bodyList_etc"> <span class="text">기타</span> </label>
       </div>
     </div>
 
-    <b-button class="next-page-button" @click="NextPage()">Next</b-button>
+    <div class="mb-4">
+<b-button
+      class="next-page-button"
+      :class="{ disabled: !canGoNext }"
+      @click="(e) => canGoNext && NextPage()"
+      aria-disabled="true"
+      ><b-icon icon="arrow-right-circle-fill" scale="1.5"></b-icon
+    ></b-button>
+    </div>
+    
   </form>
 </template>
 
 <script>
-import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
+// import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
 
 export default {
-  components: {
-    TextEditor,
-  },
+  // components: {
+  //   TextEditor,
+  // },
 
   props: {
     props_kind: Number,
@@ -232,11 +252,12 @@ export default {
   },
   data() {
     return {
-      kind: 0,
-      fit_id: 0,
+      kind: "0",
+      fit_id: "0",
       bodyList: [],
-      challenge_title: '',
-      challenge_contents: '',
+      challenge_title: "",
+      challenge_contents: "",
+      canGoNext: false,
     };
   },
   created() {
@@ -248,17 +269,45 @@ export default {
   },
   watch: {
     kind: function() {
-      if (this.kind == '1') {
-        this.fit_id = '1';
+      if (this.kind == "1") {
+        this.fit_id = "1";
       } else {
-        this.fit_id = '9';
+        this.bodyList = [];
+        this.fit_id = "9";
       }
+    },
+    fit_id: function() {
+      this.CanGoNext();
+    },
+    bodyList: function() {
+      this.CanGoNext();
+    },
+    challenge_title: function() {
+      this.CanGoNext();
+    },
+    challenge_contents: function() {
+      this.CanGoNext();
     },
   },
   methods: {
+    FitId: function(num) {
+      this.fit_id = num;
+    },
+    CanGoNext: function() {
+      if (
+        this.challenge_title.length > 0 &&
+        this.challenge_title.length <= 20 &&
+        this.challenge_contents.length > 0 &&
+        ((this.kind != "0" && this.bodyList.length > 0) || this.kind == "2")
+      ) {
+        this.canGoNext = true;
+      } else {
+        this.canGoNext = false;
+      }
+    },
     NextPage: function() {
       this.$emit(
-        'NextPage',
+        "NextPage",
         parseInt(this.kind),
         parseInt(this.fit_id),
         this.bodyList,

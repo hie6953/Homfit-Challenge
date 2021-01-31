@@ -1,0 +1,118 @@
+/* vl-calendar-month */
+.vl-calendar-month {
+  padding: 0 20px;
+  display: inline-block;
+}
+
+.vl-calendar-month__title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.vl-calendar-month__week-day {
+  display: inline-block;
+  margin-bottom: 10px;
+  width: 14%;
+  text-align: center;
+  color: #e65c2e;
+  font-size: 12px;
+}
+
+.vl-calendar-month__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 0;
+  cursor: pointer;
+  width: 14%;
+  height: 24px;
+}
+
+.vl-calendar-month__day.disabled {
+  color: #b5b5b5;
+  pointer-events: none;
+}
+.vl-calendar-month__day.disabled--first {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.vl-calendar-month__day.disabled--last {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.vl-calendar-month__day.selected {
+  background: #e65c2e;
+  color: #fff;
+  font-weight: 800;
+}
+.vl-calendar-month__day.selected.disabled {
+  border: 1px solid #3e3a4e;
+  background: darken(#e65c2e, 15%);
+  color: #3e3a4e;
+}
+
+.vl-calendar-month__day.selected--first {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.vl-calendar-month__day.selected--last {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.vl-calendar-month__day:hover:not(.selected) {
+  border-radius: 14px;
+  background: #e65c2e;
+  color: #fff;
+  font-weight: 800;
+}
+
+/* vl-calendar */
+.vl-calendar {
+  display: inline-block;
+  position: relative;
+  background: #F6F6F6;
+  padding: 20px 0 0;
+  text-align: center;
+  color: #000;
+  font-size: 14px;
+}
+.vl-calendar__month {
+  display: inline-block;
+  vertical-align: top;
+  margin:10px 0px;
+}
+
+.vl-calendar__arrow {
+  position: absolute;
+  top: 15px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 75%;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.float-left{
+    left:3%;
+}
+.float-right{
+    right:3%;
+}
+
+
+.vl-flex {
+  display: flex;
+}
+
+.vl-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.vl-flex-column {
+  flex-direction: column;
+}

@@ -119,7 +119,7 @@ import ChallengePeriod from '@/components/ChallengeCreating/ChallengePeriod.vue'
 import ChallengeCertification from '@/components/ChallengeCreating/ChallengeCertification.vue';
 import ChallengeTag from '@/components/ChallengeCreating/ChallengeTag.vue';
 
-import '@/assets/css/challengecreating.css';
+import '@/assets/css/ChallengeCreating/challengecreating.css';
 
 import { mapGetters } from 'vuex';
 
@@ -143,7 +143,7 @@ export default {
         fit_id: 1,
         bodyList: [],
         challenge_title: '',
-        challenge_contents: '',
+        challenge_contents: 'dd',
         challenge_img: '',
         start_date: '',
         end_date: '',
