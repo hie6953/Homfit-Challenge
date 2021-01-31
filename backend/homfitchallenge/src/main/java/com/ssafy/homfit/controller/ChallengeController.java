@@ -139,14 +139,20 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 수정 */
-	@PutMapping()
+	@PutMapping
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
-		System.out.println(challenge.getChallenge_id());
+		
+		// null이 아니면 수정 고.
+		//HashMap으로 받아서 - 챌린지
+		//태그
+		//부위 
+		
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+
 	}
 
 	/** 챌린지 삭제 - 태그테이블은 연쇄삭제 x */
@@ -183,7 +189,7 @@ public class ChallengeController {
 		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}
 
-	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */
+	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */ 
 	@GetMapping("/all")
 	public ResponseEntity<Challenge[]> AllChallengeList() {
 		// 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원
