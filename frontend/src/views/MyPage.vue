@@ -115,12 +115,33 @@
 
     <!-- 나의피드 -->
     <div class="mx-auto col-8 myfeeds">
-      <h3 class="my-feed-label">나의 피드</h3>
+      <div class="mypage-myfeed">
+        <h3 class="my-feed-label">나의 피드</h3>
+        <div class="my-feed-plus">
+          <p class="mb-2">
+            <b-icon icon="plus"></b-icon>
+            전체보기
+          </p>
+        </div>
+        <div class="grid-feed">
+          <MyPageFeed />
+        </div>
+        <br />
+      </div>
+      <br />
+
+      <!-- 나의눈바디 -->
+      <h3 class="my-body-label">나의 눈바디</h3>
+      <div class="my-feed-plus">
+        <p class="mb-2">
+          <b-icon icon="plus"></b-icon>
+          전체보기
+        </p>
+      </div>
       <div class="grid-feed">
         <MyPageFeed />
       </div>
     </div>
-    <!-- 나의눈바디 -->
   </div>
 </template>
 

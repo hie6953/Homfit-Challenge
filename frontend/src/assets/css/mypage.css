@@ -208,7 +208,7 @@ input[type='reset'] {
 
 .myfeeds {
   padding-top: 30px;
-  margin-top: 30px;
+  margin-top: 40px;
   background-color: #fafafa;
 }
 
@@ -216,8 +216,26 @@ input[type='reset'] {
   font-weight: bold;
   font-size: 19px;
   padding-bottom: 10px;
-  text-align: left;
+  text-align: center;
 }
 
+.my-body-label {
+  font-weight: bold;
+  font-size: 19px;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.my-feed-plus {
+  text-align: right;
+  margin-right: 15px;
+  font-size: 13px;
+}
+.mypage-myfeed {
+  border-bottom: 1px solid #eaebef;
+  padding-bottom: 10px;
+}
 .grid-feed {
+  margin-top: 15px;
 }
