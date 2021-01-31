@@ -8,7 +8,7 @@ public interface FeedService {
 
     public boolean create(Feed feed) throws Exception;
 
-	public boolean updateImg(Feed feed) throws Exception;
+	public boolean updateImg(int feed_id, String feed_picture) throws Exception;
     
     public List<Feed> searchByTag(String keyword) throws Exception;
 
