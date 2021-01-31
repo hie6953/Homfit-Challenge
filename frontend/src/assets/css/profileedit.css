@@ -1,0 +1,30 @@
+#hr-top {
+  margin: 8px 0 !important;
+}
+
+.profile-edit-container {
+  margin: 20px auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-top: 5px solid #eac03a;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2.5px 5px #ccc;
+}
+
+.user-img {
+  width: 82px;
+  height: 82px;
+  margin-right: 20px;
+  border-radius: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  float: left;
+}
+
+.centered {
+  text-align: center;
+}
+
+.title {
+  padding-top: 15px;
+}
