@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <div class="gallery">
-      <div class="gallery-item" tabindex="0">
+  <div class="feed-container">
+    <div class="gallery ">
+      <div class="gallery-item">
         <img
           src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
           class="gallery-image"

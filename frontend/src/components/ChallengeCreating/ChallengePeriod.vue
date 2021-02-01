@@ -1,6 +1,5 @@
 <template>
   <div>
-    <<<<<<< HEAD
     <!-- 챌린지 기간 선택 -->
     챌린지 시작일 : <input type="date" v-model="start_date" />
     챌린지 종료일 :
