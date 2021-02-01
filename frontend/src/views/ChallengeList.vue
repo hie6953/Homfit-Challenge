@@ -130,11 +130,15 @@
     <!-- <hr id="category-hr-bottom" /> -->
     <div class="mx-auto col-11 col-md-8">
       <!-- 정렬 -->
-      <b-dropdown id="sort-dropdown" variant="outline-dark" :text="sortValue">
+      <b-dropdown
+        id="sort-dropdown"
+        variant="outline-dark"
+        :text="sortList[sortValue]"
+      >
         <b-dropdown-item
           v-for="(value, index) in sortList"
           :key="`${index}_sortValue`"
-          @click="sortValue = value"
+          @click="sortValue = index"
           >{{ value }}</b-dropdown-item
         >
       </b-dropdown>
@@ -264,9 +268,9 @@ export default {
   },
   data() {
     return {
-      category: '0',
+      category: 0,
       sortList: ['인기순', '최신순'],
-      sortValue: '인기순',
+      sortValue: 0,
       period: [],
       day: [],
       challengeList: [
@@ -287,6 +291,13 @@ export default {
     if (category_number) {
       this.category = category_number;
     }
+
+    let category_sort = this.$route.params.category_sort;
+    if (category_sort) {
+      this.sortValue = category_sort;
+    }
+
+    console.log(category_sort + ' ' + category_number);
 
     axios
       .get(`${SERVER_URL}/challenge/all`)
