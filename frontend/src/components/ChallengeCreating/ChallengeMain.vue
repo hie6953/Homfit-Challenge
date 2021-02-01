@@ -27,7 +27,10 @@
             <label for="challenge_contents_texteditor">챌린지 설명</label>
           </b-col>
           <b-col sm="9">
-            <!-- <TextEditor></TextEditor>  -->
+            <TextEditor
+              :props_content="challenge_contents"
+              @input="(data) => GetEditorContent(data)"
+            ></TextEditor>
           </b-col>
         </b-row>
       </b-container>
@@ -236,12 +239,12 @@
 </template>
 
 <script>
-// import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
+import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
 
 export default {
-  // components: {
-  //   TextEditor,
-  // },
+  components: {
+    TextEditor,
+  },
 
   props: {
     props_kind: Number,
@@ -292,6 +295,10 @@ export default {
   methods: {
     FitId: function(num) {
       this.fit_id = num;
+    },
+    GetEditorContent: function(data) {
+      this.challenge_contents = data;
+      console.log(this.challenge_contents);
     },
     CanGoNext: function() {
       if (

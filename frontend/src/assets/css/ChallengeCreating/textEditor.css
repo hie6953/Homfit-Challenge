@@ -1,0 +1,42 @@
+/* textarea */
+.ProseMirror {
+  margin: 0px 0px 20px 0px;
+  border: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+  width: 100%;
+  min-height: 200px;
+}
+
+.btn {
+  border-radius: 0px;
+  background-color: #eac03a;
+  border-color: #eac03a;
+}
+
+.btn:hover {
+  background-color: #e65c2e;
+  border-color: #e65c2e;
+}
+
+.btn:focus,
+.btn:active {
+  background: #e65c2e !important;
+  border-color: #e65c2e;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.editor-buttons-first,
+.editor-buttons-second {
+  width: 100%;
+}
+
+.editor-buttons-first button:first-child {
+  border-radius: 5px 0px 0px 0px !important;
+}
+
+.editor-buttons-first button:last-child {
+  border-radius: 0px 5px 0px 0px !important;
+}
