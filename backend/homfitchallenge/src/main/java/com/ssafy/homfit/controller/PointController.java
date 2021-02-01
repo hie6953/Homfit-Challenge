@@ -34,14 +34,14 @@ public class PointController {
     private PointService pointService;
 
     @ApiOperation(value = "포인트 조회", notes = "해당 회원의 포인트를 조회한다")
-    @GetMapping("/inquiry")
-    public ResponseEntity<Map<String, Object>> inquery(@RequestBody User user){
+    @PostMapping("/inquiry")
+    public ResponseEntity<Map<String, Object>> inquery(@RequestBody String uid){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String msg = null;
         List<Point> list = null;
         try {
-            list = pointService.inquiry(user.getUid());
+            list = pointService.inquiry(uid);
             if(list != null){
                 msg = SUCCESS;
                 status = HttpStatus.OK;
@@ -49,9 +49,12 @@ public class PointController {
                 msg = "empty";
                 status = HttpStatus.OK;
             }
+            resultMap.put("list", list);
+            resultMap.put("msg", msg);
         } catch (Exception e) {
             logger.error("포인트 조회 실패 : {}", e);
             msg = e.getMessage();
+            resultMap.put("msg", msg);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

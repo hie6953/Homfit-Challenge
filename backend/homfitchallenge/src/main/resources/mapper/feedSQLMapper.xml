@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.FeedDAO">
+    <insert id="create" parameterType="feed">
+        insert into feed(feed_picture, maked_uid, challenge_id, register_date, feed_contents)
+        values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
+    </insert>
+
+    <select id="searchByUser" parameterType="String" resultType="feed">
+        select * from feed
+        where maked_uid = #{maked_uid}
+        order by register_date desc
+    </select>
+    
+    <select id="searchByFeedId" parameterType="int" resultType="feed">
+        select * from feed
+        where feed_id = #{feed_id}
+    </select>
+
+    <select id="searchByChallenge" parameterType="int" resultType="feed">
+        select * from feed
+        where challenge_id = #{challenge_id}
+        order by register_date desc
+    </select>
+
+    <!-- <update id="updateLikes" parameterType="int">
+        update feed
+        set like_count = like_count + 1
+        where feed_id = #{feed_id}
+    </update> -->
+
+    <update id="updateImg" parameterType="feed">
+        update feed
+        set feed_picture = #{feed_picture}
+        where feed_id = #{feed_id}
+    </update>
+
+    <select id="searchByChallengeTitle" parameterType="String" resultType="feed">
+        select f.* from feed as f left outer join challenge as c
+        on f.challenge_id = c.challenge_id 
+        where c.challenge_title = #{keyword}
+        order by f.register_date desc
+    </select>
+
+    <select id="searchByChallengeCategory" parameterType="int" resultType="feed">
+        select f.*
+        from feed as f left outer join challenge as c
+        on f.challenge_id = c.challenge_id
+        where c.fit_id = #{keyword}
+        order by f.register_date desc
+    </select>
+
+    <select id="searchByTag" resultType="feed">
+        select * from feed
+        where challenge_id in 
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        order by register_date desc
+    </select>
+
+    <select id="searchCidKeyword" parameterType="String" resultType="int">
+        select distinct challenge_id
+        from tag_in_challenge as tic left outer join tag as t
+        on tic.tag_id = t.tag_id
+        where t.tag_name like concat('%', #{keyword}, '%')
+    </select>
+
+</mapper>

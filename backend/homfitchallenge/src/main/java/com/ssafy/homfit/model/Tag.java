@@ -4,11 +4,21 @@ public class Tag {
 
 	private int tag_id;
 	private String tag_name;
+	private int challenge_id;
 	
+	
+	public int getChallenge_id() {
+		return challenge_id;
+	}
+
+	public void setChallenge_id(int challenge_id) {
+		this.challenge_id = challenge_id;
+	}
+
 	public Tag() {
 		
 	}
-	
+
 	public Tag(String tag_name) {
 		this.tag_name = tag_name;
 	}
@@ -27,7 +37,8 @@ public class Tag {
 	
 	@Override
 	public String toString() {
-		return "Tag [tag_id=" + tag_id + ", tag_name=" + tag_name + "]";
+		return "Tag [tag_id=" + tag_id + ", tag_name=" + tag_name + ", challenge_id=" + challenge_id + "]";
 	}
+	
 	
 }

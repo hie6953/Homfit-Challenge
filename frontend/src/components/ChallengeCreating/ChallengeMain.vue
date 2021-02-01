@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 운동/식단 선택 -->
     <div>
       <input
         type="radio"
@@ -19,6 +20,8 @@
       />
       <label for="fit_id_diet">식단</label>
     </div>
+
+    <!-- 운동 카테고리 선택 -->
     <div v-if="fit_category == '1'">
       <h4>운동종류 선택</h4>
       <div>
@@ -50,6 +53,8 @@
         <label for="fit_id_etc">기타</label>
       </div>
       <hr />
+
+      <!-- 운동 부위 선택 -->
       <div>
         <h4>부위별 선택</h4>
         <input
@@ -115,11 +120,8 @@
       <textarea v-model="challenge_contents" />
     </div>
 
-    <b-button
-      class="next-page-button"
-      @click="NextPage(fit_id, bodyList, challenge_title, challenge_contents)"
-      >Next</b-button
-    >
+    <!-- 페이지 이동 버튼 -->
+    <b-button class="next-page-button" @click="NextPage()">Next</b-button>
   </div>
 </template>
 
@@ -148,10 +150,12 @@ export default {
     this.challenge_contents = this.props_challenge_contents;
   },
   methods: {
+    // 식단 선택 시 fit_id 9로 처리
     FitIdToDiet: function() {
       this.fit_id = 9;
     },
 
+    // 페이지 이동
     NextPage: function() {
       this.$emit(
         'NextPage',

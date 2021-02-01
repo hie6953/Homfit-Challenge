@@ -1,12 +1,13 @@
 package com.ssafy.homfit.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Arrays;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 챌린지 정보 */
-public class Challenge {
+public class Challenge implements Serializable{
 	
 	private int challenge_id;
 	private String challenge_title;
@@ -26,9 +27,11 @@ public class Challenge {
 	private int period;
 	private String nick_name; //개설자 닉네임
 	private int people; //참여자수
+	private int kind; //종류 1 - 운동, 2 - 식단
+	
+
 	//요일리스트 스트링
 	private String daylist_string;
-	
 	//요일리스트
 	private int[] dayList;
 	//태그리스트
@@ -174,6 +177,12 @@ public class Challenge {
 		this.people = people;
 	}
 	
+	public int getKind() {
+		return kind;
+	}
+	public void setKind(int kind) {
+		this.kind = kind;
+	}
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -182,10 +191,11 @@ public class Challenge {
 				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
 				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
-				+ nick_name + ", people=" + people + ", daylist_string=" + daylist_string + ", dayList="
-				+ Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + ", bodyList="
+				+ nick_name + ", people=" + people + ", kind=" + kind + ", daylist_string=" + daylist_string
+				+ ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + ", bodyList="
 				+ Arrays.toString(bodyList) + "]";
 	}
+	
 	
 	
 }

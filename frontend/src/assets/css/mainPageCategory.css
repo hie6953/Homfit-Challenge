@@ -3,6 +3,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: stretch;
+    padding: 0 30px;
 }
 
 .category-row {
@@ -21,6 +22,7 @@
     color: black;
     text-align: center;
     font-weight: 700;
+    margin-bottom: 0;
 }
 
 /* 이미지 길이 및 투명도 */
@@ -31,7 +33,7 @@
     align-items: center;
     width: 100%;
     transition-duration: 0.2s;
-    opacity: 0.5;
+    opacity: 0.75;
 }
 
 /* 호버시 투명도  */

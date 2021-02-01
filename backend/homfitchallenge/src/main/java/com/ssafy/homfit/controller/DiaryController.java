@@ -16,9 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Api("DiaryController V1")
@@ -73,7 +70,7 @@ public class DiaryController {
     }
 
     @ApiOperation(value = "기록 내용 검색", notes = "사용자의 해당일자 기록 데이터를 반환")
-    @GetMapping(value="/search")
+    @PostMapping(value="/search")
     public ResponseEntity<Diary> search(@RequestBody Diary diary) {
         Diary data = null;
         HttpStatus status = null;

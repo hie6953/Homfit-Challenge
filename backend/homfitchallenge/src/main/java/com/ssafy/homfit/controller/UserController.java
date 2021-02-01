@@ -1,7 +1,6 @@
 package com.ssafy.homfit.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.ssafy.homfit.model.User;
@@ -15,15 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 
 @Api("UserController V1")
 @RestController
@@ -54,6 +57,7 @@ public class UserController {
                 if (userService.getUid(uidToken) == null)
                     break;
             }
+            user.setUid(uidToken);
             if (userService.signup(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.OK;
@@ -83,6 +87,8 @@ public class UserController {
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("access-token", token);
                 resultMap.put("message", SUCCESS);
+                resultMap.put("uid",loginUser.getUid());
+                resultMap.put("nickName", loginUser.getNick_name());
                 status = HttpStatus.ACCEPTED;
             } else {
                 resultMap.put("message", FAIL);
@@ -97,8 +103,8 @@ public class UserController {
     }
 
     @ApiOperation(value = "비밀번호 찾기", notes = "회원 이메일을 통한 비밀번호 찾기", response = String.class)
-    @GetMapping("/findPw")
-    public ResponseEntity<String> findPassword(@RequestBody @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
+    @GetMapping("/findPw/{email}")
+    public ResponseEntity<String> findPassword(@PathVariable @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
         HttpStatus status = null;
         String msg = null;
         String password = null;
@@ -139,6 +145,60 @@ public class UserController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<String>(msg, status);
+    }
+    
+    @PutMapping("/updateImg")
+    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile, @RequestPart("uid") String uid){
+        HttpStatus status = null;
+        String msg = null;
+        try {
+            if(userService.updateImg(uid, imgFile)){
+                msg = SUCCESS;
+                status = HttpStatus.ACCEPTED;
+            }else{
+                msg = FAIL;
+                status = HttpStatus.ACCEPTED;
+            }
+        } catch (Exception e) {
+            logger.error("회원 프로필 사진수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<String>(msg, status);
+    }
+
+    @ApiOperation(value = "닉네임 중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
+    @GetMapping(value="/check/{nickName}")
+    public ResponseEntity<Boolean> checkNickName(@PathVariable String nickName) {
+        boolean check = true;
+        HttpStatus status = null;
+
+        try {
+            check = userService.duplicateNickNameCheck(nickName);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("중복확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(check, status);
+    }
+    
+    @ApiOperation(value = "이메일 중복확인 체크", notes = "해당 이메일이 중복인지 체크한다 중복시 true 반환")
+    @GetMapping(value="/checkemail/{email}")
+    public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
+        boolean check = true;
+        HttpStatus status = null;
+
+        try {
+            check = userService.duplicateEmailCheck(email);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("중복확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(check, status);
     }
 
     // @GetMapping("/test")

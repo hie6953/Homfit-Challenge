@@ -26,9 +26,19 @@
 	<!-- 챌린지 상세 조회 -->
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
 	<select id="selectChallengeByid" parameterType="int" resultType="Challenge">
-		select *
-		from challenge
-		where challenge_id = #{chchallenge_id}
+		select a.*, u.nick_name
+		from challenge as a 
+		join user as u
+		on a.make_uid = u.uid
+		where a.challenge_id = #{chchallenge_id};
+	</select>
+	
+	<!-- 해당 챌린지 부위리스트 select-->
+	<!-- public int[] selectBodyPart(int ChallengeId); -->
+	<select id="selectBodyPart" resultType="int">
+		select body_id
+		from  search_body
+		where challenge_id = #{chchallenge_id};
 	</select>
 	
 	
@@ -85,7 +95,7 @@
 		where challenge_id = #{challenge_id} and uid = #{uid}
 	</delete>
 	
-	<!-- 챌린지 정보 수정 -->
+	<!-- 챌린지 테이블 정보 수정 -->
 	<!-- public int updateChallenge(Challenge challenge); -->
 	<update id="updateChallenge" parameterType="Challenge">
 		update challenge
@@ -97,12 +107,7 @@
 		bad_img = #{bad_img},
 		day_certify_count = #{day_certify_count},
 		only_cam = #{only_cam},
-		start_date = #{start_date} ,
-		end_date = #{end_date},
-		fit_id = #{fit_id},
-		check_date = #{check_date}
-		period = #{period}
-		daylist_string = #{daylist_string}
+		fit_id = #{fit_id}
 		where challenge_id = #{challenge_id}
 	</update>
 	

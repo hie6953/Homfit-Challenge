@@ -24,6 +24,7 @@ public interface ChallengeService {
 	
 	/** 챌린지 부위 */
 	public boolean writeChallengeBody(HashMap<String, Integer> map);
+	public int[] selectBodyPart(int ChallengeId);
 	
 	/** 챌린지 참여 */
 	public boolean joinChallenge(int challenge_id, String uid);

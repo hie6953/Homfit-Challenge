@@ -37,6 +37,11 @@
         :mainPageList="newChallengeList"
       />
     </div>
+    <div style="height:100px;">
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
   </div>
 </template>
 
@@ -127,5 +132,4 @@ export default {
 .main-more:hover {
   text-decoration: none;
 }
-
 </style>

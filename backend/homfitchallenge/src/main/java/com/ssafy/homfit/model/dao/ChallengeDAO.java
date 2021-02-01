@@ -27,6 +27,7 @@ public interface ChallengeDAO {
 	
 	/** 챌린지 부위 */
 	public int insertChallengeBody(HashMap<String, Integer> map);
+	public int[] selectBodyPart(int ChallengeId);
 	
 	/** 챌린지 참여 */
 	public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid );
