@@ -107,7 +107,7 @@
 		bad_img = #{bad_img},
 		day_certify_count = #{day_certify_count},
 		only_cam = #{only_cam},
-		fit_id = #{fit_id},
+		fit_id = #{fit_id}
 		where challenge_id = #{challenge_id}
 	</update>
 	

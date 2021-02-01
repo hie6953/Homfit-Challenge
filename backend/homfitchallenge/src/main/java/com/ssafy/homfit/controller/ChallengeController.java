@@ -73,19 +73,21 @@ public class ChallengeController {
 		String result = SUCCESS;
 
 		try {
-
+			
+			int kind = challenge.getKind(); //챌린지 종류  -> 1-운동, 2-식단
 			int dayList[] = challenge.getDayList();// 요일
-			int bodyList[] = challenge.getBodyList();// 부위
 			String tagList[] = challenge.getTagList();// 태그
-
-			if (dayList == null || dayList.length == 0 || bodyList.length == 0 || bodyList == null) { // 요일, 부위리스트 필수
-																										// 입력값
+			int bodyList[] = challenge.getBodyList();// 부위
+			
+			if ( kind == 0 || dayList == null || dayList.length == 0) { //*종류와 요일은 필수값
 				result = FAIL;
 				throw new Exception();
 			} else {
-
+				if(kind == 1 && (bodyList == null || bodyList.length == 0)) {//*운동이라면 부위선택 필수
+					result = FAIL;
+					throw new Exception();
+				}
 				challenge.setDaylist_string(Arrays.toString(dayList));
-
 				challengeService.writeChallenge(challenge);
 				int challengeId = challenge.getChallenge_id();
 
@@ -95,12 +97,14 @@ public class ChallengeController {
 				map.put("list", IntStream.of(dayList).boxed().collect(Collectors.toList()));
 				challengeService.writeChallengeDay(map);
 
-				// 2. 부위처리
-				for (int i = 0; i < bodyList.length; i++) {
-					HashMap<String, Integer> map_body = new HashMap<String, Integer>();
-					map_body.put("challenge_id", challengeId);
-					map_body.put("body_id", bodyList[i]);
-					challengeService.writeChallengeBody(map_body);
+				// 2. 부위처리 (운동일때만)
+				if(kind == 1) {
+					for (int i = 0; i < bodyList.length; i++) {
+						HashMap<String, Integer> map_body = new HashMap<String, Integer>();
+						map_body.put("challenge_id", challengeId);
+						map_body.put("body_id", bodyList[i]);
+						challengeService.writeChallengeBody(map_body);
+					}
 				}
 
 				// 3. 태그처리 - 입력받았을 경우만
@@ -135,14 +139,22 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 수정 */
-	@PutMapping()
+	@PutMapping
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
-		System.out.println(challenge.getChallenge_id());
+		
+		//챌린지안에 다 받기.
+		//태그*
+		//부위 *
+		//bodylist가 null이면 안바꿔
+		//다 삭제하고 insert?
+		//태그리스트 다 지우고 다시 insert
+		
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+
 	}
 
 	/** 챌린지 삭제 - 태그테이블은 연쇄삭제 x */
@@ -179,7 +191,7 @@ public class ChallengeController {
 		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}
 
-	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */
+	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */ 
 	@GetMapping("/all")
 	public ResponseEntity<Challenge[]> AllChallengeList() {
 		// 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원
