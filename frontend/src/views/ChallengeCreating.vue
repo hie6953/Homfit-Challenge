@@ -1,9 +1,78 @@
 <template>
-  <div class="background">
-    <div class="component col-md-8 col-10 mx-auto">
-      <!-- 챌린지 개설 페이지 -->
+  <div class="background-creating ">
+    <div class="component col-md-8 col-11 mx-auto">
+      <div class="creating-progress-bar">
+        <ul id="creating-progress-list">
+          <li>
+            <img src="@/assets/challengeCreating/information.png" />
+            <br />
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 1 }"
+            >
+              <b-icon v-if="pageComplete[0] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[0] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[0] == 2" icon="check"></b-icon>
+            </span>
+            <p>소개</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/calendar.png" />
+            <br />
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 2 }"
+            >
+              <b-icon v-if="pageComplete[1] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[1] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[1] == 2" icon="check"></b-icon>
+            </span>
+            <p>기간</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/certification.png" />
+            <br />
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 3 }"
+            >
+              <b-icon v-if="pageComplete[2] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[2] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[2] == 2" icon="check"></b-icon>
+            </span>
+            <p>인증</p>
+          </li>
+          <li>
+            <img src="@/assets/challengeCreating/hashtag.png" />
+            <br />
+            <span
+              class="creating-progress-check-icon"
+              :class="{ 'this-page': page == 4 }"
+            >
+              <b-icon v-if="pageComplete[3] == 0" icon="x"></b-icon>
+              <b-icon
+                v-if="pageComplete[3] == 1"
+                icon="arrow-clockwise"
+              ></b-icon>
+              <b-icon v-if="pageComplete[3] == 2" icon="check"></b-icon>
+            </span>
+            <p>태그</p>
+          </li>
+        </ul>
+      </div>
+
       <div v-if="page == 1">
         <ChallengeMain
+          :props_kind="challenge.kind"
           :props_fit_id="challenge.fit_id"
           :props_bodyList="challenge.bodyList"
           :props_challenge_title="challenge.challenge_title"
@@ -15,13 +84,14 @@
         <ChallengePeriod
           :props_start_date="challenge.start_date"
           :props_end_date="challenge.end_date"
+          :props_period="challenge.period"
+          :props_dayList="challenge.dayList"
           @PrevPage="PageTwoPrev"
           @NextPage="PageTwoNext"
         ></ChallengePeriod>
       </div>
       <div v-if="page == 3">
         <ChallengeCertification
-          :props_dayList="challenge.dayList"
           :props_day_certify_count="challenge.day_certify_count"
           :props_challenge_certify_contents="
             challenge.challenge_certify_contents
@@ -50,7 +120,7 @@ import ChallengePeriod from '@/components/ChallengeCreating/ChallengePeriod.vue'
 import ChallengeCertification from '@/components/ChallengeCreating/ChallengeCertification.vue';
 import ChallengeTag from '@/components/ChallengeCreating/ChallengeTag.vue';
 
-import '@/assets/css/challengecreating.css';
+import '@/assets/css/ChallengeCreating/challengecreating.css';
 
 import { mapGetters } from 'vuex';
 
@@ -69,16 +139,16 @@ export default {
     return {
       // 페이지
       page: 1,
-
-      // 챌린지
+      pageComplete: [1, 0, 0, 0], //0:안함, 1:진행중, 2:완료
       challenge: {
+        kind: 0,
         fit_id: 1,
         bodyList: [],
         challenge_title: '',
-        challenge_contents: '',
+        challenge_contents: 'dd',
         challenge_img: '',
-        start_date: '',
-        end_date: '',
+        start_date: null,
+        end_date: null,
         dayList: [],
         day_certify_count: 0,
         challenge_certify_contents: '',
@@ -104,12 +174,6 @@ export default {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
       this.challenge.make_uid = this.getUserUid;
-      this.challenge.period = Math.ceil(
-        (new Date(this.challenge.end_date) -
-          new Date(this.challenge.start_date)) /
-          (1000 * 3600 * 24)
-      );
-      // 리스트 내 string -> integer 변환
       let tempBodyList = new Array(this.challenge.bodyList.length);
       for (let index = 0; index < this.challenge.bodyList.length; index++) {
         tempBodyList[index] = parseInt(this.challenge.bodyList[index]);
@@ -136,11 +200,13 @@ export default {
 
     // 1페이지
     PageOneNext: function(
+      kind,
       fit_id,
       bodyList,
       challenge_title,
       challenge_contents
     ) {
+      this.challenge.kind = kind;
       this.challenge.fit_id = fit_id;
       this.challenge.bodyList = bodyList;
       this.challenge.challenge_title = challenge_title;
@@ -195,7 +261,9 @@ export default {
 
     // 페이지전환
     NextPage: function() {
+      this.pageComplete[this.page] == 2;
       ++this.page;
+      this.pageComplete[this.page] == 1;
     },
     PrevPage: function() {
       --this.page;
