@@ -90,7 +90,14 @@
     		<version>2.6</version>
 		</dependency>
 
+		<!-- using lettuce for redis -->
+		<dependency>
+    		<groupId>io.lettuce</groupId>
+    		<artifactId>lettuce-core</artifactId>
+    		<version>6.0.2.RELEASE</version>
+		</dependency>
 
+		
 		
 	</dependencies>
 
