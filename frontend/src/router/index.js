@@ -49,8 +49,8 @@ const routes = [
     component: () => import('../views/ChallengeList.vue'),
   },
   {
-    path: '/challengelist/:category_number',
-    name: 'ChallengeList',
+    path: '/challengelist/:category_number/:category_sort',
+    name: 'ChallengeListCategory',
     component: () => import('../views/ChallengeList.vue'),
   },
   {
