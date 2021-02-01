@@ -1,79 +1,69 @@
 <template>
   <vl-calendar
-    @input="date => emitDate(date)"
+    @input="(date) => emitDate(date)"
     :is-selected="isSelected"
     :is-disabled="calculateDisabled"
-    :custom-classes="customClasses"
-    :show-weeks-number="showWeeksNumber"
-    :single-month="singleMonth"
     :first-day-of-week="firstDayOfWeek"
     ref="calendar"
   />
 </template>
 
 <script>
-import VlCalendar from './vl-calendar'
+import VlCalendar from './vl-calendar';
 import '@/assets/css/ChallengeCreating/rangeSelector.css';
 const DAYS_SHORTCUTS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
 export default {
   name: 'VlRangeSelector',
   components: {
-    VlCalendar
+    VlCalendar,
   },
 
   props: {
     startDate: String,
     endDate: String,
-    customClasses: Object,
-    showWeeksNumber: Boolean,
-    blockStartDate: Boolean,
-    disabled: Boolean,
-    isDisabled: Function,
-    singleMonth: Boolean,
-    enableSingleDate: Boolean,
     firstDayOfWeek: {
       type: String,
-      validator: v =>  DAYS_SHORTCUTS.includes(v),
-      default: 'mon'
-    }
+      validator: (v) => DAYS_SHORTCUTS.includes(v),
+      default: 'sun',
+    },
+  },
+
+  data() {
+    return {
+      maxEndDate: '',
+    };
   },
 
   methods: {
-    emitDate (date) {
-      if (this.blockStartDate || (this.startDate && !this.endDate && date >= this.startDate)) {
-        this.$emit('update:endDate', date)
+    emitDate(date) {
+      if (this.startDate && !this.endDate && date >= this.startDate) {
+        this.$emit('endDate', date);
       } else {
-        this.$emit('update:startDate', date)
+        this.$emit('startDate', date);
 
         if (this.endDate) {
-          this.$emit('update:endDate', null)
+          this.$emit('endDate', null);
         }
       }
-      this.$emit('focus')
+      this.$emit('focus');
     },
 
-    isSelected (date) {
+    isSelected(date) {
       if (!this.startDate && !this.endDate) {
-        return false
+        return false;
       } else if (!this.endDate) {
-        return this.startDate === date
+        return this.startDate === date;
       } else {
-        return date >= this.startDate && date <= this.endDate
+        return date >= this.startDate && date <= this.endDate;
       }
     },
 
-    calculateDisabled (date) {
-      const isDisabled = this.isDisabled || (() => false)
-
-      if (this.disabled) {
-        return true
-      } else if (this.startDate && !this.endDate) {
-        return isDisabled(date) || (!this.enableSingleDate && date === this.startDate)
-      } else {
-        return isDisabled(date)
-      }
-    }
-  }
-}
+    calculateDisabled(date) {
+      if (this.startDate && !this.endDate) {
+        return date < this.startDate;
+      } else return false;
+    },
+  },
+};
 </script>

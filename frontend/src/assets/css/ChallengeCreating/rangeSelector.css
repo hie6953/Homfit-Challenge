@@ -29,6 +29,25 @@
   height: 24px;
 }
 
+.vl-calendar-month__day--offset-1 {
+  margin-left: calc(1 * 14%);
+}
+.vl-calendar-month__day--offset-2 {
+  margin-left: calc(2 * 14%);
+}
+.vl-calendar-month__day--offset-3 {
+  margin-left: calc(3 * 14%);
+}
+.vl-calendar-month__day--offset-4 {
+  margin-left: calc(4 * 14%);
+}
+.vl-calendar-month__day--offset-5 {
+  margin-left: calc(5 * 14%);
+}
+.vl-calendar-month__day--offset-6 {
+  margin-left: calc(6 * 14%);
+}
+
 .vl-calendar-month__day.disabled {
   color: #b5b5b5;
   pointer-events: none;
@@ -49,9 +68,9 @@
   font-weight: 800;
 }
 .vl-calendar-month__day.selected.disabled {
-  border: 1px solid #3e3a4e;
+  border: 1px solid #fff;
   background: darken(#e65c2e, 15%);
-  color: #3e3a4e;
+  color: #fff;
 }
 
 .vl-calendar-month__day.selected--first {
@@ -75,7 +94,7 @@
 .vl-calendar {
   display: inline-block;
   position: relative;
-  background: #F6F6F6;
+  background: #f6f6f6;
   padding: 20px 0 0;
   text-align: center;
   color: #000;
@@ -84,7 +103,7 @@
 .vl-calendar__month {
   display: inline-block;
   vertical-align: top;
-  margin:10px 0px;
+  margin: 10px 0px;
 }
 
 .vl-calendar__arrow {
@@ -97,13 +116,12 @@
   width: 24px;
   height: 24px;
 }
-.float-left{
-    left:3%;
+.float-left {
+  left: 3%;
 }
-.float-right{
-    right:3%;
+.float-right {
+  right: 3%;
 }
-
 
 .vl-flex {
   display: flex;

@@ -84,13 +84,14 @@
         <ChallengePeriod
           :props_start_date="challenge.start_date"
           :props_end_date="challenge.end_date"
+          :props_period="challenge.period"
+          :props_dayList="challenge.dayList"
           @PrevPage="PageTwoPrev"
           @NextPage="PageTwoNext"
         ></ChallengePeriod>
       </div>
       <div v-if="page == 3">
         <ChallengeCertification
-          :props_dayList="challenge.dayList"
           :props_day_certify_count="challenge.day_certify_count"
           :props_challenge_certify_contents="
             challenge.challenge_certify_contents
@@ -145,8 +146,8 @@ export default {
         challenge_title: '',
         challenge_contents: 'dd',
         challenge_img: '',
-        start_date: '',
-        end_date: '',
+        start_date: null,
+        end_date: null,
         dayList: [],
         day_certify_count: 0,
         challenge_certify_contents: '',
@@ -171,11 +172,7 @@ export default {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
       this.challenge.make_uid = this.getUserUid;
-      this.challenge.period = Math.ceil(
-        (new Date(this.challenge.end_date) -
-          new Date(this.challenge.start_date)) /
-          (1000 * 3600 * 24)
-      );
+
       let tempBodyList = new Array(this.challenge.bodyList.length);
       for (let index = 0; index < this.challenge.bodyList.length; index++) {
         tempBodyList[index] = parseInt(this.challenge.bodyList[index]);

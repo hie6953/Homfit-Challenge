@@ -28,7 +28,7 @@
           </b-col>
           <b-col sm="9">
             <!-- <TextEditor></TextEditor>  -->
-            </b-col>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -223,15 +223,15 @@
     </div>
 
     <div class="mb-4">
-<b-button
-      class="next-page-button"
-      :class="{ disabled: !canGoNext }"
-      @click="(e) => canGoNext && NextPage()"
-      aria-disabled="true"
-      ><b-icon icon="arrow-right-circle-fill" scale="1.5"></b-icon
-    ></b-button>
+      <b-button
+        class="next-page-button"
+        :class="{ disabled: !canGoNext }"
+        @click="(e) => canGoNext && NextPage()"
+        aria-disabled="true"
+        ><span>기간</span
+        ><b-icon icon="arrow-right-circle-fill" scale="1.5"></b-icon
+      ></b-button>
     </div>
-    
   </form>
 </template>
 
@@ -252,11 +252,11 @@ export default {
   },
   data() {
     return {
-      kind: "0",
-      fit_id: "0",
+      kind: '0',
+      fit_id: '0',
       bodyList: [],
-      challenge_title: "",
-      challenge_contents: "",
+      challenge_title: '',
+      challenge_contents: '',
       canGoNext: false,
     };
   },
@@ -269,11 +269,11 @@ export default {
   },
   watch: {
     kind: function() {
-      if (this.kind == "1") {
-        this.fit_id = "1";
+      if (this.kind == '1') {
+        this.fit_id = '1';
       } else {
         this.bodyList = [];
-        this.fit_id = "9";
+        this.fit_id = '9';
       }
     },
     fit_id: function() {
@@ -298,7 +298,7 @@ export default {
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
         this.challenge_contents.length > 0 &&
-        ((this.kind != "0" && this.bodyList.length > 0) || this.kind == "2")
+        ((this.kind != '0' && this.bodyList.length > 0) || this.kind == '2')
       ) {
         this.canGoNext = true;
       } else {
@@ -307,7 +307,7 @@ export default {
     },
     NextPage: function() {
       this.$emit(
-        "NextPage",
+        'NextPage',
         parseInt(this.kind),
         parseInt(this.fit_id),
         this.bodyList,
