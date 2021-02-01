@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/feed")
 public class FeedController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
@@ -72,6 +72,29 @@ public class FeedController {
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("피드 이미지 수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
+
+    @ApiOperation(value = "좋아요 수정", notes = "회원이 피드를 좋아할 경우 좋아요 삭제, 아닐경우 좋아요 생성")
+    @PutMapping(value = "/like")
+    public ResponseEntity<String> updateLikes(@RequestBody String uid, @RequestBody int feed_id, @RequestBody boolean user_liked){
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            if (user_liked) {
+                feedService.deleteLikes(uid, feed_id);
+            } else {
+                feedService.createLikes(uid, feed_id);
+            }
+            msg = SUCCESS;
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("좋아요 수정 실패 :{}", e);
             msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
