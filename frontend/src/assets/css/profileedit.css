@@ -1,0 +1,65 @@
+#hr-top {
+  margin: 8px 0 !important;
+}
+
+.profile-edit-container {
+  margin: 20px auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-top: 5px solid #eac03a;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2.5px 5px #ccc;
+}
+
+.edit-user-photo {
+  margin-top: 30px 30px;
+}
+
+.user-img {
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+  border-radius: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+
+.personal-info {
+  padding: 30px 0;
+}
+
+.form-group {
+}
+
+.control-label {
+  font-size: 15px;
+}
+.control-input {
+  padding-bottom: 10px;
+}
+
+.form-control-photo {
+  font-size: 10px;
+}
+.form-control {
+  font-size: 15px;
+}
+
+.form-control:hover {
+  box-shadow: 0 0 0 1px #eac03a;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 1px #eac03a, inset 0 2px 5px -1px rgba(0, 0, 0, 0.25);
+}
+
+.form-control-photo {
+  display: none;
+}
+
+.input-file-button {
+  padding: 6px 25px;
+  background-color: #fc6d3d;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}

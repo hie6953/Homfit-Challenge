@@ -27,11 +27,12 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public boolean updateImg(Feed feed) throws Exception {
-
+    public boolean updateImg(int feed_id, String feed_picture) throws Exception {
+        Feed feed = null;
         try {
             // 멀티파트폼 저장하는 프로세스 필요
-
+            feed.setFeed_id(feed_id);
+            feed.setFeed_picture(feed_picture);
             sqlSession.getMapper(FeedDAO.class).updateImg(feed);
         } catch (Exception e) {
             e.printStackTrace();

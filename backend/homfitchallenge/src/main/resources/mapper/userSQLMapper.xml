@@ -29,7 +29,7 @@
         select uid from user where nick_name=#{nick_name}
     </select>
 
-    <update id="updateUserImg" parameterType="user">
+    <update id="updateUserImg" parameterType="String">
         update user
         set user_img = #{user_img}
         where uid = #{uid}

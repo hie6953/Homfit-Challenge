@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -139,6 +141,26 @@ public class UserController {
             }
         } catch (Exception e) {
             logger.error("회원 정보수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<String>(msg, status);
+    }
+    
+    @PutMapping("/updateImg")
+    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile, @RequestPart("uid") String uid){
+        HttpStatus status = null;
+        String msg = null;
+        try {
+            if(userService.updateImg(uid, imgFile)){
+                msg = SUCCESS;
+                status = HttpStatus.ACCEPTED;
+            }else{
+                msg = FAIL;
+                status = HttpStatus.ACCEPTED;
+            }
+        } catch (Exception e) {
+            logger.error("회원 프로필 사진수정 실패 : {}", e);
             msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

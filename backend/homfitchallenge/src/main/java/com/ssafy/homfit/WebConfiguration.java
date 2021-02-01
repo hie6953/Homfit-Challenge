@@ -3,7 +3,9 @@ package com.ssafy.homfit;
 import com.ssafy.homfit.interceptor.JwtInterceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -27,4 +29,11 @@ public class WebConfiguration implements WebMvcConfigurer{
         registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 
+    // @Bean(name = "multipartResolver")
+    // public CommonsMultipartResolver multipartResolver() {
+    //     CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    //     multipartResolver.setDefaultEncoding("UTF-8");
+    //     multipartResolver.setMaxUploadSizePerFile(100 *1024*1024);
+    //     return multipartResolver;
+    // }
 }

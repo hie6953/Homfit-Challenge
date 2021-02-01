@@ -2,6 +2,8 @@ package com.ssafy.homfit.model;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -21,6 +23,15 @@ public class Feed {
     private Timestamp register_date;
     @ApiModelProperty(value = "피드 내용")
     private String feed_contents;
+    private MultipartFile imgFile;
+
+    public MultipartFile getImgFile() {
+        return this.imgFile;
+    }
+
+    public void setImgFile(MultipartFile imgFile) {
+        this.imgFile = imgFile;
+    }
 
     public int getFeed_id() {
         return this.feed_id;

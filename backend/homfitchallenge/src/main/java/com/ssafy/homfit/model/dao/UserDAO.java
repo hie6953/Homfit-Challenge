@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.UserUpdateVo;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,7 +24,7 @@ public interface UserDAO {
 
 	public void updateNickName(User user) throws SQLException;
 
-    public void updateUserImg(User user) throws SQLException;
+    public void updateUserImg(String uid, String user_img) throws SQLException;
     
     public List<User> test() throws SQLException;
 

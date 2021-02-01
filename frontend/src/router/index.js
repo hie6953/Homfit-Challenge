@@ -66,6 +66,12 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/editprofile',
+    name: 'ProfileEdit',
+    component: () => import('../views/ProfileEdit.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
