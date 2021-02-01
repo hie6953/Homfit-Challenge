@@ -143,10 +143,12 @@ public class ChallengeController {
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
 		
-		// null이 아니면 수정 고.
-		//HashMap으로 받아서 - 챌린지
-		//태그
-		//부위 
+		//챌린지안에 다 받기.
+		//태그*
+		//부위 *
+		//bodylist가 null이면 안바꿔
+		//다 삭제하고 insert?
+		//태그리스트 다 지우고 다시 insert
 		
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

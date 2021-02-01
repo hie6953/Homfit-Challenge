@@ -1,12 +1,13 @@
 package com.ssafy.homfit.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Arrays;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 챌린지 정보 */
-public class Challenge {
+public class Challenge implements Serializable{
 	
 	private int challenge_id;
 	private String challenge_title;
