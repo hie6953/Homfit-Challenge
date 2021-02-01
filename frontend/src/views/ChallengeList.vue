@@ -186,50 +186,10 @@
 
         <b-dropdown-divider></b-dropdown-divider>
         <h5>요일</h5>
-        <ul class="day-checkbox">
-          <li>
-            <input type="checkbox" v-model="day" id="Mon" value="1" /><label
-              for="Mon"
-              >월</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Tue" value="2" /><label
-              for="Tue"
-              >화</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Wed" value="3" /><label
-              for="Wed"
-              >수</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Thu" value="4" /><label
-              for="Thu"
-              >목</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Fri" value="5" /><label
-              for="Fri"
-              >금</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Sat" value="6" /><label
-              for="Sat"
-              >토</label
-            >
-          </li>
-          <li>
-            <input type="checkbox" v-model="day" id="Sun" value="7" /><label
-              for="Sun"
-              >일</label
-            >
-          </li>
-        </ul>
+        <week-button
+          :props_day="day"
+          @change="(data) => dayChange(data)"
+        ></week-button>
       </b-dropdown>
       <!-- 챌린지 리스트 -->
       <div class="row list-card">
@@ -249,18 +209,17 @@ import ChallengeListCard from '../components/ChallengeListCard.vue';
 import '@/assets/css/challengelist.css';
 
 import axios from 'axios';
+import WeekButton from '../components/WeekButton.vue';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'ChallengeList',
-  components: { ChallengeListCard },
+  components: { ChallengeListCard, WeekButton },
   watch: {
     period: function() {
       //필터-기간 바뀔 때
     },
-    day: function() {
-      //필터-요일 바뀔 때
-    },
+
     category: function() {
       console.log(this.category);
     },
@@ -295,6 +254,11 @@ export default {
       .catch(() => {
         alert('챌린지 목록을 불러오지 못했습니다.');
       });
+  },
+  methods: {
+    dayChange: function(day) {
+      this.day = day;
+    },
   },
 };
 </script>
