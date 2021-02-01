@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.CommentDAO">
+    <insert id="create" parameterType="comment">
+        insert into comments(contents, feed_id, uid, comment_regist_date)
+        values (#{contents}, #{feed_id}, #{uid}, now())
+    </insert>
+
+    <select id="searchByFeedId" parameterType="int" resultType="commentVo">
+        select c.*, u.user_img, u.nick_name from comments c left outer join user u
+        on c.uid = u.uid
+        where c.feed_id = #{feed_id}
+        order by c.comment_regist_date desc
+    </select>
+
+    <update id="update" parameterType="comment">
+        update comments
+        set contents = #{contents}
+        where comment_id = #{comment_id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from comments
+        where comment_id = #{comment_id} 
+    </delete> 
+</mapper>

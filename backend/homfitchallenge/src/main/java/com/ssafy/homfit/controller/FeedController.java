@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/feed")
 public class FeedController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
