@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import '../assets/css/todolist.css';
+import '../assets/css/MyPage/todolist.css';
 
 export default {
   data() {
