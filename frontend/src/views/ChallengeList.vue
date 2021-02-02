@@ -142,53 +142,16 @@
         >
       </b-dropdown>
       <!-- 필터 -->
+
       <b-dropdown id="filter-dropdown" right variant="outline-dark">
         <template #button-content>
           필터<b-icon icon="filter"></b-icon>
         </template>
-        <h5>기간</h5>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="ThreeToSeven"
-          value="Apple"
-        />
-        <label for="ThreeToSeven">3일~7일</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit2"
-          name="fruit-2"
-          value="Banana"
-        />
-        <label for="fruit2">1주~2주</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit3"
-          name="fruit-3"
-          value="Cherry"
-        />
-        <label for="fruit3">2주~3주</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit4"
-          name="fruit-4"
-          value="Strawberry"
-        />
-        <label for="fruit4">3주~</label>
-
-        <b-dropdown-divider></b-dropdown-divider>
-        <h5>요일</h5>
-        <week-button
-          :props_day="day"
-          @change="(data) => dayChange(data)"
-        ></week-button>
+        <challenge-list-filter
+          :prop_days="day"
+          :prop_period="period"
+          @change="getFilterData"
+        ></challenge-list-filter>
       </b-dropdown>
       <!-- 챌린지 리스트 -->
       <div class="row list-card">
@@ -205,18 +168,21 @@
 
 <script>
 import ChallengeListCard from '../components/ChallengeListCard.vue';
+import ChallengeListFilter from '../components/ChallengeListFilter.vue';
 import '@/assets/css/challengelist.css';
 
-import axios from 'axios';
-import WeekButton from '../components/WeekButton.vue';
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+// import axios from 'axios';
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'ChallengeList',
-  components: { ChallengeListCard, WeekButton },
+  components: { ChallengeListCard, ChallengeListFilter },
   watch: {
+    sortValue: function() {
+      this.getData();
+    },
     category: function() {
-      console.log(this.category);
+      this.getData();
     },
   },
   data() {
@@ -224,8 +190,7 @@ export default {
       category: 0,
       sortList: ['인기순', '최신순'],
       sortValue: 0,
-      periodStart: 3,
-      periodEnd: 30,
+      period: [3, 30],
       day: [],
       page: 1,
       challengeList: [],
@@ -243,25 +208,33 @@ export default {
       this.sortValue = category_sort;
     }
 
-    axios
-      .get(`${SERVER_URL}/challenge/all`, {
-        params: {
-          category: this.category, //0:전체, 1~10 카테고리숫자
-          sort: this.sortValue, //0:인기순,1:최신순
-          periodStart: this.periodStart, //period최소값(이상) 7
-          periodEnd: this.periodEnd, //period최대값(이하) 30
-          day: this.day, //요일 숫자 배열 [3,4,5]
-          page: this.page, //페이지 숫자
-        },
-      })
-      .then(({ data }) => {
-        this.challengeList = data;
-      })
-      .catch(() => {
-        alert('챌린지 목록을 불러오지 못했습니다.');
-      });
+    this.getData();
   },
   methods: {
+    getData: function() {
+      // axios
+      //   .get(`${SERVER_URL}/challenge/all`, {
+      //     params: {
+      //       category: this.category, //0:전체, 1~10 카테고리숫자
+      //       sort: this.sortValue, //0:인기순,1:최신순
+      //       periodStart: this.period[0], //period최소값(이상) 7
+      //       periodEnd: this.period[1], //period최대값(이하) 30
+      //       day: this.day, //요일 숫자 배열 [3,4,5]
+      //       page: this.page, //페이지 숫자
+      //     },
+      //   })
+      //   .then(({ data }) => {
+      //     this.challengeList = data;
+      //   })
+      //   .catch(() => {
+      //     alert('챌린지 목록을 불러오지 못했습니다.');
+      //   });
+    },
+    getFilterData: function(period, day) {
+      this.period = period;
+      this.day = day;
+      this.getData();
+    },
     dayChange: function(day) {
       this.day = day;
     },
