@@ -139,7 +139,7 @@
         </p>
       </div>
       <div class="grid-feed">
-        <MyPageFeed />
+        <MyPageBodyPhoto />
       </div>
     </div>
   </div>
@@ -148,13 +148,15 @@
 <script>
 import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
-import '../assets/css/mypage.css';
+import MyPageBodyPhoto from '../components/MyPageBodyPhoto.vue';
+import '../assets/css/MyPage/mypage.css';
 
 export default {
   name: 'Mypage',
   components: {
     ToDoList,
     MyPageFeed,
+    MyPageBodyPhoto,
   },
   data: function() {
     return {

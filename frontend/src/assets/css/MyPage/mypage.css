@@ -4,8 +4,9 @@
 
 .mt-3 {
   margin-top: 0px;
+  padding-bottom: 3rem;
 }
-
+/* 
 a,
 button,
 [role='button'],
@@ -15,7 +16,8 @@ input[type='reset'] {
   cursor: pointer;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-}
+} */
+
 .user-img {
   width: 100%;
   height: 100%;
@@ -210,6 +212,7 @@ input[type='reset'] {
   padding-top: 30px;
   margin-top: 40px;
   background-color: #fafafa;
+  padding-bottom: 3rem;
 }
 
 .my-feed-label {
