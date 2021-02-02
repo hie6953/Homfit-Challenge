@@ -26,11 +26,11 @@
         <span>{{ this.end_date }} ({{ this.period }}일간)</span>
       </div>
       <b-container>
-        <b-row>
-          <b-col sm="3" class="align-center">
-            <span>챌린지 요일</span>
+        <b-row class="align-center mb-2">
+          <b-col sm="3">
+            <span class="vertical-align-middle">챌린지 요일</span>
           </b-col>
-          <b-col sm="9" class="align-center">
+          <b-col sm="9" class="challenge-period-daylist">
             <week-button
               :cantDays="cantDays"
               :props_day="dayList"
@@ -38,11 +38,11 @@
             ></week-button>
           </b-col>
         </b-row>
-        <b-row>
-          <b-col sm="3" class="align-center">
-            <span>하루 챌린지 횟수</span>
+        <b-row class="align-center">
+          <b-col sm="3">
+            <span class="vertical-align-middle">하루 챌린지 횟수</span>
           </b-col>
-          <b-col sm="9" class="align-center">
+          <b-col sm="9">
             <b-input-group append="회">
               <b-form-input type="number" v-model="day_certify_count" min="1" />
             </b-input-group>
@@ -108,7 +108,7 @@ export default {
     this.end_date = this.props_end_date;
     this.period = this.calculatePeriod();
     this.dayList = this.props_dayList;
-    this.day_certify_count = this.props_day_certify_count;
+    this.day_certify_count = String(this.props_day_certify_count);
   },
 
   methods: {
@@ -174,7 +174,7 @@ export default {
         this.end_date,
         this.period,
         this.dayList,
-        this.day_certify_count
+        parseInt(this.day_certify_count)
       );
     },
     NextPage: function() {
@@ -184,7 +184,7 @@ export default {
         this.end_date,
         this.period,
         this.dayList,
-        this.day_certify_count
+        parseInt(this.day_certify_count)
       );
     },
   },

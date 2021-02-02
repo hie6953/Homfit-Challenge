@@ -4,11 +4,14 @@
     <div>
       <br />
       <h4 class="challenge-creating-title">인증 방법 설명</h4>
-      <textarea
-        v-model="challenge_certify_contents"
-        cols="30"
-        rows="10"
-      ></textarea>
+      <span class="font-size-small"
+        ><b-icon icon="dot"></b-icon>챌린지 인증 방법을 적어주세요. 자세할 수록
+        좋습니다!</span
+      >
+      <text-editor
+        :props_content="challenge_certify_contents"
+        @input="(data) => GetEditorContent(data)"
+      ></text-editor>
     </div>
 
     <!-- 인증 수단 -->
@@ -50,7 +53,11 @@
 </template>
 
 <script>
+import TextEditor from './TextEditor.vue';
 export default {
+  components: {
+    TextEditor,
+  },
   props: {
     props_challenge_certify_contents: String,
     // props_good_img: Object,
@@ -62,7 +69,7 @@ export default {
       challenge_certify_contents: '',
       // good_img: Object,
       // bad_img: Object,
-      only_cam: 1,
+      only_cam: '',
       canGoNext: false,
     };
   },
@@ -70,24 +77,39 @@ export default {
     this.challenge_certify_contents = this.props_challenge_certify_contents;
     // this.good_img = this.props_good_img;
     // this.bad_img = this.props_bad_img;
-    this.only_cam = this.props_only_cam;
+    this.only_cam = String(this.props_only_cam);
   },
   watch: {
+    challenge_certify_contents: function() {
+      this.CanGoNext();
+    },
     only_cam: function() {
       this.CanGoNext();
     },
   },
 
   methods: {
+    GetEditorContent: function(data) {
+      this.challenge_certify_contents = data;
+    },
     CanGoNext: function() {
-      this.canGoNext = true;
+      if (this.challenge_certify_contents.length > 7) this.canGoNext = true;
+      else this.canGoNext = false;
     },
     // 페이지 이동
     PrevPage: function() {
-      this.$emit('PrevPage', this.challenge_certify_contents, this.only_cam);
+      this.$emit(
+        'PrevPage',
+        this.challenge_certify_contents,
+        parseInt(this.only_cam)
+      );
     },
     NextPage: function() {
-      this.$emit('NextPage', this.challenge_certify_contents, this.only_cam);
+      this.$emit(
+        'NextPage',
+        this.challenge_certify_contents,
+        parseInt(this.only_cam)
+      );
     },
   },
 };

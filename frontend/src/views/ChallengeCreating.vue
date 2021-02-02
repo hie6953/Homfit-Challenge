@@ -149,12 +149,13 @@ export default {
       pageComplete_2: false,
       pageComplete_3: false,
       pageComplete_4: false,
+      challenge_id: 0,
       challenge: {
         kind: 0,
         fit_id: 1,
         bodyList: [],
         challenge_title: '',
-        challenge_contents: 'dd',
+        challenge_contents: '',
         challenge_img: '',
         start_date: null,
         end_date: null,
@@ -198,14 +199,14 @@ export default {
       console.log(this.challenge);
       axios
         .post(`${SERVER_URL}/challenge`, this.challenge)
-        .then(() => {
+        .then((success) => {
+          this.page = 5;
+          this.challenge_id = success;
           alert('챌린지가 생성되었습니다.');
         })
         .catch(() => {
           alert('등록 처리시 에러가 발생했습니다.');
         });
-
-      this.page = 5;
     },
 
     // 1페이지

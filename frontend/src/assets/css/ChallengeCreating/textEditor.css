@@ -7,19 +7,20 @@
   min-height: 200px;
 }
 
-.btn {
-  border-radius: 0px;
-  background-color: #eac03a;
-  border-color: #eac03a;
+.editor-button {
+  border-radius: 0px !important;
+  background-color: #eac03a !important;
+  border-color: #eac03a !important;
+  padding: 2px !important;
 }
 
-.btn:hover {
+.editor-button:hover {
   background-color: #e65c2e;
   border-color: #e65c2e;
 }
 
-.btn:focus,
-.btn:active {
+.editor-button:focus,
+.editor-button:active {
   background: #e65c2e !important;
   border-color: #e65c2e;
   box-shadow: none !important;

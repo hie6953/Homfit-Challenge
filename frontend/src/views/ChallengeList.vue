@@ -151,11 +151,10 @@
           type="checkbox"
           class="filter-period"
           v-model="period"
-          id="fruit1"
-          name="fruit-1"
+          id="ThreeToSeven"
           value="Apple"
         />
-        <label for="fruit1">1일~1주</label>
+        <label for="ThreeToSeven">3일~7일</label>
         <input
           type="checkbox"
           class="filter-period"
@@ -216,10 +215,6 @@ export default {
   name: 'ChallengeList',
   components: { ChallengeListCard, WeekButton },
   watch: {
-    period: function() {
-      //필터-기간 바뀔 때
-    },
-
     category: function() {
       console.log(this.category);
     },
@@ -229,8 +224,10 @@ export default {
       category: 0,
       sortList: ['인기순', '최신순'],
       sortValue: 0,
-      period: [],
+      periodStart: 3,
+      periodEnd: 30,
       day: [],
+      page: 1,
       challengeList: [],
     };
   },
@@ -247,7 +244,16 @@ export default {
     }
 
     axios
-      .get(`${SERVER_URL}/challenge/all`)
+      .get(`${SERVER_URL}/challenge/all`, {
+        params: {
+          category: this.category, //0:전체, 1~10 카테고리숫자
+          sort: this.sortValue, //0:인기순,1:최신순
+          periodStart: this.periodStart, //period최소값(이상) 7
+          periodEnd: this.periodEnd, //period최대값(이하) 30
+          day: this.day, //요일 숫자 배열 [3,4,5]
+          page: this.page, //페이지 숫자
+        },
+      })
       .then(({ data }) => {
         this.challengeList = data;
       })
