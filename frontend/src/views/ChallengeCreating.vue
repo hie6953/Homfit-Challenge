@@ -184,16 +184,7 @@ export default {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
       this.challenge.make_uid = this.getUserUid;
-      let tempBodyList = new Array(this.challenge.bodyList.length);
-      for (let index = 0; index < this.challenge.bodyList.length; index++) {
-        tempBodyList[index] = parseInt(this.challenge.bodyList[index]);
-      }
-      this.challenge.bodyList = tempBodyList.sort();
-      let tempDayList = new Array(this.challenge.dayList.length);
-      for (let index = 0; index < this.challenge.dayList.length; index++) {
-        tempDayList[index] = parseInt(this.challenge.dayList[index]);
-      }
-      this.challenge.dayList = tempDayList.sort();
+
       this.pageComplete_4 = true;
       // 챌린지 개설 axios
       console.log(this.challenge);
