@@ -162,6 +162,19 @@
           :challenge="challenge"
         ></challenge-list-card>
       </div>
+      <infinite-loading @infinite="getData" spinner="waveDots">
+        <div class="infinite-loading-message" slot="no-more">
+          <b-button @click="scrollUp"
+            >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+          ></b-button>
+        </div>
+        <div class="infinite-loading-message" slot="no-results">
+          결과가 없습니다 :(
+        </div>
+        <div class="infinite-loading-message" slot="error">
+          불러오지 못했습니다.
+        </div>
+      </infinite-loading>
     </div>
   </div>
 </template>
@@ -169,6 +182,7 @@
 <script>
 import ChallengeListCard from '../components/ChallengeListCard.vue';
 import ChallengeListFilter from '../components/ChallengeListFilter.vue';
+import InfiniteLoading from 'vue-infinite-loading';
 import '@/assets/css/challengelist.css';
 
 // import axios from 'axios';
@@ -176,13 +190,13 @@ import '@/assets/css/challengelist.css';
 
 export default {
   name: 'ChallengeList',
-  components: { ChallengeListCard, ChallengeListFilter },
+  components: { ChallengeListCard, ChallengeListFilter, InfiniteLoading },
   watch: {
     sortValue: function() {
-      this.getData();
+      this.getNewData();
     },
     category: function() {
-      this.getData();
+      this.getNewData();
     },
   },
   data() {
@@ -194,6 +208,30 @@ export default {
       day: [],
       page: 1,
       challengeList: [],
+      scrollUpDelay: 1,
+      scrollUpSpeed: 30,
+      list: [
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+        { id: 'id' },
+      ],
     };
   },
   created() {
@@ -207,11 +245,19 @@ export default {
     if (category_sort) {
       this.sortValue = category_sort;
     }
-
-    this.getData();
   },
   methods: {
-    getData: function() {
+    getNewData: function() {
+      this.page = 1;
+      this.getNewData();
+    },
+    getData: function($state) {
+      this.challengeList = this.challengeList.concat(this.list);
+      ++this.page;
+      if (this.page < 3) $state.loaded();
+      else {
+        $state.complete();
+      }
       // axios
       //   .get(`${SERVER_URL}/challenge/all`, {
       //     params: {
@@ -225,15 +271,32 @@ export default {
       //   })
       //   .then(({ data }) => {
       //     this.challengeList = data;
+      //     setTimeout(() => {
+      //       if (data.length) {
+      //         this.challengeList = this.challengeList.concat(data);
+      //         ++this.page;
+      //         $state.loaded();
+      //       } else {
+      //         $state.complete();
+      //       }
+      //     }, 1000);
       //   })
       //   .catch(() => {
       //     alert('챌린지 목록을 불러오지 못했습니다.');
       //   });
     },
+    scrollUp: function() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
+    },
+
     getFilterData: function(period, day) {
       this.period = period;
       this.day = day;
-      this.getData();
+      this.getNewData();
     },
     dayChange: function(day) {
       this.day = day;

@@ -116,8 +116,5 @@ export default {
     this.period = this.prop_period;
     this.day = this.prop_days;
   },
-  beforeDestroy() {
-    console.log('destroy');
-  },
 };
 </script>
