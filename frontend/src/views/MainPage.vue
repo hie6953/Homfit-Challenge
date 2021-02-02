@@ -118,6 +118,7 @@ export default {
 
 .main-component-margin {
   margin-top: 40px;
+  padding: 0;
 }
 
 .main-content-margin {
