@@ -8,6 +8,7 @@ import com.ssafy.homfit.model.dao.FeedDAO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FeedServiceImpl implements FeedService {
@@ -73,6 +74,32 @@ public class FeedServiceImpl implements FeedService {
         List<Feed> list = null;
         list = sqlSession.getMapper(FeedDAO.class).searchByChallenge(challenge_id);
         return list;
+    }
+
+    @Override
+    @Transactional
+    public boolean createLikes(String uid, int feed_id) throws Exception {
+        try {
+            sqlSession.getMapper(FeedDAO.class).createLikes(uid, feed_id);
+            sqlSession.getMapper(FeedDAO.class).increaseLikes(feed_id); 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteLikes(String uid, int feed_id) throws Exception {
+        try {
+            sqlSession.getMapper(FeedDAO.class).deleteLikes(uid, feed_id);
+            sqlSession.getMapper(FeedDAO.class).decreaseLikes(feed_id); 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

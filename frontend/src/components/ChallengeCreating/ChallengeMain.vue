@@ -4,9 +4,9 @@
     <div>
       <h4 class="challenge-creating-title">챌린지 정보</h4>
       <b-container>
-        <b-row>
-          <b-col sm="3">
-            <label for="challenge_title_input">챌린지 이름</label>
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+            <span class="vertical-align-middle">챌린지 이름</span>
           </b-col>
           <b-col sm="9">
             <b-form-input
@@ -22,12 +22,15 @@
           </b-col>
         </b-row>
 
-        <b-row>
-          <b-col sm="3">
-            <label for="challenge_contents_texteditor">챌린지 설명</label>
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+            <span class="vertical-align-middle">챌린지 설명</span>
           </b-col>
           <b-col sm="9">
-            <!-- <TextEditor></TextEditor>  -->
+            <TextEditor
+              :props_content="challenge_contents"
+              @input="(data) => GetEditorContent(data)"
+            ></TextEditor>
           </b-col>
         </b-row>
       </b-container>
@@ -236,12 +239,12 @@
 </template>
 
 <script>
-// import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
+import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
 
 export default {
-  // components: {
-  //   TextEditor,
-  // },
+  components: {
+    TextEditor,
+  },
 
   props: {
     props_kind: Number,
@@ -293,11 +296,14 @@ export default {
     FitId: function(num) {
       this.fit_id = num;
     },
+    GetEditorContent: function(data) {
+      this.challenge_contents = data;
+    },
     CanGoNext: function() {
       if (
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
-        this.challenge_contents.length > 0 &&
+        this.challenge_contents.length > 7 &&
         ((this.kind != '0' && this.bodyList.length > 0) || this.kind == '2')
       ) {
         this.canGoNext = true;

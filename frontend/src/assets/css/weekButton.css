@@ -1,0 +1,44 @@
+/* 필터 - 요일 */
+ul.day-checkbox {
+  list-style: none;
+  padding: 0 5px;
+  margin: 0 !important;
+}
+ul.day-checkbox li {
+  display: inline;
+}
+ul.day-checkbox li input {
+  display: none;
+}
+
+ul.day-checkbox li label.disabled {
+  pointer-events: none;
+  background-color: rgb(218, 218, 218);
+}
+
+ul.day-checkbox li label {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(139, 139, 139, 0.3);
+  color: #aaa;
+  border-radius: 25px;
+  margin: 3px 0px;
+  user-select: none;
+  transition: all 0.2s;
+}
+
+ul.day-checkbox li label {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+ul.day-checkbox li label::before {
+  display: none;
+}
+
+ul.day-checkbox li input[type='checkbox']:checked + label {
+  border: 2px solid #e2a591;
+  background-color: #e65c2e;
+  color: #fff;
+  transition: all 0.2s;
+}

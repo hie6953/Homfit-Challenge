@@ -8,26 +8,23 @@
           <div class="p-2 bd-highlight main-list">인기 챌린지</div>
           <router-link :to="{
             name: 'ChallengeListCategory',
-            params: { category_number: 3, category_sort: 1 },
+            params: { category_number: 0, category_sort: 0 },
           }" class="ml-auto p-2 bd-highlight main-more">
             <div class="main-more">전체보기 ></div>
           </router-link>
         </div>
       </div>
       <MainPageList
-        v-if="isWeb === true"
         class="main-content-margin"
         :mainPageList="popularChallengeList"
-      />
-      <MainPageList2
-        v-if="isWeb === false"
-        class="main-content-margin"
-        :mainPageList="popularChallengeList2"
       />
       <div class="main-component-margin">
         <div class="d-flex bd-highlight px-4">
           <div class="p-2 bd-highlight main-list">신규 챌린지</div>
-          <router-link to="/challengelist" class="ml-auto p-2 bd-highlight main-more">
+          <router-link :to="{
+            name: 'ChallengeListCategory',
+            params: { category_number: 0, category_sort: 1 },
+          }" class="ml-auto p-2 bd-highlight main-more">
             <div class="main-more">전체보기 ></div>
           </router-link>
         </div>
@@ -49,7 +46,6 @@
 import MainPageAd from "../components/MainPage/MainPageAd.vue"
 import MainPageCategory from "../components/MainPage/MainPageCategory.vue"
 import MainPageList from "../components/MainPage/MainPageList.vue"
-import MainPageList2 from "../components/MainPage/MainPageList2.vue"
 
 // import axios from 'axios';
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -61,11 +57,9 @@ export default {
     MainPageAd,
     MainPageCategory,
     MainPageList,
-    MainPageList2,
   },
   data() {
     return {
-      isWeb: false,
       newChallengeList: [
         // 예시로 넣어둠
         {name: 'Kin Khao', tag: ["Thai"]},

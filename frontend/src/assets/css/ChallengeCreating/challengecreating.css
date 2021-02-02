@@ -1,3 +1,17 @@
+@media (min-width: 480px) {
+  :root {
+    --progress-bar-width: 12vw;
+    --progress-bar-width-half: 6vw;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --progress-bar-width: 18vw;
+    --progress-bar-width-half: 9vw;
+  }
+}
+
 .background-creating {
   /* background-color: #eeeeee; */
   height: 100%;
@@ -7,7 +21,7 @@
 .component {
   /* background-color: #ffffff; */
   box-shadow: 0px 14px 30px rgba(34, 35, 58, 0.4);
-  padding: 45px 55px;
+  padding: 8vw 5vw;
   border-radius: 15px;
   transition: all 0.3s;
 }
@@ -25,7 +39,7 @@
 
 .creating-progress-bar li {
   display: inline-block;
-  width: 10vw;
+  width: var(--progress-bar-width);
   position: relative;
 }
 
@@ -33,14 +47,14 @@
   background-color: #eac03a;
   width: 16px;
   height: 16px;
-  border-radius: 25%;
+  border-radius: 15px;
   color: #ffffff;
 }
 
 .creating-progress-bar li .creating-progress-check-icon::after {
   content: '';
   background: #eac03a;
-  width: 10vw;
+  width: var(--progress-bar-width);
   height: 5px;
   display: block;
   position: absolute;
@@ -58,18 +72,24 @@
 }
 
 .creating-progress-bar li:first-child .creating-progress-check-icon::after {
-  width: 5vw;
+  width: var(--progress-bar-width-half);
   left: 50%;
 }
 
 .creating-progress-bar li:last-child .creating-progress-check-icon::after {
-  width: 5vw;
+  width: var(--progress-bar-width-half);
 }
+
+/* 챌린지 개설 소개 */
 
 .challenge-creating-title {
   font-weight: 600;
   text-align: center;
   margin: 30px 0px;
+}
+
+.challenge-creating-row {
+  margin: 10px 0px;
 }
 
 .prev-page-button {
@@ -104,11 +124,6 @@
   background: none !important;
   box-shadow: none !important;
   color: black !important;
-}
-
-/* 챌린지 개설 페이지 */
-.align-center {
-  text-align: center;
 }
 
 /* 체크버튼 가리기 */
@@ -243,7 +258,7 @@
 }
 
 .challenge-fit img {
-  height: 150px;
+  height: 130px;
 }
 
 .challenge-fit span {
@@ -345,12 +360,55 @@
 
 /* 챌린지 기간페이지 */
 .date-period {
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
 }
 
 .date-period span {
   font-weight: 700;
   font-size: large;
+}
+
+.challenge-period-information span {
+  font-size: small;
+}
+
+.challenge-period-daylist {
+  padding: 0px !important;
+}
+
+/* 챌린지 인증 페이지 */
+.challenge-certification-way div {
+  display: inline-block;
+  margin: 0px 10px;
+}
+
+.challenge-certification-way input {
+  display: none;
+}
+
+.challenge-certification-way label {
+  background-color: #eac03a;
+  margin: 0px 10px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(34, 35, 58, 0.2);
+  transition: transform 300ms;
+}
+
+.challenge-certification-way label:hover,
+.challenge-certification-way input:checked + label:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+.challenge-certification-way input:checked + label {
+  background-color: #e65c2e;
+  color: white;
+  box-shadow: 0px 2px 6px rgba(34, 35, 58, 0.3);
+}
+
+.challenge-certification-way span {
+  font-size: small;
 }
 
 /* 태그페이지 */
@@ -375,4 +433,35 @@
   transform: scale(1.05);
   background-color: #e65c2e;
   box-shadow: 4px 4px 4px rgba(10, 10, 17, 0.2);
+}
+
+/* 완료 페이지 */
+
+#challenge-creating-end-button {
+  text-decoration: none;
+  background-color: #eac03a;
+  color: white;
+  text-align: center;
+  padding: 12px 25px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(34, 35, 58, 0.2);
+  transition: transform 300ms;
+}
+
+#challenge-creating-end-button:hover {
+  transform: scale(1.2);
+  background-color: #e65c2e;
+  box-shadow: 0px 3px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 기본 */
+.align-center {
+  text-align: center;
+}
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.font-size-small {
+  font-size: small;
 }

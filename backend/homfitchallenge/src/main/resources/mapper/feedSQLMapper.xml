@@ -25,11 +25,27 @@
         order by register_date desc
     </select>
 
-    <!-- <update id="updateLikes" parameterType="int">
+    <insert id="createLikes">
+        insert into likes (uid, feed_id)
+        values (#{uid}, #{feed_id})
+    </insert>
+
+    <delete id="deleteLikes">
+        delete from likes
+        where uid = #{uid} and feed_id = #{feed_id}
+    </delete>
+
+    <update id="increaseLikes" parameterType="int">
         update feed
         set like_count = like_count + 1
         where feed_id = #{feed_id}
-    </update> -->
+    </update>
+
+    <update id="decreaseLikes" parameterType="int">
+        update feed
+        set like_count = like_count - 1
+        where feed_id = #{feed_id}
+    </update>
 
     <update id="updateImg" parameterType="feed">
         update feed
