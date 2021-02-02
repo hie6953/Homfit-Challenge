@@ -14,7 +14,7 @@ import com.ssafy.homfit.model.Challenge;
 public interface ChallengeDAO {
 	
 	/**챌린지 리스트  */
-	public Challenge[] selectAllChallenge();
+	public List<Challenge> selectAllChallenge();
 	public Challenge selectChallengeByid(int challenge_id);
 	public int insertChallenge(Challenge challenge);
 	public int updateChallenge(Challenge challenge);

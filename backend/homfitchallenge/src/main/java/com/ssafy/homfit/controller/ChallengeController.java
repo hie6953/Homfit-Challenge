@@ -1,19 +1,22 @@
 package com.ssafy.homfit.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +35,6 @@ import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.TagService;
-
 
 /**
  * @author 황다희
@@ -55,24 +57,26 @@ public class ChallengeController {
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
 
-	/** 테스트  - redis */
+//	@Resource(name = "redisTemplate")
+//	private ListOperations<String, Challenge> listOperation;
+
+	/** 테스트 - redis */
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() {
-		ListOperations<String, Object> vop = redisTemplate.opsForList();
+		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+
 //		Challenge ch = new Challenge();
 //		ch.setChallenge_title("테스트해보자");
 //		ch.setChallenge_img("이미지");
 //		ch.setChallenge_contents("내용");
-		
-//		vop.get(""challengeList::SimpleKey []"");
-		
-		String key = "challengeList::SimpleKey []";
-		List<Object> ch = vop.range(key, 0, 10);
+
+//		
+//		String key = "challengeList::SimpleKey";
 //		System.out.println(vop.range(key, 0, 10));
-		//Set<String> keys = redisTemplate.keys("*");
-	
-		//System.out.println(keys.toString());
-		System.out.println(ch.toString());
+//		//Set<String> keys = redisTemplate.keys("*");
+
+		// System.out.println(keys.toString());
+		// System.out.println(vop.get("challengeList::SimpleKey []"));
 //		Iterator<byte[]> it = keys.iterator();
 //
 //		while(it.hasNext()){
@@ -84,7 +88,6 @@ public class ChallengeController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
-	
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
 	@Transactional
@@ -112,7 +115,7 @@ public class ChallengeController {
 	public ResponseEntity<String> insertChallenge(@RequestBody Challenge challenge) {
 
 		HttpStatus status = HttpStatus.OK;
-		String result = SUCCESS;
+		String result = FAIL;
 
 		try {
 			int kind = challenge.getKind(); // 챌린지 종류 -> 1-운동, 2-식단
@@ -121,11 +124,9 @@ public class ChallengeController {
 			int bodyList[] = challenge.getBodyList();// 부위
 
 			if (kind == 0 || dayList == null || dayList.length == 0) { // *종류와 요일은 필수값
-				result = FAIL;
 				throw new Exception();
 			} else {
 				if (kind == 1 && (bodyList == null || bodyList.length == 0)) {// *운동이라면 부위선택 필수
-					result = FAIL;
 					throw new Exception();
 				}
 				challenge.setDaylist_string(Arrays.toString(dayList));
@@ -168,9 +169,10 @@ public class ChallengeController {
 
 				// 4. 개설자는 참여테이블에 바로 insert
 				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
-				
-				//5. 캐시insert, 캐시 참여테이블 insert
-				
+
+				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
+				// 5. 캐시insert, 캐시 참여테이블 insert
+
 			}
 
 		} catch (Exception e) {
@@ -181,7 +183,6 @@ public class ChallengeController {
 		}
 		return new ResponseEntity<String>(result, status);
 	}
-	
 
 	/** 챌린지 수정 */
 	@PutMapping
@@ -235,25 +236,73 @@ public class ChallengeController {
 		}
 		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}
-	
-	
+
 	/**
-	 * 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 
-	 * challengeService.AllChallengeList(); -> cache 사용
-	 * 
+	 * 챌린지 전체리스트 반환 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원 페이징, 카테고리,
+	 * 요일, 기간, 정렬에 해당하는 데이터 반환. challengeService.AllChallengeList(); -> cache 사용
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam int category, @RequestParam int sort, @RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam String[] day, @RequestParam int page) {
-		// 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원
-		//무한스크롤처리..쉣..오마갓..
+	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort, @RequestParam int periodStart, @RequestParam int periodEnd,
+			@RequestParam int category, @RequestParam int page) {
+
 		List<Challenge> list = challengeService.AllChallengeList();
-		System.out.println(list.toString());
+		List<Challenge> c_list = new ArrayList<Challenge>(); // 반환리스트
+
+		// 1. 카테고리별  - 기본값: 0-전체선택 / 해당카테고리 선택.
+		if (category != 0) {
+			for (Iterator<Challenge> it = list.iterator(); it.hasNext();) {
+				Challenge value = it.next();
+				if (value.getFit_id() != category) {
+					it.remove();
+				}
+			}
+		}
+
+		// 2. 필터 - 기간
+		if (periodStart != 0 && periodEnd != 0) {
+			for (Iterator<Challenge> it = list.iterator(); it.hasNext();) {
+				Challenge value = it.next();
+				if (value.getPeriod() < periodStart || value.getPeriod() > periodEnd) {
+					it.remove();
+				}
+			}
+		}
+
+		// 3. 필터 - 요일 -> 일단 같은 요일만.
+		String param_s = Arrays.toString(day);
+		//param_s = param_s.substring(1, param_s.length()-1);
+		System.out.println("파람" + " "+param_s);
+		if(day != null && day.length > 0) {
+			for (int i = 0; i <list.size(); i++) {
+				String s = list.get(i).getDaylist_string();
+				//s = s.substring(1, s.length()-1);
+				if(param_s.equals(s)) {
+					System.out.println(s);
+				} 
+			}
+		}
+	
+		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
+		int end_page = page * 20;
+		int start_page = end_page - 20;
+		if (end_page > list.size()) {
+			end_page = list.size();
+		}
+		for (int i = start_page; i < end_page; i++) {
+			c_list.add(list.get(i));
+		}
+
+		// 5. 정렬 - 기본값: 최신순  / 0:인기순, 1:최신순
+		if(sort == 0) {
+			Collections.sort(c_list, new Comparator<Challenge>() {
+				@Override
+				public int compare(Challenge o1, Challenge o2) {
+					return o2.getPeople() - o1.getPeople();
+				}	
+			});
+		}
 		
-		//인기순, 신규순 필터 적용받아서 주기.
-		//기간 -> period
-		//카테고리별..
-		//요일은? 
-		return new ResponseEntity<List<Challenge>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<Challenge>>(c_list, HttpStatus.OK);
 	}
 
 }

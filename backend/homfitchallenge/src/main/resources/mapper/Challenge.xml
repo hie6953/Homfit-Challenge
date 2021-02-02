@@ -4,81 +4,98 @@
 
 <mapper namespace="com.ssafy.homfit.model.dao.ChallengeDAO">
 
-	
+
+
+
 
 	<!-- 챌린지 리스트 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
-		select c.challenge_id, c.challenge_img, c.challenge_title, c.period, c.daylist_string, u.nick_name
-		from challenge as c join user as u
-		on c.make_uid = u.uid
-		order by challenge_id;
+		select
+		c.challenge_id, c.challenge_img, c.challenge_title, c.period, c.fit_id,
+		c.daylist_string, u.nick_name, count(p.uid) as people
+		from challenge as c
+		join participate as p on c.challenge_id = p.challenge_id
+		join user as u on c.make_uid = u.uid
+		group by challenge_id
+		order by challenge_id desc;
 	</select>
-	
-	<!--챌린지 참여자수 조회  -->
-	<!--public List<Challenge> selectParticipants();  -->
-	<select id="selectParticipants" resultType="Challenge">
-		select challenge_id, count(uid) as 'people'
-		from participate group by challenge_id
-		order by challenge_id;
-	</select>
-	
+
+	<!--챌린지 참여자수 조회 -->
+	<!--public List<Challenge> selectParticipants(); -->
+	<!-- <select id="selectParticipants" resultType="Challenge"> select challenge_id, 
+		count(uid) as 'people' from participate group by challenge_id order by challenge_id; 
+		</select> -->
 	<!-- 챌린지 상세 조회 -->
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
-	<select id="selectChallengeByid" parameterType="int" resultType="Challenge">
+	<select id="selectChallengeByid" parameterType="int"
+		resultType="Challenge">
 		select a.*, u.nick_name
-		from challenge as a 
+		from challenge as a
 		join user as u
 		on a.make_uid = u.uid
-		where a.challenge_id = #{chchallenge_id};
+		where a.challenge_id =
+		#{chchallenge_id};
 	</select>
-	
-	<!-- 해당 챌린지 부위리스트 select-->
+
+	<!-- 해당 챌린지 부위리스트 select -->
 	<!-- public int[] selectBodyPart(int ChallengeId); -->
 	<select id="selectBodyPart" resultType="int">
 		select body_id
-		from  search_body
+		from
+		search_body
 		where challenge_id = #{chchallenge_id};
 	</select>
-	
-	
+
+
 	<!-- 챌린지 정보 등록 -->
 	<!-- public int insertChallenge(Challenge challenge); -->
-	<insert id="insertChallenge" parameterType="Challenge" useGeneratedKeys="true" keyProperty="challenge_id"  >
-		insert into challenge 
-		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents, good_img, bad_img, day_certify_count, only_cam, start_date, end_date, make_date, make_uid, fit_id, check_date, period, daylist_string)
-		values(#{challenge_title}, #{challenge_contents}, #{challenge_img}, #{challenge_certify_contents},#{good_img}, #{bad_img}, #{day_certify_count}, #{only_cam}, #{start_date}, #{end_date}, #{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period}, #{daylist_string})
+	<insert id="insertChallenge" parameterType="Challenge"
+		useGeneratedKeys="true" keyProperty="challenge_id">
+		insert into
+		challenge
+		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents,
+		good_img, bad_img, day_certify_count, only_cam, start_date, end_date,
+		make_date, make_uid, fit_id, check_date, period, daylist_string)
+		values(#{challenge_title}, #{challenge_contents}, #{challenge_img},
+		#{challenge_certify_contents},#{good_img}, #{bad_img},
+		#{day_certify_count}, #{only_cam}, #{start_date}, #{end_date},
+		#{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period},
+		#{daylist_string})
 	</insert>
-		
+
 	<!-- 챌린지 요일 등록 -->
-	<!--public int insertChallengeDay(Challenge_day c_day);  -->
-	<insert id="insertChallengeDay" parameterType = "Map">
+	<!--public int insertChallengeDay(Challenge_day c_day); -->
+	<insert id="insertChallengeDay" parameterType="Map">
 		insert into challenge_day
 		(challenge_id, day_id) values
 		<foreach collection="list" item="item" separator=" , ">
-			 (#{challenge_id}, #{item})
+			(#{challenge_id}, #{item})
 		</foreach>
-	</insert> 
-	
+	</insert>
+
 	<!--챌린지 부위 등록 -->
-	<!--public int insertChallengeBody (HashMap<String, Integer> map);  -->
+	<!--public int insertChallengeBody (HashMap<String, Integer> map); -->
 	<insert id="insertChallengeBody" parameterType="HashMap">
 		insert
-		into search_body
+		into
+		search_body
 		(challenge_id, body_id)
 		values (#{challenge_id}, #{body_id})
 	</insert>
-	
+
 	<!--챌린지 참여 등록 -->
-	<!--public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid  );-->
+	<!--public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") 
+		String uid ); -->
 	<insert id="joinChallenge">
 		insert
 		into participate
 		(challenge_id, uid)
-		values (#{challenge_id}, #{uid})
+		values
+		(#{challenge_id}, #{uid})
 	</insert>
-	
-	
+
+
 	<!-- 챌린지 정보 삭제 -->
 	<!-- public int deleteChallenge(int challenge_id); -->
 	<delete id="deleteChallenge" parameterType="int">
@@ -86,30 +103,37 @@
 		from challenge
 		where challenge_id = #{challenge_id}
 	</delete>
-	
-	<!--챌린지 참여 삭제-->
-	<!--public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);  -->
+
+	<!--챌린지 참여 삭제 -->
+	<!--public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") 
+		String uid); -->
 	<delete id="quitChallenge">
 		delete
 		from participate
-		where challenge_id = #{challenge_id} and uid = #{uid}
+		where challenge_id =
+		#{challenge_id} and uid = #{uid}
 	</delete>
-	
+
 	<!-- 챌린지 테이블 정보 수정 -->
 	<!-- public int updateChallenge(Challenge challenge); -->
 	<update id="updateChallenge" parameterType="Challenge">
 		update challenge
-		set challenge_title = #{challenge_title},
-		challenge_contents = #{challenge_contents},
+		set
+		challenge_title = #{challenge_title},
+		challenge_contents =
+		#{challenge_contents},
 		challenge_img = #{challenge_img},
 		challenge_certify_contents = #{challenge_certify_contents},
-		good_img = #{good_img},
+		good_img =
+		#{good_img},
 		bad_img = #{bad_img},
-		day_certify_count = #{day_certify_count},
+		day_certify_count =
+		#{day_certify_count},
 		only_cam = #{only_cam},
 		fit_id = #{fit_id}
-		where challenge_id = #{challenge_id}
+		where
+		challenge_id = #{challenge_id}
 	</update>
-	
+
 
 </mapper>

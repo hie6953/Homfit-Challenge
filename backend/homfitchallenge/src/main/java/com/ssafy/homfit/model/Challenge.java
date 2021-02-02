@@ -22,7 +22,7 @@ public class Challenge implements Serializable{
 	private String end_date;
 	private String make_date;
 	private String make_uid;
-	private String fit_id;
+	private int fit_id;
 	private int check_date;
 	private int period;
 	private String nick_name; //개설자 닉네임
@@ -119,10 +119,10 @@ public class Challenge implements Serializable{
 	public void setMake_uid(String make_uid) {
 		this.make_uid = make_uid;
 	}
-	public String getFit_id() {
+	public int getFit_id() {
 		return fit_id;
 	}
-	public void setFit_id(String fit_id) {
+	public void setFit_id(int fit_id) {
 		this.fit_id = fit_id;
 	}
 	public int getCheck_date() {
@@ -183,6 +183,7 @@ public class Challenge implements Serializable{
 	public void setKind(int kind) {
 		this.kind = kind;
 	}
+	
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -195,6 +196,7 @@ public class Challenge implements Serializable{
 				+ ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + ", bodyList="
 				+ Arrays.toString(bodyList) + "]";
 	}
+	
 	
 	
 	
