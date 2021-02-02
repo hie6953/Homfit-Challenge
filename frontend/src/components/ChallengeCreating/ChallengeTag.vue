@@ -1,8 +1,13 @@
 <template>
   <div>
-    <h4>챌린지와 관련있는 태그를 입력하세요!</h4>
+    <h4 class="challenge-creating-title">챌린지 태그 입력</h4>
     <!-- 태그 입력 input -->
     <div>
+      <div class="challenge-period-information">
+        <span
+          ><b-icon icon="dot"></b-icon>태그는 5개까지 입력할 수 있습니다.</span
+        ><br />
+      </div>
       <b-input
         type="text"
         id="tag-input"
@@ -18,16 +23,20 @@
         :key="`${index}_tag`"
         :content="tag"
         :index="index"
-        @click.native="deleteTag(index)"
+        @delete="deleteTag(index)"
       ></Tag>
     </div>
 
     <!-- 페이지 이동 버튼 -->
-    <div>
-      <b-button class="prev-page-button" @click="PrevPage()">Previous</b-button>
-      <b-button class="next-page-button" @click="CreateChallenge()"
-        >Create</b-button
+    <div class="mt-4">
+      <b-button class="prev-page-button" @click="PrevPage()"
+        ><b-icon icon="arrow-left-circle-fill" scale="1.5"></b-icon
+        ><span>인증</span></b-button
       >
+      <b-button class="next-page-button" @click="CreateChallenge()"
+        ><span>챌린지 개설</span
+        ><b-icon icon="arrow-right-circle-fill" scale="1.5"></b-icon
+      ></b-button>
     </div>
   </div>
 </template>
@@ -48,6 +57,15 @@ export default {
       tagList: [],
       input: '',
     };
+  },
+  watch: {
+    tagList: function() {
+      if (this.tagList.length >= 5) {
+        document.getElementById('tag-input').readOnly = true;
+      } else {
+        document.getElementById('tag-input').readOnly = false;
+      }
+    },
   },
   created() {
     this.tagList = this.props_tagList;

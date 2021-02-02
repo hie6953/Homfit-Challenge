@@ -1,0 +1,43 @@
+/* textarea */
+.ProseMirror {
+  margin: 0px 0px 20px 0px;
+  border: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+  width: 100%;
+  min-height: 200px;
+}
+
+.editor-button {
+  border-radius: 0px !important;
+  background-color: #eac03a !important;
+  border-color: #eac03a !important;
+  padding: 2px !important;
+}
+
+.editor-button:hover {
+  background-color: #e65c2e;
+  border-color: #e65c2e;
+}
+
+.editor-button:focus,
+.editor-button:active {
+  background: #e65c2e !important;
+  border-color: #e65c2e;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.editor-buttons-first,
+.editor-buttons-second {
+  width: 100%;
+}
+
+.editor-buttons-first button:first-child {
+  border-radius: 5px 0px 0px 0px !important;
+}
+
+.editor-buttons-first button:last-child {
+  border-radius: 0px 5px 0px 0px !important;
+}

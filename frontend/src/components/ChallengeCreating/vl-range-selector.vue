@@ -29,12 +29,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      maxEndDate: '',
-    };
-  },
-
   methods: {
     emitDate(date) {
       if (this.startDate && !this.endDate && date >= this.startDate) {
@@ -61,7 +55,11 @@ export default {
 
     calculateDisabled(date) {
       if (this.startDate && !this.endDate) {
-        return date < this.startDate;
+        let diff = Math.ceil(
+          (new Date(date).getTime() - new Date(this.startDate).getTime()) /
+            (1000 * 3600 * 24)
+        );
+        return !(date > this.startDate && diff < 30 && diff >= 2);
       } else return false;
     },
   },
