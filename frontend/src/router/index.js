@@ -75,6 +75,7 @@ const routes = [
     path: '/editprofilepassconfirm',
     name: 'ProfileEditPasswordConfirm',
     component: () => import('../views/ProfileEditPasswordConfirm.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/',
