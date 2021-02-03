@@ -103,6 +103,12 @@ const routes = [
     name: 'MainPage',
     component: MainPage,
   },
+  {
+    path: '/mypage/statistics',
+    name: 'Statistics',
+    component: () => import('../views/StatisticsPage.vue'),
+    // beforeEnter: requireAuth(),
+  },
 ];
 
 const router = new VueRouter({
