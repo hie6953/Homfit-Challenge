@@ -3,7 +3,9 @@ package com.ssafy.homfit.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
 import com.ssafy.homfit.model.service.UserService;
 import com.ssafy.homfit.util.Util;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +45,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BookmarkService bookmarkService;
 
     @ApiOperation(value = "회원 등록", notes = "새로운 회원을 등록한다. 그리고 가입 성공 여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping("/signup")
@@ -218,4 +224,44 @@ public class UserController {
     //     resultMap.put("list", list);
     //     return new ResponseEntity<Map<String,Object>>(resultMap, status);
     // }
+    @PostMapping(value="/bookmark")
+    public ResponseEntity<String> addBookMark(@RequestBody Bookmark bookmark) {
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            if(bookmarkService.create(bookmark)){
+                msg = SUCCESS;
+            } else{
+                msg = FAIL;
+            }
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("북마크 추가 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(msg, status);
+    }
+    
+    @DeleteMapping(value = "/bookmark")
+    public ResponseEntity<String> deleteBookMark(@RequestBody Bookmark bookmark){
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            if(bookmarkService.delete(bookmark)){
+                msg = SUCCESS;
+            } else{
+                msg = FAIL;
+            }
+        } catch (Exception e) {
+            logger.error("북마크 삭제 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
 }
