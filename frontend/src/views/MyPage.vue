@@ -83,16 +83,18 @@
             <div class="status">
               <span>참가중</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.ing }}</span>
+              </div>
+            </router-link>
           </div>
           <div class="status-list">
             <div class="status">
               <span>완료</span>
             </div>
             <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
+              <span>{{ challenge.done }}</span>
             </div>
           </div>
           <div class="status-list">
@@ -100,7 +102,7 @@
               <span>개설</span>
             </div>
             <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
+              <span>{{ challenge.create }}</span>
             </div>
           </div>
         </div>

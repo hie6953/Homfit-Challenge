@@ -89,6 +89,11 @@ const routes = [
     component: () => import('../views/SelectPreference.vue'),
   },
   {
+    path: '/challengemanage',
+    name: 'ChallengeManage',
+    component: () => import('../views/ChallengeManage.vue'),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
