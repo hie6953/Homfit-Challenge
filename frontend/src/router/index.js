@@ -84,6 +84,11 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/selectpreference',
+    name: 'SelectPreference',
+    component: () => import('../views/SelectPreference.vue'),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
