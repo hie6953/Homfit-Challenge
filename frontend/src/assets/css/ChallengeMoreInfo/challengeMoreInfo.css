@@ -1,0 +1,50 @@
+/* 모바일 */
+@media (max-width: 480px) {
+    #info-navbar{
+        top:65px;
+        height:38px;
+    }
+}
+/* PC */
+@media (min-width: 480px) {
+    #info-navbar{
+        top:80px;
+        height:50px;
+    }
+}
+
+/* Mobile large */
+@media(max-width:992px){
+    .info-float{
+        position:fixed;
+        bottom:0px;
+        width: 100%;
+        height: 60px;
+        box-shadow:-4px 0px 8px 1px rgba(39, 44, 56, 0.1);
+    }
+
+}
+
+/* PC large */
+@media(min-width:992px){
+    .info-float{
+        top:150px;
+        position:sticky;
+        background-color: white;
+        border-radius: 10px;
+        height:100px;
+        margin-top: 20px;
+    box-shadow:0 2px 4px 1px rgba(39, 44, 56, 0.2);
+    }
+
+}
+
+#info-navbar{
+    background-color:#EAC03A;
+    position:sticky;
+    z-index: 5;
+}
+
+.info-float{
+    background-color: white;
+}
