@@ -78,6 +78,12 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/mypoint',
+    name: 'MyPoint',
+    component: () => import('../views/MyPoint.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
