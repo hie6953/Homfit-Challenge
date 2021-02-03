@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <StatisticsTermTag />
+    <StatisticsTermTab />
   </div>
 </template>
 
 <script>
-import StatisticsTermTag from "../components/StatisticsPage/StatisticsTermTag"
+import StatisticsTermTab from "../components/StatisticsPage/StatisticsTermTab"
 
 export default {
   components: {
-    StatisticsTermTag,
+    StatisticsTermTab,
   }
 }
 </script>
