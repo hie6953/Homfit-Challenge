@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar variant="white">
+    <b-navbar class="navbar-main" variant="white">
       <!-- 로고 -->
       <router-link to="/">
         <img id="logo-image" src="@/assets/NavBar/logo.png" />
