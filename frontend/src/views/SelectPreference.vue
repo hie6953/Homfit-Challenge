@@ -3,6 +3,12 @@
     <hr id="hr-top" />
 
     <div class="mx-auto col-8 select-prefer-container">
+      <!-- 안내문구 -->
+      <div class="prefer-info-text">
+        <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
+        선택하신 운동종류, 운동부위, 요일을 바탕으로 챌린지를 추천해드립니다.
+        <hr />
+      </div>
       <!-- 관심운동 -->
       <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
@@ -260,16 +266,18 @@
       </div>
 
       <!-- 버튼 -->
-      <div class="prefer-choice-submit-btn">
-        <input
-          type="button"
-          class="prefer-choice-btn-priority btn"
-          value="선택완료"
-          :class="{ disabled: !canGoNext }"
-          @click="(e) => canGoNext"
-          aria-disabled="true"
-        />
-      </div>
+      <router-link to="/">
+        <div class="prefer-choice-submit-btn">
+          <input
+            type="button"
+            class="prefer-choice-btn-priority btn"
+            value="선택완료"
+            :class="{ disabled: !canGoNext }"
+            @click="(e) => canGoNext"
+            aria-disabled="true"
+          />
+        </div>
+      </router-link>
     </div>
   </div>
 </template>

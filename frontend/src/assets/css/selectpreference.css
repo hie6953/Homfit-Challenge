@@ -2,6 +2,11 @@
   margin: 8px 0 !important;
 }
 
+.prefer-info-text {
+  padding-top: 2rem;
+  padding-bottom: 45px;
+  text-align: center;
+}
 .select-prefer-container {
   margin: 20px auto;
   margin-top: 50px;
