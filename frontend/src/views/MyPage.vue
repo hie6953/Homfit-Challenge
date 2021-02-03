@@ -5,7 +5,7 @@
     <!-- 사용자 프로필 div -->
     <div class="mx-auto col-8 user-profile">
       <div class="user-profile-edit">
-        <router-link to="/editprofile" class="justtext">
+        <router-link to="/editprofilepassconfirm" class="justtext">
           <b-icon icon="pencil-square" class="edit-icon"></b-icon>
         </router-link>
       </div>
