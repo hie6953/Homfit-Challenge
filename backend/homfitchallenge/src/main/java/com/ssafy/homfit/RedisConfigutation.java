@@ -8,7 +8,10 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import com.ssafy.homfit.model.Challenge;
 
 
 
@@ -50,6 +53,7 @@ public class RedisConfigutation {
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer()); //key설정 - string
 		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer()); //value 직렬화설정 - 객체가 json 형태로 변환
+		//redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(Challenge.class));
 		return redisTemplate;
 	}
 	

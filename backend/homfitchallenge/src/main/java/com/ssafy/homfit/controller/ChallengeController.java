@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
@@ -63,20 +64,19 @@ public class ChallengeController {
 	/** 테스트 - redis */
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() {
-		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
-
-//		Challenge ch = new Challenge();
-//		ch.setChallenge_title("테스트해보자");
-//		ch.setChallenge_img("이미지");
-//		ch.setChallenge_contents("내용");
+		ListOperations<String, Object> vop = redisTemplate.opsForList();
+		Challenge ch = new Challenge();
+		ch.setChallenge_title("테스트해보자");
+		ch.setChallenge_img("이미지");
+		ch.setChallenge_contents("내용");
 
 //		
-//		String key = "challengeList::SimpleKey";
+		String key = "challengeList::AllChallengeList";
 //		System.out.println(vop.range(key, 0, 10));
 //		//Set<String> keys = redisTemplate.keys("*");
 
 		// System.out.println(keys.toString());
-		// System.out.println(vop.get("challengeList::SimpleKey []"));
+		redisTemplate.opsForList().leftPush(key, ch);
 //		Iterator<byte[]> it = keys.iterator();
 //
 //		while(it.hasNext()){
