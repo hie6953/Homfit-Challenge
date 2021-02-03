@@ -85,7 +85,7 @@
         </button>
 
         <!-- 검색 -->
-        <router-link to="/링크" class="mt-auto mb-auto main-menu"
+        <router-link to="/search" class="mt-auto mb-auto main-menu"
           ><b-icon
             id="searchIcon"
             icon="search"

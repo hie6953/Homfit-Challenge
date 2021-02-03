@@ -94,6 +94,11 @@ const routes = [
     component: () => import('../views/ChallengeManage.vue'),
   },
   {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue'),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
