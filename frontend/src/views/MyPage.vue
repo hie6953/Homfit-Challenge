@@ -24,7 +24,7 @@
             <div class="vertical-bar"></div>
             <div class="user-profile-point">
               <router-link to="/mypoint" class="justtext">
-                <span class="justtext">{{ user.point }}포인트</span>
+                <span class="justtext">{{ sum }}포인트</span>
               </router-link>
             </div>
           </div>
@@ -152,6 +152,10 @@ import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
 import MyPageBodyPhoto from '../components/MyPageBodyPhoto.vue';
 import '../assets/css/MyPage/mypage.css';
+import { mapGetters } from 'vuex';
+
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'Mypage',
@@ -163,17 +167,64 @@ export default {
   data: function() {
     return {
       user: {
-        nick_name: '이건내닉네임이야',
-        point: '200',
-        grade: 'bronze',
+        nick_name: '',
+        point: '',
+        grade: '',
       },
       challenge: {
         ing: '3',
         done: '5',
         create: '1',
       },
+      sum: '',
     };
   },
-  methods() {},
+  created() {
+    let uid = this.getUserUid;
+    console.log(uid);
+    axios
+      .post(
+        `${SERVER_URL}/user`,
+        { uid }
+        // nick_name: this.nick_name,
+        // point: this.point,
+        // grade: this.grade,
+      )
+      .then(({ data }) => {
+        this.user = data;
+        console.log(data);
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
+
+    axios
+      .post(`${SERVER_URL}/point/inquiry`, { uid })
+      .then(({ data }) => {
+        this.sum = data.sum;
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
+  },
+  methods: {
+    // getUserInfo() {
+    //   axios
+    //     .post(`${SERVER_URL}/user`, {
+    //       uid: getUserUid(),
+    //     })
+    //     .then(({ data }) => {
+    //       //console.log(data);
+    //       this.user = data;
+    //       //console.log(this.nicknamecheck);
+    //     })
+    //     .catch(() => {
+    //       alert('에러가 발생했습니다.');
+    //     });
+    // },
+  },
+  computed: {
+    ...mapGetters(['getUserUid']),
+  },
 };
 </script>
