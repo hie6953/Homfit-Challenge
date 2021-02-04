@@ -18,7 +18,7 @@ class HomfitchallengeApplicationTests {
 	@Test
 	void redisTest(){
 		ConnectToRedis s = new ConnectToRedis();
-		s.setCache("hi", "hello");
+		s.setCache("hi", "hello", 60 * 10);
 	}
 
 }

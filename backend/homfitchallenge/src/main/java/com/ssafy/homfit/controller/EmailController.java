@@ -24,7 +24,7 @@ public class EmailController {
     private static final String FAIL = "fail";
 
     @PostMapping("/verify")
-    public ResponseEntity<String> emailConfirm(String email){
+    public ResponseEntity<String> emailConfirm(@RequestBody String email){
         String msg = null;
         HttpStatus status = null;
         try {

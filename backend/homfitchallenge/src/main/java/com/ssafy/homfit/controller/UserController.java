@@ -218,4 +218,19 @@ public class UserController {
     //     resultMap.put("list", list);
     //     return new ResponseEntity<Map<String,Object>>(resultMap, status);
     // }
+
+    @PostMapping
+    public ResponseEntity<User> getUserInfo(@RequestBody String uid){
+        User user = null;
+        HttpStatus status = null;
+
+        try {
+            user = userService.getUid(uid);
+        } catch (Exception e) {
+            logger.error("회원 정보 찾기 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<User> (user, status);
+    }
 }
