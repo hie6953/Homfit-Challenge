@@ -8,7 +8,7 @@
     }
     .switch-button {
         width: 300px !important; 
-        font-size: 1.5vh !important;
+        /* font-size: 1.5vh !important; */
     }
 }
 .switch-box {
@@ -22,7 +22,7 @@
     text-align: center;
     /* 활성화 폰트 굵기, 크기 */
     font-weight: bold;
-    font-size: 1vh;
+    font-size: 16px;
     position: absolute;
     left: 50%;
     top: 50%;

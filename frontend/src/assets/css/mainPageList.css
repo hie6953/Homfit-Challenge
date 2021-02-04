@@ -126,6 +126,13 @@
     box-shadow: 0px 0px 0px #004977;
 }
 
+.card-user-image {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
 /* ========================================================== */
 
 /* 반응형 */

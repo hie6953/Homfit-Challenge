@@ -43,15 +43,24 @@
 </template>
 
 <script>
+axios.defaults.paramsSerializer = function(paramObj) {
+    const params = new URLSearchParams()
+    for (const key in paramObj) {
+        params.append(key, paramObj[key])
+    }
+
+    return params.toString()
+}
+
 import MainPageAd from "../components/MainPage/MainPageAd.vue"
 import MainPageCategory from "../components/MainPage/MainPageCategory.vue"
 import MainPageList from "../components/MainPage/MainPageList.vue"
 
-// import axios from 'axios';
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-// 신규챌린지와 인기챌린지 10개씩 받아오기
+// 신규챌린지와 인기챌린지 20개씩 받아오기
 // 받아온 리스트 MainPageList로 데이터 보내기
   components: {
     MainPageAd,
@@ -60,48 +69,50 @@ export default {
   },
   data() {
     return {
-      newChallengeList: [
-        // 예시로 넣어둠
-        {name: 'Kin Khao', tag: ["Thai"]},
-        {name: 'Jū-Ni', tag: ["Sushi", "Japanese", "$$$$"]},
-        {name: 'Delfina', tag: ["Pizza", "Casual"]},
-        {name: 'San Tung', tag: ["Chinese", "$$"]},
-        {name: 'Anchor Oyster Bar', tag: ["Seafood", "Cioppino"]},
-        {name: 'Locanda', tag: ["Italian"]},
-        {name: 'Garden Creamery', tag: ["Ice cream"]},
-      ],
-      popularChallengeList: [
-        // 예시로 넣어둠
-        {name: 'Kin Khao', tag: ["Thai"]},
-        {name: 'Jū-Ni', tag: ["Sushi", "Japanese", "$$$$"]},
-        {name: 'Delfina', tag: ["Pizza", "Casual"]},
-        {name: 'San Tung', tag: ["Chinese", "$$"]},
-        {name: 'Anchor Oyster Bar', tag: ["Seafood", "Cioppino"]},
-        {name: 'Locanda', tag: ["Italian"]},
-        {name: 'Garden Creamery', tag: ["Ice cream"]},
-      ],
-      popularChallengeList2: [
-        // 예시로 넣어둠
-        {name: '2번', tag: ["Thai"]},
-        {name: 'Jū-Ni', tag: ["Sushi", "Japanese", "$$$$"]},
-        {name: 'Delfina', tag: ["Pizza", "Casual"]},
-        {name: 'San Tung', tag: ["Chinese", "$$"]},
-        {name: 'Anchor Oyster Bar', tag: ["Seafood", "Cioppino"]},
-        {name: 'Locanda', tag: ["Italian"]},
-        {name: 'Garden Creamery', tag: ["Ice cream"]},
-      ],
+      newChallengeList: [],
+      popularChallengeList: [],
     }
   },
   created() {
-    // axios
-      // .get(`${SERVER_URL}/challenge/all`)
-      // .then(({ data }) => {
-      //   this.challengeList = data;
-      // })
-      // .catch(() => {
-      //   alert('챌린지 목록을 불러오지 못했습니다.');
-      // });
-  }
+    axios
+        .get(`${SERVER_URL}/challenge/all`, {
+          params: {
+            category: 0, //0:전체, 1~10 카테고리숫자
+            sort: 0, //0:인기순,1:최신순
+            periodStart: 0, //period최소값(이상) 7
+            periodEnd: 0, //period최대값(이하) 30
+            day: [], //요일 숫자 배열 [3,4,5]
+            page: 1, //페이지 숫자
+          },
+        })
+        .then(({ data }) => {
+          console.log(data)
+          this.popularChallengeList = data;
+        })
+        .catch(() => {
+          alert('챌린지 목록을 불러오지 못했습니다.');
+        });
+    axios
+        .get(`${SERVER_URL}/challenge/all`, {
+          params: {
+            category: 0, //0:전체, 1~10 카테고리숫자
+            sort: 1, //0:인기순,1:최신순
+            periodStart: 0, //period최소값(이상) 7
+            periodEnd: 0, //period최대값(이하) 30
+            day: [], //요일 숫자 배열 [3,4,5]
+            page: 1, //페이지 숫자
+          },
+        })
+        .then(({ data }) => {
+          console.log('신규')
+          console.log(data)
+          this.newChallengeList = data;
+          console.log(this.newChallengeList)
+        })
+        .catch(() => {
+          alert('챌린지 목록을 불러오지 못했습니다.');
+        });
+    }
 }
 </script>
 
