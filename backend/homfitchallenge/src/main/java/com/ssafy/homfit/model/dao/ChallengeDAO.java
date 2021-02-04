@@ -14,7 +14,7 @@ import com.ssafy.homfit.model.Challenge;
 public interface ChallengeDAO {
 	
 	/**챌린지 리스트  */
-	public Challenge[] selectAllChallenge();
+	public List<Challenge> selectAllChallenge();
 	public Challenge selectChallengeByid(int challenge_id);
 	public int insertChallenge(Challenge challenge);
 	public int updateChallenge(Challenge challenge);
@@ -32,7 +32,7 @@ public interface ChallengeDAO {
 	/** 챌린지 참여 */
 	public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid );
 	public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
-	public Challenge[] selectParticipants();
+	public Challenge selectParticipants(int challengeId);
 	
 	
 }

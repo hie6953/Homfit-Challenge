@@ -37,7 +37,7 @@ public class PointServiceImpl implements PointService {
             String uid = point.getUid();
             User user = new User();
             // 회원의 모든 포인트의 합계를 가지고온다
-            sum = this.sumPoint(uid);
+            sum = this.sumPoint(this.inquiry(uid));
             // 회원의 포인트가 어느 등급에 해당하는지 확인한다
             if(sum <= 99) grade = "bronze";
             else if(100 <= sum && sum <= 499) grade = "silver";
@@ -54,9 +54,8 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public long sumPoint(String uid) throws Exception {
+    public long sumPoint(List<Point> list) throws Exception {
         long sum = 0;
-        List<Point> list = sqlSession.getMapper(PointDAO.class).inquiry(uid);
         for (Point point : list) {
             sum += point.getPoint();
         }

@@ -9,12 +9,12 @@
     </select>
 
     <insert id="signup" parameterType="user">
-        insert into user(uid, email, password, nick_name, phone_number, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
-        values (#{uid},#{email},#{password},#{nick_name},#{phone_number},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
+        insert into user(uid, email, password, nick_name, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
+        values (#{uid},#{email},#{password},#{nick_name},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
-        select * from user where uid=#{uid}
+        select nick_name, user_img, grade, email from user where uid=#{uid}
     </select>
 
     <select id="findPassword" parameterType="String" resultType="user">
@@ -56,4 +56,9 @@
     <select id="test" resultType="user">
         select * from user
     </select>
+
+    <select id="checkPassword" parameterType="user" resultType="user">
+        select * from user where uid = #{uid} and password = #{password}
+    </select>
+
 </mapper>

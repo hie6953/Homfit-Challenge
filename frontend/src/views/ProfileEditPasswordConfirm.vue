@@ -24,18 +24,20 @@
                   v-model="password"
                   required
                 />
+                <span class="error-text" v-if="passwordconfirm"
+                  >비밀번호가 일치하지 않습니다.</span
+                >
               </div>
             </div>
             <!-- 버튼 -->
-            <router-link to="/editprofile" class="">
-              <div class="passchange-confirm-btn">
-                <input
-                  type="button"
-                  class="passconfirm-btn-priority btn"
-                  value="확인"
-                />
-              </div>
-            </router-link>
+            <div class="passchange-confirm-btn">
+              <input
+                type="button"
+                class="passconfirm-btn-priority btn"
+                value="확인"
+                @click="ConfirmPassword()"
+              />
+            </div>
           </form>
         </div>
       </div>
@@ -45,11 +47,38 @@
 
 <script>
 import '../assets/css/profileeditpasswordconfirm.css';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProfileEditPasswordConfirm',
   data: function() {
-    return {};
+    return {
+      password: '',
+      passwordconfirm: false,
+    };
+  },
+  methods: {
+    ConfirmPassword: function() {
+      axios
+        .post(`${SERVER_URL}/user/checkPassword`, {
+          password: this.password,
+          uid: this.getUserUid,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (data === true) {
+            this.$router.push(`/editprofile`);
+          } else this.passwordconfirm = true;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+  },
+  computed: {
+    ...mapGetters(['getUserUid']),
   },
 };
 </script>

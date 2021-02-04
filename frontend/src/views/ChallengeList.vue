@@ -142,53 +142,16 @@
         >
       </b-dropdown>
       <!-- 필터 -->
+
       <b-dropdown id="filter-dropdown" right variant="outline-dark">
         <template #button-content>
           필터<b-icon icon="filter"></b-icon>
         </template>
-        <h5>기간</h5>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="ThreeToSeven"
-          value="Apple"
-        />
-        <label for="ThreeToSeven">3일~7일</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit2"
-          name="fruit-2"
-          value="Banana"
-        />
-        <label for="fruit2">1주~2주</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit3"
-          name="fruit-3"
-          value="Cherry"
-        />
-        <label for="fruit3">2주~3주</label>
-        <input
-          type="checkbox"
-          class="filter-period"
-          v-model="period"
-          id="fruit4"
-          name="fruit-4"
-          value="Strawberry"
-        />
-        <label for="fruit4">3주~</label>
-
-        <b-dropdown-divider></b-dropdown-divider>
-        <h5>요일</h5>
-        <week-button
-          :props_day="day"
-          @change="(data) => dayChange(data)"
-        ></week-button>
+        <challenge-list-filter
+          :prop_days="day"
+          :prop_period="period"
+          @change="getFilterData"
+        ></challenge-list-filter>
       </b-dropdown>
       <!-- 챌린지 리스트 -->
       <div class="row list-card">
@@ -197,38 +160,67 @@
           :key="`${index}_challenge`"
           class="col-6 col-md-4 col-lg-3 challenge-list-card"
           :challenge="challenge"
+          @moreInfo="ChallengeMoreInfo"
         ></challenge-list-card>
       </div>
+      <infinite-loading ref="InfiniteLoading" @infinite="getData" spinner="waveDots">
+        <div class="infinite-loading-message" slot="no-more">
+          <b-button @click="scrollUp"
+            >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+          ></b-button>
+        </div>
+        <div class="infinite-loading-message" slot="no-results">
+          결과가 없습니다 :(
+        </div>
+        <div class="infinite-loading-message" slot="error">
+          불러오지 못했습니다.
+        </div>
+      </infinite-loading>
     </div>
   </div>
 </template>
 
 <script>
-import ChallengeListCard from '../components/ChallengeListCard.vue';
-import '@/assets/css/challengelist.css';
+import ChallengeListCard from "../components/ChallengeListCard.vue";
+import ChallengeListFilter from "../components/ChallengeListFilter.vue";
+import InfiniteLoading from "vue-infinite-loading";
+import "@/assets/css/challengelist.css";
 
-import axios from 'axios';
-import WeekButton from '../components/WeekButton.vue';
+import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
+//axios array [] 없애기
+axios.defaults.paramsSerializer = function(paramObj) {
+    const params = new URLSearchParams()
+    for (const key in paramObj) {
+        params.append(key, paramObj[key])
+    }
+
+    return params.toString()
+}
+
 export default {
-  name: 'ChallengeList',
-  components: { ChallengeListCard, WeekButton },
+  name: "ChallengeList",
+  components: { ChallengeListCard, ChallengeListFilter, InfiniteLoading },
   watch: {
+    sortValue: function() {
+      this.getNewData();
+    },
     category: function() {
-      console.log(this.category);
+      this.getNewData();
     },
   },
   data() {
     return {
       category: 0,
-      sortList: ['인기순', '최신순'],
+      sortList: ["인기순", "최신순"],
       sortValue: 0,
-      periodStart: 3,
-      periodEnd: 30,
+      period: [3, 30],
       day: [],
       page: 1,
       challengeList: [],
+      scrollUpDelay: 1,
+      scrollUpSpeed: 30,
     };
   },
   created() {
@@ -242,26 +234,83 @@ export default {
     if (category_sort) {
       this.sortValue = category_sort;
     }
-
-    axios
-      .get(`${SERVER_URL}/challenge/all`, {
-        params: {
-          category: this.category, //0:전체, 1~10 카테고리숫자
-          sort: this.sortValue, //0:인기순,1:최신순
-          periodStart: this.periodStart, //period최소값(이상) 7
-          periodEnd: this.periodEnd, //period최대값(이하) 30
-          day: this.day, //요일 숫자 배열 [3,4,5]
-          page: this.page, //페이지 숫자
-        },
-      })
-      .then(({ data }) => {
-        this.challengeList = data;
-      })
-      .catch(() => {
-        alert('챌린지 목록을 불러오지 못했습니다.');
-      });
   },
   methods: {
+    getNewData: function() {
+      this.page = 1;
+      this.challengeList = [];
+      if(this.$refs.InfiniteLoading){
+        this.$refs.InfiniteLoading.stateChanger.reset(); 
+    }
+    },
+    getData: function($state) {
+      axios
+        .get(`${SERVER_URL}/challenge/all`, {
+          params: {
+            day: this.day, //요일 숫자 배열 [3,4,5]
+            category: this.category, //0:전체, 1~10 카테고리숫자
+            sort: this.sortValue, //0:인기순,1:최신순
+            periodStart: this.period[0], //period최소값(이상) 7
+            periodEnd: this.period[1], //period최대값(이하) 30
+
+            page: this.page, //페이지 숫자
+          },
+        })
+        .then(({ data }) => {
+          setTimeout(() => {
+            if (data.length) {
+              this.challengeList = this.challengeList.concat(data);
+              ++this.page;
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          }, 500);
+        })
+        .catch(() => {
+          alert("챌린지 목록을 불러오지 못했습니다.");
+        });
+
+      // // Object To FormData 변환
+      // var formData = new FormData();
+      // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
+      // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
+      // // 이미지
+      // if (this.scndhandReg.imgFile != "") {
+      //   formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일 ^^
+      // }
+      // // 파일업로드시 (경로,FormData,Header) 설정
+      // this.$axios
+      //   .post(url, formData, {
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   })
+      //   .then((response) => {
+      //     if (!!response && response.status === 200) {
+      //       commonUtils.$alert("감사합니다.\n정상등록되었습니다.");
+      //       this.scndhandReg = Object.assign({}, this.defScndhangReg);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     commonUtils.$alertUncatchedError(error);
+      //   });
+    },
+    ChallengeMoreInfo:function(challenge_id){
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
+    },
+    scrollUp: function() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+
+    getFilterData: function(period, day) {
+      this.period = period;
+      this.day = day;
+      this.getNewData();
+    },
     dayChange: function(day) {
       this.day = day;
     },

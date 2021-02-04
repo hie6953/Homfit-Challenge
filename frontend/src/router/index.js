@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store';
+// import store from '@/store';
 import MainPage from '../views/MainPage';
 
 Vue.use(VueRouter);
 
 const requireAuth = () => (to, from, next) => {
   const nextRoute = to.path;
-  if (store.getters.getAccessToken) {
+  if (sessionStorage.getItem('loginInfo')) {
     return next();
   } else next('/login' + nextRoute);
 };
@@ -60,6 +60,11 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/challenge-more-info/:challenge_id',
+    name: 'ChallengeMoreInfo',
+    component: () => import('../views/ChallengeMoreInfo.vue'),
+  },
+  {
     path: '/mypage',
     name: 'MyPage',
     component: () => import('../views/MyPage.vue'),
@@ -84,9 +89,30 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/selectpreference',
+    name: 'SelectPreference',
+    component: () => import('../views/SelectPreference.vue'),
+  },
+  {
+    path: '/challengemanage',
+    name: 'ChallengeManage',
+    component: () => import('../views/ChallengeManage.vue'),
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue'),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
+  },
+  {
+    path: '/mypage/statistics',
+    name: 'Statistics',
+    component: () => import('../views/StatisticsPage.vue'),
+    // beforeEnter: requireAuth(),
   },
 ];
 

@@ -1,6 +1,6 @@
 package com.ssafy.homfit;
 
-import com.ssafy.homfit.api.ConnectToRedis;
+
 import com.ssafy.homfit.util.Util;
 
 import org.junit.jupiter.api.Test;
@@ -13,12 +13,6 @@ class HomfitchallengeApplicationTests {
 	void contextLoads() {
 		String tk = Util.generateToken();
 		System.out.println(tk);
-	}
-
-	@Test
-	void redisTest(){
-		ConnectToRedis s = new ConnectToRedis();
-		s.setCache("hi", "hello");
 	}
 
 }

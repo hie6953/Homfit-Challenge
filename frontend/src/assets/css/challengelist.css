@@ -134,6 +134,39 @@ h5 {
   border-color: #eac03a;
 }
 
+/* 무한스크롤 */
+.infinite-loading-message {
+  margin: 20px 0 40px 0;
+  font-size: large;
+  font-weight: 700;
+}
+
+.infinite-loading-message button,
+.infinite-loading-message button:hover,
+.infinite-loading-message button:focus,
+.infinite-loading-message button:active {
+  background-color: #eac03a !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  outline: none !important;
+  border: none !important;
+}
+
+.infinite-loading-message button {
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.infinite-loading-message button:hover,
+.infinite-loading-message button:focus,
+.infinite-loading-message button:active {
+  box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+.infinite-loading-message button:focus,
+.infinite-loading-message button:active {
+  box-shadow: none !important;
+}
+
 /* 카드 */
 .list-card {
   clear: both;
@@ -151,51 +184,3 @@ h5 {
   z-index: 2;
 }
 
-.challenge-list-card-body {
-  margin: 5px 10px;
-}
-
-.challenge-list-card-footer {
-  margin: 5px 10px;
-}
-
-.challenge-list-card-hr {
-  margin: 0px !important;
-}
-
-#card-title {
-  font-size: large;
-  font-weight: 700;
-}
-
-.card-user-image {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-#card-user-nick-name {
-  font-size: small;
-  font-weight: 500;
-  color: #aaa;
-  margin-left: 5px;
-}
-
-#card-day {
-  background-color: #eac03a;
-  border-radius: 7%;
-  font-size: small;
-  color: #fff;
-  padding: 4px 3px;
-  margin-right: 3px;
-}
-
-#card-period {
-  background-color: #eac03a;
-  border-radius: 10%;
-  font-size: small;
-  color: #fff;
-  padding: 4px 3px;
-  margin-right: 3px;
-}

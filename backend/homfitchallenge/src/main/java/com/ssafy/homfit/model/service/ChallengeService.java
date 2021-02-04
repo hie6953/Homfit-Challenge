@@ -12,7 +12,7 @@ import com.ssafy.homfit.model.Challenge;
 public interface ChallengeService {
 
 	/** 챌린지 리스트 */
-	public Challenge[] AllChallengeList();
+	public List<Challenge> AllChallengeList();
 	public Challenge detailChallenge(int challenge_id);
 	public boolean writeChallenge(Challenge challenge);
 	public boolean updateChallenge(Challenge challenge);
@@ -29,6 +29,6 @@ public interface ChallengeService {
 	/** 챌린지 참여 */
 	public boolean joinChallenge(int challenge_id, String uid);
 	public boolean quitChallenge(int challenge_id, String uid);
-	public Challenge[] selectParticipants();
+	public Challenge selectParticipants(int challengeId);
 	
 }

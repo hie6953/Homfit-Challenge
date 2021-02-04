@@ -16,5 +16,7 @@ public interface UserService {
     public void updateGrade(User user) throws Exception;
     public boolean updateDetail(User user) throws Exception;
     public List<User> test() throws Exception;
-	public boolean updateImg(String uid, MultipartFile imgFile) throws Exception;
+    public boolean updateImg(String uid, MultipartFile imgFile) throws Exception;
+	public Boolean checkPassword(User user) throws Exception;
+    
 }

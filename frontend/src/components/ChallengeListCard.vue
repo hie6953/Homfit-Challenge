@@ -9,6 +9,7 @@
       tag="article"
       style="max-width: 30rem;"
       class="mb-2 shadow"
+      @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
         <span id="card-title">{{ challenge.challenge_title }}</span>
@@ -24,10 +25,35 @@
         <span>{{ challenge.people }}명 참여중</span>
       </div>
     </b-card>
+
+    <!-- <b-card
+      img-src="https://picsum.photos/600/300/?image=25"
+      img-alt="Image"
+      img-top
+      no-body
+      tag="article"
+      style="max-width: 30rem;"
+      class="mb-2 shadow"
+    >
+      <div class="challenge-list-card-body">
+        <span id="card-title">땅끄</span>
+        <br />
+        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+        <span id="card-user-nick-name">땅끄</span>
+        <br />
+        <span id="card-day">{{ GetDayList() }}</span>
+        <span id="card-period">22일</span>
+      </div>
+      <hr class="challenge-list-card-hr" />
+      <div class="challenge-list-card-footer">
+        <span>22명 참여중</span>
+      </div>
+    </b-card> -->
   </div>
 </template>
 
 <script>
+import '@/assets/css/challengeListCard.css'
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 
 export default {
@@ -49,6 +75,9 @@ export default {
       }
       return '';
     },
+    ChallengeMoreInfo:function(){
+      this.$emit("moreInfo",this.challenge.challenge_id);
+    }
   },
 };
 </script>

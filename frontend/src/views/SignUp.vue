@@ -43,14 +43,39 @@
 
               <input
                 type="button"
-                value="중복체크"
+                value="이메일인증"
                 class="phonecode-btn"
                 @click="EmailCheck()"
               />
+              <!-- <input type="button" value="이메일인증" class="phonecode-btn" /> -->
             </div>
-            <span class="error-text" v-if="emailcheck"
+            <!-- <span class="error-text" v-if="emailcheck"
               >이미 동일한 이메일이 존재합니다.</span
-            >
+            > -->
+          </div>
+        </div>
+
+        <div class="user-sign-up-form__form-group">
+          <div class="user-sign-up-form-label">인증번호</div>
+          <div class="user-sign-up-form__form-group__input">
+            <div class="input-group email-input">
+              <input
+                type="password"
+                placeholder="인증번호"
+                v-model="emailcode"
+                class="form-control"
+                required
+              />
+              <input
+                type="button"
+                value="인증번호 확인"
+                class="phonecode-btn"
+                @click="EmailCodeCheck()"
+              />
+            </div>
+            <!-- <span class="error-text" v-if="emailcheck"
+              >인증에 실패했습니다.</span
+            > -->
           </div>
         </div>
 
@@ -93,7 +118,7 @@
           </div>
         </div>
 
-        <div class="user-sign-up-form__form-group">
+        <!-- <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">휴대폰 번호</div>
           <div class="user-sign-up-form__form-group__input">
             <div class="input-group email-input">
@@ -144,26 +169,7 @@
               />
             </div>
           </div>
-        </div>
-
-        <div class="user-sign-up-form__form-group">
-          <div class="user-sign-up-form-label">인증번호</div>
-          <div class="user-sign-up-form__form-group__input">
-            <div class="input-group email-input">
-              <input
-                type="password"
-                placeholder="인증번호"
-                value=""
-                class="form-control"
-              />
-              <input
-                type="button"
-                value="인증번호 확인"
-                class="phonecode-btn"
-              />
-            </div>
-          </div>
-        </div>
+        </div> -->
 
         <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">별명</div>
@@ -188,9 +194,14 @@
                 @click="NicknameCheck()"
               />
             </div>
-            <span class="error-text" v-if="nicknamecheck"
-              >이미 동일한 별명이 존재합니다.</span
-            >
+            <span v-if="nicknamecheck"></span>
+
+            <span class="error-text" v-if="errormsg.nick_name">{{
+              errormsg.nick_name
+            }}</span>
+            <span class="correct-text" v-if="correctmsg.nick_name">{{
+              correctmsg.nick_name
+            }}</span>
           </div>
         </div>
 
@@ -281,6 +292,8 @@ export default {
       ],
       sex: 'f',
       errormsg: [],
+      correctmsg: [],
+      emailcode: '',
     };
   },
   watch: {
@@ -292,6 +305,11 @@ export default {
       this.passwordcheck = value;
       this.checkPasswordconfirm(value);
     },
+
+    nick_name(value) {
+      this.nick_name = value;
+      this.checknick_name(value);
+    },
   },
 
   methods: {
@@ -299,10 +317,16 @@ export default {
       axios
         .get(`${SERVER_URL}/user/check/${this.nick_name}`)
         .then(({ data }) => {
-          //console.log(data);
+          console.log(data);
           if (data === true) {
             this.nicknamecheck = true;
-          } else this.nicknamecheck = false;
+            this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+            this.correctmsg['nick_name'] = ``;
+          } else {
+            this.nicknamecheck = false;
+            this.errormsg['nick_name'] = ``;
+            this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
+          }
           //console.log(this.nicknamecheck);
         })
         .catch(() => {
@@ -310,17 +334,36 @@ export default {
         });
     },
     EmailCheck() {
-      var email = this.emailid + '@' + this.emaildomain;
       axios
-        .get(`${SERVER_URL}/user/checkemail/${email}`)
+        .post(`${SERVER_URL}/email/verify`, {
+          email: this.emailid + '@' + this.emaildomain,
+        })
         .then(({ data }) => {
-          //console.log(data);
-          //console.log(email);
-          if (data === true) {
+          console.log(data);
+          if (data == 'success') {
+            alert('메일을 발송했습니다.');
+          } else {
+            alert('이미 가입된 이메일 주소입니다.');
+          }
+          //console.log(this.emailcheck);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+    EmailCodeCheck() {
+      axios
+        .post(`${SERVER_URL}/email/verifyCode?code=${this.emailcode}`, {
+          email: this.emailid + '@' + this.emaildomain,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (data != false) {
             this.emailcheck = true;
+            alert('인증번호 확인');
           } else {
             this.emailcheck = false;
-            alert('사용 가능한 이메일입니다.');
+            alert('인증에 실패했습니다.');
           }
           //console.log(this.emailcheck);
         })
@@ -345,28 +388,31 @@ export default {
       this.changeint();
       console.log(typeof this.age);
       console.log(typeof this.sex);
-
-      axios
-        .post(`${SERVER_URL}/user/signup`, {
-          email: this.emailid + '@' + this.emaildomain,
-          password: this.password,
-          phone_number: this.phone1 + this.phone2 + this.phone3,
-          nick_name: this.nick_name,
-          age: this.age,
-          sex: this.sex,
-        })
-        .then(({ data }) => {
-          let msg = '회원등록 처리시 문제가 발생했습니다.';
-          if (data === 'success') {
-            msg = '회원등록이 완료되었습니다.';
-          }
-          console.log(msg);
-          //alert(msg);
-          this.$router.replace('/login');
-        })
-        .catch(() => {
-          alert('회원등록 처리시 에러가 발생했습니다.');
-        });
+      if (this.emailcheck == true && this.nicknamecheck == false) {
+        axios
+          .post(`${SERVER_URL}/user/signup`, {
+            email: this.emailid + '@' + this.emaildomain,
+            password: this.password,
+            phone_number: this.phone1 + this.phone2 + this.phone3,
+            nick_name: this.nick_name,
+            age: this.age,
+            sex: this.sex,
+          })
+          .then(({ data }) => {
+            let msg = '회원등록 처리시 문제가 발생했습니다.';
+            if (data === 'success') {
+              msg = '회원등록이 완료되었습니다.';
+            }
+            console.log(msg);
+            //alert(msg);
+            this.$router.replace('/login');
+          })
+          .catch(() => {
+            alert('회원등록 처리시 에러가 발생했습니다.');
+          });
+      } else {
+        alert('회원가입에 실패했습니다.');
+      }
     },
   },
 };

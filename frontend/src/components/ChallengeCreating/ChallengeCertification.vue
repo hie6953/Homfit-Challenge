@@ -18,13 +18,13 @@
     <div class="challenge-certification-way align-center">
       <h4 class="challenge-creating-title">인증 수단 선택</h4>
       <div>
-        <input type="radio" value="1" v-model="only_cam" id="OnlyCam" />
+        <input type="radio" :value="1" v-model="only_cam" id="OnlyCam" />
         <label for="OnlyCam"><b-icon icon="camera" scale="1.3"></b-icon></label>
         <br />
         <span>카메라만 사용</span>
       </div>
       <div>
-        <input type="radio" value="0" v-model="only_cam" id="NotOnlyCam" />
+        <input type="radio" :value="0" v-model="only_cam" id="NotOnlyCam" />
         <label for="NotOnlyCam"
           ><b-icon icon="camera" scale="1.3"></b-icon> &
           <b-icon icon="card-image" scale="1.3"></b-icon
@@ -69,7 +69,7 @@ export default {
       challenge_certify_contents: '',
       // good_img: Object,
       // bad_img: Object,
-      only_cam: '',
+      only_cam: 0,
       canGoNext: false,
     };
   },
@@ -77,7 +77,7 @@ export default {
     this.challenge_certify_contents = this.props_challenge_certify_contents;
     // this.good_img = this.props_good_img;
     // this.bad_img = this.props_bad_img;
-    this.only_cam = String(this.props_only_cam);
+    this.only_cam = this.props_only_cam;
   },
   watch: {
     challenge_certify_contents: function() {
@@ -98,18 +98,10 @@ export default {
     },
     // 페이지 이동
     PrevPage: function() {
-      this.$emit(
-        'PrevPage',
-        this.challenge_certify_contents,
-        parseInt(this.only_cam)
-      );
+      this.$emit('PrevPage', this.challenge_certify_contents, this.only_cam);
     },
     NextPage: function() {
-      this.$emit(
-        'NextPage',
-        this.challenge_certify_contents,
-        parseInt(this.only_cam)
-      );
+      this.$emit('NextPage', this.challenge_certify_contents, this.only_cam);
     },
   },
 };

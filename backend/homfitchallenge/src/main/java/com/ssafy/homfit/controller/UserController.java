@@ -3,7 +3,10 @@ package com.ssafy.homfit.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.ssafy.homfit.model.Bookmark;
+import javax.servlet.http.HttpServletRequest;
+
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
@@ -29,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.Response;
 
 
 @Api("UserController V1")
@@ -224,6 +228,7 @@ public class UserController {
     //     resultMap.put("list", list);
     //     return new ResponseEntity<Map<String,Object>>(resultMap, status);
     // }
+
     @PostMapping(value="/bookmark")
     public ResponseEntity<String> addBookMark(@RequestBody Bookmark bookmark) {
         String msg = null;
@@ -264,4 +269,57 @@ public class UserController {
 
         return new ResponseEntity<String>(msg, status);
     }
+
+    @PostMapping
+    public ResponseEntity<User> getUserInfo(@RequestBody User uid){
+        User user = null;
+        HttpStatus status = null;
+
+        System.out.println(uid);    
+        try {
+            user = userService.getUid(uid.getUid());
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("회원 정보 찾기 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        System.out.println(user);
+
+        return new ResponseEntity<User> (user, status);
+    }
+
+    @PostMapping("/checkPassword")
+    public ResponseEntity<Boolean> checkPassword(@RequestBody User user){
+        boolean isRight = false;
+        HttpStatus status = null;
+
+        try {
+            if(userService.checkPassword(user)){
+                isRight = true;
+            }
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("비밀번호 확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(isRight, status); 
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+        System.out.println(">>>>>> " + jwtService.get(req.getHeader("access-token")));
+        try {
+            resultMap.putAll(jwtService.get(req.getHeader("access-token")));
+            status = HttpStatus.ACCEPTED;
+        } catch (RuntimeException e) {
+            logger.error("정보조회 실패 : {}", e);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.homfit.model.Point;
+import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.PointService;
 
 import org.slf4j.Logger;
@@ -33,13 +34,13 @@ public class PointController {
 
     @ApiOperation(value = "포인트 조회", notes = "해당 회원의 포인트를 조회한다")
     @PostMapping("/inquiry")
-    public ResponseEntity<Map<String, Object>> inquery(@RequestBody String uid){
+    public ResponseEntity<Map<String, Object>> inquery(@RequestBody User uid){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         String msg = null;
         List<Point> list = null;
         try {
-            list = pointService.inquiry(uid);
+            list = pointService.inquiry(uid.getUid());
             if(list != null){
                 msg = SUCCESS;
                 status = HttpStatus.OK;
@@ -49,6 +50,11 @@ public class PointController {
             }
             resultMap.put("list", list);
             resultMap.put("msg", msg);
+            if(list != null ){
+                resultMap.put("sum", pointService.sumPoint(list));
+            } else{
+                resultMap.put("sum", 0);
+            }
         } catch (Exception e) {
             logger.error("포인트 조회 실패 : {}", e);
             msg = e.getMessage();
