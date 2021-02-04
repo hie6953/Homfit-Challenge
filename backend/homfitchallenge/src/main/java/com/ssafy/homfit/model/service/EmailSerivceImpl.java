@@ -39,6 +39,7 @@ public class EmailSerivceImpl implements EmailService {
         message.setFrom(new InternetAddress("homfitChallenge@gmail.com", "HomFit Challenge"));
 
         // key값 캐시에 저장 로직
+        this.setVerifyCode(to, key);
 
         return message;
     }

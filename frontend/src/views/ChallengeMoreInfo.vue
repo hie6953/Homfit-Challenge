@@ -139,7 +139,7 @@ export default {
           alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
         });
       }else{
-        this.$router.push(`/login/challenge-more-info/${this.challenge_id}`);
+        this.$router.push(`/login/challengelist`);
       }
 
     },

@@ -2,6 +2,7 @@ package com.ssafy.homfit.controller;
 
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.EmailService;
+import com.ssafy.homfit.model.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ public class EmailController {
     @Autowired
     EmailService emailService;
 
+    @Autowired
+    UserService userService;
+
     private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
@@ -31,8 +35,13 @@ public class EmailController {
         String msg = null;
         HttpStatus status = null;
         try {
-            emailService.sendSimpleMessage(email.getEmail());
-            msg = SUCCESS;
+            if(userService.duplicateEmailCheck(email.getEmail())){
+                msg=FAIL;
+            } else{
+                emailService.sendSimpleMessage(email.getEmail());
+                msg = SUCCESS;
+            }
+
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("이메일 인증전송 실패 : {}", e);
