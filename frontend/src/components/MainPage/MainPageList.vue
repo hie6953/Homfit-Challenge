@@ -5,66 +5,60 @@
       <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
       <div class="card-carousel">
         <div class="card-carousel--overflow-container">
-          <div class="card-carousel-cards">
-            <!-- :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}" -->
-            <div class="card-carousel-card col-4 mx-1" v-for="item in items" :key="item.id">
-              <img src="https://picsum.photos/600/300/?image=25"/>
-              <p>{{ item.challenge_title }}</p>
-              asdfasdf
+          <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index">
+              <b-card
+                img-src="https://placehold.it/290x170"
+                img-alt="Image"
+                img-top
+                no-body
+                tag="article"
+                style="max-width: 30rem;"
+                class="mb-2 shadow"
+              >
+                <div class="challenge-list-card-body">
+                  <span id="card-title">{{ challenge.challenge_title }}</span>
+                  <br />
+                  <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+                  <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
+                  <br />
+                  <span id="card-day">{{ GetDayList(challenge) }}</span>
+                  <span id="card-period">{{ challenge.period }}일</span>
+                </div>
+                <hr class="challenge-list-card-hr" />
+                <div class="challenge-list-card-footer">
+                  <span>{{ challenge.people }}명 참여중</span>
+                </div>
+              </b-card>
             </div>
           </div>
         </div>
       </div>
       <div class="card-carousel--nav__right" @click="moveCarousel(1)" :disabled="atEndOfList"></div>
     </div>
-              <!-- <div class="card-carousel--card--footer">
-                <br />
-                <img 
-                  class="card-user-image"
-                  src="@/assets/NavBar/anonimous_user.png"
-                />
-                <br />
-              </div> -->
-                  <!-- <span id="card-user-nick-name">{{ item.nick_name }}</span>
-                  <span id="card-day">{{ GetDayList() }}</span>
-                  <span id="card-period">{{ item.period }}일</span> -->
-              <!-- 
-                <hr class="challenge-list-card-hr" />
-                <div class="challenge-list-card-footer">
-                  <span>{{ item.people }}명 참여중</span>
-                </div> 
-              </div>-->
-                <!-- <div class="challenge-list-card-body">
-                  <span id="card-title">{{ challenge.challenge_title }}</span>
-                </div>
-                <p class="tag" v-for="(tag,index) in item.tag" :class="index &gt; 0 ? 'secondary' : ''" :key="tag.id">{{ tag }}</p>
-                </div> -->
-            
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
-      <!-- <div class="carousel-cell mx-1" v-for="item in items" :key="item.id">
-        <ChallengeListCard />
-      </div> -->
-      <challenge-list-card
-        v-for="(challenge, index) in mainPageList"
-        :key="`${index}_challenge`"
-        class="challenge-list-card carousel-cell"
-        :challenge="challenge"
-      ></challenge-list-card>
+      <div class="carousel-cell mx-1" v-for="challenge in mainPageList" :key="challenge.challenge_id">
+        <img src="https://placehold.it/340x340"/>
+        <p>{{ challenge.challenge_title }}</p>
+      </div>
     </flickity>
   </div>
 </template>
 
 <script>
+const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
+
 import "@/assets/css/mainPageList.css"
+import "@/assets/css/challengelist.css"
 import Flickity from 'vue-flickity'
-import ChallengeListCard from '../ChallengeListCard.vue'
+// import ChallengeListCard from '../ChallengeListCard.vue'
 
 export default {
   name: 'MainPageList',
   components: {
     Flickity,
-    ChallengeListCard
+    // ChallengeListCard
   },
   props: {
     mainPageList: Array,
@@ -73,9 +67,7 @@ export default {
     return {
       currentOffset: 0,
       windowSize: 3,
-      paginationFactor: 370,
-
-      items: this.mainPageList,
+      paginationFactor: 366.92,
 
       // 모바일 캐러셀
       flickityOptions: {
@@ -89,7 +81,7 @@ export default {
   computed: {
     // 웹 캐러셀 리스트 양 끝에 갔을 때 버튼 비활성화
     atEndOfList() {
-      return this.currentOffset <= (this.paginationFactor * -1) * (this.items.length - this.windowSize);
+      return this.currentOffset <= (this.paginationFactor * -1) * (this.mainPageList.length - this.windowSize);
     },
     atHeadOfList() {
       return this.currentOffset === 0;
@@ -104,10 +96,25 @@ export default {
         this.currentOffset += this.paginationFactor;
       }
     },
+    GetDayList: function(challenge) {
+      if (challenge.daylist_string != null) {
+        let list = challenge.daylist_string
+          .substring(1, challenge.daylist_string.length - 1)
+          .split(',');
+        let temp = new Array(list.length);
+        for (let index = 0; index < list.length; index++) {
+          temp[index] = dayList[parseInt(list[index].replace(' ', ''))];
+        }
+        return temp.join('/');
+      }
+      return '';
+    },
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.card-img {
+  margin: 0 25px;
+}
 </style>

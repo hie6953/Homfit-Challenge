@@ -48,7 +48,6 @@ axios.defaults.paramsSerializer = function(paramObj) {
     for (const key in paramObj) {
         params.append(key, paramObj[key])
     }
-
     return params.toString()
 }
 
@@ -86,7 +85,6 @@ export default {
           },
         })
         .then(({ data }) => {
-          console.log(data)
           this.popularChallengeList = data;
         })
         .catch(() => {
@@ -104,10 +102,7 @@ export default {
           },
         })
         .then(({ data }) => {
-          console.log('신규')
-          console.log(data)
           this.newChallengeList = data;
-          console.log(this.newChallengeList)
         })
         .catch(() => {
           alert('챌린지 목록을 불러오지 못했습니다.');
