@@ -49,6 +49,7 @@ public class PointController {
             }
             resultMap.put("list", list);
             resultMap.put("msg", msg);
+            resultMap.put("sum", pointService.sumPoint(list));
         } catch (Exception e) {
             logger.error("포인트 조회 실패 : {}", e);
             msg = e.getMessage();
