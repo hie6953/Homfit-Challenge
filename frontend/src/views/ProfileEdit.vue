@@ -9,16 +9,23 @@
         class="profileedit-tab"
         justified
       >
-        <!-- 이미지 -->
-        <div class="form-group">
-          <div class="edit-user-photo">
-            <img class="user-img" :src="imgurl" />
-          </div>
-          <div class="edit-user-photo">
-            <label class="input-file-button" for="input-file">
-              사진선택
-            </label>
-            <!-- <input
+        <b-tab title="회원정보수정" active>
+          <!-- 사용자 정보 수정 -->
+          <div class="personal-info">
+            <!-- 이미지 -->
+            <div class="form-group">
+              <div class="edit-user-photo">
+                <!-- <img class="user-img" :src="imgurl" /> -->
+                <img
+                  class="user-img"
+                  src="@/assets/NavBar/anonimous_user.png"
+                />
+              </div>
+              <div class="edit-user-photo">
+                <label class="input-file-button" for="input-file">
+                  사진선택
+                </label>
+                <!-- <input
               accept=".jpg, .jpeg, .png"
               ref="imgurl"
               @change="fileSelect()"
@@ -26,17 +33,9 @@
               id="input-file"
               class="form-control-photo"
             /> -->
-            <input
-              type="file"
-              id="input-file"
-              class="form-control-photo"
-              src="@/assets/NavBar/anonimous_user.png"
-            />
-          </div>
-        </div>
-        <b-tab title="회원정보수정" active>
-          <!-- 사용자 정보 수정 -->
-          <div class="personal-info">
+                <input type="file" id="input-file" class="form-control-photo" />
+              </div>
+            </div>
             <form class="edit-personal-info">
               <!-- 텍스트 -->
               <div class="form-group">
@@ -320,7 +319,11 @@ export default {
     },
 
     UserPasswordEdit() {
-      if (this.password == this.passwordcheck) {
+      if (
+        this.password == this.passwordcheck &&
+        this.password.length > 0 &&
+        this.passwordcheck.length > 0
+      ) {
         axios
           .put(`${SERVER_URL}/user/updateDetail`, {
             uid: this.getUserUid,

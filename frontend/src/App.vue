@@ -13,6 +13,9 @@
 import NavBar from '@/components/NavBars/NavBar.vue';
 import NavBarSecond from '@/components/NavBars/NavBarSecond.vue';
 
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -30,6 +33,27 @@ export default {
         password: '',
       },
     };
+  },
+  created() {
+    let item = sessionStorage.getItem('loginInfo');
+    
+     if (item != null) {
+      axios.defaults.headers.common['access-token'] = JSON.parse(item)['access-token'];
+      axios
+        .get(`${SERVER_URL}/user/info`)
+        .then(() => {
+          //토큰이 유효하다면.
+          this.$store.commit(
+            'LOGIN',
+            JSON.parse(sessionStorage.getItem('loginInfo'))
+          ); //user없음.
+        })
+        .catch(() => {
+          sessionStorage.removeItem('loginInfo');
+          this.$store.dispatch('LOGOUT').then(() => this.$router.replace('/'));
+          
+        });
+    }
   },
   computed: {
     ...mapGetters(['getAccessToken', 'getUserEmail']),

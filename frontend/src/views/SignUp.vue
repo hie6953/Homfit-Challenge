@@ -41,12 +41,13 @@
                 <option value="icloud.com">icloud.com</option>
               </select>
 
-              <input
+              <!-- <input
                 type="button"
                 value="이메일인증"
                 class="phonecode-btn"
                 @click="EmailCheck()"
-              />
+              /> -->
+              <input type="button" value="이메일인증" class="phonecode-btn" />
             </div>
             <!-- <span class="error-text" v-if="emailcheck"
               >이미 동일한 이메일이 존재합니다.</span
@@ -112,7 +113,7 @@
           </div>
         </div>
 
-        <!-- <div class="user-sign-up-form__form-group">
+        <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">휴대폰 번호</div>
           <div class="user-sign-up-form__form-group__input">
             <div class="input-group email-input">
@@ -156,14 +157,14 @@
                 required
               />
 
-              <input
+              <!-- <input
                 type="button"
                 value="인증번호 발송"
                 class="phonecode-btn"
-              />
+              /> -->
             </div>
           </div>
-        </div> -->
+        </div>
 
         <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">별명</div>
@@ -188,9 +189,14 @@
                 @click="NicknameCheck()"
               />
             </div>
-            <span class="error-text" v-if="nicknamecheck"
-              >이미 동일한 별명이 존재합니다.</span
-            >
+            <span v-if="nicknamecheck"></span>
+
+            <span class="error-text" v-if="errormsg.nick_name">{{
+              errormsg.nick_name
+            }}</span>
+            <span class="correct-text" v-if="correctmsg.nick_name">{{
+              correctmsg.nick_name
+            }}</span>
           </div>
         </div>
 
@@ -281,6 +287,7 @@ export default {
       ],
       sex: 'f',
       errormsg: [],
+      correctmsg: [],
     };
   },
   watch: {
@@ -292,6 +299,11 @@ export default {
       this.passwordcheck = value;
       this.checkPasswordconfirm(value);
     },
+
+    nick_name(value) {
+      this.nick_name = value;
+      this.checknick_name(value);
+    },
   },
 
   methods: {
@@ -299,35 +311,41 @@ export default {
       axios
         .get(`${SERVER_URL}/user/check/${this.nick_name}`)
         .then(({ data }) => {
-          //console.log(data);
+          console.log(data);
           if (data === true) {
             this.nicknamecheck = true;
-          } else this.nicknamecheck = false;
+            this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+            this.correctmsg['nick_name'] = ``;
+          } else {
+            this.nicknamecheck = false;
+            this.errormsg['nick_name'] = ``;
+            this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
+          }
           //console.log(this.nicknamecheck);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
     },
-    EmailCheck() {
-      axios
-        .post(`${SERVER_URL}/email/verify`, {
-          email: this.emailid + '@' + this.emaildomain,
-        })
-        .then(({ data }) => {
-          console.log(data);
-          if (data != 'fail') {
-            this.emailcheck = true;
-          } else {
-            this.emailcheck = false;
-            alert('메일을 발송했습니다.');
-          }
-          //console.log(this.emailcheck);
-        })
-        .catch(() => {
-          alert('에러가 발생했습니다.');
-        });
-    },
+    // EmailCheck() {
+    //   axios
+    //     .post(`${SERVER_URL}/email/verify`, {
+    //       email: this.emailid + '@' + this.emaildomain,
+    //     })
+    //     .then(({ data }) => {
+    //       console.log(data);
+    //       if (data != 'fail') {
+    //         this.emailcheck = true;
+    //       } else {
+    //         this.emailcheck = false;
+    //         alert('메일을 발송했습니다.');
+    //       }
+    //       //console.log(this.emailcheck);
+    //     })
+    //     .catch(() => {
+    //       alert('에러가 발생했습니다.');
+    //     });
+    // },
     checkPassword(value) {
       if (value.length < 8) {
         this.errormsg['password'] = `비밀번호를 8자 이상으로 입력해주세요.`;

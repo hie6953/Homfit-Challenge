@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store';
+// import store from '@/store';
 import MainPage from '../views/MainPage';
 
 Vue.use(VueRouter);
 
 const requireAuth = () => (to, from, next) => {
   const nextRoute = to.path;
-  if (store.getters.getAccessToken) {
+  if (sessionStorage.getItem('loginInfo')) {
     return next();
   } else next('/login' + nextRoute);
 };
@@ -57,6 +57,12 @@ const routes = [
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: '/challenge-more-info/:challenge_id',
+    name: 'ChallengeMoreInfo',
+    component: () => import('../views/ChallengeMoreInfo.vue'),
     beforeEnter: requireAuth(),
   },
   {
