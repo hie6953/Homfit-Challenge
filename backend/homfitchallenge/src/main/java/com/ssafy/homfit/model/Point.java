@@ -15,6 +15,26 @@ public class Point {
     private Timestamp point_date;
     @ApiModelProperty(value = "포인트 획득 회원 번호")
     private String uid;
+    @ApiModelProperty(value = "포인트 타입")
+    private String title;
+    @ApiModelProperty(value = "포인트 내용")
+    private String content;
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getPoint_id() {
         return this.point_id;
@@ -48,10 +68,17 @@ public class Point {
         this.uid = uid;
     }
 
+
     @Override
     public String toString() {
-        return "Point {" + " point_id='" + getPoint_id() + "'" + ", point='" + getPoint() + "'" + ", point_date='"
-                + getPoint_date() + "'" + ", uid='" + getUid() + "'" + "}";
+        return "Point {" +
+            " point_id='" + getPoint_id() + "'" +
+            ", point='" + getPoint() + "'" +
+            ", point_date='" + getPoint_date() + "'" +
+            ", uid='" + getUid() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", content='" + getContent() + "'" +
+            "}";
     }
 
 }
