@@ -43,14 +43,33 @@
 
               <input
                 type="button"
-                value="중복체크"
+                value="이메일인증"
                 class="phonecode-btn"
                 @click="EmailCheck()"
               />
             </div>
-            <span class="error-text" v-if="emailcheck"
+            <!-- <span class="error-text" v-if="emailcheck"
               >이미 동일한 이메일이 존재합니다.</span
-            >
+            > -->
+          </div>
+        </div>
+
+        <div class="user-sign-up-form__form-group">
+          <div class="user-sign-up-form-label">인증번호</div>
+          <div class="user-sign-up-form__form-group__input">
+            <div class="input-group email-input">
+              <input
+                type="password"
+                placeholder="인증번호"
+                value=""
+                class="form-control"
+              />
+              <input
+                type="button"
+                value="인증번호 확인"
+                class="phonecode-btn"
+              />
+            </div>
           </div>
         </div>
 
@@ -93,7 +112,7 @@
           </div>
         </div>
 
-        <div class="user-sign-up-form__form-group">
+        <!-- <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">휴대폰 번호</div>
           <div class="user-sign-up-form__form-group__input">
             <div class="input-group email-input">
@@ -144,26 +163,7 @@
               />
             </div>
           </div>
-        </div>
-
-        <div class="user-sign-up-form__form-group">
-          <div class="user-sign-up-form-label">인증번호</div>
-          <div class="user-sign-up-form__form-group__input">
-            <div class="input-group email-input">
-              <input
-                type="password"
-                placeholder="인증번호"
-                value=""
-                class="form-control"
-              />
-              <input
-                type="button"
-                value="인증번호 확인"
-                class="phonecode-btn"
-              />
-            </div>
-          </div>
-        </div>
+        </div> -->
 
         <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">별명</div>
@@ -310,17 +310,17 @@ export default {
         });
     },
     EmailCheck() {
-      var email = this.emailid + '@' + this.emaildomain;
       axios
-        .get(`${SERVER_URL}/user/checkemail/${email}`)
+        .post(`${SERVER_URL}/email/verify`, {
+          email: this.emailid + '@' + this.emaildomain,
+        })
         .then(({ data }) => {
-          //console.log(data);
-          //console.log(email);
-          if (data === true) {
+          console.log(data);
+          if (data != 'fail') {
             this.emailcheck = true;
           } else {
             this.emailcheck = false;
-            alert('사용 가능한 이메일입니다.');
+            alert('메일을 발송했습니다.');
           }
           //console.log(this.emailcheck);
         })

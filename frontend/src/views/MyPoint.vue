@@ -4,13 +4,13 @@
 
     <div class="mx-auto col-8 mypoint-container">
       <div class="mypoint-info">
-        <!-- <div class="mypoint-user">{{user.nickname}}님의 포인트 내역 조회</div> -->
+        <!-- <div class="mypoint-user">{{user.nick_name}}님의 포인트 내역 조회</div> -->
         <div class="mypoint-user">포인트 내역 조회</div>
-        <!-- <div class="mypoint-total-point">{{user.point}}P</div> -->
-        <div class="mypoint-total-point">300P</div>
+        <div class="mypoint-total-point">{{ sum }}P</div>
+        <!-- <div class="mypoint-total-point">300P</div> -->
       </div>
 
-      <!-- <table class="table mypoint-table">
+      <table class="table mypoint-table">
         <template v-if="lists.length != 0">
           <colgroup>
             <col :style="{ width: '15%' }" />
@@ -31,7 +31,7 @@
               <td>{{ list.title }}</td>
               <td>{{ list.content }}</td>
               <td class="point-text">{{ list.point }}</td>
-              <td>{{ list.regtime }}</td>
+              <td>{{ getFormatDate(list.point_date) }}</td>
             </tr>
           </tbody>
         </template>
@@ -39,10 +39,10 @@
         <tr v-else>
           <td colspan="4">조회된 데이터가 없습니다.</td>
         </tr>
-      </table> -->
+      </table>
 
       <!-- 임시데이터(후에는 위의 코드로) -->
-      <table class="table mypoint-table">
+      <!-- <table class="table mypoint-table">
         <template>
           <colgroup>
             <col :style="{ width: '15%' }" />
@@ -73,20 +73,51 @@
             </tr>
           </tbody>
         </template>
-      </table>
+      </table> -->
     </div>
   </div>
 </template>
 
 <script>
 import '../assets/css/mypoint.css';
+import { mapGetters } from 'vuex';
+import moment from 'moment';
+
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'MyPoint',
   data: function() {
     return {
       lists: [],
+      sum: '',
     };
+  },
+  created() {
+    let uid = this.getUserUid;
+    console.log(uid);
+    axios
+      .post(`${SERVER_URL}/point/inquiry`, { uid })
+      .then(({ data }) => {
+        if (data.list != null) {
+          this.lists = data.list;
+        }
+
+        this.sum = data.sum;
+        console.log(data);
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
+  },
+  methods: {
+    getFormatDate(point_date) {
+      return moment(new Date(point_date)).format('YYYY.MM.DD HH:mm:ss');
+    },
+  },
+  computed: {
+    ...mapGetters(['getUserUid']),
   },
 };
 </script>

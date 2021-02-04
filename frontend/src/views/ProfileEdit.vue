@@ -44,10 +44,27 @@
               <div class="form-group">
                 <label class="control-label">닉네임</label>
                 <div class="control-input">
-                  <input class="form-control" type="text" />
+                  <div class="input-group email-input">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="nick_name"
+                      id="nick_name"
+                      v-model="nick_name"
+                    />
+                    <input
+                      type="button"
+                      value="중복체크"
+                      class="phonecode-btn"
+                      @click="NicknameCheck()"
+                    />
+                    <span class="error-text" v-if="nicknamecheck"
+                      >이미 동일한 별명이 존재합니다.</span
+                    >
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label class="control-label">휴대폰번호</label>
                 <div class="control-input">
                   <div class="input-group email-input">
@@ -63,7 +80,7 @@
                     <input class="form-control" type="text" />
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="control-label">성별</label>
                 <div class="control-input">
@@ -74,7 +91,7 @@
                 <label class="control-label">연령</label>
                 <div class="control-input">
                   <div class="ui-select">
-                    <select id="user_time_zone" class="form-control">
+                    <select id="age" class="form-control">
                       <option value="10">10대</option>
                       <option value="20">20대</option>
                       <option value="30">30대</option>
@@ -171,6 +188,8 @@
 
 <script>
 import '../assets/css/profileedit.css';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'ProfileEdit',
@@ -179,6 +198,8 @@ export default {
       password: '',
       passwordcheck: '',
       errormsg: [],
+      nick_name: '',
+      nicknamecheck: false,
     };
   },
   watch: {
@@ -191,6 +212,7 @@ export default {
       this.checkPasswordconfirm(value);
     },
   },
+
   methods: {
     checkPassword(value) {
       if (value.length < 8) {
@@ -201,6 +223,21 @@ export default {
       if (value.length >= 0 && this.password != this.passwordcheck) {
         this.errormsg['passwordcheck'] = `비밀번호가 일치하지 않습니다.`;
       } else this.errormsg['passwordcheck'] = ``;
+    },
+
+    NicknameCheck() {
+      axios
+        .get(`${SERVER_URL}/user/check/${this.nick_name}`)
+        .then(({ data }) => {
+          //console.log(data);
+          if (data === true) {
+            this.nicknamecheck = true;
+          } else this.nicknamecheck = false;
+          //console.log(this.nicknamecheck);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
     },
   },
 };

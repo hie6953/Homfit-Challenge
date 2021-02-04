@@ -14,8 +14,9 @@
           <div class="gallery-item-info">
             <ul>
               <li class="gallery-item-likes">
-                <span class="visually-hidden">운동하쟙</span
-                ><i class="fas fa-heart" aria-hidden="true"></i> 56
+                <span class="visually-hidden">운동하쟙</span>
+                <!-- <i class="fas fa-heart" aria-hidden="true"></i> 56
+              </li> -->
               </li>
             </ul>
           </div>
