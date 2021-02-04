@@ -247,7 +247,7 @@ export default {
       axios
         .get(`${SERVER_URL}/challenge/all`, {
           params: {
-            day: this.day, //요일 숫자 배열 [3,4,5]
+            day: this.day.sort(), //요일 숫자 배열 [3,4,5]
             category: this.category, //0:전체, 1~10 카테고리숫자
             sort: this.sortValue, //0:인기순,1:최신순
             periodStart: this.period[0], //period최소값(이상) 7
