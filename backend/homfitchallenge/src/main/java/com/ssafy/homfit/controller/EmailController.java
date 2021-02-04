@@ -1,5 +1,6 @@
 package com.ssafy.homfit.controller;
 
+import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.EmailService;
 
 import org.slf4j.Logger;
@@ -7,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,11 +27,11 @@ public class EmailController {
     private static final String FAIL = "fail";
 
     @PostMapping("/verify")
-    public ResponseEntity<String> emailConfirm(@RequestBody String email){
+    public ResponseEntity<String> emailConfirm(@RequestBody User email){
         String msg = null;
         HttpStatus status = null;
         try {
-            emailService.sendSimpleMessage(email);
+            emailService.sendSimpleMessage(email.getEmail());
             msg = SUCCESS;
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -41,12 +44,15 @@ public class EmailController {
     }
 
     @PostMapping("/verifyCode")
-    public ResponseEntity<Boolean> verifyCode(@RequestBody String email, @RequestBody String code){
+    public ResponseEntity<Boolean> verifyCode(@RequestBody User email, @RequestParam String code){
         boolean check = false;
         HttpStatus status = null;
 
+        System.out.println(email);
+        System.out.println(code);
         try {
-            if(emailService.getVerifyCode(email).equals(code)){
+            String getCode = emailService.getVerifyCode(email.getEmail());
+            if(getCode != null && getCode.equals(code)){
                 check = true;
             }
             status = HttpStatus.ACCEPTED;
