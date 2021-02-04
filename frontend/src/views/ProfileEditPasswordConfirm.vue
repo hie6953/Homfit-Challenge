@@ -1,0 +1,55 @@
+<template>
+  <div class="mt-3">
+    <hr id="hr-top" />
+
+    <div class="mx-auto col-8 password-confirm-container">
+      <div class="password-confirm-info">
+        <div class="pw-confirm-info">
+          <div class="password-confirm-infotext">
+            개인 정보 조회를 위해서는 인증이 필요합니다. <br />비밀번호 입력 후
+            확인 버튼을 클릭해주세요.
+          </div>
+        </div>
+        <div class="pw-confirm-input">
+          <form class="edit-password">
+            <div class="form-group">
+              <label class="control-label">비밀번호</label>
+              <div class="control-input">
+                <input
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  id="password"
+                  value="password"
+                  v-model="password"
+                  required
+                />
+              </div>
+            </div>
+            <!-- 버튼 -->
+            <router-link to="/editprofile" class="">
+              <div class="passchange-confirm-btn">
+                <input
+                  type="button"
+                  class="passconfirm-btn-priority btn"
+                  value="확인"
+                />
+              </div>
+            </router-link>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import '../assets/css/profileeditpasswordconfirm.css';
+
+export default {
+  name: 'ProfileEditPasswordConfirm',
+  data: function() {
+    return {};
+  },
+};
+</script>

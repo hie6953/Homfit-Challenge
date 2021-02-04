@@ -72,9 +72,42 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/editprofilepassconfirm',
+    name: 'ProfileEditPasswordConfirm',
+    component: () => import('../views/ProfileEditPasswordConfirm.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: '/mypoint',
+    name: 'MyPoint',
+    component: () => import('../views/MyPoint.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: '/selectpreference',
+    name: 'SelectPreference',
+    component: () => import('../views/SelectPreference.vue'),
+  },
+  {
+    path: '/challengemanage',
+    name: 'ChallengeManage',
+    component: () => import('../views/ChallengeManage.vue'),
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue'),
+  },
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,
+  },
+  {
+    path: '/mypage/statistics',
+    name: 'Statistics',
+    component: () => import('../views/StatisticsPage.vue'),
+    // beforeEnter: requireAuth(),
   },
 ];
 

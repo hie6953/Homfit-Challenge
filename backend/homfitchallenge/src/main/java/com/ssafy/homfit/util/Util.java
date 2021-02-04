@@ -3,6 +3,12 @@ package com.ssafy.homfit.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.service.ChallengeService;
 
 public class Util {
 
@@ -19,5 +25,7 @@ public class Util {
         }
         return token;
     }
+    
+  
 
 }

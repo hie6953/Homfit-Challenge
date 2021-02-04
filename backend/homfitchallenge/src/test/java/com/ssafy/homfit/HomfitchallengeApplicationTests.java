@@ -1,6 +1,6 @@
 package com.ssafy.homfit;
 
-import com.ssafy.homfit.api.ConnectToRedis;
+
 import com.ssafy.homfit.util.Util;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class HomfitchallengeApplicationTests {
 	@Test
 	void redisTest(){
 		ConnectToRedis s = new ConnectToRedis();
-		s.setCache("hi", "hello");
+		s.setCache("hi", "hello", 60 * 10);
 	}
 
 }

@@ -5,7 +5,7 @@
     <!-- 사용자 프로필 div -->
     <div class="mx-auto col-8 user-profile">
       <div class="user-profile-edit">
-        <router-link to="/editprofile" class="justtext">
+        <router-link to="/editprofilepassconfirm" class="justtext">
           <b-icon icon="pencil-square" class="edit-icon"></b-icon>
         </router-link>
       </div>
@@ -83,16 +83,18 @@
             <div class="status">
               <span>참가중</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.ing }}</span>
+              </div>
+            </router-link>
           </div>
           <div class="status-list">
             <div class="status">
               <span>완료</span>
             </div>
             <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
+              <span>{{ challenge.done }}</span>
             </div>
           </div>
           <div class="status-list">
@@ -100,7 +102,7 @@
               <span>개설</span>
             </div>
             <div class="status-amount">
-              <span>{{ challenge.ing }}</span>
+              <span>{{ challenge.create }}</span>
             </div>
           </div>
         </div>
@@ -139,7 +141,7 @@
         </p>
       </div>
       <div class="grid-feed">
-        <MyPageFeed />
+        <MyPageBodyPhoto />
       </div>
     </div>
   </div>
@@ -148,13 +150,15 @@
 <script>
 import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
-import '../assets/css/mypage.css';
+import MyPageBodyPhoto from '../components/MyPageBodyPhoto.vue';
+import '../assets/css/MyPage/mypage.css';
 
 export default {
   name: 'Mypage',
   components: {
     ToDoList,
     MyPageFeed,
+    MyPageBodyPhoto,
   },
   data: function() {
     return {

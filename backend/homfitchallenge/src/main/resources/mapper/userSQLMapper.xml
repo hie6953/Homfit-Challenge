@@ -14,7 +14,7 @@
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
-        select * from user where uid=#{uid}
+        select nick_name, user_img, grade email from user where uid=#{uid}
     </select>
 
     <select id="findPassword" parameterType="String" resultType="user">
