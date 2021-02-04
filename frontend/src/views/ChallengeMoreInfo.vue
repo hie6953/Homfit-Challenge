@@ -145,7 +145,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUserUid,getAccessToken"]),
+    ...mapGetters(["getUserUid","getAccessToken"]),
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
