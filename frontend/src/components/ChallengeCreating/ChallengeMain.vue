@@ -41,7 +41,7 @@
           class="challenge_kind"
           type="radio"
           name="kind"
-          value="1"
+          :value="1"
           id="fit_id_exercise"
           v-model="kind"
         />
@@ -52,7 +52,7 @@
           class="challenge_kind"
           type="radio"
           name="kind"
-          value="2"
+          :value="2"
           id="fit_id_diet"
           v-model="kind"
         />
@@ -62,76 +62,76 @@
       </div>
     </div>
 
-    <div v-if="kind == '1'">
+    <div v-if="kind == 1">
       <h4 class="challenge-creating-title">운동종류 선택</h4>
       <div class="challenge-fit align-center">
         <b-button
-          :class="{ choice: fit_id == '1', 'not-choice': fit_id != '1' }"
-          @click="FitId('1')"
+          :class="{ choice: fit_id == 1, 'not-choice': fit_id != 1 }"
+          @click="FitId(1)"
         >
           <img src="@/assets/category/요가.png" />
           <br />
           <span>요가</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '2', 'not-choice': fit_id != '2' }"
-          @click="FitId('2')"
+          :class="{ choice: fit_id == 2, 'not-choice': fit_id != 2 }"
+          @click="FitId(2)"
         >
           <img src="@/assets/category/필라테스.png" />
           <br />
           <span>필라테스</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '3', 'not-choice': fit_id != '3' }"
-          @click="FitId('3')"
+          :class="{ choice: fit_id == 3, 'not-choice': fit_id != 3 }"
+          @click="FitId(3)"
         >
           <img src="@/assets/category/유산소.png" />
           <br />
           <span>유산소</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '4', 'not-choice': fit_id != '4' }"
-          @click="FitId('4')"
+          :class="{ choice: fit_id == 4, 'not-choice': fit_id != 4 }"
+          @click="FitId(4)"
         >
           <img src="@/assets/category/댄스.png" />
           <br />
           <span>댄스</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '5', 'not-choice': fit_id != '5' }"
-          @click="FitId('5')"
+          :class="{ choice: fit_id == 5, 'not-choice': fit_id != 5 }"
+          @click="FitId(5)"
         >
           <img src="@/assets/category/스트레칭.png" />
           <br />
           <span>스트레칭</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '6', 'not-choice': fit_id != '6' }"
-          @click="FitId('6')"
+          :class="{ choice: fit_id == 6, 'not-choice': fit_id != 6 }"
+          @click="FitId(6)"
         >
           <img src="@/assets/category/근력.png" />
           <br />
           <span>근력</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '7', 'not-choice': fit_id != '7' }"
-          @click="FitId('7')"
+          :class="{ choice: fit_id == 7, 'not-choice': fit_id != 7 }"
+          @click="FitId(7)"
         >
           <img src="@/assets/category/키즈.png" />
           <br />
           <span>키즈</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '8', 'not-choice': fit_id != '8' }"
-          @click="FitId('8')"
+          :class="{ choice: fit_id == 8, 'not-choice': fit_id != 8 }"
+          @click="FitId(8)"
         >
           <img src="@/assets/category/복싱.png" />
           <br />
           <span>복싱</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == '10', 'not-choice': fit_id != '10' }"
-          @click="FitId('10')"
+          :class="{ choice: fit_id == 10, 'not-choice': fit_id != 10 }"
+          @click="FitId(10)"
         >
           <img src="@/assets/category/기타.png" />
           <br />
@@ -145,7 +145,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="1"
+          :value="1"
           v-model="bodyList"
           id="bodyList_whole"
         />
@@ -154,7 +154,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="2"
+          :value="2"
           v-model="bodyList"
           id="bodyList_upper"
         />
@@ -163,7 +163,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="3"
+          :value="3"
           v-model="bodyList"
           id="bodyList_lower"
         />
@@ -172,7 +172,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="4"
+          :value="4"
           v-model="bodyList"
           id="bodyList_chest"
         />
@@ -181,7 +181,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="5"
+          :value="5"
           v-model="bodyList"
           id="bodyList_arm"
         />
@@ -190,7 +190,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="6"
+          :value="6"
           v-model="bodyList"
           id="bodyList_abdominal"
         />
@@ -199,7 +199,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="7"
+          :value="7"
           v-model="bodyList"
           id="bodyList_hip"
         />
@@ -208,7 +208,7 @@
           class="challenge-bodyList"
           type="checkbox"
           name="bodyList"
-          value="8"
+          :value="8"
           v-model="bodyList"
           id="bodyList_leg"
         />
@@ -218,7 +218,7 @@
           type="checkbox"
           name="bodyList"
           id="bodyList_etc"
-          value="9"
+          :value="9"
           v-model="bodyList"
         />
         <label for="bodyList_etc"> <span class="text">기타</span> </label>
@@ -264,19 +264,19 @@ export default {
     };
   },
   created() {
-    this.kind = String(this.props_kind);
-    this.fit_id = String(this.props_fit_id);
+    this.kind = this.props_kind;
+    this.fit_id = this.props_fit_id;
     this.bodyList = this.props_bodyList;
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
   },
   watch: {
     kind: function() {
-      if (this.kind == '1') {
-        this.fit_id = '1';
+      if (this.kind == 1) {
+        this.fit_id = 1;
       } else {
         this.bodyList = [];
-        this.fit_id = '9';
+        this.fit_id = 9;
       }
     },
     fit_id: function() {
@@ -304,7 +304,7 @@ export default {
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
         this.challenge_contents.length > 7 &&
-        ((this.kind != '0' && this.bodyList.length > 0) || this.kind == '2')
+        ((this.kind != 0 && this.bodyList.length > 0) || this.kind == 2)
       ) {
         this.canGoNext = true;
       } else {
@@ -314,8 +314,8 @@ export default {
     NextPage: function() {
       this.$emit(
         'NextPage',
-        parseInt(this.kind),
-        parseInt(this.fit_id),
+        this.kind,
+        this.fit_id,
         this.bodyList,
         this.challenge_title,
         this.challenge_contents
