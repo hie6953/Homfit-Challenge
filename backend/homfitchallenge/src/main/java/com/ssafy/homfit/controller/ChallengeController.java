@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Tag;
+import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.TagService;
 
@@ -77,7 +78,8 @@ public class ChallengeController {
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
 	@Transactional
-	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody String uid) {
+	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody User user) {
+		String uid = user.getUid();
 		if (challengeService.joinChallenge(challengeId, uid)) {
 			//챌린지 참여시 캐시 people ++;
 			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
@@ -99,8 +101,8 @@ public class ChallengeController {
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
 	@DeleteMapping("/join/{challengeId}")
 	@Transactional
-	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody String uid) {
-
+	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody User user) {
+		String uid = user.getUid();
 		if (challengeService.quitChallenge(challengeId, uid)) {
 			//챌린지 참여 삭제시 캐시 people --;
 			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
