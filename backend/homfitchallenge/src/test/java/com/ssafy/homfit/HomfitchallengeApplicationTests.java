@@ -1,6 +1,6 @@
 package com.ssafy.homfit;
 
-import com.ssafy.homfit.api.ConnectToRedis;
+
 import com.ssafy.homfit.util.Util;
 
 import org.junit.jupiter.api.Test;

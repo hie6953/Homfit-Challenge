@@ -1,7 +1,12 @@
 package com.ssafy.homfit.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,6 +15,9 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.homfit.model.Challenge;
@@ -28,6 +37,10 @@ import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.TagService;
 
+/**
+ * @author 황다희
+ *
+ */
 @RestController
 @RequestMapping("/challenge")
 public class ChallengeController {
@@ -42,23 +55,64 @@ public class ChallengeController {
 	@Autowired
 	TagService tagService;
 
+	@Autowired
+	RedisTemplate<String, Object> redisTemplate;
+	private String key = "challengeList";
 
+
+	/** 테스트 - redis */
+	@GetMapping("/test")
+	public ResponseEntity<List<Object>> testChallenge() {
+		ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+		String key = "challengeList";
+		Long size = listOperation.size(key);
+		List<Object> list2 = listOperation.range(key, 0, size - 1);
+		System.out.println(size);
+		System.out.println(list2.toString());
+
+		return new ResponseEntity<List<Object>>(list2, HttpStatus.NO_CONTENT);
+	}
+
+	
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
 	@Transactional
 	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody String uid) {
 		if (challengeService.joinChallenge(challengeId, uid)) {
+			//챌린지 참여시 캐시 people ++;
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge c = (Challenge) list.get(i);
+				if(c.getChallenge_id() == challengeId) {
+					c.setPeople(c.getPeople()+1);
+					listOperation.set(key, i, c);
+				}
+			}
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
+	
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
 	@DeleteMapping("/join/{challengeId}")
 	@Transactional
 	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody String uid) {
 
 		if (challengeService.quitChallenge(challengeId, uid)) {
+			//챌린지 참여 삭제시 캐시 people --;
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge c = (Challenge) list.get(i);
+				if(c.getChallenge_id() == challengeId) {
+					c.setPeople(c.getPeople()-1);
+					listOperation.set(key, i, c);
+				}
+			}
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -70,21 +124,18 @@ public class ChallengeController {
 	public ResponseEntity<String> insertChallenge(@RequestBody Challenge challenge) {
 
 		HttpStatus status = HttpStatus.OK;
-		String result = SUCCESS;
+		String result = FAIL;
 
 		try {
-			
-			int kind = challenge.getKind(); //챌린지 종류  -> 1-운동, 2-식단
+			int kind = challenge.getKind(); // 챌린지 종류 -> 1-운동, 2-식단
 			int dayList[] = challenge.getDayList();// 요일
 			String tagList[] = challenge.getTagList();// 태그
 			int bodyList[] = challenge.getBodyList();// 부위
-			
-			if ( kind == 0 || dayList == null || dayList.length == 0) { //*종류와 요일은 필수값
-				result = FAIL;
+
+			if (kind == 0 || dayList == null || dayList.length == 0) { // *종류와 요일은 필수값
 				throw new Exception();
 			} else {
-				if(kind == 1 && (bodyList == null || bodyList.length == 0)) {//*운동이라면 부위선택 필수
-					result = FAIL;
+				if (kind == 1 && (bodyList == null || bodyList.length == 0)) {// *운동이라면 부위선택 필수
 					throw new Exception();
 				}
 				challenge.setDaylist_string(Arrays.toString(dayList));
@@ -98,7 +149,7 @@ public class ChallengeController {
 				challengeService.writeChallengeDay(map);
 
 				// 2. 부위처리 (운동일때만)
-				if(kind == 1) {
+				if (kind == 1) {
 					for (int i = 0; i < bodyList.length; i++) {
 						HashMap<String, Integer> map_body = new HashMap<String, Integer>();
 						map_body.put("challenge_id", challengeId);
@@ -127,6 +178,15 @@ public class ChallengeController {
 
 				// 4. 개설자는 참여테이블에 바로 insert
 				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
+
+				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
+
+				// 5. 캐시insert
+				ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+				Challenge ch = challengeService.detailChallenge(challengeId);
+				ch.setPeople(1);
+				listOperation.leftPush(key, ch);
+
 			}
 
 		} catch (Exception e) {
@@ -142,14 +202,15 @@ public class ChallengeController {
 	@PutMapping
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
-		
-		//챌린지안에 다 받기.
-		//태그*
-		//부위 *
-		//bodylist가 null이면 안바꿔
-		//다 삭제하고 insert?
-		//태그리스트 다 지우고 다시 insert
-		
+		//
+		//..........
+		// 챌린지안에 다 받기.
+		// 태그*
+		// 부위 *
+		// bodylist가 null이면 안바꿔
+		// 다 삭제하고 insert?
+		// 태그리스트 다 지우고 다시 insert
+
 		if (challengeService.updateChallenge(challenge)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
@@ -161,7 +222,19 @@ public class ChallengeController {
 	@DeleteMapping("{challengeId}")
 	@Transactional
 	public ResponseEntity<String> deleteChallenge(@PathVariable int challengeId) {
+
 		if (challengeService.deleteChallenge(challengeId)) {
+			// 캐시리스트에서도 삭제
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge ch = (Challenge) list.get(i);
+				if (ch.getChallenge_id() == challengeId) {
+					listOperation.remove(key, 1, ch); //value가 같아야 지워져.
+				}
+			}
+
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -177,7 +250,7 @@ public class ChallengeController {
 		} else {
 			// 태그리스트
 			Tag tag[] = tagService.selectTagInChallenge(challengeId);
-			System.out.println(Arrays.toString(tag));
+			//System.out.println(Arrays.toString(tag));
 			if (tag.length != 0) {
 				String[] taglist = new String[tag.length];
 				for (int i = 0; i < tag.length; i++) {
@@ -191,28 +264,84 @@ public class ChallengeController {
 		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}
 
-	/** 챌린지 전체리스트 반환 - 전체, 카테고리별, 필터적용등 */ 
+	/**
+	 * 챌린지 전체리스트 반환 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원 페이징, 카테고리,
+	 * 요일, 기간, 정렬에 해당하는 데이터 반환.
+	 */
 	@GetMapping("/all")
-	public ResponseEntity<Challenge[]> AllChallengeList() {
-		// 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원
+	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort,
+			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category,
+			@RequestParam int page) {
 
-		Challenge[] list = challengeService.AllChallengeList();
-		Challenge[] people = challengeService.selectParticipants();
+		ListOperations<String, Object> listOperation = redisTemplate.opsForList();
 
-		while (people.length != list.length) { // 둘의 길이가 같지 않다 => 도중에 crud일어났을 수도 있음
-			list = challengeService.AllChallengeList();
-			people = challengeService.selectParticipants();
-		}
-
-		for (int i = 0; i < list.length; i++) {
-			if (list[i].getChallenge_id() == people[i].getChallenge_id()) {
-				list[i].setPeople(people[i].getPeople());
+		// 캐시 없으면 - 캐시 생성
+		if (!redisTemplate.hasKey(key)) {
+			List<Challenge> list = challengeService.AllChallengeList();
+			for (int i = 0; i < list.size(); i++) {
+				listOperation.rightPush(key, list.get(i));
 			}
 		}
 
-		// 인기순, 신규순 필터 적용
+		// 캐시있다면 - 캐시 뿌림
+		Long size = listOperation.size(key);
+		List<Object> list = listOperation.range(key, 0, size - 1);
+		List<Challenge> c_list = new ArrayList<Challenge>(); // 반환리스트
+		
+		// 0. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신
+		if (sort == 0) {
+			Collections.sort(list, new Comparator<Object>() {
+				@Override
+				public int compare(Object o1, Object o2) {
+					Challenge c1 = (Challenge)o1;
+					Challenge c2 = (Challenge)o2;
+					return c2.getPeople() - c1.getPeople();
+				}
+			});
+		}
 
-		return new ResponseEntity<Challenge[]>(list, HttpStatus.OK);
+		// 1. 카테고리별 - 기본값: 0-전체선택 / 해당카테고리 선택.
+		if (category != 0) {
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
+				if (value.getFit_id() != category) {
+					it.remove();
+				}
+			}
+		}
+
+		// 2. 필터 - 기간
+		if (periodStart != 0 && periodEnd != 0) {
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
+				if (value.getPeriod() < periodStart || value.getPeriod() > periodEnd) {
+					it.remove();
+				}
+			}
+		}
+
+		// 3. 필터 - 요일 -> 일단 같은 요일만.
+		String param_s = Arrays.toString(day);
+		if (day != null && day.length > 0) {
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
+				String s = value.getDaylist_string();
+				if (!param_s.equals(s)) {
+					it.remove();
+				}
+			}
+		}
+
+		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
+		int end_page = page * 20;
+		int start_page = end_page - 20;
+		if (end_page > list.size()) {
+			end_page = list.size();
+		}
+		for (int i = start_page; i < end_page; i++) {
+			c_list.add((Challenge) list.get(i));
+		}
+		return new ResponseEntity<List<Challenge>>(c_list, HttpStatus.OK);
 	}
 
 }
