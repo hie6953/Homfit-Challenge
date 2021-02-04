@@ -188,9 +188,14 @@
                 @click="NicknameCheck()"
               />
             </div>
-            <span class="error-text" v-if="nicknamecheck"
-              >이미 동일한 별명이 존재합니다.</span
-            >
+            <span v-if="nicknamecheck"></span>
+
+            <span class="error-text" v-if="errormsg.nick_name">{{
+              errormsg.nick_name
+            }}</span>
+            <span class="correct-text" v-if="correctmsg.nick_name">{{
+              correctmsg.nick_name
+            }}</span>
           </div>
         </div>
 
@@ -281,6 +286,7 @@ export default {
       ],
       sex: 'f',
       errormsg: [],
+      correctmsg: [],
     };
   },
   watch: {
@@ -292,6 +298,11 @@ export default {
       this.passwordcheck = value;
       this.checkPasswordconfirm(value);
     },
+
+    nick_name(value) {
+      this.nick_name = value;
+      this.checknick_name(value);
+    },
   },
 
   methods: {
@@ -302,7 +313,13 @@ export default {
           //console.log(data);
           if (data === true) {
             this.nicknamecheck = true;
-          } else this.nicknamecheck = false;
+            this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+            this.correctmsg['nick_name'] = ``;
+          } else {
+            this.nicknamecheck = false;
+            this.errormsg['nick_name'] = ``;
+            this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
+          }
           //console.log(this.nicknamecheck);
         })
         .catch(() => {
