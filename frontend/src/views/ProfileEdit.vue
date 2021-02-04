@@ -319,7 +319,11 @@ export default {
     },
 
     UserPasswordEdit() {
-      if (this.password == this.passwordcheck) {
+      if (
+        this.password == this.passwordcheck &&
+        this.password.length > 0 &&
+        this.passwordcheck.length > 0
+      ) {
         axios
           .put(`${SERVER_URL}/user/updateDetail`, {
             uid: this.getUserUid,
