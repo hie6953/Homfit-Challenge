@@ -226,6 +226,7 @@ public class UserController {
 
         try {
             user = userService.getUid(uid);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("회원 정보 찾기 실패 : {}", e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
