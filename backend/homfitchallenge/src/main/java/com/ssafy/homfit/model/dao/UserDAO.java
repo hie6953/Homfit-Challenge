@@ -30,5 +30,7 @@ public interface UserDAO {
 
 	public void updateGrade(User user) throws SQLException;
 
-	public User duplicateNickNameCheck(String nick_name) throws SQLException;
+    public User duplicateNickNameCheck(String nick_name) throws SQLException;
+    
+    public User checkPassword(User user) throws SQLException;
 }

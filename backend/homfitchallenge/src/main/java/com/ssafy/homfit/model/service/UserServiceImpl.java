@@ -147,6 +147,19 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             return false;
         }
-        
+
+    }
+
+    @Override
+    public Boolean checkPassword(User user) throws Exception {
+        User tmp = null;
+        try {
+            tmp = sqlSession.getMapper(UserDAO.class).checkPassword(user);
+        } catch (Exception e) {
+            return false;
+        }
+        if (tmp == null)
+            return false;
+        return true;
     }
 }

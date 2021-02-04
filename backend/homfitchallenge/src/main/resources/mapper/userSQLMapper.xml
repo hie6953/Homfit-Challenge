@@ -56,4 +56,9 @@
     <select id="test" resultType="user">
         select * from user
     </select>
+
+    <select id="checkPassword" parameterType="user" resultType="user">
+        select * from user where uid = #{uid} and password = #{password}
+    </select>
+
 </mapper>

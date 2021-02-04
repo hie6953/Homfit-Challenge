@@ -3,6 +3,8 @@ package com.ssafy.homfit.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
 import com.ssafy.homfit.model.service.UserService;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.Response;
 
 
 @Api("UserController V1")
@@ -236,4 +239,39 @@ public class UserController {
 
         return new ResponseEntity<User> (user, status);
     }
+
+    @PostMapping("/checkPassword")
+    public ResponseEntity<Boolean> checkPassword(@RequestBody User user){
+        boolean isRight = false;
+        HttpStatus status = null;
+
+        try {
+            if(userService.checkPassword(user)){
+                isRight = true;
+            }
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("비밀번호 확인 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<Boolean>(isRight, status); 
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Map<String, Object>> getInfo(HttpServletRequest req) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+        System.out.println(">>>>>> " + jwtService.get(req.getHeader("access-token")));
+        try {
+            resultMap.putAll(jwtService.get(req.getHeader("access-token")));
+            status = HttpStatus.ACCEPTED;
+        } catch (RuntimeException e) {
+            logger.error("정보조회 실패 : {}", e);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
 }
