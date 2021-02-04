@@ -60,6 +60,12 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
+    path: '/challenge-more-info/:challenge_id',
+    name: 'ChallengeMoreInfo',
+    component: () => import('../views/ChallengeMoreInfo.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path: '/mypage',
     name: 'MyPage',
     component: () => import('../views/MyPage.vue'),
