@@ -5,7 +5,7 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 
 public class ConnectToRedis {
-    private static final String REDIS_URL = "redis://ssafyC107@i4C107.p.ssafy.io:6379/";
+    private static final String REDIS_URL = "redis://ssafyC107@i4C107.p.ssafy.io:8555/";
 
     public void setCache(String key, String value, long time){
         RedisClient redisClient = RedisClient.create(REDIS_URL);
