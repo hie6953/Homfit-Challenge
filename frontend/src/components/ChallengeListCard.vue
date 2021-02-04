@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 챌린지 리스트 카드 -->
-    <!-- <b-card
+    <b-card
       img-src="https://picsum.photos/600/300/?image=25"
       img-alt="Image"
       img-top
@@ -23,9 +23,9 @@
       <div class="challenge-list-card-footer">
         <span>{{ challenge.people }}명 참여중</span>
       </div>
-    </b-card> -->
+    </b-card>
 
-    <b-card
+    <!-- <b-card
       img-src="https://picsum.photos/600/300/?image=25"
       img-alt="Image"
       img-top
@@ -47,7 +47,7 @@
       <div class="challenge-list-card-footer">
         <span>22명 참여중</span>
       </div>
-    </b-card>
+    </b-card> -->
   </div>
 </template>
 

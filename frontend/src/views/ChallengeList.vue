@@ -162,7 +162,7 @@
           :challenge="challenge"
         ></challenge-list-card>
       </div>
-      <infinite-loading @infinite="getData" spinner="waveDots">
+      <infinite-loading ref="InfiniteLoading" @infinite="getData" spinner="waveDots">
         <div class="infinite-loading-message" slot="no-more">
           <b-button @click="scrollUp"
             >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
@@ -180,16 +180,26 @@
 </template>
 
 <script>
-import ChallengeListCard from '../components/ChallengeListCard.vue';
-import ChallengeListFilter from '../components/ChallengeListFilter.vue';
-import InfiniteLoading from 'vue-infinite-loading';
-import '@/assets/css/challengelist.css';
+import ChallengeListCard from "../components/ChallengeListCard.vue";
+import ChallengeListFilter from "../components/ChallengeListFilter.vue";
+import InfiniteLoading from "vue-infinite-loading";
+import "@/assets/css/challengelist.css";
 
-// import axios from 'axios';
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+
+//axios array [] 없애기
+axios.defaults.paramsSerializer = function(paramObj) {
+    const params = new URLSearchParams()
+    for (const key in paramObj) {
+        params.append(key, paramObj[key])
+    }
+
+    return params.toString()
+}
 
 export default {
-  name: 'ChallengeList',
+  name: "ChallengeList",
   components: { ChallengeListCard, ChallengeListFilter, InfiniteLoading },
   watch: {
     sortValue: function() {
@@ -202,7 +212,7 @@ export default {
   data() {
     return {
       category: 0,
-      sortList: ['인기순', '최신순'],
+      sortList: ["인기순", "최신순"],
       sortValue: 0,
       period: [3, 30],
       day: [],
@@ -210,28 +220,6 @@ export default {
       challengeList: [],
       scrollUpDelay: 1,
       scrollUpSpeed: 30,
-      list: [
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-        { id: 'id' },
-      ],
     };
   },
   created() {
@@ -249,47 +237,68 @@ export default {
   methods: {
     getNewData: function() {
       this.page = 1;
-      this.getNewData();
+      this.challengeList = [];
+      if(this.$refs.InfiniteLoading){
+        this.$refs.InfiniteLoading.stateChanger.reset(); 
+    }
     },
     getData: function($state) {
-      this.challengeList = this.challengeList.concat(this.list);
-      ++this.page;
-      if (this.page < 3) $state.loaded();
-      else {
-        $state.complete();
-      }
-      // axios
-      //   .get(`${SERVER_URL}/challenge/all`, {
-      //     params: {
-      //       category: this.category, //0:전체, 1~10 카테고리숫자
-      //       sort: this.sortValue, //0:인기순,1:최신순
-      //       periodStart: this.period[0], //period최소값(이상) 7
-      //       periodEnd: this.period[1], //period최대값(이하) 30
-      //       day: this.day, //요일 숫자 배열 [3,4,5]
-      //       page: this.page, //페이지 숫자
-      //     },
+      axios
+        .get(`${SERVER_URL}/challenge/all`, {
+          params: {
+            day: this.day, //요일 숫자 배열 [3,4,5]
+            category: this.category, //0:전체, 1~10 카테고리숫자
+            sort: this.sortValue, //0:인기순,1:최신순
+            periodStart: this.period[0], //period최소값(이상) 7
+            periodEnd: this.period[1], //period최대값(이하) 30
+
+            page: this.page, //페이지 숫자
+          },
+        })
+        .then(({ data }) => {
+          setTimeout(() => {
+            if (data.length) {
+              this.challengeList = this.challengeList.concat(data);
+              ++this.page;
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          }, 500);
+        })
+        .catch(() => {
+          alert("챌린지 목록을 불러오지 못했습니다.");
+        });
+
+      // // Object To FormData 변환
+      // var formData = new FormData();
+      // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
+      // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
+      // // 이미지
+      // if (this.scndhandReg.imgFile != "") {
+      //   formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일 ^^
+      // }
+      // // 파일업로드시 (경로,FormData,Header) 설정
+      // this.$axios
+      //   .post(url, formData, {
+      //     headers: { "Content-Type": "multipart/form-data" },
       //   })
-      //   .then(({ data }) => {
-      //     this.challengeList = data;
-      //     setTimeout(() => {
-      //       if (data.length) {
-      //         this.challengeList = this.challengeList.concat(data);
-      //         ++this.page;
-      //         $state.loaded();
-      //       } else {
-      //         $state.complete();
-      //       }
-      //     }, 1000);
+      //   .then((response) => {
+      //     if (!!response && response.status === 200) {
+      //       commonUtils.$alert("감사합니다.\n정상등록되었습니다.");
+      //       this.scndhandReg = Object.assign({}, this.defScndhangReg);
+      //     }
       //   })
-      //   .catch(() => {
-      //     alert('챌린지 목록을 불러오지 못했습니다.');
+      //   .catch((error) => {
+      //     console.log(error);
+      //     commonUtils.$alertUncatchedError(error);
       //   });
     },
     scrollUp: function() {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     },
 
