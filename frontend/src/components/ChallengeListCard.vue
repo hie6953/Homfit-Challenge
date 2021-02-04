@@ -9,6 +9,7 @@
       tag="article"
       style="max-width: 30rem;"
       class="mb-2 shadow"
+      @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
         <span id="card-title">{{ challenge.challenge_title }}</span>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import '@/assets/css/challengeListCard.css'
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 
 export default {
@@ -73,6 +75,9 @@ export default {
       }
       return '';
     },
+    ChallengeMoreInfo:function(){
+      this.$emit("moreInfo",this.challenge.challenge_id);
+    }
   },
 };
 </script>

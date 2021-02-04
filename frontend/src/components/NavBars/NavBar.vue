@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar variant="white">
+    <b-navbar class="navbar-main" variant="white">
       <!-- 로고 -->
       <router-link to="/">
         <img id="logo-image" src="@/assets/NavBar/logo.png" />
@@ -12,7 +12,7 @@
           id="bellDropdown"
           v-if="getAccessToken"
           right
-          class="notice-dropdown"
+          class="notice-dropdown my-auto"
         >
           <template slot="button-content">
             <b-icon
@@ -20,6 +20,7 @@
               icon="bell"
               scale="1.3"
               variant="dark"
+              
             ></b-icon>
             <b-tooltip target="bellIcon" triggers="hover">
               알림
@@ -49,7 +50,32 @@
         </router-link>
 
         <!-- 마이페이지 -->
-        <router-link
+        <b-nav-item-dropdown
+          id="myPageDropdown"
+          v-if="getAccessToken"
+          right
+          class="notice-dropdown"
+        >
+          <template slot="button-content">
+            <button
+              id="myPageButton"
+              v-if="getAccessToken"
+              class=" my-auto"
+            >
+              <img
+                id="userIcon"
+                class="circle-user-image"
+                src="@/assets/NavBar/anonimous_user.png"
+              />
+              <b-tooltip target="userIcon" triggers="hover">
+                마이페이지
+              </b-tooltip>
+            </button>
+          </template>
+          <b-nav-item><router-link id="myPageLink" to="/mypage">마이페이지</router-link></b-nav-item>
+          <b-nav-item><button id="logoutButton" @click="LogOut">로그아웃</button></b-nav-item>
+        </b-nav-item-dropdown>
+        <!-- <router-link
           to="/mypage"
           v-if="getAccessToken"
           class=" mt-auto mb-auto main-menu"
@@ -62,8 +88,9 @@
           <b-tooltip target="userIcon" triggers="hover">
             마이페이지
           </b-tooltip>
-        </router-link>
+        </router-link> -->
 
+        <!-- 로그인 PC -->
         <button
           v-if="!getAccessToken && !isMobile"
           class="login-button"
@@ -72,6 +99,7 @@
           로그인
         </button>
 
+        <!-- 로그인 Mobile -->
         <button
           v-if="!getAccessToken && isMobile"
           class="login-button-mobile"
@@ -103,11 +131,11 @@
 </template>
 
 <script>
-import NavBarNoticeCard from '@/components/NavBars/NavBarNoticeCard.vue';
+import NavBarNoticeCard from "@/components/NavBars/NavBarNoticeCard.vue";
 
-import '@/assets/css/NavBar/navbar.css';
+import "@/assets/css/NavBar/navbar.css";
 
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -118,15 +146,22 @@ export default {
     return {
       isMobile: false,
       notices: [
-        { type: 'ranking', comment: '실버로의 승급을 축하드립니다!' },
-        { type: 'ToDo', comment: '1시간 요가하기 챌린지 인증하세요.' },
+        { type: "ranking", comment: "실버로의 승급을 축하드립니다!" },
+        { type: "ToDo", comment: "1시간 요가하기 챌린지 인증하세요." },
       ],
     };
   },
   methods: {
     // 로그인
     Login: function() {
-      this.$router.push('/login');
+      this.$router.push("/login");
+    },
+    LogOut:function(){
+      alert("로그아웃!");
+      this.$store
+        .dispatch('LOGOUT')
+        .then(() => this.$router.replace('/').catch(() => {}));
+      
     },
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
@@ -134,12 +169,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getAccessToken']),
+    ...mapGetters(["getAccessToken"]),
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
     this.handleResize();
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
   },
 };
 </script>

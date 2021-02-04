@@ -160,6 +160,7 @@
           :key="`${index}_challenge`"
           class="col-6 col-md-4 col-lg-3 challenge-list-card"
           :challenge="challenge"
+          @moreInfo="ChallengeMoreInfo"
         ></challenge-list-card>
       </div>
       <infinite-loading ref="InfiniteLoading" @infinite="getData" spinner="waveDots">
@@ -293,6 +294,9 @@ export default {
       //     console.log(error);
       //     commonUtils.$alertUncatchedError(error);
       //   });
+    },
+    ChallengeMoreInfo:function(challenge_id){
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
     scrollUp: function() {
       window.scrollTo({
