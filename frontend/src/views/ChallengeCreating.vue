@@ -111,7 +111,12 @@
           "{{ challenge.challenge_title }}"<br />개설이 완료되었습니다.
         </h3>
         <div class="align-center mt-5">
-          <router-link to="/challengelist" id="challenge-creating-end-button"
+          <router-link
+            :to="{
+              name: 'ChallengeMoreInfo',
+              params: { challenge_id: challenge_id },
+            }"
+            id="challenge-creating-end-button"
             >챌린지 보러가기</router-link
           >
         </div>
@@ -121,20 +126,20 @@
 </template>
 
 <script>
-import ChallengeMain from '@/components/ChallengeCreating/ChallengeMain.vue';
-import ChallengePeriod from '@/components/ChallengeCreating/ChallengePeriod.vue';
-import ChallengeCertification from '@/components/ChallengeCreating/ChallengeCertification.vue';
-import ChallengeTag from '@/components/ChallengeCreating/ChallengeTag.vue';
+import ChallengeMain from "@/components/ChallengeCreating/ChallengeMain.vue";
+import ChallengePeriod from "@/components/ChallengeCreating/ChallengePeriod.vue";
+import ChallengeCertification from "@/components/ChallengeCreating/ChallengeCertification.vue";
+import ChallengeTag from "@/components/ChallengeCreating/ChallengeTag.vue";
 
-import '@/assets/css/ChallengeCreating/challengecreating.css';
+import "@/assets/css/ChallengeCreating/challengecreating.css";
 
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
-import axios from 'axios';
+import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: 'ChallengeCreating',
+  name: "ChallengeCreating",
   components: {
     ChallengeMain,
     ChallengePeriod,
@@ -154,20 +159,20 @@ export default {
         kind: 0,
         fit_id: 1,
         bodyList: [],
-        challenge_title: '',
-        challenge_contents: '',
-        challenge_img: '',
+        challenge_title: "",
+        challenge_contents: "",
+        challenge_img: "",
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
-        challenge_certify_contents: '',
-        good_img: '',
-        bad_img: '',
+        challenge_certify_contents: "",
+        good_img: "",
+        bad_img: "",
         only_cam: 1,
         tagList: [],
-        make_date: '',
-        make_uid: '',
+        make_date: "",
+        make_uid: "",
         check_date: 0,
         period: 0,
       },
@@ -175,7 +180,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getUserUid']),
+    ...mapGetters(["getUserUid"]),
   },
 
   methods: {
@@ -193,10 +198,10 @@ export default {
         .then((success) => {
           this.page = 5;
           this.challenge_id = success;
-          alert('챌린지가 생성되었습니다.');
+          alert("챌린지가 생성되었습니다.");
         })
         .catch(() => {
-          alert('등록 처리시 에러가 발생했습니다.');
+          alert("등록 처리시 에러가 발생했습니다.");
         });
     },
 
@@ -279,14 +284,14 @@ export default {
     // 개설 날짜 형식 구성
     FormatedMakeDate: function() {
       var d = new Date(),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
         year = d.getFullYear();
 
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
 
-      return [year, month, day].join('-');
+      return [year, month, day].join("-");
     },
   },
 };
