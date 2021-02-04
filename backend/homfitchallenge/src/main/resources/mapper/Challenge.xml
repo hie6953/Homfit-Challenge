@@ -12,13 +12,23 @@
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
 		select
-		c.challenge_id, c.challenge_img, c.challenge_title, c.period, c.fit_id,
+		c.challenge_id, c.challenge_img, c.challenge_title, c.period,
+		c.fit_id,
 		c.daylist_string, u.nick_name, count(p.uid) as people
-		from challenge as c
+		from
+		challenge as c
 		join participate as p on c.challenge_id = p.challenge_id
 		join user as u on c.make_uid = u.uid
 		group by challenge_id
-		order by challenge_id desc;
+		order by challenge_id desc
+	</select>
+
+	<!--해당 챌린지 참여자수 조회 -->
+	<!-- public int selectParticipants(int challengeId); -->
+	<select id="selectParticipants" resultType="Challenge">
+		select challenge_id, count(challenge_id) as people
+		from participate
+		where challenge_id = #{challenge_id}
 	</select>
 
 	<!-- 챌린지 상세 조회 -->
@@ -28,9 +38,9 @@
 		select a.*, u.nick_name
 		from challenge as a
 		join user as u
-		on a.make_uid = u.uid
-		where a.challenge_id =
-		#{chchallenge_id};
+		on
+		a.make_uid = u.uid
+		where a.challenge_id = #{challenge_id}
 	</select>
 
 	<!-- 해당 챌린지 부위리스트 select -->
@@ -39,7 +49,7 @@
 		select body_id
 		from
 		search_body
-		where challenge_id = #{chchallenge_id};
+		where challenge_id = #{chchallenge_id}
 	</select>
 
 
@@ -49,10 +59,14 @@
 		useGeneratedKeys="true" keyProperty="challenge_id">
 		insert into
 		challenge
-		(challenge_title, challenge_contents, challenge_img, challenge_certify_contents,
-		good_img, bad_img, day_certify_count, only_cam, start_date, end_date,
-		make_date, make_uid, fit_id, check_date, period, daylist_string)
-		values(#{challenge_title}, #{challenge_contents}, #{challenge_img},
+		(challenge_title, challenge_contents, challenge_img,
+		challenge_certify_contents,
+		good_img, bad_img, day_certify_count,
+		only_cam, start_date, end_date,
+		make_date, make_uid, fit_id,
+		check_date, period, daylist_string)
+		values(#{challenge_title},
+		#{challenge_contents}, #{challenge_img},
 		#{challenge_certify_contents},#{good_img}, #{bad_img},
 		#{day_certify_count}, #{only_cam}, #{start_date}, #{end_date},
 		#{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period},

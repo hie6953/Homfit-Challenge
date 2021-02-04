@@ -260,6 +260,10 @@ public class ChallengeController {
 			}
 			// 부위리스트
 			challenge.setBodyList(challengeService.selectBodyPart(challengeId));
+			
+			//참여자수 세팅
+			challenge.setPeople(challengeService.selectParticipants(challengeId).getPeople());
+			
 		}
 		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
 	}

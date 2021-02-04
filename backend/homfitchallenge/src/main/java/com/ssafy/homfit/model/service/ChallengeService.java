@@ -29,6 +29,6 @@ public interface ChallengeService {
 	/** 챌린지 참여 */
 	public boolean joinChallenge(int challenge_id, String uid);
 	public boolean quitChallenge(int challenge_id, String uid);
-	//public Challenge[] selectParticipants();
+	public Challenge selectParticipants(int challengeId);
 	
 }

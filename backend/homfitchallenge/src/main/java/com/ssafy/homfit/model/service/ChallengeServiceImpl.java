@@ -95,4 +95,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.selectBodyPart(ChallengeId);
 	}
 
+	@Override
+	public Challenge selectParticipants(int challengId) {
+		return challengeDAO.selectParticipants(challengId);
+	}
+
 }
