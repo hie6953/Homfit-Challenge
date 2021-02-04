@@ -9,6 +9,7 @@
           <img
             src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
             class="responsive-image"
+            alt=""
           />
           <div class="gallery-item-info">
             <ul>
