@@ -47,10 +47,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	
 	// 전체리스트 반환
-	@Cacheable(value = "challengeList", key="#root.methodName",unless = "#result==null" )
 	@Override
 	public List<Challenge> AllChallengeList() {
-		System.out.println("불려!");
 		return challengeDAO.selectAllChallenge();
 	}
 

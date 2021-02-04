@@ -57,53 +57,63 @@ public class ChallengeController {
 
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
+	private String key = "challengeList";
 
-//	@Resource(name = "redisTemplate")
-//	private ListOperations<String, Challenge> listOperation;
 
 	/** 테스트 - redis */
 	@GetMapping("/test")
-	public ResponseEntity<String> testChallenge() {
-		ListOperations<String, Object> vop = redisTemplate.opsForList();
-		Challenge ch = new Challenge();
-		ch.setChallenge_title("테스트해보자");
-		ch.setChallenge_img("이미지");
-		ch.setChallenge_contents("내용");
+	public ResponseEntity<List<Object>> testChallenge() {
+		ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+		String key = "challengeList";
+		Long size = listOperation.size(key);
+		List<Object> list2 = listOperation.range(key, 0, size - 1);
+		System.out.println(size);
+		System.out.println(list2.toString());
 
-//		
-		String key = "challengeList::AllChallengeList";
-//		System.out.println(vop.range(key, 0, 10));
-//		//Set<String> keys = redisTemplate.keys("*");
-
-		// System.out.println(keys.toString());
-		redisTemplate.opsForList().leftPush(key, ch);
-//		Iterator<byte[]> it = keys.iterator();
-//
-//		while(it.hasNext()){
-//
-//		    byte[] data = (byte[])it.next();
-//
-//		    System.out.println(new String(data, 0, data.length));
-//		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Object>>(list2, HttpStatus.NO_CONTENT);
 	}
 
+	
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
 	@Transactional
 	public ResponseEntity<String> joinChallenge(@PathVariable int challengeId, @RequestBody String uid) {
 		if (challengeService.joinChallenge(challengeId, uid)) {
+			//챌린지 참여시 캐시 people ++;
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge c = (Challenge) list.get(i);
+				if(c.getChallenge_id() == challengeId) {
+					c.setPeople(c.getPeople()+1);
+					listOperation.set(key, i, c);
+				}
+			}
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
+	
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
 	@DeleteMapping("/join/{challengeId}")
 	@Transactional
 	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody String uid) {
 
 		if (challengeService.quitChallenge(challengeId, uid)) {
+			//챌린지 참여 삭제시 캐시 people --;
+			//챌린지 참여시 캐시 people ++;
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge c = (Challenge) list.get(i);
+				if(c.getChallenge_id() == challengeId) {
+					c.setPeople(c.getPeople()-1);
+					listOperation.set(key, i, c);
+				}
+			}
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -171,7 +181,12 @@ public class ChallengeController {
 				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
 
 				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
-				// 5. 캐시insert, 캐시 참여테이블 insert
+
+				// 5. 캐시insert
+				ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+				Challenge ch = challengeService.detailChallenge(challengeId);
+				ch.setPeople(1);
+				listOperation.leftPush(key, ch);
 
 			}
 
@@ -207,7 +222,19 @@ public class ChallengeController {
 	@DeleteMapping("{challengeId}")
 	@Transactional
 	public ResponseEntity<String> deleteChallenge(@PathVariable int challengeId) {
+
 		if (challengeService.deleteChallenge(challengeId)) {
+			// 캐시리스트에서도 삭제
+			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+			Long size = listOperation.size(key);
+			List<Object> list = listOperation.range(key, 0, size - 1);
+			for (int i = 0; i < list.size(); i++) {
+				Challenge ch = (Challenge) list.get(i);
+				if (ch.getChallenge_id() == challengeId) {
+					listOperation.remove(key, 1, ch); //value가 같아야 지워져.
+				}
+			}
+
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -223,7 +250,7 @@ public class ChallengeController {
 		} else {
 			// 태그리스트
 			Tag tag[] = tagService.selectTagInChallenge(challengeId);
-			System.out.println(Arrays.toString(tag));
+			//System.out.println(Arrays.toString(tag));
 			if (tag.length != 0) {
 				String[] taglist = new String[tag.length];
 				for (int i = 0; i < tag.length; i++) {
@@ -239,19 +266,32 @@ public class ChallengeController {
 
 	/**
 	 * 챌린지 전체리스트 반환 대표이미지, 챌린지 제목, 개설자, 개설자이미지, 인증빈도(월화수목금), 기간, 참여중 인원 페이징, 카테고리,
-	 * 요일, 기간, 정렬에 해당하는 데이터 반환. challengeService.AllChallengeList(); -> cache 사용
+	 * 요일, 기간, 정렬에 해당하는 데이터 반환.
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort, @RequestParam int periodStart, @RequestParam int periodEnd,
-			@RequestParam int category, @RequestParam int page) {
+	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort,
+			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category,
+			@RequestParam int page) {
 
-		List<Challenge> list = challengeService.AllChallengeList();
+		ListOperations<String, Object> listOperation = redisTemplate.opsForList();
+
+		// 캐시 없으면 - 캐시 생성
+		if (!redisTemplate.hasKey(key)) {
+			List<Challenge> list = challengeService.AllChallengeList();
+			for (int i = 0; i < list.size(); i++) {
+				listOperation.rightPush(key, list.get(i));
+			}
+		}
+
+		// 캐시있다면 - 캐시 뿌림
+		Long size = listOperation.size(key);
+		List<Object> list = listOperation.range(key, 0, size - 1);
 		List<Challenge> c_list = new ArrayList<Challenge>(); // 반환리스트
 
-		// 1. 카테고리별  - 기본값: 0-전체선택 / 해당카테고리 선택.
+		// 1. 카테고리별 - 기본값: 0-전체선택 / 해당카테고리 선택.
 		if (category != 0) {
-			for (Iterator<Challenge> it = list.iterator(); it.hasNext();) {
-				Challenge value = it.next();
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
 				if (value.getFit_id() != category) {
 					it.remove();
 				}
@@ -260,8 +300,8 @@ public class ChallengeController {
 
 		// 2. 필터 - 기간
 		if (periodStart != 0 && periodEnd != 0) {
-			for (Iterator<Challenge> it = list.iterator(); it.hasNext();) {
-				Challenge value = it.next();
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
 				if (value.getPeriod() < periodStart || value.getPeriod() > periodEnd) {
 					it.remove();
 				}
@@ -270,18 +310,17 @@ public class ChallengeController {
 
 		// 3. 필터 - 요일 -> 일단 같은 요일만.
 		String param_s = Arrays.toString(day);
-		//param_s = param_s.substring(1, param_s.length()-1);
-		System.out.println("파람" + " "+param_s);
-		if(day != null && day.length > 0) {
-			for (int i = 0; i <list.size(); i++) {
-				String s = list.get(i).getDaylist_string();
-				//s = s.substring(1, s.length()-1);
-				if(param_s.equals(s)) {
-					System.out.println(s);
-				} 
+		if (day != null && day.length > 0) {
+			System.out.println("들어와");
+			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+				Challenge value = (Challenge) it.next();
+				String s = value.getDaylist_string();
+				if (!param_s.equals(s)) {
+					it.remove();
+				}
 			}
 		}
-	
+
 		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
 		int end_page = page * 20;
 		int start_page = end_page - 20;
@@ -289,19 +328,19 @@ public class ChallengeController {
 			end_page = list.size();
 		}
 		for (int i = start_page; i < end_page; i++) {
-			c_list.add(list.get(i));
+			c_list.add((Challenge) list.get(i));
 		}
 
-		// 5. 정렬 - 기본값: 최신순  / 0:인기순, 1:최신순
-		if(sort == 0) {
+		// 5. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신순
+		if (sort == 0) {
 			Collections.sort(c_list, new Comparator<Challenge>() {
 				@Override
 				public int compare(Challenge o1, Challenge o2) {
 					return o2.getPeople() - o1.getPeople();
-				}	
+				}
 			});
 		}
-		
+
 		return new ResponseEntity<List<Challenge>>(c_list, HttpStatus.OK);
 	}
 

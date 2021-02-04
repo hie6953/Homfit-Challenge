@@ -21,11 +21,6 @@
 		order by challenge_id desc;
 	</select>
 
-	<!--챌린지 참여자수 조회 -->
-	<!--public List<Challenge> selectParticipants(); -->
-	<!-- <select id="selectParticipants" resultType="Challenge"> select challenge_id, 
-		count(uid) as 'people' from participate group by challenge_id order by challenge_id; 
-		</select> -->
 	<!-- 챌린지 상세 조회 -->
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
 	<select id="selectChallengeByid" parameterType="int"
