@@ -197,7 +197,7 @@ export default {
         .post(`${SERVER_URL}/challenge`, this.challenge)
         .then((success) => {
           this.page = 5;
-          this.challenge_id = success;
+          this.challenge_id = success.data;
           alert("챌린지가 생성되었습니다.");
         })
         .catch(() => {
