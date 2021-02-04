@@ -103,7 +103,6 @@ public class ChallengeController {
 
 		if (challengeService.quitChallenge(challengeId, uid)) {
 			//챌린지 참여 삭제시 캐시 people --;
-			//챌린지 참여시 캐시 people ++;
 			ListOperations<String, Object> listOperation = redisTemplate.opsForList();
 			Long size = listOperation.size(key);
 			List<Object> list = listOperation.range(key, 0, size - 1);
@@ -203,7 +202,8 @@ public class ChallengeController {
 	@PutMapping
 	@Transactional
 	public ResponseEntity<String> updateChallenge(@RequestBody Challenge challenge) {
-
+		//
+		//..........
 		// 챌린지안에 다 받기.
 		// 태그*
 		// 부위 *
@@ -287,6 +287,18 @@ public class ChallengeController {
 		Long size = listOperation.size(key);
 		List<Object> list = listOperation.range(key, 0, size - 1);
 		List<Challenge> c_list = new ArrayList<Challenge>(); // 반환리스트
+		
+		// 0. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신
+		if (sort == 0) {
+			Collections.sort(list, new Comparator<Object>() {
+				@Override
+				public int compare(Object o1, Object o2) {
+					Challenge c1 = (Challenge)o1;
+					Challenge c2 = (Challenge)o2;
+					return c2.getPeople() - c1.getPeople();
+				}
+			});
+		}
 
 		// 1. 카테고리별 - 기본값: 0-전체선택 / 해당카테고리 선택.
 		if (category != 0) {
@@ -311,7 +323,6 @@ public class ChallengeController {
 		// 3. 필터 - 요일 -> 일단 같은 요일만.
 		String param_s = Arrays.toString(day);
 		if (day != null && day.length > 0) {
-			System.out.println("들어와");
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Challenge value = (Challenge) it.next();
 				String s = value.getDaylist_string();
@@ -330,17 +341,6 @@ public class ChallengeController {
 		for (int i = start_page; i < end_page; i++) {
 			c_list.add((Challenge) list.get(i));
 		}
-
-		// 5. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신순
-		if (sort == 0) {
-			Collections.sort(c_list, new Comparator<Challenge>() {
-				@Override
-				public int compare(Challenge o1, Challenge o2) {
-					return o2.getPeople() - o1.getPeople();
-				}
-			});
-		}
-
 		return new ResponseEntity<List<Challenge>>(c_list, HttpStatus.OK);
 	}
 

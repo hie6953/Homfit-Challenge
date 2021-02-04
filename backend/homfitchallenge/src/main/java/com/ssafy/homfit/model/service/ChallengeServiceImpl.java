@@ -53,12 +53,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	// 챌린지 참여자수 계산
-	@Cacheable(value = "participants", unless = "#result==null")
-	@Override
-	public Challenge[] selectParticipants() {
-		System.out.println("참여자불려요~");
-		return challengeDAO.selectParticipants();
-	}
+//	@Cacheable(value = "participants", unless = "#result==null")
+//	@Override
+//	public Challenge[] selectParticipants() {
+//		System.out.println("참여자불려요~");
+//		return challengeDAO.selectParticipants();
+//	}
 
 	
 	// 챌린지 인증요일 등록

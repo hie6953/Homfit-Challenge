@@ -43,7 +43,7 @@ public class HomfitchallengeApplication {
 				Challenge ch = new Challenge();
 				String key = "challengeList";
 				//기존에 있던 캐시 삭제
-				//redisTemplate.delete(key);
+				redisTemplate.delete(key);
 				Long size = listOperation.size(key);
 				if(size == 0) {
 					List<Challenge> list = challengeService.AllChallengeList();
