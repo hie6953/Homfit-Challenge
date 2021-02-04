@@ -9,8 +9,8 @@
     </select>
 
     <insert id="signup" parameterType="user">
-        insert into user(uid, email, password, nick_name, phone_number, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
-        values (#{uid},#{email},#{password},#{nick_name},#{phone_number},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
+        insert into user(uid, email, password, nick_name, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
+        values (#{uid},#{email},#{password},#{nick_name},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
