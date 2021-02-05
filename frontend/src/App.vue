@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="position-relative">
+  <div id="app"  class="position-relative">
     <div class="sticky-top">
       <NavBar class="navbar-first"></NavBar>
       <NavBarSecond id="navbar-second" class="navbar-second"></NavBarSecond>
@@ -99,7 +99,7 @@ window.onscroll = function() {
 
 /* 상단고정 */
 .sticky-top {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }
@@ -130,6 +130,4 @@ window.onscroll = function() {
     margin-top: 150px;
   }
 }  */
-
-
 </style>
