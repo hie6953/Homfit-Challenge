@@ -114,6 +114,16 @@ const routes = [
     component: () => import('../views/StatisticsPage.vue'),
     // beforeEnter: requireAuth(),
   },
+  {
+    path:'/404',
+    name:"notFound",
+    component: () => import('../views/NotFound.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
+ 
 ];
 
 const router = new VueRouter({

@@ -35,7 +35,7 @@
 
         <!-- 북마크 -->
         <router-link
-          to="/링크"
+          to="/"
           v-if="getAccessToken"
           class="mt-auto mb-auto main-menu"
           ><b-icon
