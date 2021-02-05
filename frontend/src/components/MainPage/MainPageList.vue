@@ -38,10 +38,32 @@
     </div>
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
-      <div class="carousel-cell mx-1" v-for="challenge in mainPageList" :key="challenge.challenge_id">
-        <img src="https://placehold.it/340x340"/>
-        <p>{{ challenge.challenge_title }}</p>
+      <div class="carousel-cell col-12" v-for="challenge in mainPageList" :key="challenge.challenge_id">
+        <b-card
+          img-src="https://placehold.it/290x170"
+          img-alt="Image"
+          img-top
+          no-body
+          tag="article"
+          style="max-width: 30rem;"
+          class="mb-2 shadow"
+        >
+          <div class="challenge-list-card-body">
+            <span id="card-title">{{ challenge.challenge_title }}</span>
+            <br />
+            <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+            <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
+            <br />
+            <span id="card-day">{{ GetDayList(challenge) }}</span>
+            <span id="card-period">{{ challenge.period }}일</span>
+          </div>
+          <hr class="challenge-list-card-hr" />
+          <div class="challenge-list-card-footer">
+            <span>{{ challenge.people }}명 참여중</span>
+          </div>
+        </b-card>
       </div>
+
     </flickity>
   </div>
 </template>
@@ -50,7 +72,6 @@
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 
 import "@/assets/css/mainPageList.css"
-import "@/assets/css/challengelist.css"
 import Flickity from 'vue-flickity'
 // import ChallengeListCard from '../ChallengeListCard.vue'
 
@@ -67,7 +88,7 @@ export default {
     return {
       currentOffset: 0,
       windowSize: 3,
-      paginationFactor: 366.92,
+      paginationFactor: 370,
 
       // 모바일 캐러셀
       flickityOptions: {
@@ -114,7 +135,5 @@ export default {
 </script>
 
 <style scoped>
-.card-img {
-  margin: 0 25px;
-}
+
 </style>
