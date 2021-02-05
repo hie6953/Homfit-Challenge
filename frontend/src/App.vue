@@ -116,15 +116,20 @@ window.onscroll = function() {
   transition: top 0.5s;
   z-index: 1;
 }
-@media (min-width: 480px) {
-  .main-view {
-    margin-top: 105px;
-  }
-}
 
-@media (max-width: 480px) {
+/* mobile */
+/* @media (max-width: 480px) {
   .main-view {
-    margin-top: 120px;
+    margin-top:100px;
   }
-}
+} */
+
+/* PC */
+/* @media (min-width: 480px) {
+  .main-view {
+    margin-top: 150px;
+  }
+}  */
+
+
 </style>
