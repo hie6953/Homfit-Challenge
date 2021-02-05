@@ -68,9 +68,7 @@ public class ChallengeController {
 		String key = "challengeList";
 		Long size = listOperation.size(key);
 		List<Object> list2 = listOperation.range(key, 0, size - 1);
-		System.out.println(size);
-		System.out.println(list2.toString());
-
+		
 		return new ResponseEntity<List<Object>>(list2, HttpStatus.NO_CONTENT);
 	}
 
