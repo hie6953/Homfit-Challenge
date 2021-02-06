@@ -38,14 +38,12 @@
     </div>
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
-      <div class="carousel-cell col-12" v-for="challenge in mainPageList" :key="challenge.challenge_id">
+      <div class="carousel-cell" v-for="(challenge, index) in mainPageList" :key="index">
         <b-card
           img-src="https://placehold.it/290x170"
           img-alt="Image"
           img-top
-          no-body
-          tag="article"
-          style="max-width: 30rem;"
+          style="width: 280px;"
           class="mb-2 shadow"
         >
           <div class="challenge-list-card-body">
@@ -63,7 +61,6 @@
           </div>
         </b-card>
       </div>
-
     </flickity>
   </div>
 </template>
@@ -73,13 +70,11 @@ const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 
 import "@/assets/css/mainPageList.css"
 import Flickity from 'vue-flickity'
-// import ChallengeListCard from '../ChallengeListCard.vue'
 
 export default {
   name: 'MainPageList',
   components: {
     Flickity,
-    // ChallengeListCard
   },
   props: {
     mainPageList: Array,
