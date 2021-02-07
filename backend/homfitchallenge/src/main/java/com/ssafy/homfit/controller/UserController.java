@@ -11,7 +11,6 @@ import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
 import com.ssafy.homfit.model.service.UserService;
-import com.ssafy.homfit.util.Util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.Response;
 
 
 @Api("UserController V1")
@@ -57,17 +55,9 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<String> signup(
             @RequestBody @ApiParam(value = "회원 등록시 필요한 회원정보()", required = true) User user) {
-        Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
-        String uidToken = null;
         String msg = null;
         try {
-            while (true) {
-                uidToken = Util.generateToken();
-                if (userService.getUid(uidToken) == null)
-                    break;
-            }
-            user.setUid(uidToken);
             if (userService.signup(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.OK;
