@@ -6,65 +6,114 @@
       :day_certify_count="challenge.day_certify_count"
       :start_date="challenge.start_date"
       :end_date="challenge.end_date"
-      :nick_name="challenge.nick_name"
       :period="challenge.period"
       :fit_id="challenge.fit_id"
-      :people="challenge.people"
       :kind="challenge.kind"
       :daylist_string="challenge.daylist_string"
       :tagList="challenge.tagList"
       :bodyList="challenge.bodyList"
       :check_date="challenge.check_date"
+      :nick_name="challenge.nick_name"
+      :people="challenge.people"
     ></challenge-title>
+
+
+
     <div id="info-navbar">
       <div class="mx-auto align-center">
-      <ul class="info-navbar-ul">
-        <li>설명</li>
-        <li>인증방법</li>
-        <li>역대결과</li>
-        <li>후기</li>
-      </ul>
+        <ul class="info-navbar-ul">
+          <li @click="moveScroll(1)">설명</li>
+          <li @click="moveScroll(2)">인증방법</li>
+          <li @click="moveScroll(3)">달성률</li>
+          <li @click="moveScroll(4)">후기</li>
+        </ul>
+        <!-- <ul class="info-navbar-ul">
+          <li><b-button @click="moveScroll(1)">설명</b-button></li>
+          <li><b-button @click="moveScroll(2)">인증방법</b-button></li>
+          <li><b-button @click="moveScroll(3)">달성률</b-button></li>
+          <li><b-button @click="moveScroll(4)">후기</b-button></li>
+        </ul> -->
       </div>
     </div>
-    <div class="row col-11 col-lg-8 mx-auto">
-      <div class="col-12 col-lg-8 info-main">
+
+
+
+    <div class="row col-12 col-lg-8 mx-auto">
+      <div class="col-12 col-lg-9 info-main">
         <challenge-contents
+          id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
         ></challenge-contents>
+        
         <challenge-certify-contents
+          id="challenge-certify-contents"
           :challenge_certify_contents="challenge.challenge_certify_contents"
           :only_cam="challenge.only_cam"
         ></challenge-certify-contents>
+        
+        <challenge-result id="challenge-result"></challenge-result>
+        
+        <challenge-review id="challenge-review"></challenge-review>
+        
       </div>
 
-      <div v-if="!isMobile" class="col-12 col-lg-4">
-        <div class="info-float align-center">
-            <b-button id="apply-button"  @click="ChallengeApply">참가하기</b-button>
+      <div v-if="!isMobile" class="col-12 col-lg-3">
+        <div class="row info-float align-center">
+          <div class="col-2 my-auto">
+            <button class="my-auto" id="bookmark-button" @click="checkBookmark">
+              <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
+              <b-icon v-if="isBookmarked" icon="bookmark-fill" scale="1.6"></b-icon>
+            </button>
+          </div>
+          <div class="col-10 my-auto">
+            <b-button class="apply-button pc"  @click="ChallengeApply">참가하기</b-button>
+          </div>
         </div>
       </div>
     </div>
     <div v-if="isMobile">
       <div class="info-float">
         <div class="row info-float-inside col-12 mx-auto">
+          <!-- <div class="col-2 align-center my-auto">
+            <b-dropdown dropup>
+              <b-dropdown-item>설명</b-dropdown-item>
+              <b-dropdown-item>인증방법</b-dropdown-item>
+              <b-dropdown-item>달성률</b-dropdown-item>
+              <b-dropdown-item>후기</b-dropdown-item>
+            </b-dropdown>
+          </div> -->
           <div class="col-2 align-center my-auto">
-            <button class="my-auto" id="bookmark-button">
-              <b-icon icon="bookmark" scale="1.6"></b-icon>
+            <button class="my-auto" id="bookmark-button" @click="checkBookmark">
+              <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
+              <b-icon v-if="isBookmarked" icon="bookmark-fill" scale="1.6"></b-icon>
             </button>
           </div>
           <div class="col-10 align-center my-auto">
-            <b-button id="apply-button" @click="ChallengeApply"
+            <b-button class="apply-button mobile" @click="ChallengeApply"
               >참가하기</b-button
             >
           </div>
         </div>
       </div>
     </div>
+
+    
+    <!-- <div v-if="!isMobile" class="info-nav-float">
+      <ul>
+        <li><b-button class="info-nav-button" @click="moveScroll(1)">설명</b-button></li>
+          <li><b-button class="info-nav-button" @click="moveScroll(2)">인증방법</b-button></li>
+          <li><b-button class="info-nav-button" @click="moveScroll(3)">달성률</b-button></li>
+          <li><b-button class="info-nav-button" @click="moveScroll(4)">후기</b-button></li>
+      </ul>
+    </div> -->
   </div>
 </template>
 <script>
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
 import ChallengeContents from "../components/ChallengeMoreInfo/ChallengeContents.vue";
 import ChallengeCertifyContents from "../components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
+import ChallengeResult from "../components/ChallengeMoreInfo/ChallengeResult.vue";
+import ChallengeReview from "../components/ChallengeMoreInfo/ChallengeReview.vue";
 import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
 
 import { mapGetters } from "vuex";
@@ -72,17 +121,26 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
+const innerWidth = window.innerWidth;
 export default {
   name: "ChallengeMoreInfo",
   components: {
     ChallengeTitle,
     ChallengeContents,
     ChallengeCertifyContents,
+    ChallengeResult,
+    ChallengeReview,
   },
   data() {
     return {
       isMobile: false,
+      challengeCertifyContentsLocation: 0,
+      challengeResultLocation: 0,
+      challengeReviewLocation: 0,
+      scrollPosition: 0,
       challenge_id: 0,
+      isBookmarked:false,
+      isApplied:'',
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -121,36 +179,84 @@ export default {
         alert("챌린지 목록을 불러오지 못했습니다.");
       });
   },
+  watch:{
+    isBookmarked:function(){
+      if(this.isBookmarked){
+        // 북마크 신청
+      }else{
+        // 북마크 해제
+      }
+    },
+  },
   methods: {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 992;
     },
+    // 스크롤 위치 판단
+    handleScroll: function() {
+      let scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      if (scrollPosition >= this.challengeReviewLocation) {
+        this.scrollPosition = 4;
+      } else if (scrollPosition >= this.challengeResultLocation) {
+        this.scrollPosition = 3;
+      } else if (scrollPosition >= this.challengeCertifyContentsLocation) {
+        this.scrollPosition = 2;
+      } else {
+        this.scrollPosition = 1;
+      }
+    },
+
+    checkBookmark:function(){
+      this.isBookmarked = !this.isBookmarked;
+    },
+    moveScroll: function(pos) {
+      let dest = 0;
+      if (pos == 2) {
+        dest = this.challengeCertifyContentsLocation + innerWidth;
+      } else if (pos == 3) {
+        dest = this.challengeResultLocation+ innerWidth;
+      } else if (pos == 4) {
+        dest = this.challengeReviewLocation+ innerWidth;
+      }
+      window.scrollTo({ top: dest, behavior: "smooth" });
+    },
     ChallengeApply: function() {
       console.log(this.getAccessToken);
-      if(this.getAccessToken){
-      this.user.uid = this.getUserUid;
-      axios
-        .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, this.user)
-        .then(() => {
-          alert("성공적으로 참여되었습니다.");
-        })
-        .catch(() => {
-          alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
-        });
-      }else{
-        this.$router.push(`/login/challengelist`);
+      if (this.getAccessToken) {
+        this.user.uid = this.getUserUid;
+        axios
+          .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, this.user)
+          .then(() => {
+            alert("성공적으로 참여되었습니다.");
+          })
+          .catch(() => {
+            alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
+          });
+      } else {
+        this.$router.push(`/login/challenge-more-info/${this.challenge_id}`);
       }
-
     },
   },
   computed: {
-    ...mapGetters(["getUserUid","getAccessToken"]),
+    ...mapGetters(["getUserUid", "getAccessToken"]),
   },
   mounted() {
+    this.challengeCertifyContentsLocation = document.getElementById(
+      "challenge-certify-contents"
+    ).offsetTop;
+    this.challengeResultLocation = document.getElementById(
+      "challenge-result"
+    ).offsetTop;
+    this.challengeReviewLocation = document.getElementById(
+      "challenge-review"
+    ).offsetTop;
+
     // 화면 너비 측정 이벤트 추가/
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
+    this.handleScroll();
+    window.addEventListener("scroll", this.handleScroll);
   },
 };
 </script>
