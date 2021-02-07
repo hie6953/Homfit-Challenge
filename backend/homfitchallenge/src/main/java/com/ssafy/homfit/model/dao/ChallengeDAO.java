@@ -32,7 +32,7 @@ public interface ChallengeDAO {
 	/** 챌린지 참여 */
 	public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid );
 	public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
-	public Challenge selectParticipants(int challengeId);
+	public Challenge selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
 	
 	
 }
