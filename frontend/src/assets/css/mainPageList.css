@@ -46,11 +46,8 @@
     transition: transform 150ms ease-out;
     transform: translatex(0px);
 }
-.card-user-image {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    overflow: hidden;
+.card-carousel-card:hover {
+    cursor: pointer;
 }
 .card-user-image {
     width: 15px;
@@ -106,7 +103,9 @@
     padding: 4px 3px;
     margin-right: 3px;
   }
- 
+ .footer-content {
+    padding: 0 !important;
+ }
 
 /* ========================================================== */
 
