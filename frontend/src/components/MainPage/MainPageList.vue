@@ -6,7 +6,7 @@
       <div class="card-carousel">
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index">
+            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index" @click="ChallengeMoreInfo">
               <b-card
                 img-src="https://placehold.it/290x170"
                 img-alt="Image"
@@ -39,27 +39,28 @@
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
       <div class="carousel-cell" v-for="(challenge, index) in items" :key="index">
-        <b-card
-          img-src="https://placehold.it/290x170"
-          img-alt="Image"
-          img-top
-          style="width: 290px;"
-          class="mb-2 shadow"
-        >
-          <div class="challenge-list-card-body">
-            <span id="card-title">{{ challenge.challenge_title }}</span>
-            <br />
-            <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-            <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
-            <br />
-            <span id="card-day">{{ GetDayList(challenge) }}</span>
-            <span id="card-period">{{ challenge.period }}일</span>
-          </div>
-          <hr class="challenge-list-card-hr" />
-          <div class="challenge-list-card-footer">
-            <span>{{ challenge.people }}명 참여중</span>
-          </div>
-        </b-card>
+          <b-card
+            img-src="https://placehold.it/290x170"
+            img-alt="Image"
+            img-top
+            style="width: 290px;"
+            class="mb-2 shadow"
+          >
+            <div class="challenge-list-card-body">
+              <span id="card-title">{{ challenge.challenge_title }}</span>
+              <br />
+              <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+              <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
+              <br />
+              <span id="card-day">{{ GetDayList(challenge) }}</span>
+              <span id="card-period">{{ challenge.period }}일</span>
+            </div>
+            <hr class="challenge-list-card-hr" />
+            <div class="challenge-list-card-footer d-flex flex-wrap justify-content-between">
+              <span class="footer-content col-8 ">{{ challenge.people }}명 참여중</span>
+              <button class="btn footer-content col-3" @click="ChallengeMoreInfo(challenge.challenge_id)">more</button>
+            </div>
+          </b-card>
       </div>
     </flickity>
   </div>
@@ -153,7 +154,10 @@ export default {
     },
     updateItems() {
       this.items = this.mainPageList
-    }
+    },
+    ChallengeMoreInfo:function(challenge_id){
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
+    },
   }
 }
 </script>
