@@ -117,8 +117,7 @@ export default {
   },
   watch: {
     mainPageList() {
-      console.log(this.mainPageList)
-      this.update()
+      this.updateItems()
     }
   },
   computed: {
@@ -152,9 +151,8 @@ export default {
       }
       return '';
     },
-    update() {
+    updateItems() {
       this.items = this.mainPageList
-      console.log(this.items)
     }
   }
 }
