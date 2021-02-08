@@ -115,6 +115,12 @@ const routes = [
     // beforeEnter: requireAuth(),
   },
   {
+    path: '/bookmark',
+    name: 'Bookmark',
+    component: () => import('../views/Bookmark.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path:'/404',
     name:"notFound",
     component: () => import('../views/NotFound.vue'),
@@ -123,7 +129,7 @@ const routes = [
     path: '/:pathMatch(.*)*',
     redirect: "/404"
   },
- 
+  
 ];
 
 const router = new VueRouter({
