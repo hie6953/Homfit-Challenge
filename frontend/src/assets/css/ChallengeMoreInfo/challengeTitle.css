@@ -1,7 +1,23 @@
 .challenge-title-background {
   background-color: #fafafa;
-  padding: 40px 0 20px 0;
+  padding: 30px 0 20px 0;
 }
+
+
+.edit-menu{
+  text-align: right;
+}
+
+#go-challenge-edit{
+  background:none;
+  border:none;
+  transition:0.3s;
+}
+
+#go-challenge-edit:hover{
+  transform: scale(1.2);
+}
+
 
 #challenge-img {
   width: 100%;

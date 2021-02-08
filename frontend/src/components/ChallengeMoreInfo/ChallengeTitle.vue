@@ -1,6 +1,14 @@
 <template>
 <div>
   <div class="challenge-title-background">
+    <!-- 설정버튼 -->
+    <div v-if="equalNickName" class="col-12 col-md-9 mx-auto edit-menu">
+      <button id="go-challenge-edit" @click="GoChallengeEdit"><b-icon icon="gear" scale="1.2"></b-icon></button>
+      <b-tooltip target="go-challenge-edit" triggers="hover" placement="bottomleft">
+       챌린지 수정하기
+      </b-tooltip>
+    </div>
+    <!-- 챌린지 타이틀 -->
     <div class="row col-12 col-md-9 mx-auto">
       <div class="col-12 col-md-6">
         <img id="challenge-img" src="https://picsum.photos/600/300/?image=25" />
@@ -88,6 +96,7 @@ const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 export default {
   name: "ChallengeTitle",
   props: {
+    equalNickName:Boolean,
     challenge_title: String,
     challenge_img: String,
     day_certify_count: Number,
@@ -139,6 +148,9 @@ export default {
       }
       return "";
     },
+  GoChallengeEdit:function(){
+    this.$emit("challengeEdit");
+  },
   },
 };
 </script>

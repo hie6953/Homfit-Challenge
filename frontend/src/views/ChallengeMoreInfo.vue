@@ -1,6 +1,7 @@
 <template>
   <div>
     <challenge-title
+      :equalNickName="challenge.nick_name === getUserNickName" 
       :challenge_title="challenge.challenge_title"
       challenge_img=""
       :day_certify_count="challenge.day_certify_count"
@@ -15,6 +16,7 @@
       :check_date="challenge.check_date"
       :nick_name="challenge.nick_name"
       :people="challenge.people"
+      @challengeEdit="ChallengeEdit"
     ></challenge-title>
 
 
@@ -70,14 +72,6 @@
     <div v-if="isMobile">
       <div class="info-float">
         <div class="row info-float-inside col-12 mx-auto">
-          <!-- <div class="col-2 align-center my-auto">
-            <b-dropdown dropup>
-              <b-dropdown-item>설명</b-dropdown-item>
-              <b-dropdown-item>인증방법</b-dropdown-item>
-              <b-dropdown-item>달성률</b-dropdown-item>
-              <b-dropdown-item>후기</b-dropdown-item>
-            </b-dropdown>
-          </div> -->
           <div class="col-2 align-center my-auto">
             <button class="my-auto" id="bookmark-button" @click="checkBookmark">
               <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
@@ -93,14 +87,6 @@
       </div>
     </div>
     
-    <!-- <div v-if="!isMobile" class="info-nav-float">
-      <ul>
-        <li><b-button class="info-nav-button" @click="moveScroll(1)">설명</b-button></li>
-          <li><b-button class="info-nav-button" @click="moveScroll(2)">인증방법</b-button></li>
-          <li><b-button class="info-nav-button" @click="moveScroll(3)">달성률</b-button></li>
-          <li><b-button class="info-nav-button" @click="moveScroll(4)">후기</b-button></li>
-      </ul>
-    </div> -->
   </div>
 </template>
 <script>
@@ -217,8 +203,7 @@ export default {
       window.scrollTo({ top: dest, behavior: "smooth" });
     },
     ChallengeApply: function() {
-      console.log(this.getAccessToken);
-      if (this.getAccessToken) {
+      if (this.getAccessToken != null) {
         this.user.uid = this.getUserUid;
         axios
           .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, this.user)
@@ -229,16 +214,18 @@ export default {
             alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
           });
       } else {
-        this.$router.push(`/login/challenge-more-info/${this.challenge_id}`);
+        this.$router.push({name:'login', params:{nextRoute:`challenge-more-info/${this.challenge_id}`}});
       }
     },
+    ChallengeEdit:function(){
+      this.$router.push(`/challenge-edit/${this.challenge_id}`);
+    }
   },
   computed: {
-    ...mapGetters(["getUserUid", "getAccessToken"]),
+    ...mapGetters(["getUserUid", "getAccessToken","getUserNickName"]),
   },
   mounted() {
     let infoNavbarHeight = 160;
-    console.log(infoNavbarHeight);
     this.challengeCertifyContentsLocation = document.getElementById(
       "challenge-certify-contents"
     ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
