@@ -1,7 +1,7 @@
 <template>
   <div>
     <challenge-title
-      :equalNickName="challenge.nick_name === getUserNickName" 
+      :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
       challenge_img=""
       :day_certify_count="challenge.day_certify_count"
@@ -19,8 +19,6 @@
       @challengeEdit="ChallengeEdit"
     ></challenge-title>
 
-
-
     <div id="info-navbar">
       <div class="mx-auto align-center">
         <ul class="info-navbar-ul">
@@ -32,61 +30,87 @@
       </div>
     </div>
 
-
-
     <div class="row col-12 col-lg-8 mx-auto">
       <div class="info-main">
         <challenge-contents
           id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
         ></challenge-contents>
-        
+
         <challenge-certify-contents
           id="challenge-certify-contents"
           :challenge_certify_contents="challenge.challenge_certify_contents"
           :only_cam="challenge.only_cam"
         ></challenge-certify-contents>
-        
-        <challenge-result id="challenge-result"></challenge-result>
-        
-        <challenge-review id="challenge-review"></challenge-review>
-        
-      </div>
 
-     
+        <challenge-result id="challenge-result"></challenge-result>
+
+        <challenge-review id="challenge-review"></challenge-review>
+      </div>
     </div>
 
     <div v-if="!isMobile">
-        <div class="row info-float align-center">
-          <div class="col-2 my-auto">
-            <button class="my-auto" id="bookmark-button" @click="checkBookmark">
-              <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
-              <b-icon v-if="isBookmarked" icon="bookmark-fill" scale="1.6"></b-icon>
-            </button>
-          </div>
-          <div class="col-10 my-auto">
-            <b-button class="apply-button pc"  @click="ChallengeApply">참가하기</b-button>
-          </div>
+      <div v-if="getAccessToken" class="row info-float align-center">
+        <div class="col-2 my-auto">
+          <button class="my-auto" id="bookmark-button" @click="checkBookmark">
+            <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
+            <b-icon
+              v-if="isBookmarked"
+              icon="bookmark-fill"
+              scale="1.6"
+            ></b-icon>
+          </button>
+        </div>
+        <div v-if="isParticipant" class="col-10 my-auto">
+          <b-button class="apply-button pc" @click="ChallengeApply"
+            >참여중</b-button
+          >
+        </div>
+        <div v-else class="col-10 my-auto">
+          <b-button class="apply-button pc" @click="ChallengeApply"
+            >참가하기</b-button
+          >
         </div>
       </div>
+      <div v-else class="info-float align-center col-12">
+        <b-button class="apply-button pc mt-2" @click="GoLogin"
+          >로그인하기</b-button
+        >
+      </div>
+    </div>
     <div v-if="isMobile">
       <div class="info-float">
-        <div class="row info-float-inside col-12 mx-auto">
+        <div v-if="getAccessToken" class="row info-float-inside col-12 mx-auto">
           <div class="col-2 align-center my-auto">
             <button class="my-auto" id="bookmark-button" @click="checkBookmark">
               <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
-              <b-icon v-if="isBookmarked" icon="bookmark-fill" scale="1.6"></b-icon>
+              <b-icon
+                v-if="isBookmarked"
+                icon="bookmark-fill"
+                scale="1.6"
+              ></b-icon>
             </button>
           </div>
-          <div class="col-10 align-center my-auto">
+          <div v-if="isParticipant" class="col-10 align-center my-auto">
+            <b-button class="apply-button mobile" @click="GoChallenge"
+              >참여중</b-button
+            >
+          </div>
+          <div v-else class="col-10 align-center my-auto">
             <b-button class="apply-button mobile" @click="ChallengeApply"
               >참가하기</b-button
             >
           </div>
+          
+        </div>
+
+        <div v-else class="col-12 align-center my-auto">
+          <b-button class="apply-button mobile mt-2" @click="GoLogin"
+            >로그인하기</b-button
+          >
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 <script>
@@ -120,8 +144,9 @@ export default {
       challengeReviewLocation: 0,
       scrollPosition: 0,
       challenge_id: 0,
-      isBookmarked:false,
-      isApplied:'',
+      isBookmarked: false,
+      isParticipant:false,
+      isApplied: "",
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -157,17 +182,25 @@ export default {
         console.log(this.challenge);
       })
       .catch(() => {
-        alert("챌린지 목록을 불러오지 못했습니다.");
+        alert("챌린지 정보를 불러오지 못했습니다.");
       });
-  },
-  watch:{
-    isBookmarked:function(){
-      if(this.isBookmarked){
-        // 북마크 신청
-      }else{
-        // 북마크 해제
-      }
-    },
+
+    //로그인했으면 북마크, 참여정보 조회
+    if(this.getAccessToken){
+      axios
+      .get(`${SERVER_URL}/challenge/user/${this.challenge_id}`,{
+        uid:this.getUserUid,
+      })
+      .then(({ data }) => {
+        console.log(data);
+        this.isBookmarked = data.bookmark == '1';
+        this.isParticipant = data.participant == '1';
+      })
+      .catch(() => {
+        alert("챌린지 관련 회원정보를 가져오지 못했습니다.");
+      });
+
+    }
   },
   methods: {
     // 화면 너비에 따른 모바일 여부 판단
@@ -188,8 +221,36 @@ export default {
       }
     },
 
-    checkBookmark:function(){
-      this.isBookmarked = !this.isBookmarked;
+    checkBookmark: function() {
+      if (!this.isBookmarked) {
+        // 북마크 신청
+        axios
+          .post(`${SERVER_URL}/user/bookmark`, {
+            challenge_id: this.challenge_id,
+            uid: this.getUserUid,
+          })
+          .then(() => {
+            alert("북마크가 등록되었습니다.");
+            this.isBookmarked = !this.isBookmarked;
+          })
+          .catch(() => {
+            alert("오류가 발생했습니다.");
+          });
+      } else {
+        // 북마크 해제
+        axios
+          .delete(`${SERVER_URL}/user/bookmark`, {
+              challenge_id: this.challenge_id,
+              uid: this.getUserUid,
+          })
+          .then(() => {
+            alert("북마크가 해제되었습니다.");
+            this.isBookmarked = !this.isBookmarked;
+          })
+          .catch(() => {
+            alert("오류가 발생했습니다.");
+          });
+      }
     },
     moveScroll: function(pos) {
       let dest = 0;
@@ -202,6 +263,15 @@ export default {
       }
       window.scrollTo({ top: dest, behavior: "smooth" });
     },
+    GoLogin: function() {
+      this.$router.push({
+        name: "login",
+        params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
+      });
+    },
+    GoChallenge:function(){
+      //챌린지 참여중 페이지로 이동
+    },
     ChallengeApply: function() {
       if (this.getAccessToken != null) {
         this.user.uid = this.getUserUid;
@@ -209,32 +279,41 @@ export default {
           .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, this.user)
           .then(() => {
             alert("성공적으로 참여되었습니다.");
+            this.isParticipant = true;
           })
           .catch(() => {
             alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
           });
       } else {
-        this.$router.push({name:'login', params:{nextRoute:`challenge-more-info/${this.challenge_id}`}});
+        this.$router.push({
+          name: "login",
+          params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
+        });
       }
     },
-    ChallengeEdit:function(){
+    ChallengeEdit: function() {
       this.$router.push(`/challenge-edit/${this.challenge_id}`);
-    }
+    },
   },
   computed: {
-    ...mapGetters(["getUserUid", "getAccessToken","getUserNickName"]),
+    ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
   },
   mounted() {
     let infoNavbarHeight = 160;
-    this.challengeCertifyContentsLocation = document.getElementById(
-      "challenge-certify-contents"
-    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
-    this.challengeResultLocation = document.getElementById(
-      "challenge-result"
-    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
-    this.challengeReviewLocation = document.getElementById(
-      "challenge-review"
-    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
+    this.challengeCertifyContentsLocation =
+      document
+        .getElementById("challenge-certify-contents")
+        .getBoundingClientRect().top +
+      window.pageYOffset -
+      infoNavbarHeight;
+    this.challengeResultLocation =
+      document.getElementById("challenge-result").getBoundingClientRect().top +
+      window.pageYOffset -
+      infoNavbarHeight;
+    this.challengeReviewLocation =
+      document.getElementById("challenge-review").getBoundingClientRect().top +
+      window.pageYOffset -
+      infoNavbarHeight;
 
     // 화면 너비 측정 이벤트 추가/
     this.handleResize();
