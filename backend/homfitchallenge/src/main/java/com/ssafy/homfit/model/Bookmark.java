@@ -19,4 +19,12 @@ public class Bookmark {
     public void setChallenge_id(int challenge_id) {
         this.challenge_id = challenge_id;
     }
+
+	@Override
+	public String toString() {
+		return "Bookmark [uid=" + uid + ", challenge_id=" + challenge_id + "]";
+	}
+    
+    
+    
 }
