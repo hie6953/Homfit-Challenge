@@ -16,7 +16,7 @@ public class ChatController {
         String userNickName = chatVO.getUserNickName();
         String content = chatVO.getContent();
 
-        ChatVO result = new ChatVO(userNickName, content);
+        ChatVO result = new ChatVO();
 
         return result;
     }
