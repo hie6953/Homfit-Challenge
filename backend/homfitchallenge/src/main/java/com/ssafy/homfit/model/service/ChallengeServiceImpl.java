@@ -90,7 +90,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 챌린지의 참여중인 user
 	@Override
-	public Challenge selectParticipant(int challenge_id, String uid) {
+	public String selectParticipant(int challenge_id, String uid) {
 		return challengeDAO.selectParticipant(challenge_id, uid);
 	}
 

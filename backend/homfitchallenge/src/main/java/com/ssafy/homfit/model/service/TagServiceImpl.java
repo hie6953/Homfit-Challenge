@@ -39,9 +39,16 @@ public class TagServiceImpl implements TagService {
 		return tagDao.insertTagInChallenge(map) == 1;
 	}
 
+	//챌린지에 있는 태그리스트
 	@Override
 	public Tag[] selectTagInChallenge(int challengeID) {
 		return tagDao.selectTagInChallenge(challengeID);
+	}
+
+	//해당 태그를 가지고 있는 챌린지
+	@Override
+	public Tag[] selectChallengeInTag(int tagID) {
+		return tagDao.selectChallengeInTag(tagID);
 	}
 
 }

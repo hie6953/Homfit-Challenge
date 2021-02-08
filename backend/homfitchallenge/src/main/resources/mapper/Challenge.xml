@@ -43,8 +43,8 @@
 	
 	<!--해당 챌린지 참여자 select-->
 	<!-- public Challenge selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);-->
-	<select id="selectParticipant">
-		select *
+	<select id="selectParticipant" resultType="String">
+		select uid
 		from participate
 		where uid= #{uid} and challenge_id = #{challenge_id}
 	</select>
