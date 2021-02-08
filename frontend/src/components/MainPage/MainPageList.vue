@@ -6,7 +6,7 @@
       <div class="card-carousel">
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index" @click="ChallengeMoreInfo">
+            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index" @click="ChallengeMoreInfo(challenge.challenge_id)">
               <b-card
                 img-src="https://placehold.it/290x170"
                 img-alt="Image"
