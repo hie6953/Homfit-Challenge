@@ -15,6 +15,7 @@
 /* Mobile large */
 @media(max-width:992px){
     .info-float{
+        background-color: white;
         position:fixed;
         bottom:0px;
         width: 100%;
@@ -32,12 +33,13 @@
 /* PC large */
 @media(min-width:992px){
     .info-float{
-        top:190px;
-        position:sticky;
+        position: fixed;
         background-color: white;
+        width:200px;
+        height:60px;
+        bottom : 40px;
+        right:50px;
         border-radius: 10px;
-        height:100px;
-        margin-top: 20px;
         box-shadow:0 2px 4px 1px rgba(39, 44, 56, 0.2);
     }
 
@@ -59,15 +61,48 @@
     display: inline-block;
     list-style: none;
     padding:0 !important;
-    
+    margin-bottom: 0px !important;
 }
 
-.info-navbar-ul li{
+.info-navbar-ul li {
+    position:relative;
+    z-index: 1;
     display: inline-block;
-    padding:10px 5vw;
+    padding:12px 5vw;
     font-size: large;
     font-weight: 700;
     color: white;
+  }
+  .info-navbar-ul li:hover {
+    color: #000000;
+  }
+  .info-navbar-ul li:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: #fafafa60;
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+  }
+  .info-navbar-ul li:hover:after {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+  }
+
+  .info-navbar-ul li,
+  .info-navbar-ul li:after,
+  .info-navbar-ul li:before {
+  transition: all .5s;
 }
 
 
@@ -88,7 +123,7 @@
 
 
 /* 좌측 플로트 메뉴창 */
-.info-nav-float{
+/* .info-nav-float{
     display:inline-block;
     position: fixed;
     top:50%;
@@ -109,7 +144,7 @@
     background: none !important;
     color:black;
     padding:0px !important;
-}
+} */
 
 
 /* 챌린지 인증방법 */
@@ -121,10 +156,6 @@
 
 
 /* 참여버튼 창 */
-.info-float{
-    background-color: white;
-}
-
 .info-float-inside{
     height: 100%;
 }
@@ -141,11 +172,15 @@
     box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
 }
 
+.apply-button:hover{
+    background-color: #e4b724;
+}
 .apply-button:focus,
 .apply-button:active{
     border: none;
     outline: none;
     box-shadow: none;
+    background-color: #e4b724 !important;
 }
 
 .apply-button.mobile{
@@ -156,7 +191,7 @@
 .apply-button.pc{
     display: inline;
     width:90%;
-    height:80px;
+    padding:10px 20px;
     font-size: larger;
     font-weight: 600;
 }

@@ -27,19 +27,13 @@
           <li @click="moveScroll(3)">달성률</li>
           <li @click="moveScroll(4)">후기</li>
         </ul>
-        <!-- <ul class="info-navbar-ul">
-          <li><b-button @click="moveScroll(1)">설명</b-button></li>
-          <li><b-button @click="moveScroll(2)">인증방법</b-button></li>
-          <li><b-button @click="moveScroll(3)">달성률</b-button></li>
-          <li><b-button @click="moveScroll(4)">후기</b-button></li>
-        </ul> -->
       </div>
     </div>
 
 
 
     <div class="row col-12 col-lg-8 mx-auto">
-      <div class="col-12 col-lg-9 info-main">
+      <div class="info-main">
         <challenge-contents
           id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
@@ -57,7 +51,10 @@
         
       </div>
 
-      <div v-if="!isMobile" class="col-12 col-lg-3">
+     
+    </div>
+
+    <div v-if="!isMobile">
         <div class="row info-float align-center">
           <div class="col-2 my-auto">
             <button class="my-auto" id="bookmark-button" @click="checkBookmark">
@@ -70,7 +67,6 @@
           </div>
         </div>
       </div>
-    </div>
     <div v-if="isMobile">
       <div class="info-float">
         <div class="row info-float-inside col-12 mx-auto">
@@ -96,7 +92,6 @@
         </div>
       </div>
     </div>
-
     
     <!-- <div v-if="!isMobile" class="info-nav-float">
       <ul>
@@ -121,7 +116,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
-const innerWidth = window.innerWidth;
+// const innerWidth = window.innerWidth;
 export default {
   name: "ChallengeMoreInfo",
   components: {
@@ -213,11 +208,11 @@ export default {
     moveScroll: function(pos) {
       let dest = 0;
       if (pos == 2) {
-        dest = this.challengeCertifyContentsLocation + innerWidth;
+        dest = this.challengeCertifyContentsLocation;
       } else if (pos == 3) {
-        dest = this.challengeResultLocation+ innerWidth;
+        dest = this.challengeResultLocation;
       } else if (pos == 4) {
-        dest = this.challengeReviewLocation+ innerWidth;
+        dest = this.challengeReviewLocation;
       }
       window.scrollTo({ top: dest, behavior: "smooth" });
     },
@@ -242,15 +237,17 @@ export default {
     ...mapGetters(["getUserUid", "getAccessToken"]),
   },
   mounted() {
+    let infoNavbarHeight = 160;
+    console.log(infoNavbarHeight);
     this.challengeCertifyContentsLocation = document.getElementById(
       "challenge-certify-contents"
-    ).offsetTop;
+    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
     this.challengeResultLocation = document.getElementById(
       "challenge-result"
-    ).offsetTop;
+    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
     this.challengeReviewLocation = document.getElementById(
       "challenge-review"
-    ).offsetTop;
+    ).getBoundingClientRect().top + window.pageYOffset-infoNavbarHeight;
 
     // 화면 너비 측정 이벤트 추가/
     this.handleResize();
