@@ -10,22 +10,43 @@
   object-fit: cover;
 }
 .gallery-item {
-  padding: 5px;
+  padding: 3px;
   position: relative;
 }
 .gallery-item img {
   display: block;
 }
 
-@media screen and (min-width: 600px) {
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+/* @media screen and (min-width: 300px) {
   .grid {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
   }
   .gallery-item {
-    width: 50%;
     cursor: pointer;
+    width: calc(100% / 3);
+  }
+} */
+
+@media screen and (min-width: 300px) {
+  .gallery-item {
+    cursor: pointer;
+    width: calc(100% / 3);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-container {
+    width: 90%;
+    margin: auto;
+    text-align: center;
   }
 }
 
@@ -61,6 +82,7 @@
 
 .gallery-item-info {
   display: none;
+  text-align: center;
 }
 
 .gallery-item-info li {
