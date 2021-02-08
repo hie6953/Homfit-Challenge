@@ -65,6 +65,11 @@ const routes = [
     component: () => import('../views/ChallengeMoreInfo.vue'),
   },
   {
+    path:'/challenge-edit/:challenge_id',
+    name:"ChallengeEdit",
+    component: () => import('../views/ChallengeEdit.vue'),
+  },
+  {
     path: '/mypage',
     name: 'MyPage',
     component: () => import('../views/MyPage.vue'),
@@ -98,6 +103,7 @@ const routes = [
     name: 'ChallengeManage',
     component: () => import('../views/ChallengeManage.vue'),
   },
+ 
   {
     path: '/search',
     name: 'Search',
