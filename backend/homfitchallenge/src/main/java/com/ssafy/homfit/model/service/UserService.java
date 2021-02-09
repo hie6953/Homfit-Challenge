@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
     public User getUid(String uid) throws Exception;
+    public String getByEmail(String email) throws Exception;
     public boolean signup(User user) throws Exception;
 	public User login(User user) throws Exception;
 	public String findPassword(String email) throws Exception;

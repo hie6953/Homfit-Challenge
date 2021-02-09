@@ -100,15 +100,16 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
-    @ApiOperation(value = "비밀번호 찾기", notes = "회원 이메일을 통한 비밀번호 찾기", response = String.class)
-    @GetMapping("/findPw/{email}")
-    public ResponseEntity<String> findPassword(@PathVariable @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
+    @ApiOperation(value = "비밀번호 찾기 및 변경", notes = "회원 이메일을 통한 비밀번호 찾기 및 변경", response = String.class)
+    @PostMapping("/findPw")
+    public ResponseEntity<String> findPassword(@RequestBody @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보 및 수정할 비밀번호") User user) {
         HttpStatus status = null;
         String msg = null;
-        String password = null;
+        String uid = null;
         try {
-            password = userService.findPassword(email);
-            if (password != null) {
+            uid = userService.getByEmail(user.getEmail());
+            user.setUid(uid);
+            if (userService.updateDetail(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
             } else {
