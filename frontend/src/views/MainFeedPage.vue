@@ -145,7 +145,9 @@ export default {
     challenge: Object,
   },
   data: function() {
-    return {};
+    return {
+      category: 0,
+    };
   },
   methods: {
     ChallengeMoreInfo: function() {
