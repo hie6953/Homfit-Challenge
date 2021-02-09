@@ -35,7 +35,7 @@ export default {
         }
     },
     connect() {
-        this.socket = new SockJS(`${SERVER_URL}/chat`);
+        this.socket = new SockJS(`${SERVER_URL}/chatting`);
         this.stompClient = Stomp.over(this.socket);
         this.stompClient.connect(
             {},
