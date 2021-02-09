@@ -1,6 +1,6 @@
 <template>
-  <div class="background-creating ">
-    <div class="component col-md-8 col-11 mx-auto">
+  <div class="background-creating col-12 col-md-8 col-xl-6  mx-auto">
+    <div class="component ">
       <div class="creating-progress-bar">
         <ul id="creating-progress-list">
           <li>

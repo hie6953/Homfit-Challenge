@@ -127,7 +127,7 @@
       </div>
     </div>
     <!-- <hr id="category-hr-bottom" /> -->
-    <div class="mx-auto col-11 col-md-8">
+    <div class="mx-auto col-12 col-md-8 col-xl-6">
       <!-- 정렬 -->
       <b-dropdown
         id="sort-dropdown"
@@ -158,7 +158,7 @@
         <challenge-list-card
           v-for="(challenge, index) in challengeList"
           :key="`${index}_challenge`"
-          class="col-6 col-md-4 col-lg-3 challenge-list-card"
+          class="col-6 col-md-4 col-xl-4 challenge-list-card"
           :challenge="challenge"
           @moreInfo="ChallengeMoreInfo"
         ></challenge-list-card>
