@@ -155,10 +155,10 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
-	@DeleteMapping("/join/{challengeId}")
+	@DeleteMapping("/join/{challengeId}/{uid}")
 	@Transactional
-	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestBody User user) {
-		String uid = user.getUid();
+	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @PathVariable String uid) {
+		
 		if (challengeService.quitChallenge(challengeId, uid)) {
 			// 챌린지 참여 삭제시 캐시 people --;
 			Optional<Challenge> opt = challengeRepository.findById(challengeId);
