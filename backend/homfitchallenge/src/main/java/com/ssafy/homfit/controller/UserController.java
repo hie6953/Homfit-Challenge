@@ -252,6 +252,7 @@ public class UserController {
             } else {
                 msg = FAIL;
             }
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("북마크 삭제 실패 : {}", e);
             msg = e.getMessage();
