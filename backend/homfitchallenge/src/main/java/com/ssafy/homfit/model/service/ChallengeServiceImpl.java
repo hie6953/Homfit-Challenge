@@ -94,5 +94,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.selectParticipant(challenge_id, uid);
 	}
 
+	//챌린지 개설자 닉네임 select
+	@Override
+	public String selectUserNickname(int challenge_id) {
+		return challengeDAO.selectUserNickname(challenge_id);
+	}
+
 
 }

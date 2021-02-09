@@ -18,6 +18,7 @@ public interface ChallengeService {
 	public boolean writeChallenge(Challenge challenge);
 	public boolean updateChallenge(Challenge challenge);
 	public boolean deleteChallenge(int challenge_id);
+	public String selectUserNickname (int challenge_id);
 	
 	/** 챌린지 인증요일 */
 	public boolean writeChallengeDay(Map<String,Object> map);
