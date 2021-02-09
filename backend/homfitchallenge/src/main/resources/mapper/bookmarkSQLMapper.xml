@@ -2,6 +2,8 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
 <mapper namespace="com.ssafy.homfit.model.dao.BookmarkDAO">
     <insert id="create" parameterType="bookmark">
         insert into bookmark(uid, challenge_id)
@@ -12,5 +14,22 @@
         delete from bookmark
         where uid = #{uid} and challenge_id = #{challenge_id}
     </delete>
+    
+    <!--해당 챌린지 북마크 되어있는지 확인 -->
+    <!--  public String selectBookmark (@Param("challenge_id") int challenge_id, @Param("uid") String uid); -->
+    <select id="selectBookmark" resultType="String">
+    	select uid
+		from bookmark
+		where uid= #{uid} and challenge_id = #{challenge_id}
+    </select>
+    
+    <!--북마크한 challengeId 조회-->
+    <!-- public List<Bookmark> selectAllBookmark (String uid); -->
+    <select id="selectAllBookmark" resultType="Bookmark">
+    	select *
+    	from bookmark
+    	where uid = #{uid}
+    </select>
+    
     
 </mapper>

@@ -9,7 +9,7 @@
         <router-link to="/challenge-creating" class="second-menu">
           <span>챌린지 개설</span>
         </router-link>
-        <router-link to="/" class="second-menu">
+        <router-link to="/feed" class="second-menu">
           <span>피드</span>
         </router-link>
         <router-link to="/" class="second-menu">
