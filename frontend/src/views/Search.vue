@@ -76,14 +76,16 @@
           </b-tab>
           <b-tab title="피드">
             <!-- 피드 -->
-            <div class="row">
-              <div class="search-feed">
-                <!-- <feed
-                  v-for="(challenge, index) in feedList"
+            <div class="search-lists">
+              <div class="row search-feed">
+                <feed
+                  v-for="(feed, index) in feedList"
                   :key="`${index}_challenge`"
-                  >
-                </feed> -->
-                <Feed />
+                  :feed="feed"
+                  @moreInfo="ChallengeMoreInfo"
+                >
+                </feed>
+                <!-- <Feed /> -->
               </div>
             </div>
           </b-tab>
@@ -112,6 +114,7 @@ export default {
       searchList: ['제목', '태그'],
       searchValue: 0,
       challengeList: [],
+      feedList: [],
     };
   },
   methods: {
