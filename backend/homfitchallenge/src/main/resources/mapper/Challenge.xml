@@ -126,17 +126,12 @@
 		update challenge
 		set
 		challenge_title = #{challenge_title},
-		challenge_contents =
-		#{challenge_contents},
+		challenge_contents = #{challenge_contents},
 		challenge_img = #{challenge_img},
 		challenge_certify_contents = #{challenge_certify_contents},
-		good_img =
-		#{good_img},
+		good_img = #{good_img},
 		bad_img = #{bad_img},
-		day_certify_count =
-		#{day_certify_count},
-		only_cam = #{only_cam},
-		fit_id = #{fit_id}
+		only_cam = #{only_cam}
 		where
 		challenge_id = #{challenge_id}
 	</update>

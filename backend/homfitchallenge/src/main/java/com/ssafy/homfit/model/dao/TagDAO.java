@@ -16,4 +16,6 @@ public interface TagDAO {
 	public int insertTagInChallenge (HashMap<String,Integer> map);
 	public Tag[] selectTagInChallenge (int challengeID);
 	public Tag[] selectChallengeInTag (int tagID);
+	public int deleteTagInChallenge (int challengeID);
+	
 }

@@ -51,4 +51,9 @@ public class TagServiceImpl implements TagService {
 		return tagDao.selectChallengeInTag(tagID);
 	}
 
+	@Override
+	public boolean deleteTagInChallenge(int challengeID) {
+		return tagDao.deleteTagInChallenge(challengeID) >= 1;
+	}
+
 }

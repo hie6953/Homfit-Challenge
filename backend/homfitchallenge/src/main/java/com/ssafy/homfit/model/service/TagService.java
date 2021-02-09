@@ -16,4 +16,5 @@ public interface TagService {
 	public boolean writeTagInChallenge (HashMap<String, Integer> map);
 	public Tag[] selectTagInChallenge (int challengeID);
 	public Tag[] selectChallengeInTag (int tagID);
+	public boolean deleteTagInChallenge (int challengeID);
 }
