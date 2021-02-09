@@ -97,6 +97,7 @@ const routes = [
     path: '/selectpreference',
     name: 'SelectPreference',
     component: () => import('../views/SelectPreference.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/challengemanage',
