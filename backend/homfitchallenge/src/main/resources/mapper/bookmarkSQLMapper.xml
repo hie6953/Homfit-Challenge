@@ -23,12 +23,13 @@
 		where uid= #{uid} and challenge_id = #{challenge_id}
     </select>
     
-    <!--북마크한 challengeId 조회-->
+    <!--유저가 북마크한 challengeId 조회-->
     <!-- public List<Bookmark> selectAllBookmark (String uid); -->
     <select id="selectAllBookmark" resultType="Bookmark">
     	select *
     	from bookmark
     	where uid = #{uid}
+    	order by bookmark_id desc
     </select>
     
     

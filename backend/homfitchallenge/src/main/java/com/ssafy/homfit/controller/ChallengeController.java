@@ -379,7 +379,6 @@ public class ChallengeController {
 		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
 
 		List<Bookmark> bookmark = bookmarkService.selectAllBookmark(uid);
-		System.out.println(bookmark.toString());
 
 		if (bookmark.size() != 0) {
 			for (Bookmark b : bookmark) {
