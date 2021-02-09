@@ -76,6 +76,11 @@
             <!-- 피드 -->
             <div class="row">
               <div class="search-feed">
+                <!-- <feed
+                  v-for="(challenge, index) in feedList"
+                  :key="`${index}_challenge`"
+                  >
+                </feed> -->
                 <Feed />
               </div>
             </div>
