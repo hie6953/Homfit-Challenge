@@ -31,6 +31,14 @@
 		where a.challenge_id = #{challenge_id}
 	</select>
 
+	<!-- 챌린지 개설자 nickname select -->
+	<!-- public String selectUserNickname (int challenge_id); -->
+	<select id="selectUserNickname" resultType="String">
+		select u.nick_name
+		from challenge as c join user as u
+		on c.make_uid = u.uid
+		where challenge_id = #{challenge_id}
+	</select>
 
 	<!-- 해당 챌린지 부위리스트 select -->
 	<!-- public int[] selectBodyPart(int ChallengeId); -->
