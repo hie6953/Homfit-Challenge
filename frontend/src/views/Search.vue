@@ -5,7 +5,7 @@
     <div class="mx-auto col-8 search-container">
       <!-- 검색바 -->
       <div class="search-bar">
-        <div class="row col-12 col-md-10 col-lg-8 search-container">
+        <div class="col-12 col-md-10 col-lg-8 search-container">
           <b-dropdown
             class="col-2"
             id="search-dropdown"
