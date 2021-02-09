@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ssafy.homfit.model.Challenge;
 
 
+
 public interface ChallengeService {
 
 	/** 챌린지 리스트 */
@@ -21,7 +22,6 @@ public interface ChallengeService {
 	/** 챌린지 인증요일 */
 	public boolean writeChallengeDay(Map<String,Object> map);
 
-	
 	/** 챌린지 부위 */
 	public boolean writeChallengeBody(HashMap<String, Integer> map);
 	public int[] selectBodyPart(int ChallengeId);
@@ -29,6 +29,7 @@ public interface ChallengeService {
 	/** 챌린지 참여 */
 	public boolean joinChallenge(int challenge_id, String uid);
 	public boolean quitChallenge(int challenge_id, String uid);
-	public Challenge selectParticipants(int challengeId);
+	public String selectParticipant(int challenge_id, String uid);
+	
 	
 }
