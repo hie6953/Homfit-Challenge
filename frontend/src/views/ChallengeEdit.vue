@@ -30,6 +30,7 @@
             <b-col sm="9">
               <text-editor
                 :props_content="challenge.challenge_contents"
+                :props_change="getChallenge"
                 @input="(data) => GetEditorContent(data)"
               ></text-editor>
             </b-col>
@@ -47,6 +48,7 @@
         >
         <text-editor
           :props_content="challenge.challenge_certify_contents"
+          :props_change="getChallenge"
           @input="(data) => GetEditorCertifyContent(data)"
         ></text-editor>
       </div>
@@ -108,15 +110,20 @@
             :key="`${index}_tag`"
             :content="tag"
             :index="index"
-            class="mx-1"
-            style="display:inline-block;"
+            class="mx-1 tag-list-tags"
             @delete="deleteTag(index)"
           ></Tag>
         </div>
       </div>
 
-    <div class="align-center">
-      <b-button >수정완료</b-button>
+      <div class="align-center mt-5">
+        <b-button
+          id="edit-button"
+          class="col-6 py-2"
+          :class="{ disabled: !canEdit }"
+          @click="(e) => canEdit && ChallengeEdit()"
+          >수정완료</b-button
+        >
       </div>
     </div>
   </div>
@@ -124,9 +131,10 @@
 
 <script>
 import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
-import Tag from '@/components/ChallengeCreating/Tag.vue';
+import Tag from "@/components/ChallengeCreating/Tag.vue";
 
 import "@/assets/css/ChallengeCreating/challengecreating.css";
+import "@/assets/css/challengeedit.css";
 
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -140,7 +148,9 @@ export default {
   data() {
     return {
       challenge_id: 0,
-      input:'',
+      input: "",
+      getChallenge: false,
+      canEdit: false,
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -164,19 +174,27 @@ export default {
       },
     };
   },
-  async created() {
+  created() {
     this.challenge_id = this.$route.params.challenge_id;
-    await axios
+    axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
-          console.log(data);
-          this.challenge = data;
+        this.challenge = data;
+        this.getChallenge = !this.getChallenge;
+        this.checkTagListLength();
       })
       .catch(() => {
         alert("챌린지 정보를 불러오지 못했습니다.");
       });
-
-    this.checkTagListLength();
+    this.CanEdit();
+  },
+  watch: {
+    challenge: {
+      deep: true,
+      handler() {
+        this.CanEdit();
+      },
+    },
   },
   methods: {
     GetEditorContent: function(data) {
@@ -185,12 +203,24 @@ export default {
     GetEditorCertifyContent: function(data) {
       this.challenge.challenge_certify_contents = data;
     },
+    CanEdit: function() {
+      if (
+        this.challenge.challenge_title.length > 0 &&
+        this.challenge.challenge_title.length <= 20 &&
+        this.challenge.challenge_contents.length > 7 &&
+        this.challenge.challenge_certify_contents.length > 7
+      ) {
+        this.canEdit = true;
+      } else {
+        this.canEdit = false;
+      }
+    },
     // 태그 추가
     addTag: function() {
-      this.input = this.input.replace(' ', '');
-      if (this.input != '') {
+      this.input = this.input.replace(" ", "");
+      if (this.input != "") {
         this.challenge.tagList.unshift(this.input);
-        this.input = '';
+        this.input = "";
       }
       this.checkTagListLength();
     },
@@ -201,14 +231,26 @@ export default {
       this.checkTagListLength();
     },
 
-    checkTagListLength:function(){
-        console.log(this.challenge.tagList.length);
-        if (this.challenge.tagList.length >= 5) {
-        document.getElementById('tag-input').readOnly = true;
+    checkTagListLength: function() {
+      if (this.challenge.tagList.length >= 5) {
+        document.getElementById("tag-input").readOnly = true;
       } else {
-        document.getElementById('tag-input').readOnly = false;
+        document.getElementById("tag-input").readOnly = false;
       }
-    }
+    },
+
+    ChallengeEdit: function() {
+      console.log(this.challenge);
+      axios
+        .put(`${SERVER_URL}/challenge/${this.challenge_id}`, this.challenge)
+        .then(() => {
+          alert("챌린지가 수정되었습니다.");
+          this.$router.push(`/challenge-more-info/${this.challenge_id}`);
+        })
+        .catch(() => {
+          alert("등록 처리시 에러가 발생했습니다.");
+        });
+    },
   },
   computed: {
     challengeTitleState() {

@@ -271,29 +271,7 @@ export default {
           alert("챌린지 목록을 불러오지 못했습니다.");
         });
 
-      // // Object To FormData 변환
-      // var formData = new FormData();
-      // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
-      // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
-      // // 이미지
-      // if (this.scndhandReg.imgFile != "") {
-      //   formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일 ^^
-      // }
-      // // 파일업로드시 (경로,FormData,Header) 설정
-      // this.$axios
-      //   .post(url, formData, {
-      //     headers: { "Content-Type": "multipart/form-data" },
-      //   })
-      //   .then((response) => {
-      //     if (!!response && response.status === 200) {
-      //       commonUtils.$alert("감사합니다.\n정상등록되었습니다.");
-      //       this.scndhandReg = Object.assign({}, this.defScndhangReg);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     commonUtils.$alertUncatchedError(error);
-      //   });
+      
     },
     ChallengeMoreInfo:function(challenge_id){
       this.$router.push(`/challenge-more-info/${challenge_id}`);
