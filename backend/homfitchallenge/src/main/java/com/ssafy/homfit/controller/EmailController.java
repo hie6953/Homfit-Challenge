@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +41,27 @@ public class EmailController {
                 msg = SUCCESS;
             }
 
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("이메일 인증전송 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
+
+    @PostMapping("/verify/password")
+    public ResponseEntity<String> emailVerify(@RequestBody User email) {
+        String msg = null;
+        HttpStatus status = null;
+        try {
+            if(!userService.duplicateEmailCheck(email.getEmail())){
+                msg = FAIL;
+            } else{
+                emailService.sendSimpleMessage(email.getEmail());
+                msg = SUCCESS;
+            }
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("이메일 인증전송 실패 : {}", e);

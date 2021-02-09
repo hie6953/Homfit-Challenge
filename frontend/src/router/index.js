@@ -54,6 +54,11 @@ const routes = [
     component: () => import('../views/ChallengeList.vue'),
   },
   {
+    path: '/feed',
+    name: 'Feed',
+    component: () => import('../views/MainFeedPage.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
@@ -129,6 +134,10 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior () {
+    // 라우터 이동 시 원하는 위치 설정하기
+    return { x: 0, y: 0 } 
+  },
   routes,
 });
 

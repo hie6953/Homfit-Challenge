@@ -6,7 +6,7 @@
       <div class="card-carousel">
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
-            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index">
+            <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index" @click="ChallengeMoreInfo(challenge.challenge_id)">
               <b-card
                 img-src="https://placehold.it/290x170"
                 img-alt="Image"
@@ -38,9 +38,29 @@
     </div>
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
-      <div class="carousel-cell mx-1" v-for="challenge in mainPageList" :key="challenge.challenge_id">
-        <img src="https://placehold.it/340x340"/>
-        <p>{{ challenge.challenge_title }}</p>
+      <div class="carousel-cell" v-for="(challenge, index) in items" :key="index">
+          <b-card
+            img-src="https://placehold.it/290x170"
+            img-alt="Image"
+            img-top
+            style="width: 290px;"
+            class="mb-2 shadow"
+          >
+            <div class="challenge-list-card-body">
+              <span id="card-title">{{ challenge.challenge_title }}</span>
+              <br />
+              <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+              <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
+              <br />
+              <span id="card-day">{{ GetDayList(challenge) }}</span>
+              <span id="card-period">{{ challenge.period }}일</span>
+            </div>
+            <hr class="challenge-list-card-hr" />
+            <div class="challenge-list-card-footer d-flex flex-wrap justify-content-between">
+              <span class="footer-content col-8 ">{{ challenge.people }}명 참여중</span>
+              <button class="btn footer-content col-3" @click="ChallengeMoreInfo(challenge.challenge_id)">more</button>
+            </div>
+          </b-card>
       </div>
     </flickity>
   </div>
@@ -50,15 +70,12 @@
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
 
 import "@/assets/css/mainPageList.css"
-import "@/assets/css/challengelist.css"
 import Flickity from 'vue-flickity'
-// import ChallengeListCard from '../ChallengeListCard.vue'
 
 export default {
   name: 'MainPageList',
   components: {
     Flickity,
-    // ChallengeListCard
   },
   props: {
     mainPageList: Array,
@@ -67,8 +84,29 @@ export default {
     return {
       currentOffset: 0,
       windowSize: 3,
-      paginationFactor: 366.92,
-
+      paginationFactor: 370,
+      items: [
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+        { "challenge_id": 0, "challenge_title": "", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 0, "check_date": 0, "period": 0, "nick_name": "", "people": 0, "kind": 0, "daylist_string": "[]", "dayList": null, "tagList": null, "bodyList": null },
+      ],
       // 모바일 캐러셀
       flickityOptions: {
         initialIndex: 3,
@@ -76,6 +114,11 @@ export default {
         pageDots: false,
         wrapAround: true
       }
+    }
+  },
+  watch: {
+    mainPageList() {
+      this.updateItems()
     }
   },
   computed: {
@@ -109,12 +152,16 @@ export default {
       }
       return '';
     },
+    updateItems() {
+      this.items = this.mainPageList
+    },
+    ChallengeMoreInfo:function(challenge_id){
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
+    },
   }
 }
 </script>
 
 <style scoped>
-.card-img {
-  margin: 0 25px;
-}
+
 </style>

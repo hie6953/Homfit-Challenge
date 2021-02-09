@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="challenge-list-card-total">
     <!-- 챌린지 리스트 카드 -->
     <b-card
       img-src="https://picsum.photos/600/300/?image=25"
@@ -12,8 +12,11 @@
       @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
-        <span id="card-title">{{ challenge.challenge_title }}</span>
-        <br />
+        <div id="list-card-title" ref="list_card_title" :class="{ellipsis:titleOversize}">
+          <span ref="list_card_title_content" >{{
+            challenge.challenge_title
+          }}</span>
+        </div>
         <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
         <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
@@ -53,12 +56,24 @@
 </template>
 
 <script>
-import '@/assets/css/challengeListCard.css'
-const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
+import "@/assets/css/challengeListCard.css";
+const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 
 export default {
   props: {
     challenge: Object,
+  },
+  data() {
+    return {
+      titleOversize : false,
+    }
+  },
+  mounted() {
+    let titleDiv = this.$refs.list_card_title.offsetWidth;
+    let titleSpan = this.$refs.list_card_title_content.offsetWidth;
+    if (titleDiv < titleSpan) {
+     this.titleOversize = true;
+    }
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
@@ -66,18 +81,18 @@ export default {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
           .substring(1, this.challenge.daylist_string.length - 1)
-          .split(',');
+          .split(",");
         let temp = new Array(list.length);
         for (let index = 0; index < list.length; index++) {
-          temp[index] = dayList[parseInt(list[index].replace(' ', ''))];
+          temp[index] = dayList[parseInt(list[index].replace(" ", ""))];
         }
-        return temp.join('/');
+        return temp.join("/");
       }
-      return '';
+      return "";
     },
-    ChallengeMoreInfo:function(){
-      this.$emit("moreInfo",this.challenge.challenge_id);
-    }
+    ChallengeMoreInfo: function() {
+      this.$emit("moreInfo", this.challenge.challenge_id);
+    },
   },
 };
 </script>

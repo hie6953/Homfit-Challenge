@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.User;
-import com.ssafy.homfit.model.UserUpdateVo;
 import com.ssafy.homfit.model.dao.BadgeDAO;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
 import com.ssafy.homfit.util.UploadImg;
+import com.ssafy.homfit.util.Util;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,20 +38,27 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean signup(User user) throws Exception {
+        String uidToken = null;
+        while (true) {
+            uidToken = Util.generateToken();
+            if (this.getUid(uidToken) == null)
+                break;
+        }
+        user.setUid(uidToken);
+
         user.setGrade("bronze");
         user.setAdmin_check(false);
         if (user.getKakao_key() == "" || user.getKakao_key() == null) {
             user.setProvider_id(false);
 
-            // 이메일 중복확인
-            if (this.duplicateEmailCheck(user.getEmail()))
-                return false;
         } else {
             user.setProvider_id(true);
         }
-
-        sqlSession.getMapper(UserDAO.class).signup(user);
+        // // 이메일 중복확인
+        // if (user.getEmail()!= null && this.duplicateEmailCheck(user.getEmail()))
+        //     return false;
         try {
+            sqlSession.getMapper(UserDAO.class).signup(user);
             if (!favoriteService.init(user.getUid()))
                 new Exception();
             if (!badgeService.init(user.getUid()))
