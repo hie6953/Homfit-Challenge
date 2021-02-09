@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Arrays;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 챌린지 정보 */
+
+@RedisHash("challenge")
 public class Challenge implements Serializable{
 	
+	@Id
 	private int challenge_id;
 	private String challenge_title;
 	private String challenge_contents;

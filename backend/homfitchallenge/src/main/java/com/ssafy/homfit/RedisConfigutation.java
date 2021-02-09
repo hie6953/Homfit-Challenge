@@ -53,6 +53,8 @@ public class RedisConfigutation {
 		redisTemplate.setConnectionFactory(redisConnectionFactory());
 		redisTemplate.setKeySerializer(new StringRedisSerializer()); //key설정 - string
 		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer()); //value 직렬화설정 - 객체가 json 형태로 변환
+		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+		redisTemplate.setHashValueSerializer(new StringRedisSerializer());
 		return redisTemplate;
 	}
 	
