@@ -26,4 +26,8 @@ public interface FeedService {
 
 	public List<Feed> searchCategoryFeed(int category) throws Exception;
 
+    public List<Feed> searchByKeyword(int type, String keyword) throws Exception;
+    
+    public List<Feed> searchByChallengeTitle(String keyword) throws Exception;
+
 }

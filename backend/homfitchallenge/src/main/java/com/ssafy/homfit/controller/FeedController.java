@@ -139,5 +139,22 @@ public class FeedController {
 
         return new ResponseEntity<List<Feed>>(result, status);
     }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<Feed>> search(@RequestParam int kind, @RequestParam String keyword){
+        List<Feed> result = null;
+        HttpStatus status = null;
+
+        try {
+            result = feedService.searchByKeyword(kind, keyword);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("피드 검색 실패 : {}", e);
+            result = null;
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
 
 }

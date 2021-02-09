@@ -3,6 +3,7 @@ package com.ssafy.homfit.model.service;
 import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.dao.FeedDAO;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,6 +16,9 @@ public class FeedServiceImpl implements FeedService {
 
     @Autowired
     SqlSession sqlSession;
+
+    @Autowired
+    TagService tagService;
 
     @Override
     public boolean create(Feed feed) throws Exception {
@@ -114,6 +118,22 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public List<Feed> searchCategoryFeed(int category) throws Exception {
         return sqlSession.getMapper(FeedDAO.class).searchCategory(category);
+    }
+
+    @Override
+    public List<Feed> searchByKeyword(int type, String keyword) throws Exception {
+        List<Feed> list = null;
+        if(type == 0){
+            list = this.searchByChallengeTitle(keyword);
+        } else{
+            list = this.searchByTag(keyword);
+        }
+        return list;
+    }
+
+    @Override
+    public  List<Feed> searchByChallengeTitle(String keyword) throws Exception{
+        return sqlSession.getMapper(FeedDAO.class).searchByChallengeTitle(keyword);
     }
 
 }
