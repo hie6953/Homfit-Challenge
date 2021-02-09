@@ -142,6 +142,11 @@
     color:gray;
 }
 
+.bookmark-fill-color{
+    color: #E65C2E;
+    box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
+}
+
 .apply-button{
     background-color: #EAC03A;
     border: none;

@@ -56,13 +56,14 @@
             <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
             <b-icon
               v-if="isBookmarked"
+              class="bookmark-fill-color"
               icon="bookmark-fill"
               scale="1.6"
             ></b-icon>
           </button>
         </div>
         <div v-if="isParticipant" class="col-10 my-auto">
-          <b-button class="apply-button pc" @click="ChallengeApply"
+          <b-button class="apply-button pc" @click="GoChallengeDoing"
             >참여중</b-button
           >
         </div>
@@ -86,13 +87,14 @@
               <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
               <b-icon
                 v-if="isBookmarked"
+                class="bookmark-fill-color"
                 icon="bookmark-fill"
                 scale="1.6"
               ></b-icon>
             </button>
           </div>
           <div v-if="isParticipant" class="col-10 align-center my-auto">
-            <b-button class="apply-button mobile" @click="GoChallenge"
+            <b-button class="apply-button mobile" @click="GoChallengeDoing"
               >참여중</b-button
             >
           </div>
@@ -101,7 +103,6 @@
               >참가하기</b-button
             >
           </div>
-          
         </div>
 
         <div v-else class="col-12 align-center my-auto">
@@ -126,7 +127,6 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
-// const innerWidth = window.innerWidth;
 export default {
   name: "ChallengeMoreInfo",
   components: {
@@ -138,15 +138,17 @@ export default {
   },
   data() {
     return {
+      // 모바일여부
       isMobile: false,
+      // 화면 스크롤 위치
       challengeCertifyContentsLocation: 0,
       challengeResultLocation: 0,
       challengeReviewLocation: 0,
       scrollPosition: 0,
+      // 참여여부
       challenge_id: 0,
       isBookmarked: false,
-      isParticipant:false,
-      isApplied: "",
+      isParticipant: false,
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -168,13 +170,11 @@ export default {
         check_date: 0,
         period: 0,
       },
-      user: {
-        uid: "",
-      },
     };
   },
   created() {
     this.challenge_id = this.$route.params.challenge_id;
+    //챌린지 상세 정보 조회
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
@@ -186,20 +186,17 @@ export default {
       });
 
     //로그인했으면 북마크, 참여정보 조회
-    if(this.getAccessToken){
+    if (this.getAccessToken) {
       axios
-      .get(`${SERVER_URL}/challenge/user/${this.challenge_id}`,{
-        uid:this.getUserUid,
-      })
-      .then(({ data }) => {
-        console.log(data);
-        this.isBookmarked = data.bookmark == '1';
-        this.isParticipant = data.participant == '1';
-      })
-      .catch(() => {
-        alert("챌린지 관련 회원정보를 가져오지 못했습니다.");
-      });
-
+        .get(`${SERVER_URL}/challenge/user/${this.challenge_id}/${this.getUserUid}`)
+        .then(({ data }) => {
+          // console.log(data);
+          this.isBookmarked = data.bookmark == "1";
+          this.isParticipant = data.participant == "1";
+        })
+        .catch(() => {
+          alert("챌린지 관련 회원정보를 가져오지 못했습니다.");
+        });
     }
   },
   methods: {
@@ -239,10 +236,9 @@ export default {
       } else {
         // 북마크 해제
         axios
-          .delete(`${SERVER_URL}/user/bookmark`, {
-              challenge_id: this.challenge_id,
-              uid: this.getUserUid,
-          })
+          .delete(
+            `${SERVER_URL}/user/bookmark/${this.getUserUid}/${this.challenge_id}`
+          )
           .then(() => {
             alert("북마크가 해제되었습니다.");
             this.isBookmarked = !this.isBookmarked;
@@ -269,14 +265,15 @@ export default {
         params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
       });
     },
-    GoChallenge:function(){
-      //챌린지 참여중 페이지로 이동
+    GoChallengeDoing: function() {
+      alert("참여중 페이지로 이동")
     },
     ChallengeApply: function() {
       if (this.getAccessToken != null) {
-        this.user.uid = this.getUserUid;
         axios
-          .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, this.user)
+          .post(`${SERVER_URL}/challenge/join/${this.challenge_id}`, {
+            uid: this.getUserUid,
+          })
           .then(() => {
             alert("성공적으로 참여되었습니다.");
             this.isParticipant = true;
