@@ -51,6 +51,23 @@ public class EmailController {
         return new ResponseEntity<String>(msg, status);
     }
 
+    @PostMapping("/verify/password")
+    public ResponseEntity<String> emailVerify(@RequestBody User email) {
+        String msg = null;
+        HttpStatus status = null;
+        try {
+            emailService.sendSimpleMessage(email.getEmail());
+            msg = SUCCESS;
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("이메일 인증전송 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
+
     @PostMapping("/verifyCode")
     public ResponseEntity<Boolean> verifyCode(@RequestBody User email, @RequestParam String code){
         boolean check = false;
