@@ -321,10 +321,9 @@ public class ChallengeController {
 	}
 
 	/** 해당 챌린지 user의 참여여부, user의 북마크 */
-	@GetMapping("/user/{challengeId}")
-	public ResponseEntity<HashMap<String, String>> userInChallenge(@PathVariable int challengeId,
-			@RequestBody User user) {
-		String uid = user.getUid();
+	@GetMapping("/user/{challengeId}/{uid}")
+	public ResponseEntity<HashMap<String, String>> userInChallenge(@PathVariable int challengeId, @PathVariable String uid) {
+
 		HashMap<String, String> map = new HashMap<String, String>();
 
 		// 참여 여부 확인
