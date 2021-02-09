@@ -53,7 +53,9 @@ public class FeedServiceImpl implements FeedService {
         List<Integer> item = null;
 
         item = sqlSession.getMapper(FeedDAO.class).searchCidKeyword(keyword);
-        list = sqlSession.getMapper(FeedDAO.class).searchByTag(item);
+        if(item.size() > 0){
+            list = sqlSession.getMapper(FeedDAO.class).searchByTag(item);
+        }
 
         return list;
     }
