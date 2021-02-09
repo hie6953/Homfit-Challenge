@@ -26,14 +26,21 @@
           type="password"
           id="password-confirm"
           v-model="passwordcheck"
+          @keyup.enter="UserPasswordEdit()"
         />
 
-        <button
+        <!-- <button
           class="sign-in-form__form__submit btn btn-priority"
-          @click="UserPasswordEdit()"
+          @submit="UserPasswordEdit()"
         >
           저장
-        </button>
+        </button> -->
+        <input
+          type="button"
+          value="확인"
+          class="sign-in-form__form__submit btn btn-priority"
+          @click="UserPasswordEdit()"
+        />
       </form>
     </div>
   </div>
