@@ -56,8 +56,12 @@ public class EmailController {
         String msg = null;
         HttpStatus status = null;
         try {
-            emailService.sendSimpleMessage(email.getEmail());
-            msg = SUCCESS;
+            if(!userService.duplicateEmailCheck(email.getEmail())){
+                msg = FAIL;
+            } else{
+                emailService.sendSimpleMessage(email.getEmail());
+                msg = SUCCESS;
+            }
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("이메일 인증전송 실패 : {}", e);
