@@ -126,10 +126,10 @@
       </div>
     </div>
     <!-- 피드 -->
-    <div class="col-md-8 mainfeedpage-container">
+    <div class="row col-8 mainfeedpage-container">
       <main-feed
         v-for="(feed, index) in feedList"
-        class="col-6 col-md-4 col-lg-3"
+        class="col-6 col-md-4 col-lg-3 challenge-list-feed"
         :key="`${index}_feed`"
         :feed="feed"
       >

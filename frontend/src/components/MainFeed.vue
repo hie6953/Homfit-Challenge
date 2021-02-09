@@ -1,6 +1,6 @@
 <template>
   <!-- axios -->
-  <div class="col-xs-3 main-feed-item">
+  <div class="main-feed-item">
     <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
       class="responsive-image"
@@ -14,24 +14,6 @@
       </ul>
     </div>
   </div>
-  <!-- <div class="mt-3">
-    <div class="main-feed-container">
-      <div class="main-grid"> -->
-  <!-- axios -->
-  <!-- <div class="col-xs-3 main-feed-item">
-          <img
-            src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
-            class="responsive-image"
-            @click="ChallengeMoreInfo"
-          />
-          <div class="main-feed-item-info">
-            <ul>
-              <li class="main-feed-item-likes">
-                <span class="visually-hidden">{{ feed.challenge_title }}</span>
-              </li>
-            </ul>
-          </div>
-        </div> -->
 
   <!-- 사진1 -->
   <!-- <div class="col-xs-4 main-feed-item">
@@ -52,13 +34,6 @@
           </div>
         </div> -->
 
-  <!-- 사진2 -->
-  <!-- <div class="col-xs-4 main-feed-item">
-          <img
-            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
-            class="responsive-image"
-          />
-        </div> -->
   <!-- </div>
     </div>
   </div> -->
