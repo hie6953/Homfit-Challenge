@@ -22,6 +22,6 @@ public interface FeedService {
 
     public boolean deleteLikes(String uid, int feed_id) throws Exception;
 
-	public List<Feed> searchAll(int start_page, int end_page) throws Exception;
+	public List<Feed> searchAll() throws Exception;
 
 }

@@ -8,10 +8,10 @@
         values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
     </insert>
 
-    <select id="searchAll" parameterType="int" resultType="feed">
+    <select id="searchAll" resultType="feed">
         select * from feed
         order by register_date desc
-        limit #{start_page}, #{end_page}
+        limit 0, 1000
     </select>
 
     <select id="searchByUser" parameterType="String" resultType="feed">

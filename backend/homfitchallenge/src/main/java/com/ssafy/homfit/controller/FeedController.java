@@ -107,14 +107,12 @@ public class FeedController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Feed>> searchAllFeed(@RequestParam int page){
+    public ResponseEntity<List<Feed>> searchAllFeed(){
         List<Feed> result = null;
         HttpStatus status = null;
 
         try {
-            int end_page = page * 20;
-            int start_page = end_page - 20;
-            result = feedService.searchAll(start_page, end_page);
+            result = feedService.searchAll();
         } catch (Exception e) {
             logger.error("피드 검색 실패 : {}", e);
             result = null;
