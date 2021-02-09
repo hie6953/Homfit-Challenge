@@ -16,6 +16,7 @@
     "mdbvue": "^6.7.2",
     "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
+    "sockjs-client": "^1.5.0",
     "tiptap": "^1.32.0",
     "tiptap-extensions": "^1.35.0",
     "vue": "^2.6.12",
@@ -24,7 +25,8 @@
     "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.2.0",
     "vue-slider-component": "^3.2.11",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
