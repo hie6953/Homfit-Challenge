@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: '/feed',
-    name: 'Feed',
+    name: 'MainFeedPage',
     component: () => import('../views/MainFeedPage.vue'),
   },
   {

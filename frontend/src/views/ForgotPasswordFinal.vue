@@ -5,7 +5,7 @@
         <h3>비밀번호 변경</h3>
         <input
           id="email"
-          class="sign-in-form__form__input form-control sign-in-form__form__email"
+          class="changepw-padding sign-in-form__form__input form-control sign-in-form__form__email"
           v-model="email"
           readonly
         />
@@ -13,21 +13,30 @@
         <input
           placeholder="변경할 비밀번호를 입력해주세요."
           autofocus="autofocus"
-          class="sign-in-form__form__input form-control"
+          class="changepw-padding sign-in-form__form__input form-control"
           type="password"
           id="password"
           v-model="password"
+          required
         />
+
+        <span class="error-text" v-if="errormsg.password">{{
+          errormsg.password
+        }}</span>
 
         <input
           placeholder="변경할 비밀번호를 다시 한 번 입력해주세요."
           autofocus="autofocus"
-          class="sign-in-form__form__input form-control"
+          class="changepw-padding sign-in-form__form__input form-control"
           type="password"
           id="password-confirm"
           v-model="passwordcheck"
+          required
           @keyup.enter="UserPasswordEdit()"
         />
+        <span class="error-text" v-if="errormsg.passwordcheck">{{
+          errormsg.passwordcheck
+        }}</span>
 
         <!-- <button
           class="sign-in-form__form__submit btn btn-priority"
@@ -58,6 +67,7 @@ export default {
     return {
       password: '',
       passwordcheck: '',
+      errormsg: [],
       email: '',
     };
   },
