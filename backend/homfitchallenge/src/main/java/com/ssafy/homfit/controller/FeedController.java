@@ -113,6 +113,7 @@ public class FeedController {
 
         try {
             result = feedService.searchAll();
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("피드 검색 실패 : {}", e);
             result = null;
