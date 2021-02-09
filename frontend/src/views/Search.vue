@@ -80,9 +80,8 @@
               <div class="row search-feed">
                 <feed
                   v-for="(feed, index) in feedList"
-                  :key="`${index}_challenge`"
+                  :key="`${index}_feed`"
                   :feed="feed"
-                  @moreInfo="ChallengeMoreInfo"
                 >
                 </feed>
                 <!-- <Feed /> -->
@@ -127,6 +126,18 @@ export default {
         .then(({ data }) => {
           console.log(data);
           this.challengeList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+
+      axios
+        .get(`${SERVER_URL}/feed/search`, {
+          params: { keyword: this.keyword, kind: this.searchValue },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.feedList = data;
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
