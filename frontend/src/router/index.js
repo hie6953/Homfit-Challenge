@@ -54,6 +54,11 @@ const routes = [
     component: () => import('../views/ChallengeList.vue'),
   },
   {
+    path: '/feed',
+    name: 'Feed',
+    component: () => import('../views/MainFeedPage.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
