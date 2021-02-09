@@ -5,12 +5,12 @@
     <div class="mx-auto col-12 search-container">
       <!-- 검색바 -->
       <div class="search-bar">
-        <form class="row col-8 search-container">
+        <div class="row col-8 search-container">
           <b-dropdown
             class="col-2"
             id="search-dropdown"
             variant="outline-dark"
-            :text="searchList"
+            :text="searchList[searchValue]"
           >
             <b-dropdown-item
               v-for="(value, index) in searchList"
@@ -24,6 +24,8 @@
             type="text"
             id="search-bar"
             placeholder="검색어를 입력해주세요"
+            v-model="keyword"
+            @keyup.enter="ChallengeListSearch"
           />
           <!-- <a href="#"
             ><img
@@ -37,7 +39,7 @@
               class="search-icon"
             ></b-icon
           ></a>
-        </form>
+        </div>
       </div>
 
       <!-- 태그 -->
@@ -59,7 +61,7 @@
           class="search-page-tab"
           justified
         >
-          <b-tab title="리스트">
+          <b-tab title="리스트" active>
             <div class="search-lists">
               <div class="row list-card">
                 <challenge-list-card
@@ -72,7 +74,7 @@
               </div>
             </div>
           </b-tab>
-          <b-tab title="피드" active>
+          <b-tab title="피드">
             <!-- 피드 -->
             <div class="row">
               <div class="search-feed">
@@ -95,6 +97,8 @@
 import '../assets/css/search.scss';
 import Feed from '../components/Feed.vue';
 import ChallengeListCard from '../components/ChallengeListCard.vue';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'Search',
@@ -104,8 +108,27 @@ export default {
   },
   data: function() {
     return {
-      searchList: ['챌린지명'],
+      keyword: '',
+      searchList: ['제목', '태그'],
+      searchValue: 0,
+      challengeList: [],
     };
+  },
+  methods: {
+    ChallengeListSearch: function() {
+      console.log('hihi');
+      axios
+        .get(`${SERVER_URL}/challenge/search`, {
+          params: { keyword: this.keyword, kind: this.searchValue },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.challengeList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
   },
 };
 </script>
