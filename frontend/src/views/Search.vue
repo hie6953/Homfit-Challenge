@@ -2,10 +2,10 @@
   <div class="mt-3">
     <hr id="hr-top" />
 
-    <div class="mx-auto col-12 search-container">
+    <div class="mx-auto col-8 search-container">
       <!-- 검색바 -->
       <div class="search-bar">
-        <div class="row col-8 search-container">
+        <div class="row col-12 col-md-10 col-lg-8 search-container">
           <b-dropdown
             class="col-2"
             id="search-dropdown"
@@ -32,19 +32,18 @@
               class="search-icon"
               src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
           /></a> -->
-          <a href="#"
-            ><b-icon
-              icon="search"
-              variant="secondary"
-              class="search-icon"
-            ></b-icon
-          ></a>
+          <b-icon
+            icon="search"
+            variant="secondary"
+            class="search-icon"
+            @click="ChallengeListSearch"
+          ></b-icon>
         </div>
       </div>
 
       <!-- 태그 -->
       <div class="row search-tag">
-        <ul class="col-xs-12 mx-auto s-tags">
+        <ul class="col-12 col-md-10 col-lg-8 mx-auto s-tags">
           <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#땅끄부부</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#인기태그</a></li>
@@ -80,6 +79,7 @@
               <div class="row search-feed">
                 <feed
                   v-for="(feed, index) in feedList"
+                  class="col-12 col-md-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
                 >
