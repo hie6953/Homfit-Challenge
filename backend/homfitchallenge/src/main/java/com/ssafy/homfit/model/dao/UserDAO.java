@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDAO {
     public User getUid(String uid) throws SQLException;
+    
+    public String getByEmail(String email) throws SQLException;
 
     public void signup(User user) throws SQLException;
 
