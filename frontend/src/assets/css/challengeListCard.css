@@ -1,5 +1,6 @@
 .challenge-list-card-body {
     margin: 5px 10px;
+    
   }
   
   .challenge-list-card-footer {
@@ -64,4 +65,21 @@
     padding: 4px 3px;
     margin-right: 3px;
   }
-  
+  /* .bookmark-icon {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    z-index: 4;
+    left: 6px;
+    top: 9px;
+  }
+  .bookmark-btn {
+    color: #EAC03A;
+    z-index: 4;
+  }
+  .bookmark-btn:hover {
+      cursor: pointer;
+  } */
+  .bookmark-disabled {
+    display: none;
+  }
