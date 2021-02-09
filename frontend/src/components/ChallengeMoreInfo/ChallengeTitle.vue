@@ -9,7 +9,7 @@
       </b-tooltip>
     </div>
     <!-- 챌린지 타이틀 -->
-    <div class="row col-12 col-md-9 mx-auto">
+    <div class="row col-12 col-md-8 mx-auto">
       <div class="col-12 col-md-6">
         <img id="challenge-img" src="https://picsum.photos/600/300/?image=25" />
       </div>
@@ -49,7 +49,7 @@
               <span> 인증해주세요!</span>
             </li>
           </ul>
-          <div>
+          <div v-if="tagList != null && tagList.length > 0">
             <span
               ><b-icon icon="hash" variant="warning" scale="1.5"></b-icon
             ></span>

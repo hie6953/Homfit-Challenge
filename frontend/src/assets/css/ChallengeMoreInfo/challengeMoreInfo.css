@@ -36,7 +36,7 @@
         position: fixed;
         background-color: white;
         width:200px;
-        height:60px;
+        height:65px;
         bottom : 40px;
         right:50px;
         border-radius: 10px;
@@ -122,30 +122,6 @@
 }
 
 
-/* 좌측 플로트 메뉴창 */
-/* .info-nav-float{
-    display:inline-block;
-    position: fixed;
-    top:50%;
-    background-color: #fafafa50;
-    font-size:small;
-}
-
-.info-nav-float ul{
-    display:inline-block;
-    padding:0 0 0 20px;
-    margin:5px 5px !important;
-}
-
-.info-nav-float .info-nav-button{
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    background: none !important;
-    color:black;
-    padding:0px !important;
-} */
-
 
 /* 챌린지 인증방법 */
 .certify-contents-onlycam span{
@@ -166,6 +142,11 @@
     color:gray;
 }
 
+.bookmark-fill-color{
+    color: #E65C2E;
+    box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
+}
+
 .apply-button{
     background-color: #EAC03A;
     border: none;
@@ -184,7 +165,7 @@
 }
 
 .apply-button.mobile{
-    width: 95%;
+    width: 100%;
     height: 45px;
 }
 

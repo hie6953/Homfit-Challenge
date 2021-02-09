@@ -173,6 +173,7 @@ export default {
   components: { EditorMenuBar, EditorContent },
   props: {
     props_content: String,
+    props_change:Boolean,
   },
   data() {
     return {
@@ -194,6 +195,11 @@ export default {
   },
   created() {
     this.editor.setContent(this.props_content);
+  },
+  watch:{
+    props_change:function(){
+      this.editor.setContent(this.props_content);
+    }
   },
   methods: {
     send() {
