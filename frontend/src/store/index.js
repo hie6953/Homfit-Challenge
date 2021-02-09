@@ -11,6 +11,7 @@ export default new Vuex.Store({
     userEmail: '', //dao랑 변수명 같게
     userNickName: '',
     userUid: '',
+
   },
   getters: {
     getAccessToken(state) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
       state.userUid = '';
       sessionStorage.removeItem('loginInfo');
     },
+    SETEMAIL(state, email) { 
+      state.userEmail = email;
+    }
   },
   actions: {
     LOGIN(context, user) {
