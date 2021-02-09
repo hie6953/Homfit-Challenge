@@ -169,4 +169,9 @@ public class UserServiceImpl implements UserService {
             return false;
         return true;
     }
+
+    @Override
+    public String getByEmail(String email) throws Exception {
+        return sqlSession.getMapper(UserDAO.class).getByEmail(email);
+    }
 }
