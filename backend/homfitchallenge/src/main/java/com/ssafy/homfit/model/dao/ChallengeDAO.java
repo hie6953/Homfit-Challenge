@@ -19,7 +19,7 @@ public interface ChallengeDAO {
 	public int insertChallenge(Challenge challenge);
 	public int updateChallenge(Challenge challenge);
 	public int deleteChallenge(int challenge_id);
-	
+	public String selectUserNickname (int challenge_id);
 	
 	/** 챌린지 인증요일 */
 	public int insertChallengeDay(Map<String,Object> map);

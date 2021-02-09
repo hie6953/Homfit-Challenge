@@ -233,7 +233,10 @@ public class ChallengeController {
 				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
 				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
 
+				
 				// 5. 캐시insert
+				challenge.setPeople(1); //사람수
+				challenge.setNick_name(challengeService.selectUserNickname(challengeId)); //닉네임
 				challengeRepository.save(challenge);
 
 			}
@@ -371,9 +374,9 @@ public class ChallengeController {
 	/**
 	 * 북마크한 챌린지 리스트 반환
 	 */
-	@GetMapping("/bookmark")
-	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@RequestBody User user) {
-		String uid = user.getUid();
+	@GetMapping("/bookmark/{uid}")
+	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@PathVariable String uid) {
+		
 		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
 
 		List<Bookmark> bookmark = bookmarkService.selectAllBookmark(uid);
