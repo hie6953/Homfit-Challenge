@@ -24,4 +24,6 @@ public interface FeedService {
 
 	public List<Feed> searchAll() throws Exception;
 
+	public List<Feed> searchCategoryFeed(int category) throws Exception;
+
 }

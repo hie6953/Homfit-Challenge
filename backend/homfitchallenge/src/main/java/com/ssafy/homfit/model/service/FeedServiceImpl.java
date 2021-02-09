@@ -111,4 +111,9 @@ public class FeedServiceImpl implements FeedService {
         return list;
     }
 
+    @Override
+    public List<Feed> searchCategoryFeed(int category) throws Exception {
+        return sqlSession.getMapper(FeedDAO.class).searchCategory(category);
+    }
+
 }
