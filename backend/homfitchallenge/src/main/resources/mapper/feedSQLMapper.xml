@@ -9,7 +9,8 @@
     </insert>
 
     <select id="searchAll" resultType="feed">
-        select * from feed
+        select f.*, c.challenge_title from feed f left outer join challenge c
+        on c.challenge_id = f.challenge_id
         order by register_date desc
         limit 0, 1000
     </select>
