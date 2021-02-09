@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ssafy.homfit.model.Bookmark;
+import com.ssafy.homfit.model.Favorite;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.BookmarkService;
+import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
 import com.ssafy.homfit.model.service.UserService;
 
@@ -45,6 +48,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FavoriteService favoriteService;
 
     @Autowired
     private BookmarkService bookmarkService;
@@ -315,4 +321,24 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
+    @PutMapping("/updateFavorite")
+    public ResponseEntity<String> updateFavorite(@RequestBody Favorite favorite){
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            if(favoriteService.updateFavorite(favorite)){
+                msg = SUCCESS;
+            } else{
+                msg = FAIL;
+            }
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("유저 선호도 수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
 }
