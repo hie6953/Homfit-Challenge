@@ -391,13 +391,32 @@ public class ChallengeController {
 	}
 
 	/**
-	 * 챌린지 전체리스트 반환
+	 * 챌린지 Id에 해당하는 리스트 반환	
+	 */
+	@GetMapping("/list")
+	public ResponseEntity<List<Challenge>> chllengeList(@RequestParam int[] arr){
+		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환 챌린지 리스트
+		HttpStatus status = HttpStatus.OK;
+		try {
+			for (int i : arr) {
+				returnList.add(challengeRepository.findById(i).get());
+			}
+		}catch(Exception e) {
+			logger.error("챌린지 등록 실패 : {}", e);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			
+		}
+		
+		return new ResponseEntity<List<Challenge>>(returnList, status);
+	}
+	
+	/**
+	 * 챌린지 전체리스트 id 반환
 	 * 
 	 */
 	@GetMapping("/all")
-	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort,
-			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category,
-			@RequestParam int page) {
+	public ResponseEntity<List<Integer>> AllChallengeListId (@RequestParam String[] day, @RequestParam int sort,
+			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category) {
 
 		// 캐시 없으면 - 캐시 생성
 		if (!redisTemplate.hasKey("challenge")) {
@@ -407,7 +426,7 @@ public class ChallengeController {
 
 		// 캐시있다면 - 캐시 뿌림
 		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
-		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
+		List<Integer> returnList = new ArrayList<Integer>(); // 반환 ID 리스트
 
 		// 0. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신
 		if (sort == 0) {
@@ -447,7 +466,7 @@ public class ChallengeController {
 			}
 		}
 
-		// 3. 필터 - 요일 -> 일단 같은 요일만.2^7
+		// 3. 필터 - 요일 -> 일단 같은 요일만.
 		String param_s = Arrays.toString(day);
 		if (day != null && day.length > 0) {
 			for (Iterator<Challenge> it = cacheList.iterator(); it.hasNext();) {
@@ -459,16 +478,23 @@ public class ChallengeController {
 			}
 		}
 
-		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
-		int end_page = page * 20;
-		int start_page = end_page - 20;
-		if (end_page > cacheList.size()) {
-			end_page = cacheList.size();
+//		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
+//		int end_page = page * 20;
+//		int start_page = end_page - 20;
+//		if (end_page > cacheList.size()) {
+//			end_page = cacheList.size();
+//		}
+//		for (int i = start_page; i < end_page; i++) {
+//			returnList.add((Challenge) cacheList.get(i));
+//		}
+		
+		//4. 반환 ID 리스트
+		for (Challenge ch : cacheList) {
+			returnList.add(ch.getChallenge_id());
 		}
-		for (int i = start_page; i < end_page; i++) {
-			returnList.add((Challenge) cacheList.get(i));
-		}
-		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
+		
+		
+		return new ResponseEntity<List<Integer>>(returnList, HttpStatus.OK);
 	}
 
 }
