@@ -126,7 +126,7 @@
       </div>
     </div>
     <!-- 피드 -->
-    <div class="mainfeedpage-container">
+    <div class="col-md-8 mainfeedpage-container">
       <MainFeed />
     </div>
   </div>

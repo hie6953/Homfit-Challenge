@@ -12,12 +12,19 @@
           class="sign-in-form__form__input form-control sign-in-form__form__email"
           type="text"
           id="changepwcode"
+          v-model="forgotpasscode"
         />
 
         <div class="sign-in-form__action">
-          <router-link to="/forgot-password-final" class="change_pw_btn"
+          <!-- <router-link to="/forgot-password-final" class="change_pw_btn"
             >인증</router-link
-          >
+          > -->
+          <input
+            type="submit"
+            value="인증"
+            class="change_pw_btn"
+            @click="CheckEmailCode()"
+          />
           <router-link to="/forgot-password" class="change_pw_btn_back"
             >취소</router-link
           >
@@ -29,8 +36,35 @@
 
 <script>
 import '../assets/css/forgotpassword.css';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  data: () => ({}),
+  props: {
+    email: String,
+  },
+  data: () => ({
+    forgotpasscode: '',
+  }),
+
+  methods: {
+    CheckEmailCode() {
+      axios
+        .post(`${SERVER_URL}/email/verifyCode?code=${this.forgotpasscode}`, {
+          email: this.email,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          if (data != false) {
+            alert('인증번호 확인');
+          } else {
+            alert('인증번호가 일치하지 않습니다.');
+          }
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+  },
 };
 </script>

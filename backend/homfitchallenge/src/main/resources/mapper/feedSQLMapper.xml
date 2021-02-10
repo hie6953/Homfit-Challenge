@@ -8,6 +8,12 @@
         values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
     </insert>
 
+    <select id="searchAll" resultType="feed">
+        select * from feed
+        order by register_date desc
+        limit 0, 1000
+    </select>
+
     <select id="searchByUser" parameterType="String" resultType="feed">
         select * from feed
         where maked_uid = #{maked_uid}

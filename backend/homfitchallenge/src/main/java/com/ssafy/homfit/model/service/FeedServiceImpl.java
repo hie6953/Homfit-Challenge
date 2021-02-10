@@ -102,4 +102,13 @@ public class FeedServiceImpl implements FeedService {
         return true;
     }
 
+    @Override
+    public List<Feed> searchAll() throws Exception {
+        List<Feed> list = null;
+
+        list = sqlSession.getMapper(FeedDAO.class).searchAll();
+
+        return list;
+    }
+
 }
