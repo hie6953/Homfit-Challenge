@@ -11,6 +11,15 @@
       class="mb-2 shadow"
       @click="ChallengeMoreInfo"
     >
+      <div class="bookmark-icon bookmark-disabled">
+        <b-icon
+          id="bookmarkIcon"
+          icon="bookmark-fill"
+          scale="1.6"
+          class="bookmark-btn"
+          @click="DeleteBookmarkBtn"
+        ></b-icon>
+      </div>
       <div class="challenge-list-card-body">
         <div id="list-card-title" ref="list_card_title" :class="{ellipsis:titleOversize}">
           <span ref="list_card_title_content" >{{
@@ -62,10 +71,17 @@ const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 export default {
   props: {
     challenge: Object,
+    isfromBookmark: Number,
   },
   data() {
     return {
       titleOversize : false,
+    }
+  },
+  created() {
+    if (this.isfromBookmark === 1) {
+      const bookmark = document.querySelector('.bookmark-disabled')
+      bookmark.classList.remove('bookmark-disabled')
     }
   },
   mounted() {
@@ -93,6 +109,10 @@ export default {
     ChallengeMoreInfo: function() {
       this.$emit("moreInfo", this.challenge.challenge_id);
     },
+    DeleteBookmarkBtn() {
+      console.log(this.challenge.challenge_id)
+      this.$emit("deleteBookmark", this.challenge.challenge_id);
+    }
   },
 };
 </script>

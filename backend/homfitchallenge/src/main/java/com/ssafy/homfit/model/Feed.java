@@ -24,6 +24,15 @@ public class Feed {
     @ApiModelProperty(value = "피드 내용")
     private String feed_contents;
     private MultipartFile imgFile;
+    private String challenge_title;
+
+    public String getChallenge_title() {
+        return this.challenge_title;
+    }
+
+    public void setChallenge_title(String challenge_title) {
+        this.challenge_title = challenge_title;
+    }
 
     public MultipartFile getImgFile() {
         return this.imgFile;

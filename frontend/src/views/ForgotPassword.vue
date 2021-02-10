@@ -13,7 +13,7 @@
           <input
             placeholder="이메일 주소를 입력하세요"
             autofocus="autofocus"
-            class="sign-in-form__form__input form-control sign-in-form__form__email"
+            class="form-control"
             type="text"
             id="user_email"
             v-model="email"
@@ -29,7 +29,7 @@
           <input
             type="button"
             value="인증번호 받기"
-            class="change_pw_btn"
+            class="change_pw_btn "
             @click="SendEmailCode()"
           />
         </div>
@@ -39,14 +39,14 @@
           <input
             placeholder="인증번호를 입력하세요"
             autofocus="autofocus"
-            class="sign-in-form__form__input form-control sign-in-form__form__email"
+            class="sign-in-form__form__input form-control"
             type="text"
             id="forgotpasswordcode"
             v-model="forgotpasscode"
           />
           <input
             type="button"
-            value="인증"
+            value="   인증 확인   "
             class="change_pw_btn"
             @click="CheckEmailCode()"
           />

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="main-container col-12 col-md-8 col-xl-6">
       <MainPageAd class="main-component-margin" />
       <MainPageCategory class="main-component-margin" />
       <div class="main-component-margin">
@@ -113,7 +113,7 @@ export default {
 
 <style scoped>
 .main-container {
-  padding: 1rem;
+  margin: 0 auto;
 }
 
 .main-component-margin {
