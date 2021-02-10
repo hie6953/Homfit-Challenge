@@ -7,7 +7,7 @@
       img-top
       no-body
       tag="article"
-      style="max-width: 30rem;"
+      style="max-width: 30rem"
       class="mb-2 shadow"
       @click="ChallengeMoreInfo"
     >
@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import '@/assets/css/challengeListCard.css'
-const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
+import "@/assets/css/challengeListCard.css";
+const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 
 export default {
   props: {
@@ -62,22 +62,22 @@ export default {
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
-    GetDayList: function() {
+    GetDayList: function () {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
           .substring(1, this.challenge.daylist_string.length - 1)
-          .split(',');
+          .split(",");
         let temp = new Array(list.length);
         for (let index = 0; index < list.length; index++) {
-          temp[index] = dayList[parseInt(list[index].replace(' ', ''))];
+          temp[index] = dayList[parseInt(list[index].replace(" ", ""))];
         }
-        return temp.join('/');
+        return temp.join("/");
       }
-      return '';
+      return "";
     },
-    ChallengeMoreInfo:function(){
-      this.$emit("moreInfo",this.challenge.challenge_id);
-    }
+    ChallengeMoreInfo: function () {
+      this.$emit("moreInfo", this.challenge.challenge_id);
+    },
   },
 };
 </script>

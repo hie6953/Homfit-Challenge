@@ -4,9 +4,13 @@ import java.security.Timestamp;
 
 public class ChatVO {
     private String uid;
-    private String userNickName;
+    private String nick_name;
+    private int challenge_id;
     private String content;
     private Timestamp regist_date;
+
+    public ChatVO() {
+    }
 
     public String getUid() {
         return this.uid;
@@ -16,12 +20,20 @@ public class ChatVO {
         this.uid = uid;
     }
 
-    public String getUserNickName() {
-        return this.userNickName;
+    public String getNick_name() {
+        return this.nick_name;
     }
 
-    public void setUserNickName(String userNickName) {
-        this.userNickName = userNickName;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public int getChallenge_id() {
+        return this.challenge_id;
+    }
+
+    public void setChallenge_id(int challenge_id) {
+        this.challenge_id = challenge_id;
     }
 
     public String getContent() {
@@ -40,6 +52,15 @@ public class ChatVO {
         this.regist_date = regist_date;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "ChatVO {" +
+            " uid='" + getUid() + "'" +
+            ", nick_name='" + getNick_name() + "'" +
+            ", challenge_id='" + getChallenge_id() + "'" +
+            ", content='" + getContent() + "'" +
+            ", regist_date='" + getRegist_date() + "'" +
+            "}";
+    }
+    
 }

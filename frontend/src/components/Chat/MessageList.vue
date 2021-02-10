@@ -1,14 +1,15 @@
 <template>
-    <b-list-group>
-        <div v-for="(msg, index) in msgs" :key="index">
-            <span>{{msg}}</span>
-        </div>
-    </b-list-group>
+  <b-list-group>
+      <message v-for="(msg, index) in msgs" :key="index" :msg="msg"></message>
+  </b-list-group>
 </template>
 
 <script>
+import Message from "./Message.vue";
+
 export default {
-    name:'MessageList',
-    props:['msgs'],
+  components: { Message },
+  name: "MessageList",
+  props: ["msgs"],
 };
 </script>

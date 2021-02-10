@@ -120,6 +120,11 @@ const routes = [
     component: () => import('../views/NotFound.vue'),
   },
   {
+    path:'/chatroom/:challenge_id',
+    name:"ChatRoom",
+    component: () => import('../views/ChatRoom.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: "/404"
   },
