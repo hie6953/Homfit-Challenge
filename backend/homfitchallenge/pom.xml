@@ -98,9 +98,21 @@
     		<version>6.0.2.RELEASE</version>
 		</dependency>
 
-		
-		
-		
+		<!-- for chatting -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+		<dependency>
+    		<groupId>org.webjars</groupId>
+    		<artifactId>stomp-websocket</artifactId>
+    		<version>2.3.3-1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+		<dependency>
+    		<groupId>org.webjars</groupId>
+    		<artifactId>sockjs-client</artifactId>
+    		<version>1.1.2</version>
+		</dependency>
+
 		<!-- redis 설정 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,6 +128,12 @@
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-mail</artifactId>
     		<version>2.2.6.RELEASE</version>
+		</dependency>
+
+		<!--웹 소켓 사용, stomp가 들어있습니다.-->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
 	</dependencies>
