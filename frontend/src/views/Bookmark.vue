@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-8 col-xl-6 bookmark-container">
+  <div class="col-12 col-md-8 bookmark-container">
     <p class="bookmark-title">챌린지 북마크</p>
     <div class="row list-card">
       <ChallengeListCard
