@@ -127,7 +127,7 @@
       </div>
     </div>
     <!-- <hr id="category-hr-bottom" /> -->
-    <div class="mx-auto col-12 col-md-8 col-xl-6">
+    <div class="mx-auto col-12 col-md-8">
       <!-- 정렬 -->
       <b-dropdown
         id="sort-dropdown"
@@ -163,7 +163,11 @@
           @moreInfo="ChallengeMoreInfo"
         ></challenge-list-card>
       </div>
-      <infinite-loading ref="InfiniteLoading" @infinite="getData" spinner="waveDots">
+      <infinite-loading
+        ref="InfiniteLoading"
+        @infinite="getData"
+        spinner="waveDots"
+      >
         <div class="infinite-loading-message" slot="no-more">
           <b-button @click="scrollUp"
             >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
@@ -191,13 +195,13 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 //axios array [] 없애기
 axios.defaults.paramsSerializer = function(paramObj) {
-    const params = new URLSearchParams()
-    for (const key in paramObj) {
-        params.append(key, paramObj[key])
-    }
+  const params = new URLSearchParams();
+  for (const key in paramObj) {
+    params.append(key, paramObj[key]);
+  }
 
-    return params.toString()
-}
+  return params.toString();
+};
 
 export default {
   name: "ChallengeList",
@@ -218,6 +222,7 @@ export default {
       period: [3, 30],
       day: [],
       page: 1,
+      challengeAllList: null,
       challengeList: [],
       scrollUpDelay: 1,
       scrollUpSpeed: 30,
@@ -234,17 +239,22 @@ export default {
     if (category_sort) {
       this.sortValue = category_sort;
     }
+
+    // this.getAllData();
   },
   methods: {
     getNewData: function() {
       this.page = 1;
+      this.challengeAllList = null;
       this.challengeList = [];
-      if(this.$refs.InfiniteLoading){
-        this.$refs.InfiniteLoading.stateChanger.reset(); 
-    }
+      if (this.$refs.InfiniteLoading) {
+        this.$refs.InfiniteLoading.stateChanger.reset();
+      }
+      // this.getAllData();
     },
-    getData: function($state) {
-      axios
+
+    async getAllData() {
+      await axios
         .get(`${SERVER_URL}/challenge/all`, {
           params: {
             day: this.day.sort(), //요일 숫자 배열 [3,4,5]
@@ -252,28 +262,35 @@ export default {
             sort: this.sortValue, //0:인기순,1:최신순
             periodStart: this.period[0], //period최소값(이상) 7
             periodEnd: this.period[1], //period최대값(이하) 30
-
-            page: this.page, //페이지 숫자
           },
         })
         .then(({ data }) => {
-          setTimeout(() => {
-            if (data.length) {
-              this.challengeList = this.challengeList.concat(data);
-              ++this.page;
-              $state.loaded();
-            } else {
-              $state.complete();
-            }
-          }, 500);
+          this.challengeAllList = data;
         })
         .catch(() => {
           alert("챌린지 목록을 불러오지 못했습니다.");
         });
-
-      
     },
-    ChallengeMoreInfo:function(challenge_id){
+
+    async getData($state) {
+      if (this.challengeAllList == null) {
+        await this.getAllData();
+      }
+      let getArray = this.challengeAllList.slice(
+        (this.page - 1) * 20,
+        this.page * 20
+      );
+      setTimeout(() => {
+        if (getArray.length > 0) {
+          this.challengeList = this.challengeList.concat(getArray);
+          ++this.page;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }, 500);
+    },
+    ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
     scrollUp: function() {
