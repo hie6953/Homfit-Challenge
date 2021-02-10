@@ -21,4 +21,7 @@ public interface FeedDAO {
 	public void deleteLikes(String uid, int feed_id) throws SQLException;
 	public void increaseLikes(int feed_id) throws SQLException;
 	public void decreaseLikes(int feed_id) throws SQLException;
+	public List<Feed> searchAll() throws SQLException;
+	public List<Feed> searchCategory(int category) throws SQLException;
+	public List<Feed> searchByChallengeTitle(String keyword) throws SQLException;
 }

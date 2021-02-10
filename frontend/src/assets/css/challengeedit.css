@@ -1,0 +1,13 @@
+.tag-list-tags{
+    display:inline-block;
+}
+
+#edit-button {
+    background-color: #E65C2E;
+    border:none;
+    box-shadow: none;
+}
+
+#edit-button:hover {
+    background-color:#bb4a24;
+}

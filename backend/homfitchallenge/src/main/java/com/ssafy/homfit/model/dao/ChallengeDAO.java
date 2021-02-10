@@ -19,7 +19,7 @@ public interface ChallengeDAO {
 	public int insertChallenge(Challenge challenge);
 	public int updateChallenge(Challenge challenge);
 	public int deleteChallenge(int challenge_id);
-	
+	public String selectUserNickname (int challenge_id);
 	
 	/** 챌린지 인증요일 */
 	public int insertChallengeDay(Map<String,Object> map);
@@ -32,7 +32,7 @@ public interface ChallengeDAO {
 	/** 챌린지 참여 */
 	public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid );
 	public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
-	public Challenge selectParticipants(int challengeId);
+	public String selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
 	
 	
 }

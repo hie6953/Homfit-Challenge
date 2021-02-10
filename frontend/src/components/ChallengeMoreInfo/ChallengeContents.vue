@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h2>챌린지 설명</h2>
+    <div class="mb-3">
+        <p class="more-info-title">챌린지 설명</p>
         <p v-html="challenge_contents"></p>
     </div>
 </template>

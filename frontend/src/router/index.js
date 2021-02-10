@@ -54,6 +54,11 @@ const routes = [
     component: () => import('../views/ChallengeList.vue'),
   },
   {
+    path: '/feed',
+    name: 'MainFeedPage',
+    component: () => import('../views/MainFeedPage.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
@@ -63,6 +68,11 @@ const routes = [
     path: '/challenge-more-info/:challenge_id',
     name: 'ChallengeMoreInfo',
     component: () => import('../views/ChallengeMoreInfo.vue'),
+  },
+  {
+    path:'/challenge-edit/:challenge_id',
+    name:"ChallengeEdit",
+    component: () => import('../views/ChallengeEdit.vue'),
   },
   {
     path: '/mypage',
@@ -92,12 +102,14 @@ const routes = [
     path: '/selectpreference',
     name: 'SelectPreference',
     component: () => import('../views/SelectPreference.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/challengemanage',
     name: 'ChallengeManage',
     component: () => import('../views/ChallengeManage.vue'),
   },
+ 
   {
     path: '/search',
     name: 'Search',
@@ -115,6 +127,12 @@ const routes = [
     // beforeEnter: requireAuth(),
   },
   {
+    path: '/bookmark',
+    name: 'Bookmark',
+    component: () => import('../views/Bookmark.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path:'/404',
     name:"notFound",
     component: () => import('../views/NotFound.vue'),
@@ -128,12 +146,16 @@ const routes = [
     path: '/:pathMatch(.*)*',
     redirect: "/404"
   },
- 
+  
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior () {
+    // 라우터 이동 시 원하는 위치 설정하기
+    return { x: 0, y: 0 } 
+  },
   routes,
 });
 

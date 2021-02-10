@@ -1,5 +1,6 @@
 .challenge-list-card-body {
     margin: 5px 10px;
+    
   }
   
   .challenge-list-card-footer {
@@ -9,11 +10,29 @@
   .challenge-list-card-hr {
     margin: 0px !important;
   }
-  
-  #card-title {
+
+  #list-card-title {
     font-size: large;
     font-weight: 700;
+    overflow: hidden;
+    width:100%;
+    height:30px;
   }
+
+  #list-card-title span {
+    white-space: nowrap;
+  }
+
+  .challenge-list-card-total:hover #list-card-title.ellipsis {
+    text-overflow: clip;
+    
+  }
+
+
+  .ellipsis{
+    text-overflow: ellipsis;
+  }
+  
   
   .card-user-image {
     width: 15px;
@@ -46,4 +65,21 @@
     padding: 4px 3px;
     margin-right: 3px;
   }
-  
+  /* .bookmark-icon {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    z-index: 4;
+    left: 6px;
+    top: 9px;
+  }
+  .bookmark-btn {
+    color: #EAC03A;
+    z-index: 4;
+  }
+  .bookmark-btn:hover {
+      cursor: pointer;
+  } */
+  .bookmark-disabled {
+    display: none;
+  }

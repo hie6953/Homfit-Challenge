@@ -255,8 +255,8 @@ export default {
   },
   data() {
     return {
-      kind: '0',
-      fit_id: '0',
+      kind: 0,
+      fit_id: 0,
       bodyList: [],
       challenge_title: '',
       challenge_contents: '',

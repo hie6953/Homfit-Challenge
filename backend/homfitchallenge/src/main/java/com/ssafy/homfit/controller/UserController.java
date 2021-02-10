@@ -3,12 +3,14 @@ package com.ssafy.homfit.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import com.ssafy.homfit.model.Bookmark;
+import com.ssafy.homfit.model.Favorite;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.BookmarkService;
+import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
 import com.ssafy.homfit.model.service.UserService;
 
@@ -32,7 +34,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-
 @Api("UserController V1")
 @RestController
 @RequestMapping("/user")
@@ -47,6 +48,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FavoriteService favoriteService;
 
     @Autowired
     private BookmarkService bookmarkService;
@@ -87,7 +91,7 @@ public class UserController {
                 logger.debug("로그인 토큰정보 : {}", token);
                 resultMap.put("access-token", token);
                 resultMap.put("message", SUCCESS);
-                resultMap.put("uid",loginUser.getUid());
+                resultMap.put("uid", loginUser.getUid());
                 resultMap.put("nickName", loginUser.getNick_name());
                 status = HttpStatus.ACCEPTED;
             } else {
@@ -102,15 +106,16 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
-    @ApiOperation(value = "비밀번호 찾기", notes = "회원 이메일을 통한 비밀번호 찾기", response = String.class)
-    @GetMapping("/findPw/{email}")
-    public ResponseEntity<String> findPassword(@PathVariable @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보") String email) {
+    @ApiOperation(value = "비밀번호 찾기 및 변경", notes = "회원 이메일을 통한 비밀번호 찾기 및 변경", response = String.class)
+    @PostMapping("/findPw")
+    public ResponseEntity<String> findPassword(@RequestBody @ApiParam(value = "비밀번호 찾기에 필요한 회원 이메일정보 및 수정할 비밀번호") User user) {
         HttpStatus status = null;
         String msg = null;
-        String password = null;
+        String uid = null;
         try {
-            password = userService.findPassword(email);
-            if (password != null) {
+            uid = userService.getByEmail(user.getEmail());
+            user.setUid(uid);
+            if (userService.updateDetail(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
             } else {
@@ -128,14 +133,14 @@ public class UserController {
 
     @ApiOperation(value = "회원 정보 수정", notes = "회원이 입력한 정보대로 회원 정보를 수정한다(바꿀수 있는 정보 : 비밀번호, 닉네임, 사용자 이미지")
     @PutMapping("/updateDetail")
-    public ResponseEntity<String> updateDetail(@RequestBody User user){
+    public ResponseEntity<String> updateDetail(@RequestBody User user) {
         HttpStatus status = null;
         String msg = null;
         try {
-            if(userService.updateDetail(user)){
+            if (userService.updateDetail(user)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
-            }else{
+            } else {
                 msg = FAIL;
                 status = HttpStatus.ACCEPTED;
             }
@@ -146,16 +151,17 @@ public class UserController {
         }
         return new ResponseEntity<String>(msg, status);
     }
-    
+
     @PutMapping("/updateImg")
-    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile, @RequestPart("uid") String uid){
+    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile,
+            @RequestPart("uid") String uid) {
         HttpStatus status = null;
         String msg = null;
         try {
-            if(userService.updateImg(uid, imgFile)){
+            if (userService.updateImg(uid, imgFile)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
-            }else{
+            } else {
                 msg = FAIL;
                 status = HttpStatus.ACCEPTED;
             }
@@ -168,7 +174,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "닉네임 중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
-    @GetMapping(value="/check/{nickName}")
+    @GetMapping(value = "/check/{nickName}")
     public ResponseEntity<Boolean> checkNickName(@PathVariable String nickName) {
         boolean check = true;
         HttpStatus status = null;
@@ -183,9 +189,9 @@ public class UserController {
 
         return new ResponseEntity<Boolean>(check, status);
     }
-    
+
     @ApiOperation(value = "이메일 중복확인 체크", notes = "해당 이메일이 중복인지 체크한다 중복시 true 반환")
-    @GetMapping(value="/checkemail/{email}")
+    @GetMapping(value = "/checkemail/{email}")
     public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
         boolean check = true;
         HttpStatus status = null;
@@ -203,31 +209,31 @@ public class UserController {
 
     // @GetMapping("/test")
     // public ResponseEntity<Map<String,Object>> test(@RequestBody User uid){
-    //     HttpStatus status = HttpStatus.OK;
-    //     Map<String, Object> resultMap = new HashMap<>();
-    //     List<User> list = null;
-    //     User user = null;
-    //     System.out.println(uid.getUid());
-    //     try {
-    //         list = userService.test();
-    //         user = userService.getUid(uid.getUid());
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     resultMap.put("uid", user.getUid());
-    //     resultMap.put("list", list);
-    //     return new ResponseEntity<Map<String,Object>>(resultMap, status);
+    // HttpStatus status = HttpStatus.OK;
+    // Map<String, Object> resultMap = new HashMap<>();
+    // List<User> list = null;
+    // User user = null;
+    // System.out.println(uid.getUid());
+    // try {
+    // list = userService.test();
+    // user = userService.getUid(uid.getUid());
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // resultMap.put("uid", user.getUid());
+    // resultMap.put("list", list);
+    // return new ResponseEntity<Map<String,Object>>(resultMap, status);
     // }
 
-    @PostMapping(value="/bookmark")
+    @PostMapping(value = "/bookmark")
     public ResponseEntity<String> addBookMark(@RequestBody Bookmark bookmark) {
         String msg = null;
         HttpStatus status = null;
 
         try {
-            if(bookmarkService.create(bookmark)){
+            if (bookmarkService.create(bookmark)) {
                 msg = SUCCESS;
-            } else{
+            } else {
                 msg = FAIL;
             }
             status = HttpStatus.ACCEPTED;
@@ -239,18 +245,21 @@ public class UserController {
 
         return new ResponseEntity<>(msg, status);
     }
-    
-    @DeleteMapping(value = "/bookmark")
-    public ResponseEntity<String> deleteBookMark(@RequestBody Bookmark bookmark){
+
+    @DeleteMapping(value = "/bookmark/{uid}/{challenge_id}")
+    public ResponseEntity<String> deleteBookMark(@PathVariable String uid, @PathVariable int challenge_id) {
         String msg = null;
         HttpStatus status = null;
-
+        Bookmark bookmark = new Bookmark();
+        bookmark.setChallenge_id(challenge_id);
+        bookmark.setUid(uid);
         try {
-            if(bookmarkService.delete(bookmark)){
+            if (bookmarkService.delete(bookmark)) {
                 msg = SUCCESS;
-            } else{
+            } else {
                 msg = FAIL;
             }
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("북마크 삭제 실패 : {}", e);
             msg = e.getMessage();
@@ -261,11 +270,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> getUserInfo(@RequestBody User uid){
+    public ResponseEntity<User> getUserInfo(@RequestBody User uid) {
         User user = null;
         HttpStatus status = null;
 
-        System.out.println(uid);    
+        System.out.println(uid);
         try {
             user = userService.getUid(uid.getUid());
             status = HttpStatus.ACCEPTED;
@@ -275,16 +284,16 @@ public class UserController {
         }
         System.out.println(user);
 
-        return new ResponseEntity<User> (user, status);
+        return new ResponseEntity<User>(user, status);
     }
 
     @PostMapping("/checkPassword")
-    public ResponseEntity<Boolean> checkPassword(@RequestBody User user){
+    public ResponseEntity<Boolean> checkPassword(@RequestBody User user) {
         boolean isRight = false;
         HttpStatus status = null;
 
         try {
-            if(userService.checkPassword(user)){
+            if (userService.checkPassword(user)) {
                 isRight = true;
             }
             status = HttpStatus.ACCEPTED;
@@ -293,7 +302,7 @@ public class UserController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<Boolean>(isRight, status); 
+        return new ResponseEntity<Boolean>(isRight, status);
     }
 
     @GetMapping("/info")
@@ -312,4 +321,24 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
+    @PutMapping("/updateFavorite")
+    public ResponseEntity<String> updateFavorite(@RequestBody Favorite favorite){
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            if(favoriteService.updateFavorite(favorite)){
+                msg = SUCCESS;
+            } else{
+                msg = FAIL;
+            }
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("유저 선호도 수정 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
+    }
 }

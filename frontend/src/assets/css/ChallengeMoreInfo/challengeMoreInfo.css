@@ -1,24 +1,26 @@
 /* 모바일 */
 @media (max-width: 480px) {
     #info-navbar{
-        top:65px;
+        top:104px;
         height:38px;
     }
 }
 /* PC */
 @media (min-width: 480px) {
     #info-navbar{
-        top:80px;
+        top:130px;
     }
 }
 
 /* Mobile large */
 @media(max-width:992px){
     .info-float{
+        background-color: white;
         position:fixed;
         bottom:0px;
         width: 100%;
         height: 60px;
+        z-index:5;
         box-shadow:-4px 0px 8px 1px rgba(39, 44, 56, 0.2);
     }
 
@@ -31,13 +33,18 @@
 /* PC large */
 @media(min-width:992px){
     .info-float{
-        top:150px;
-        position:sticky;
+        position: fixed;
         background-color: white;
+        width:200px;
+        height:65px;
+        bottom : 40px;
+        right:50px;
         border-radius: 10px;
-        /* height:100px; */
-        margin-top: 20px;
         box-shadow:0 2px 4px 1px rgba(39, 44, 56, 0.2);
+    }
+
+    .info-main{
+        margin-bottom:30px;
     }
 
 }
@@ -54,24 +61,77 @@
     display: inline-block;
     list-style: none;
     padding:0 !important;
-    
+    margin-bottom: 0px !important;
 }
 
-.info-navbar-ul li{
+.info-navbar-ul li {
+    position:relative;
+    z-index: 1;
     display: inline-block;
-    padding:10px 5vw;
+    padding:12px 5vw;
     font-size: large;
     font-weight: 700;
     color: white;
+  }
+  .info-navbar-ul li:hover {
+    color: #000000;
+  }
+  .info-navbar-ul li:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: #fafafa60;
+    visibility: none;
+    opacity: 0;
+    z-index: -1;
+  }
+  .info-navbar-ul li:hover:after {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+  }
+
+  .info-navbar-ul li,
+  .info-navbar-ul li:after,
+  .info-navbar-ul li:before {
+  transition: all .5s;
+}
+
+
+/* 상세 정보 */
+.more-info-title{
+    display: inline-block;
+    
+    margin: 10px 0px;
+    padding:5px 10px;
+
+    background-color: #eac13a50;
+    border-radius: 10px;
+
+    font-size: larger;
+    font-weight: 600;
+   
+}
+
+
+
+/* 챌린지 인증방법 */
+.certify-contents-onlycam span{
+    font-size:small;
+    margin-left:3px;
 }
 
 
 
 /* 참여버튼 창 */
-.info-float{
-    background-color: white;
-}
-
 .info-float-inside{
     height: 100%;
 }
@@ -82,25 +142,42 @@
     color:gray;
 }
 
-#apply-button{
-    width: 95%;
-    height: 45px;
+.bookmark-fill-color{
+    color: #E65C2E;
+    box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
+}
+
+.apply-button{
     background-color: #EAC03A;
     border: none;
     box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
 }
 
-#apply-button:focus,
-#apply-button:active{
+.apply-button:hover{
+    background-color: #e4b724;
+}
+.apply-button:focus,
+.apply-button:active{
     border: none;
     outline: none;
     box-shadow: none;
+    background-color: #e4b724 !important;
 }
 
-.apply-button-pc{
+.apply-button.mobile{
+    width: 100%;
+    height: 45px;
+}
+
+.apply-button.pc{
     display: inline;
+    width:90%;
+    padding:10px 20px;
+    font-size: larger;
+    font-weight: 600;
 }
 
+/* 기본 */
 .align-center{
     text-align: center;
 }

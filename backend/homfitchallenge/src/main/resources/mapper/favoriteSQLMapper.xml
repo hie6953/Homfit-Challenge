@@ -7,4 +7,13 @@
         insert into favorite(uid)
         values (#{uid})
     </insert>
+
+    <update id="updateFavorite" parameterType="favorite">
+        update favorite
+        set fit_list = #{fit_list},
+            body_list = #{body_list},
+            day_list = #{day_list},
+            setting_first = true
+        where uid = #{uid}
+    </update>
 </mapper>

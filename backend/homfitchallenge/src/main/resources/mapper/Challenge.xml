@@ -5,16 +5,11 @@
 <mapper namespace="com.ssafy.homfit.model.dao.ChallengeDAO">
 
 
-
-
-
-	<!-- 챌린지 리스트 조회 -->
+	<!-- 챌린지 전체 리스트 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
 		select
-		c.challenge_id, c.challenge_img, c.challenge_title, c.period,
-		c.fit_id,
-		c.daylist_string, u.nick_name, count(p.uid) as people
+		c.*, u.nick_name, count(p.uid) as people
 		from
 		challenge as c
 		join participate as p on c.challenge_id = p.challenge_id
@@ -23,13 +18,6 @@
 		order by challenge_id desc
 	</select>
 
-	<!--해당 챌린지 참여자수 조회 -->
-	<!-- public int selectParticipants(int challengeId); -->
-	<select id="selectParticipants" resultType="Challenge">
-		select challenge_id, count(challenge_id) as people
-		from participate
-		where challenge_id = #{challenge_id}
-	</select>
 
 	<!-- 챌린지 상세 조회 -->
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
@@ -43,6 +31,15 @@
 		where a.challenge_id = #{challenge_id}
 	</select>
 
+	<!-- 챌린지 개설자 nickname select -->
+	<!-- public String selectUserNickname (int challenge_id); -->
+	<select id="selectUserNickname" resultType="String">
+		select u.nick_name
+		from challenge as c join user as u
+		on c.make_uid = u.uid
+		where challenge_id = #{challenge_id}
+	</select>
+
 	<!-- 해당 챌린지 부위리스트 select -->
 	<!-- public int[] selectBodyPart(int ChallengeId); -->
 	<select id="selectBodyPart" resultType="int">
@@ -50,6 +47,14 @@
 		from
 		search_body
 		where challenge_id = #{chchallenge_id}
+	</select>
+	
+	<!--해당 챌린지 참여자 select-->
+	<!-- public Challenge selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);-->
+	<select id="selectParticipant" resultType="String">
+		select uid
+		from participate
+		where uid= #{uid} and challenge_id = #{challenge_id}
 	</select>
 
 
@@ -103,8 +108,8 @@
 		values
 		(#{challenge_id}, #{uid})
 	</insert>
-
-
+	
+	
 	<!-- 챌린지 정보 삭제 -->
 	<!-- public int deleteChallenge(int challenge_id); -->
 	<delete id="deleteChallenge" parameterType="int">
@@ -129,17 +134,12 @@
 		update challenge
 		set
 		challenge_title = #{challenge_title},
-		challenge_contents =
-		#{challenge_contents},
+		challenge_contents = #{challenge_contents},
 		challenge_img = #{challenge_img},
 		challenge_certify_contents = #{challenge_certify_contents},
-		good_img =
-		#{good_img},
+		good_img = #{good_img},
 		bad_img = #{bad_img},
-		day_certify_count =
-		#{day_certify_count},
-		only_cam = #{only_cam},
-		fit_id = #{fit_id}
+		only_cam = #{only_cam}
 		where
 		challenge_id = #{challenge_id}
 	</update>

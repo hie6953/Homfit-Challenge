@@ -1,7 +1,6 @@
 /* 검색바 */
 .search-container {
   padding-top: 10px;
-  width: 60%;
   display: block;
   margin: 0 auto;
   // border-radius: 10px;
@@ -58,11 +57,27 @@ input#search-bar {
 }
 
 /* 태그 */
+
+@media screen and (min-width: 300px) {
+  .search-tag {
+    width: 100%;
+    //font-size: 8px;
+    cursor: pointer;
+    // width: calc(100% / 3);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .search-tag {
+    width: 100%;
+  }
+}
+
 .search-tag {
-  width: 90%;
-  padding-top: 20px;
+  width: 100%;
   margin: auto;
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .s-tags {
@@ -127,7 +142,34 @@ input#search-bar {
   // background-color: #eac03a;
 }
 
+// 탭
+.search-result div .nav-link {
+  color: #dbdbdb;
+}
+
+.search-result div .nav-link.active {
+  color: #eac03a;
+  font-weight: bold;
+}
+
+.search-page-tab {
+  padding-top: 0px;
+}
+
 /* 피드 */
-.search-feed {
-  width: 100%;
+.mainfeedpage-container {
+  clear: both;
+  padding-top: 15px;
+  padding-bottom: 3rem;
+  display: flex;
+}
+
+.challenge-list-feed {
+  padding: 4px 4px !important;
+  /* transition: transform 300ms ease 100ms; */
+}
+
+.mainfeedpage-container .challenge-list-feed:hover {
+  transform: scale(1.2);
+  z-index: 2;
 }

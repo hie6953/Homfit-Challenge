@@ -32,7 +32,6 @@
               id="user_password"
               v-model="user.password"
               required
-              @keypress.enter="login"
             />
           </div>
 

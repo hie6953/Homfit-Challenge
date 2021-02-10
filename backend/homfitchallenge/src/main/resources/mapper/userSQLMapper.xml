@@ -17,6 +17,10 @@
         select nick_name, user_img, grade, email from user where uid=#{uid}
     </select>
 
+    <select id="getByEmail" parameterType="String" resultType="String">
+        select uid from user where email=#{email}
+    </select>
+
     <select id="findPassword" parameterType="String" resultType="user">
         select password from user where email=#{email}
     </select>

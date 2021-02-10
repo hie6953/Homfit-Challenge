@@ -10,9 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.ssafy.homfit.api.ChallengeRepository;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.service.ChallengeService;
 
@@ -26,32 +26,24 @@ public class HomfitchallengeApplication {
 		SpringApplication.run(HomfitchallengeApplication.class, args);
 	}
 
-	@Autowired
-	RedisTemplate<String, Object> redisTemplate;
+
 	
 	@Autowired
 	ChallengeService challengeService;
 	
+	@Autowired
+	private ChallengeRepository challengeRepository;
+
 	
-	//서버 시작시 바로 캐시 등록
+	//서버 시작시 바로 캐시 등록 -> 테스트를 위해 잠시 보류
 	@Bean
 	public ApplicationRunner applicationRunner() {
 		return new ApplicationRunner() {
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
-				ListOperations<String, Object> listOperation = redisTemplate.opsForList();
-				Challenge ch = new Challenge();
-				String key = "challengeList";
-				//기존에 있던 캐시 삭제
-				redisTemplate.delete(key);
-				Long size = listOperation.size(key);
-				if(size == 0) {
-					List<Challenge> list = challengeService.AllChallengeList();
-					for (int i = 0; i < list.size(); i++) {
-						listOperation.rightPush(key, list.get(i));
-					}
-				}
-				
+				challengeRepository.deleteAll(); //처음 등록된 캐시 다 지움
+				List<Challenge> challengelist = challengeService.AllChallengeList();
+				challengeRepository.saveAll(challengelist);
 			}
 		};
 

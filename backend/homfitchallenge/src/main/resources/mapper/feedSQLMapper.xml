@@ -8,6 +8,21 @@
         values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
     </insert>
 
+    <select id="searchAll" resultType="feed">
+        select f.*, c.challenge_title from feed f left outer join challenge c
+        on c.challenge_id = f.challenge_id
+        order by f.register_date desc
+        limit 0, 1000
+    </select>
+
+    <select id="searchCategory" parameterType="int" resultType="feed">
+        select f.*, c.challenge_title from feed f left outer join challenge c
+        on c.challenge_id = f.challenge_id
+        where c.fit_id = #{category}
+        order by f.register_date desc
+        limit 0, 1000
+    </select>
+
     <select id="searchByUser" parameterType="String" resultType="feed">
         select * from feed
         where maked_uid = #{maked_uid}
@@ -54,23 +69,17 @@
     </update>
 
     <select id="searchByChallengeTitle" parameterType="String" resultType="feed">
-        select f.* from feed as f left outer join challenge as c
+        select f.*, c.challenge_title from feed as f left outer join challenge as c
         on f.challenge_id = c.challenge_id 
-        where c.challenge_title = #{keyword}
+        where c.challenge_title like concat('%', #{keyword}, '%')
         order by f.register_date desc
-    </select>
-
-    <select id="searchByChallengeCategory" parameterType="int" resultType="feed">
-        select f.*
-        from feed as f left outer join challenge as c
-        on f.challenge_id = c.challenge_id
-        where c.fit_id = #{keyword}
-        order by f.register_date desc
+        limit 0, 1000
     </select>
 
     <select id="searchByTag" resultType="feed">
-        select * from feed
-        where challenge_id in 
+        select f.*, c.challenge_title from feed f left outer join challenge c
+        on f.challenge_id = c.challenge_id
+        where c.challenge_id in 
         <foreach collection="list" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
@@ -78,10 +87,10 @@
     </select>
 
     <select id="searchCidKeyword" parameterType="String" resultType="int">
-        select distinct challenge_id
+        select distinct tic.challenge_id
         from tag_in_challenge as tic left outer join tag as t
         on tic.tag_id = t.tag_id
-        where t.tag_name like concat('%', #{keyword}, '%')
+        where t.tag_name = #{keyword}
     </select>
 
 </mapper>

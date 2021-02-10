@@ -1,5 +1,5 @@
 <template>
-  <div id="app"  class="position-relative">
+  <div id="app">
     <div class="sticky-top">
       <NavBar class="navbar-first"></NavBar>
       <NavBarSecond id="navbar-second" class="navbar-second"></NavBarSecond>
@@ -73,8 +73,8 @@ export default {
 let prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.getElementById("navbar-second").style.top = "-1px";
+  if (document.location.href.includes('challenge-more-info') || prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar-second").style.top = "-2px";
   } else {
     document.getElementById("navbar-second").style.top = "-60px";
   }
@@ -92,10 +92,7 @@ window.onscroll = function() {
   color: #2c3e50;
 }
 
-/* Navbar 상단고정 위한 relative position설정 */
-.position-relative {
-  position: relative;
-}
+
 
 /* 상단고정 */
 .sticky-top {

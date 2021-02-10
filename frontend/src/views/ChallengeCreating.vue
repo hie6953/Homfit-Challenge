@@ -1,6 +1,6 @@
 <template>
-  <div class="background-creating ">
-    <div class="component col-md-8 col-11 mx-auto">
+  <div class="background-creating col-12 col-md-8  mx-auto">
+    <div class="component ">
       <div class="creating-progress-bar">
         <ul id="creating-progress-list">
           <li>
@@ -106,6 +106,7 @@
           @CreateChallenge="CreateChallenge"
         ></ChallengeTag>
       </div>
+      
       <div v-if="page == 5">
         <h3 class="align-center">
           "{{ challenge.challenge_title }}"<br />개설이 완료되었습니다.
@@ -121,6 +122,13 @@
           >
         </div>
       </div>
+    </div>
+    <div v-if="isLoading"  class="loading">
+      <div id="loading-icon">
+        <b-icon icon="arrow-clockwise" animation="spin" font-scale="4" variant="warning"></b-icon>
+        <br>
+        <span>챌린지 등록 중...</span>
+        </div>
     </div>
   </div>
 </template>
@@ -155,6 +163,7 @@ export default {
       pageComplete_3: false,
       pageComplete_4: false,
       challenge_id: 0,
+      isLoading:false,
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -179,11 +188,29 @@ export default {
     };
   },
 
+created(){
+  axios.interceptors.request.use(
+    config=>{
+      this.setLoading(true);
+      return config;
+    },
+  ),
+  axios.interceptors.response.use(
+    response => {
+      this.setLoading(false);
+      return response;
+    },
+  )
+},
+
   computed: {
     ...mapGetters(["getUserUid"]),
   },
 
   methods: {
+    setLoading:function(value){
+      this.isLoading = value;
+    },
     // 챌린지 개설
     CreateChallenge: function(tagList) {
       this.challenge.tagList = tagList;
@@ -204,6 +231,30 @@ export default {
           alert("등록 처리시 에러가 발생했습니다.");
         });
     },
+
+    // // Object To FormData 변환
+      // var formData = new FormData();
+      // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
+      // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
+      // // 이미지
+      // if (this.scndhandReg.imgFile != "") {
+      //   formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일 ^^
+      // }
+      // // 파일업로드시 (경로,FormData,Header) 설정
+      // this.$axios
+      //   .post(url, formData, {
+      //     headers: { "Content-Type": "multipart/form-data" },
+      //   })
+      //   .then((response) => {
+      //     if (!!response && response.status === 200) {
+      //       commonUtils.$alert("감사합니다.\n정상등록되었습니다.");
+      //       this.scndhandReg = Object.assign({}, this.defScndhangReg);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     commonUtils.$alertUncatchedError(error);
+      //   });
 
     // 1페이지
     PageOneNext: function(

@@ -29,6 +29,13 @@
 		where challenge_id = #{challengeId};
 	</select>
 	
+	<!--해당 tag_id를 가지고 있는 챌린지ID 리스트 -->
+	<!-- public Tag[] selectChallengeInTag (int tagID); -->
+	<select id="selectChallengeInTag" resultType="Tag">
+		select *
+		from tag_in_challenge
+		where tag_id = #{tag_id}
+	</select>
 	
 	<!--전체 태그 리스트-->
 	<!--public List<Tag> selectAllTag ();  -->
@@ -46,5 +53,13 @@
 		(challenge_id, tag_id)
 		values (#{challenge_id}, #{tag_id})
 	</insert>
+	
+	<!-- tag in challenge 삭제 -->
+	<!-- public int deleteTagInChallenge (int challengeID); -->
+	<delete id="deleteTagInChallenge" parameterType="int">
+		delete from
+		tag_in_challenge
+		where challenge_id = #{challenge_id}
+	</delete>
 	
 	</mapper>
