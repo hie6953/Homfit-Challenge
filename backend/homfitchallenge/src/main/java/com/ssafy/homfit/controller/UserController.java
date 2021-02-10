@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -340,5 +341,21 @@ public class UserController {
         }
 
         return new ResponseEntity<String>(msg, status);
+    }
+
+    @GetMapping("/favorite/isSetting")
+    public ResponseEntity<Boolean> isFavoriteSetting(@RequestParam String uid){
+        HttpStatus status = null;
+        boolean isSetting = false;
+        
+        try {
+            isSetting = favoriteService.isSetting(uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("선호도 세팅 여부 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(isSetting ,status);
     }
 }

@@ -34,5 +34,10 @@ public class FavoriteServiceImpl implements FavoriteService {
         }
         return true;
     }
+
+    @Override
+    public boolean isSetting(String uid) throws Exception {
+        return sqlSession.getMapper(FavoriteDAO.class).isSetting(uid);
+    }
     
 }

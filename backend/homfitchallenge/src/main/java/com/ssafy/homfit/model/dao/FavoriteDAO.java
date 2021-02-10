@@ -9,4 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FavoriteDAO {
     public void init(String uid) throws SQLException;
     public void updateFavorite(Favorite favorite) throws SQLException;
+    public Boolean isSetting(String uid) throws SQLException;
 }
