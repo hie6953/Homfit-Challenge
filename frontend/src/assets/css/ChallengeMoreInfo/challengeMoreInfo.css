@@ -34,13 +34,10 @@
 @media(min-width:992px){
     .info-float{
         position: fixed;
-        background-color: white;
         width:200px;
         height:65px;
         bottom : 40px;
         right:50px;
-        border-radius: 10px;
-        box-shadow:0 2px 4px 1px rgba(39, 44, 56, 0.2);
     }
 
     .info-main{
@@ -137,20 +134,32 @@
 }
 
 #bookmark-button{
-    background: none;
-    border: none;
-    color:gray;
+    color:white;
+    background-color: #EAC03A;
+    border:none;
 }
 
-.bookmark-fill-color{
-    color: #E65C2E;
-    box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
+#bookmark-button:hover{
+    background-color: #e4b724;
+}
+
+#bookmark-button:focus,
+#bookmark-button:active{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+#info-float-button-group{
+    background-color: #EAC03A;
+    border-radius: 10px;
+    box-shadow:0px 0px 3px rgba(1, 1, 1, 0.2);
 }
 
 .apply-button{
     background-color: #EAC03A;
     border: none;
-    box-shadow:2px 2px 4px 1px rgba(39, 44, 56, 0.1);
+    
 }
 
 .apply-button:hover{
@@ -171,10 +180,9 @@
 
 .apply-button.pc{
     display: inline;
-    width:90%;
-    padding:10px 20px;
     font-size: larger;
     font-weight: 600;
+    padding:10px 30px;
 }
 
 /* 기본 */
