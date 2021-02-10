@@ -1,7 +1,6 @@
 /* 검색바 */
 .search-container {
   padding-top: 10px;
-  width: 80%;
   display: block;
   margin: 0 auto;
   // border-radius: 10px;
@@ -158,6 +157,19 @@ input#search-bar {
 }
 
 /* 피드 */
-.search-feed {
-  width: 100%;
+.mainfeedpage-container {
+  clear: both;
+  padding-top: 15px;
+  padding-bottom: 3rem;
+  display: flex;
+}
+
+.challenge-list-feed {
+  padding: 4px 4px !important;
+  /* transition: transform 300ms ease 100ms; */
+}
+
+.mainfeedpage-container .challenge-list-feed:hover {
+  transform: scale(1.2);
+  z-index: 2;
 }

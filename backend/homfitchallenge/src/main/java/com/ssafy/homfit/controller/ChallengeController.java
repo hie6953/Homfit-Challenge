@@ -389,15 +389,12 @@ public class ChallengeController {
 
 		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
 	}
-
+	
 	/**
-	 * 챌린지 전체리스트 반환
-	 * 
-	 */
-	@GetMapping("/all")
-	public ResponseEntity<List<Challenge>> AllChallengeList(@RequestParam String[] day, @RequestParam int sort,
-			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category,
-			@RequestParam int page) {
+	 * 메인 챌린지 리스트 반환
+	 * */
+	@GetMapping("/main")
+	public ResponseEntity<List<Challenge>> mainChallengeList (@RequestParam int sort) {
 
 		// 캐시 없으면 - 캐시 생성
 		if (!redisTemplate.hasKey("challenge")) {
@@ -407,7 +404,51 @@ public class ChallengeController {
 
 		// 캐시있다면 - 캐시 뿌림
 		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
-		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
+		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환 챌린지 리스트
+
+		// 0. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신
+		if (sort == 0) {
+			Collections.sort(cacheList, new Comparator<Challenge>() {
+				@Override
+				public int compare(Challenge o1, Challenge o2) {
+					return o2.getPeople() - o1.getPeople();
+				}
+			});
+		} else {// 최신순
+			Collections.sort(cacheList, new Comparator<Challenge>() {
+				@Override
+				public int compare(Challenge o1, Challenge o2) {
+					return o2.getChallenge_id() - o1.getChallenge_id();
+				}
+			});
+
+		}
+		
+		for (int i = 0; i < 20; i++) {
+			returnList.add(cacheList.get(i));
+		}
+		
+		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * 챌린지 전체리스트 반환
+	 * 
+	 */
+	@GetMapping("/all")
+	public ResponseEntity<List<Challenge>> AllChallengeListId (@RequestParam String[] day, @RequestParam int sort,
+			@RequestParam int periodStart, @RequestParam int periodEnd, @RequestParam int category) {
+
+		// 캐시 없으면 - 캐시 생성
+		if (!redisTemplate.hasKey("challenge")) {
+			List<Challenge> list = challengeService.AllChallengeList();
+			challengeRepository.saveAll(list);
+		}
+
+		// 캐시있다면 - 캐시 뿌림
+		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환 ID 리스트
 
 		// 0. 정렬 - 기본값: 최신순 / 0:인기순, 1:최신
 		if (sort == 0) {
@@ -447,7 +488,7 @@ public class ChallengeController {
 			}
 		}
 
-		// 3. 필터 - 요일 -> 일단 같은 요일만.2^7
+		// 3. 필터 - 요일 -> 일단 같은 요일만.
 		String param_s = Arrays.toString(day);
 		if (day != null && day.length > 0) {
 			for (Iterator<Challenge> it = cacheList.iterator(); it.hasNext();) {
@@ -458,16 +499,13 @@ public class ChallengeController {
 				}
 			}
 		}
-
-		// 4. 페이징 - 기본값: 1 / 무한스크롤 1, 2, 3 (20p 기준)
-		int end_page = page * 20;
-		int start_page = end_page - 20;
-		if (end_page > cacheList.size()) {
-			end_page = cacheList.size();
+		
+		//4. 전체리스트 반환
+		for (Challenge ch : cacheList) {
+			returnList.add(ch);
 		}
-		for (int i = start_page; i < end_page; i++) {
-			returnList.add((Challenge) cacheList.get(i));
-		}
+		
+		
 		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
 	}
 

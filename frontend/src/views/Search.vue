@@ -2,15 +2,15 @@
   <div class="mt-3">
     <hr id="hr-top" />
 
-    <div class="mx-auto col-12 search-container">
+    <div class="mx-auto col-8 search-container">
       <!-- 검색바 -->
       <div class="search-bar">
-        <form class="row col-8 search-container">
+        <div class="col-12 col-md-10 col-lg-8 search-container">
           <b-dropdown
             class="col-2"
             id="search-dropdown"
             variant="outline-dark"
-            :text="searchList"
+            :text="searchList[searchValue]"
           >
             <b-dropdown-item
               v-for="(value, index) in searchList"
@@ -24,25 +24,26 @@
             type="text"
             id="search-bar"
             placeholder="검색어를 입력해주세요"
+            v-model="keyword"
+            @keyup.enter="ChallengeListSearch"
           />
           <!-- <a href="#"
             ><img
               class="search-icon"
               src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
           /></a> -->
-          <a href="#"
-            ><b-icon
-              icon="search"
-              variant="secondary"
-              class="search-icon"
-            ></b-icon
-          ></a>
-        </form>
+          <b-icon
+            icon="search"
+            variant="secondary"
+            class="search-icon"
+            @click="ChallengeListSearch"
+          ></b-icon>
+        </div>
       </div>
 
       <!-- 태그 -->
       <div class="row search-tag">
-        <ul class="col-xs-12 mx-auto s-tags">
+        <ul class="col-12 col-md-10 col-lg-8 mx-auto s-tags">
           <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#땅끄부부</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#인기태그</a></li>
@@ -59,7 +60,7 @@
           class="search-page-tab"
           justified
         >
-          <b-tab title="리스트">
+          <b-tab title="리스트" active>
             <div class="search-lists">
               <div class="row list-card">
                 <challenge-list-card
@@ -72,11 +73,18 @@
               </div>
             </div>
           </b-tab>
-          <b-tab title="피드" active>
+          <b-tab title="피드">
             <!-- 피드 -->
-            <div class="row">
-              <div class="search-feed">
-                <Feed />
+            <div class="search-lists">
+              <div class="row search-feed">
+                <feed
+                  v-for="(feed, index) in feedList"
+                  class="col-12 col-md-12 col-lg-4 challenge-list-feed"
+                  :key="`${index}_feed`"
+                  :feed="feed"
+                >
+                </feed>
+                <!-- <Feed /> -->
               </div>
             </div>
           </b-tab>
@@ -90,6 +98,8 @@
 import '../assets/css/search.scss';
 import Feed from '../components/Feed.vue';
 import ChallengeListCard from '../components/ChallengeListCard.vue';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'Search',
@@ -99,8 +109,40 @@ export default {
   },
   data: function() {
     return {
-      searchList: ['챌린지명'],
+      keyword: '',
+      searchList: ['제목', '태그'],
+      searchValue: 0,
+      challengeList: [],
+      feedList: [],
     };
+  },
+  methods: {
+    ChallengeListSearch: function() {
+      console.log('hihi');
+      axios
+        .get(`${SERVER_URL}/challenge/search`, {
+          params: { keyword: this.keyword, kind: this.searchValue },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.challengeList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+
+      axios
+        .get(`${SERVER_URL}/feed/search`, {
+          params: { keyword: this.keyword, kind: this.searchValue },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.feedList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
   },
 };
 </script>

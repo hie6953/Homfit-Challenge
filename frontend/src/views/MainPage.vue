@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="main-container container">
       <MainPageAd class="main-component-margin" />
       <MainPageCategory class="main-component-margin" />
       <div class="main-component-margin">
@@ -8,7 +8,7 @@
           <div class="p-2 bd-highlight main-list">인기 챌린지</div>
           <router-link :to="{
             name: 'ChallengeListCategory',
-            params: { category_number: 0, category_sort: 0 },
+            params: { category_sort: 0 },
           }" class="ml-auto p-2 bd-highlight main-more">
             <div class="main-more">전체보기 ></div>
           </router-link>
@@ -23,7 +23,7 @@
           <div class="p-2 bd-highlight main-list">신규 챌린지</div>
           <router-link :to="{
             name: 'ChallengeListCategory',
-            params: { category_number: 0, category_sort: 1 },
+            params: { category_sort: 1 },
           }" class="ml-auto p-2 bd-highlight main-more">
             <div class="main-more">전체보기 ></div>
           </router-link>
@@ -74,14 +74,9 @@ export default {
   },
   created() {
     axios
-        .get(`${SERVER_URL}/challenge/all`, {
+        .get(`${SERVER_URL}/challenge/main`, {
           params: {
-            category: 0, //0:전체, 1~10 카테고리숫자
             sort: 0, //0:인기순,1:최신순
-            periodStart: 0, //period최소값(이상) 7
-            periodEnd: 0, //period최대값(이하) 30
-            day: [], //요일 숫자 배열 [3,4,5]
-            page: 1, //페이지 숫자
           },
         })
         .then(({ data }) => {
@@ -91,14 +86,9 @@ export default {
           alert('챌린지 목록을 불러오지 못했습니다.');
         });
     axios
-        .get(`${SERVER_URL}/challenge/all`, {
+        .get(`${SERVER_URL}/challenge/main`, {
           params: {
-            category: 0, //0:전체, 1~10 카테고리숫자
             sort: 1, //0:인기순,1:최신순
-            periodStart: 0, //period최소값(이상) 7
-            periodEnd: 0, //period최대값(이하) 30
-            day: [], //요일 숫자 배열 [3,4,5]
-            page: 1, //페이지 숫자
           },
         })
         .then(({ data }) => {
@@ -113,7 +103,7 @@ export default {
 
 <style scoped>
 .main-container {
-  padding: 1rem;
+  margin: 0 auto;
 }
 
 .main-component-margin {

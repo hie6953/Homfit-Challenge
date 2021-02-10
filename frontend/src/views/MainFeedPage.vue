@@ -126,8 +126,15 @@
       </div>
     </div>
     <!-- 피드 -->
-    <div class="mainfeedpage-container">
-      <MainFeed />
+    <div class="row col-8 mainfeedpage-container">
+      <main-feed
+        v-for="(feed, index) in feedList"
+        class="col-6 col-md-4 col-lg-3 challenge-list-feed"
+        :key="`${index}_feed`"
+        :feed="feed"
+      >
+      </main-feed>
+      <!-- <MainFeed /> -->
     </div>
   </div>
 </template>
@@ -135,23 +142,57 @@
 <script>
 import '../assets/css/mainfeed/mainfeedpage.css';
 import MainFeed from '../components/MainFeed.vue';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: 'Feed',
+  name: 'MainFeedPage',
   components: {
     MainFeed,
-  },
-  props: {
-    challenge: Object,
   },
   data: function() {
     return {
       category: 0,
+      feedList: [],
     };
   },
+  created() {
+    this.GetFeed();
+  },
+  watch: {
+    category: function() {
+      if (this.category == 0) {
+        this.GetFeed();
+      } else {
+        this.GetFeedbyCategory();
+      }
+    },
+  },
   methods: {
-    ChallengeMoreInfo: function() {
-      this.$emit('moreInfo', this.challenge.challenge_id);
+    GetFeedbyCategory() {
+      axios
+        .get(`${SERVER_URL}/feed/category`, {
+          params: { category: this.category },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.feedList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+
+    GetFeed() {
+      axios
+        .get(`${SERVER_URL}/feed/all`)
+        .then(({ data }) => {
+          console.log(data);
+          this.feedList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
     },
   },
 };

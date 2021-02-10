@@ -1,6 +1,15 @@
 <template>
   <div class="challenge-list-card-total">
     <!-- 챌린지 리스트 카드 -->
+    <div class="bookmark-icon bookmark-disabled">
+      <b-icon
+        id="bookmarkIcon"
+        icon="bookmark-fill"
+        scale="1.6"
+        class="bookmark-btn"
+        @click="DeleteBookmarkBtn"
+      ></b-icon>
+    </div>
     <b-card
       img-src="https://picsum.photos/600/300/?image=25"
       img-alt="Image"
@@ -62,6 +71,7 @@ const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 export default {
   props: {
     challenge: Object,
+    isfromBookmark: Number,
   },
   data() {
     return {
@@ -73,6 +83,10 @@ export default {
     let titleSpan = this.$refs.list_card_title_content.offsetWidth;
     if (titleDiv < titleSpan) {
      this.titleOversize = true;
+    }
+    if (this.isfromBookmark === 1) {
+      const bookmark = document.querySelector('.bookmark-disabled')
+      bookmark.classList.remove('bookmark-disabled')
     }
   },
   methods: {
@@ -93,6 +107,9 @@ export default {
     ChallengeMoreInfo: function() {
       this.$emit("moreInfo", this.challenge.challenge_id);
     },
+    DeleteBookmarkBtn() {
+      this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
+    }
   },
 };
 </script>
