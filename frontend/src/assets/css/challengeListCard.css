@@ -1,8 +1,7 @@
 .challenge-list-card-body {
     margin: 5px 10px;
-    
   }
-  
+
   .challenge-list-card-footer {
     margin: 5px 10px;
   }
@@ -14,14 +13,15 @@
   #list-card-title {
     font-size: large;
     font-weight: 700;
-    overflow: hidden;
     width:100%;
-    height:30px;
+    height:2.8em;
   }
 
-  #list-card-title span {
-    white-space: nowrap;
+  #list-card-title span{
+    line-height: 1.4em;
   }
+
+
 
   .challenge-list-card-total:hover #list-card-title.ellipsis {
     text-overflow: clip;
@@ -29,10 +29,6 @@
   }
 
 
-  .ellipsis{
-    text-overflow: ellipsis;
-  }
-  
   
   .card-user-image {
     width: 15px;

@@ -17,12 +17,12 @@
       no-body
       tag="article"
       style="max-width: 30rem"
-      class="mb-2 shadow"
+      class="mb-2 shadow "
       @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
-        <div id="list-card-title" ref="list_card_title" :class="{ellipsis:titleOversize}">
-          <span ref="list_card_title_content" >{{
+        <div id="list-card-title" ref="list_card_title">
+          <span ref="list_card_title_content">{{
             challenge.challenge_title
           }}</span>
         </div>
@@ -73,17 +73,7 @@ export default {
     challenge: Object,
     isfromBookmark: Number,
   },
-  data() {
-    return {
-      titleOversize : false,
-    }
-  },
   mounted() {
-    let titleDiv = this.$refs.list_card_title.offsetWidth;
-    let titleSpan = this.$refs.list_card_title_content.offsetWidth;
-    if (titleDiv < titleSpan) {
-     this.titleOversize = true;
-    }
     if (this.isfromBookmark === 1) {
       const bookmark = document.querySelector('.bookmark-disabled')
       bookmark.classList.remove('bookmark-disabled')
