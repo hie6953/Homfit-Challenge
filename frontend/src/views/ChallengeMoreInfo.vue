@@ -3,7 +3,7 @@
     <challenge-title
       :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
-      challenge_img=""
+      :challenge_img="challenge.challenge_img"
       :day_certify_count="challenge.day_certify_count"
       :start_date="challenge.start_date"
       :end_date="challenge.end_date"
@@ -120,6 +120,7 @@ import ChallengeContents from "../components/ChallengeMoreInfo/ChallengeContents
 import ChallengeCertifyContents from "../components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
 import ChallengeResult from "../components/ChallengeMoreInfo/ChallengeResult.vue";
 import ChallengeReview from "../components/ChallengeMoreInfo/ChallengeReview.vue";
+import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
 
 import { mapGetters } from "vuex";
@@ -183,6 +184,7 @@ export default {
       })
       .catch(() => {
         alert("챌린지 정보를 불러오지 못했습니다.");
+        this.challenge = ChallengeListDummyData.challengeList[0];
       });
 
     //로그인했으면 북마크, 참여정보 조회

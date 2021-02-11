@@ -11,13 +11,14 @@
       ></b-icon>
     </div>
     <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
+      :img-src="image"
       img-alt="Image"
+      img-height="150"
       img-top
       no-body
       tag="article"
       style="max-width: 30rem"
-      class="mb-2 shadow "
+      class="mb-2 shadow"
       @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
@@ -37,30 +38,6 @@
         <span>{{ challenge.people }}명 참여중</span>
       </div>
     </b-card>
-
-    <!-- <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-top
-      no-body
-      tag="article"
-      style="max-width: 30rem;"
-      class="mb-2 shadow"
-    >
-      <div class="challenge-list-card-body">
-        <span id="card-title">땅끄</span>
-        <br />
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-        <span id="card-user-nick-name">땅끄</span>
-        <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">22일</span>
-      </div>
-      <hr class="challenge-list-card-hr" />
-      <div class="challenge-list-card-footer">
-        <span>22명 참여중</span>
-      </div>
-    </b-card> -->
   </div>
 </template>
 
@@ -73,15 +50,27 @@ export default {
     challenge: Object,
     isfromBookmark: Number,
   },
+  data() {
+    return {
+      image: "",
+    };
+  },
+  created() {
+    if (this.challenge.challenge_img != "") {
+      this.image = this.challenge.challenge_img;
+    } else {
+      this.image = "https://picsum.photos/600/300/?image=25";
+    }
+  },
   mounted() {
     if (this.isfromBookmark === 1) {
-      const bookmark = document.querySelector('.bookmark-disabled')
-      bookmark.classList.remove('bookmark-disabled')
+      const bookmark = document.querySelector(".bookmark-disabled");
+      bookmark.classList.remove("bookmark-disabled");
     }
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
-    GetDayList: function () {
+    GetDayList: function() {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
           .substring(1, this.challenge.daylist_string.length - 1)
@@ -99,7 +88,7 @@ export default {
     },
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
-    }
+    },
   },
 };
 </script>

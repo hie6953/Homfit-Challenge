@@ -22,10 +22,8 @@
   }
 
 
-
-  .challenge-list-card-total:hover #list-card-title.ellipsis {
-    text-overflow: clip;
-    
+  .challenge-list-card-total img{
+    object-fit:cover;
   }
 
 
