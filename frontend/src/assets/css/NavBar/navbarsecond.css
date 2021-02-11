@@ -63,6 +63,10 @@
   transition: all 0.3s ease;
 }
 
+.navbar-second-menu.mobile{
+  padding:8px 16px 4px 16px !important;
+}
+
 .navbar-second-menu-inside{
   width:100%;
 }
@@ -82,11 +86,12 @@
 }
 
 .navbar-second-icon img{
-  height: 30px;
+  height: 25px;
 }
 
 .navbar-second-icon span{
   font-size:xx-small;
   white-space: nowrap;
+  color:#808080;
 }
 
