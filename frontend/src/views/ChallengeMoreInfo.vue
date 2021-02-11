@@ -50,9 +50,8 @@
     </div>
 
     <div v-if="!isMobile">
-      <div v-if="getAccessToken" class="row info-float align-center">
-        <div class="col-2 my-auto">
-          <button class="my-auto" id="bookmark-button" @click="checkBookmark">
+      <b-button-group v-if="getAccessToken" id="info-float-button-group" class="row info-float align-center">
+          <b-button  id="bookmark-button" @click="checkBookmark">
             <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
             <b-icon
               v-if="isBookmarked"
@@ -60,21 +59,16 @@
               icon="bookmark-fill"
               scale="1.6"
             ></b-icon>
-          </button>
-        </div>
-        <div v-if="isParticipant" class="col-10 my-auto">
-          <b-button class="apply-button pc" @click="GoChallengeDoing"
+          </b-button>
+          <b-button v-if="isParticipant" class="apply-button pc" @click="GoChallengeDoing"
             >참여중</b-button
           >
-        </div>
-        <div v-else class="col-10 my-auto">
-          <b-button class="apply-button pc" @click="ChallengeApply"
+          <b-button  v-else class="apply-button pc" @click="ChallengeApply"
             >참가하기</b-button
           >
-        </div>
-      </div>
+      </b-button-group>
       <div v-else class="info-float align-center col-12">
-        <b-button class="apply-button pc mt-2" @click="GoLogin"
+        <b-button class="apply-button no-login pc mt-2" @click="GoLogin"
           >로그인하기</b-button
         >
       </div>
