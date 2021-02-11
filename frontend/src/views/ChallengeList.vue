@@ -278,8 +278,8 @@ export default {
         await this.getAllData();
       }
       let getArray = this.challengeAllList.slice(
-        (this.page - 1) * 20,
-        this.page * 20
+        (this.page - 1) * 10,
+        this.page * 10
       );
       setTimeout(() => {
         if (getArray.length > 0) {
