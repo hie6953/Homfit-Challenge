@@ -59,6 +59,11 @@ const routes = [
     component: () => import('../views/MainFeedPage.vue'),
   },
   {
+    path: '/feedcardlist',
+    name: 'FeedCardList',
+    component: () => import('../views/FeedCardList.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
