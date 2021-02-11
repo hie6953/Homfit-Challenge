@@ -34,7 +34,7 @@
         :mainPageList="newChallengeList"
       />
     </div>
-    <div style="height:100px;">
+    <div style="height: 100px">
       <p></p>
       <p></p>
       <p></p>
@@ -43,24 +43,24 @@
 </template>
 
 <script>
-axios.defaults.paramsSerializer = function(paramObj) {
-    const params = new URLSearchParams()
-    for (const key in paramObj) {
-        params.append(key, paramObj[key])
-    }
-    return params.toString()
-}
+axios.defaults.paramsSerializer = function (paramObj) {
+  const params = new URLSearchParams();
+  for (const key in paramObj) {
+    params.append(key, paramObj[key]);
+  }
+  return params.toString();
+};
 
-import MainPageAd from "../components/MainPage/MainPageAd.vue"
-import MainPageCategory from "../components/MainPage/MainPageCategory.vue"
-import MainPageList from "../components/MainPage/MainPageList.vue"
+import MainPageAd from "../components/MainPage/MainPageAd.vue";
+import MainPageCategory from "../components/MainPage/MainPageCategory.vue";
+import MainPageList from "../components/MainPage/MainPageList.vue";
 
-import axios from 'axios';
+import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-// 신규챌린지와 인기챌린지 20개씩 받아오기
-// 받아온 리스트 MainPageList로 데이터 보내기
+  // 신규챌린지와 인기챌린지 20개씩 받아오기
+  // 받아온 리스트 MainPageList로 데이터 보내기
   components: {
     MainPageAd,
     MainPageCategory,
@@ -70,7 +70,7 @@ export default {
     return {
       newChallengeList: [],
       popularChallengeList: [],
-    }
+    };
   },
   created() {
     axios

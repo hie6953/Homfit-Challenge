@@ -8,4 +8,5 @@ public interface FavoriteService {
 
 	public boolean updateFavorite(Favorite favorite) throws Exception;
 
+	public boolean isSetting(String uid) throws Exception;
 }

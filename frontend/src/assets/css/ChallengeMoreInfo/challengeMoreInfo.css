@@ -1,7 +1,7 @@
 /* 모바일 */
 @media (max-width: 480px) {
     #info-navbar{
-        top:104px;
+        top:64px;
         height:38px;
     }
 }
@@ -17,11 +17,10 @@
     .info-float{
         background-color: white;
         position:fixed;
-        bottom:0px;
+        bottom:64px;
         width: 100%;
         height: 60px;
         z-index:5;
-        box-shadow:-4px 0px 8px 1px rgba(39, 44, 56, 0.2);
     }
 
     .info-main{

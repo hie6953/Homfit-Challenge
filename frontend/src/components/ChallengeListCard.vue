@@ -16,7 +16,7 @@
       img-top
       no-body
       tag="article"
-      style="max-width: 30rem;"
+      style="max-width: 30rem"
       class="mb-2 shadow"
       @click="ChallengeMoreInfo"
     >
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
-    GetDayList: function() {
+    GetDayList: function () {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
           .substring(1, this.challenge.daylist_string.length - 1)

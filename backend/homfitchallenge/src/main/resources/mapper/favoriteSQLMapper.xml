@@ -16,4 +16,9 @@
             setting_first = true
         where uid = #{uid}
     </update>
+
+    <select id="isSetting" parameterType="String" resultType="boolean">
+        select setting_first from favorite
+        where uid = #{uid}
+    </select>
 </mapper>
