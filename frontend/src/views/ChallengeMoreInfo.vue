@@ -31,7 +31,7 @@
     </div>
 
     <div class="row col-12 col-lg-8 mx-auto">
-      <div class="info-main">
+      <div class="col-12 info-main">
         <challenge-contents
           id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
@@ -198,7 +198,7 @@ export default {
   methods: {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
-      this.isMobile = window.innerWidth <= 992;
+      this.isMobile = window.innerWidth <= 480;
     },
     // 스크롤 위치 판단
     handleScroll: function() {
