@@ -37,6 +37,11 @@
     .info-main{
         margin-bottom:30px;
     }
+
+    .more-info-total-score{
+    
+        font-size: large;
+    }
 }
 
 
@@ -97,6 +102,7 @@
 }
 
 
+
 /* 상세 정보 */
 .more-info-title{
     display: inline-block;
@@ -119,6 +125,43 @@
     font-size:small;
     margin-left:3px;
 }
+
+
+/* 챌린지 후기 */
+.more-info-header{
+    display: flex;
+}
+
+.color-yellow{
+    color: #EAC03A;
+}
+
+.color-gray{
+    color: #eeeeee;
+}
+
+.total-score-number{
+    color: gray;
+    font-weight: 600;
+}
+
+.more-info-total-score{
+    
+    margin:auto 0;
+}
+
+.review-go-detail{
+    margin:auto 0 auto auto;
+    background: none;
+    border: none;
+    color:#999999;
+    font-size: small;
+}
+
+#review-more-modal-title{
+    font-weight: 700;
+}
+
 
 
 
@@ -190,4 +233,8 @@
 
 .vertical-align-middle{
     vertical-align: middle;
+}
+
+.width-100{
+    width:100%;
 }
