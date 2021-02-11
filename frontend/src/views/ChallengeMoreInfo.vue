@@ -68,7 +68,7 @@
           >
       </b-button-group>
       <div v-else class="info-float align-center col-12">
-        <b-button class="apply-button pc mt-2" @click="GoLogin"
+        <b-button class="apply-button no-login pc mt-2" @click="GoLogin"
           >로그인하기</b-button
         >
       </div>
