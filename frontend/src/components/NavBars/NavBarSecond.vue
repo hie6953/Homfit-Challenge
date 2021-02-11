@@ -12,7 +12,7 @@
         <router-link to="/challenge-creating" class="second-menu">
           <span>챌린지 개설</span>
         </router-link>
-        <router-link :to="GoChallengeRecommend" class="second-menu">
+        <router-link to="/challenge-recommend" class="second-menu">
           <span>추천 챌린지</span>
         </router-link>
         <router-link to="/" class="second-menu">
@@ -32,10 +32,5 @@ export default {
     return {};
   },
 
-  methods: {
-    GoChallengeRecommend:function(){
-      
-    }
-  },
 };
 </script>

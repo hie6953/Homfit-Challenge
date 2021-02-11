@@ -1,8 +1,7 @@
 <template>
-  <div class="mt-3">
-    <hr id="hr-top" />
+  <b-modal id="select-preference-modal" v-model="modalShow" size="lg" no-close-on-backdrop class="mt-3">
 
-    <div class="mx-auto col-8 select-prefer-container">
+    <div class=" select-prefer-container">
       <!-- 안내문구 -->
       <div class="prefer-info-text">
         <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
@@ -10,7 +9,7 @@
         <hr />
       </div>
       <!-- 관심운동 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           선호하는 운동 종류를 체크해주세요
         </div>
@@ -103,7 +102,7 @@
       </div>
 
       <!-- 관심부위 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           관심 있는 부위를 체크해주세요
         </div>
@@ -194,7 +193,7 @@
       </div>
 
       <!-- 선호요일 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           선호하는 요일을 체크해주세요
         </div>
@@ -266,7 +265,6 @@
       </div>
 
       <!-- 버튼 -->
-      <router-link to="/">
         <div class="prefer-choice-submit-btn">
           <!-- <input
             type="button"
@@ -285,13 +283,12 @@
             aria-disabled="true"
           />
         </div>
-      </router-link>
     </div>
-  </div>
+  </b-modal>
 </template>
 
 <script>
-import '../assets/css/selectpreference.css';
+import '@/assets/css/selectpreference.css';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -303,9 +300,12 @@ export default {
       kindList: [],
       bodyList: [],
       week: [],
+      canGoNext:false,
     };
   },
-
+props:{
+  modalShow:Boolean,
+},
   watch: {
     kindList: function() {
       this.CanGoNext();
@@ -347,10 +347,10 @@ export default {
           console.log(JSON.stringify(this.kindList));
           if (data == 'success') {
             alert('선호도 저장되었엉');
+            this.$emit("modalClose");
           } else {
             alert('실패!!!');
           }
-          // console.log(data);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
