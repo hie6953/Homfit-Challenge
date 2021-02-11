@@ -30,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PointService pointService;
 
+    @Autowired
+    S3Service s3service;
+
     @Override
     public User getUid(String uid) throws Exception {
         return sqlSession.getMapper(UserDAO.class).getUid(uid);
@@ -56,7 +59,7 @@ public class UserServiceImpl implements UserService {
         }
         // // 이메일 중복확인
         // if (user.getEmail()!= null && this.duplicateEmailCheck(user.getEmail()))
-        //     return false;
+        // return false;
         try {
             sqlSession.getMapper(UserDAO.class).signup(user);
             if (!favoriteService.init(user.getUid()))
@@ -146,15 +149,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateImg(String uid, MultipartFile imgFile) throws Exception {
         try {
-            if (uid != null && imgFile != null)
-                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, UploadImg.writeImg(imgFile));
-
-            return true;
-
+            if (uid != null && imgFile != null) {
+                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, s3service.uploadImg(imgFile));
+                
+                return true;
+            }
         } catch (Exception e) {
             return false;
         }
-
+        return false;
     }
 
     @Override
