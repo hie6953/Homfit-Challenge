@@ -67,9 +67,14 @@
   width:100%;
 }
 
-.second-menu.mobile{
+.second-menu-mobile{
+  color:black;
   text-align: center;
   width:20%;
+}
+
+.second-menu-mobile:hover{
+  color:black;
 }
 
 .navbar-second-icon{
