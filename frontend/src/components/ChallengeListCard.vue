@@ -10,6 +10,15 @@
         @click="DeleteBookmarkBtn"
       ></b-icon>
     </div>
+    <div class="challengeManage-icon challengeManage-disabled">
+      <b-icon
+        id="challengeManageIcon"
+        icon="x-circle"
+        scale="1"
+        class="challengeManage-btn"
+        @click="DeleteChallengeManageBtn"
+      ></b-icon>
+    </div>
     <b-card
       img-src="https://picsum.photos/600/300/?image=25"
       img-alt="Image"
@@ -72,10 +81,17 @@ export default {
   props: {
     challenge: Object,
     isfromBookmark: Number,
+    isfromChallengeManage: Number,
+    deleteActive: Number,
   },
   data() {
     return {
       titleOversize : false,
+    }
+  },
+  watch: {
+    deleteActive() {
+      this.DeleteUpdate()
     }
   },
   mounted() {
@@ -105,10 +121,24 @@ export default {
       return "";
     },
     ChallengeMoreInfo: function() {
+      console.log(this.challenge.challenge_id)
       this.$emit("moreInfo", this.challenge.challenge_id);
     },
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
+    },
+    DeleteChallengeManageBtn() {
+      this.$emit("deleteChallengeManage", this.challenge.challenge_id);
+    },
+    DeleteUpdate() {
+      const challengeManage = document.querySelectorAll('.challengeManage-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.deleteActive === 1) {
+          challengeManage[i].classList.remove('challengeManage-disabled')
+        } else {
+          challengeManage[i].classList.add('challengeManage-disabled')
+        }
+      }
     }
   },
 };
