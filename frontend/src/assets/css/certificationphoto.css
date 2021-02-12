@@ -1,0 +1,49 @@
+.certificationphoto-container {
+  margin: auto;
+}
+
+/* 안내문구 */
+.cert-upload-info {
+  margin: auto;
+  text-align: center;
+}
+
+.cert-big {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.cert-small {
+  font-size: 14px;
+}
+/* 이미지 */
+.certification-image-upload {
+  margin: auto;
+}
+
+.form-group {
+  margin: auto;
+  width: 100%;
+}
+
+.custom-file-input.is-valid ~ .custom-file-label,
+.was-validated .custom-file-input:valid ~ .custom-file-label {
+  border-color: #ccc7b8;
+}
+
+.custom-file-input.is-invalid ~ .custom-file-label,
+.was-validated .custom-file-input:invalid ~ .custom-file-label {
+  border-color: #ccc7b8;
+}
+
+.custom-file-input.is-invalid:focus ~ .custom-file-label,
+.was-validated .custom-file-input:invalid:focus ~ .custom-file-label {
+  border-color: #ccc7b8;
+}
+
+.certification-image-name {
+}
+
+.cert-upload-image {
+  width: 80%;
+}
