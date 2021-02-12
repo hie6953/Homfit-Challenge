@@ -162,6 +162,24 @@
     font-weight: 700;
 }
 
+#review-more-modal-sort button{
+    background: none;
+    border:none;
+    color:#EAC03A;
+}
+
+
+#review-more-modal-sort button:hover,
+#review-more-modal-sort button:focus,
+#review-more-modal-sort button:active{
+    background: none;
+    box-shadow: none;
+}
+
+
+#review-more-modal-sort li a:active{
+    background-color: #EAC03A;
+}
 
 
 

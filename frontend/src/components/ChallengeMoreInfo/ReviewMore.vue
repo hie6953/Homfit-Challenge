@@ -1,8 +1,11 @@
 <template>
   <b-modal id="review-more-modal" size="lg" scrollable>
     <template #modal-header="{ close }">
-      <span id="review-more-modal-title">{{challenge_title}}</span>
-      <button type="button" aria-label="Close" class="close" @click="close()">×</button>
+      <span id="review-more-modal-title" class="my-auto">{{challenge_title}}</span>
+      <b-dropdown id="review-more-modal-sort" right class="my-auto ml-auto" :text="sortList[sortValue]">
+        <b-dropdown-item v-for="(sort,index) in sortList" :key="`${index}_sortList`" @click="sortValue = index">{{sort}}</b-dropdown-item>
+      </b-dropdown>
+      <button type="button" aria-label="Close" class="close my-auto ml-0" @click="close()">×</button>
     </template>
       <review
         v-for="(review, index) in reviewList"
@@ -33,6 +36,8 @@ export default {
   data() {
     return {
       page:1,
+      sortValue:0,
+      sortList:['최신순','평점 높은순','평점 낮은순'],
       reviewList: [
         { nick_name: "조아요" },
         { nick_name: "조아요" },
@@ -41,6 +46,11 @@ export default {
         { nick_name: "조아요" },
       ],
     };
+  },
+  watch:{
+    sortValue:function(){
+      console.log(this.sortValue);
+    },
   },
   methods: {
     getData:function(page){
