@@ -1,6 +1,7 @@
 HELP.md
 target/
 **/files/
+**/src/main/resources/cloud.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

@@ -62,3 +62,36 @@
   border-bottom: 2px solid #e65c2e;
   transition: all 0.3s ease;
 }
+
+.navbar-second-menu.mobile{
+  padding:8px 16px 4px 16px !important;
+}
+
+.navbar-second-menu-inside{
+  width:100%;
+}
+
+.second-menu-mobile{
+  color:black;
+  text-align: center;
+  width:20%;
+}
+
+.second-menu-mobile:hover{
+  color:black;
+}
+
+.navbar-second-icon{
+  display: inline-block;
+}
+
+.navbar-second-icon img{
+  height: 25px;
+}
+
+.navbar-second-icon span{
+  font-size:xx-small;
+  white-space: nowrap;
+  color:#808080;
+}
+

@@ -20,8 +20,9 @@
       ></b-icon>
     </div>
     <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
+      :img-src="image"
       img-alt="Image"
+      img-height="150"
       img-top
       no-body
       tag="article"
@@ -30,8 +31,8 @@
       @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
-        <div id="list-card-title" ref="list_card_title" :class="{ellipsis:titleOversize}">
-          <span ref="list_card_title_content" >{{
+        <div id="list-card-title" ref="list_card_title">
+          <span ref="list_card_title_content">{{
             challenge.challenge_title
           }}</span>
         </div>
@@ -46,30 +47,6 @@
         <span>{{ challenge.people }}명 참여중</span>
       </div>
     </b-card>
-
-    <!-- <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-top
-      no-body
-      tag="article"
-      style="max-width: 30rem;"
-      class="mb-2 shadow"
-    >
-      <div class="challenge-list-card-body">
-        <span id="card-title">땅끄</span>
-        <br />
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-        <span id="card-user-nick-name">땅끄</span>
-        <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">22일</span>
-      </div>
-      <hr class="challenge-list-card-hr" />
-      <div class="challenge-list-card-footer">
-        <span>22명 참여중</span>
-      </div>
-    </b-card> -->
   </div>
 </template>
 
@@ -86,7 +63,14 @@ export default {
   },
   data() {
     return {
-      titleOversize : false,
+      image: "",
+    };
+  },
+  created() {
+    if (this.challenge.challenge_img != "") {
+      this.image = this.challenge.challenge_img;
+    } else {
+      this.image = "https://picsum.photos/600/300/?image=25";
     }
   },
   watch: {
@@ -95,19 +79,14 @@ export default {
     }
   },
   mounted() {
-    let titleDiv = this.$refs.list_card_title.offsetWidth;
-    let titleSpan = this.$refs.list_card_title_content.offsetWidth;
-    if (titleDiv < titleSpan) {
-     this.titleOversize = true;
-    }
     if (this.isfromBookmark === 1) {
-      const bookmark = document.querySelector('.bookmark-disabled')
-      bookmark.classList.remove('bookmark-disabled')
+      const bookmark = document.querySelector(".bookmark-disabled");
+      bookmark.classList.remove("bookmark-disabled");
     }
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
-    GetDayList: function () {
+    GetDayList: function() {
       if (this.challenge.daylist_string != null) {
         let list = this.challenge.daylist_string
           .substring(1, this.challenge.daylist_string.length - 1)

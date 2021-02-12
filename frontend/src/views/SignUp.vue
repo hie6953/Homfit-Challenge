@@ -230,14 +230,12 @@
           <div class="user-sign-up-form__form-group__input">
             <b-form-radio
               v-model="sex"
-              :aria-describedby="ariaDescribedby"
               name="some-radios"
               value="f"
               >여자</b-form-radio
             >
             <b-form-radio
               v-model="sex"
-              :aria-describedby="ariaDescribedby"
               name="some-radios"
               value="m"
               >남자</b-form-radio
