@@ -18,7 +18,7 @@
           placeholder="이미지를 업로드해주세요"
           drop-placeholder="이미지를 업로드해주세요"
           required
-          accept=".jpg, .png, .gif, .jpeg"
+          accept="image/*; capture=camera"
           @change="previewImage"
           class="certification-image-upload"
         ></b-form-file>
@@ -31,6 +31,7 @@
 
         <!-- 문구 -->
         <b-form-input
+          v-model="form.content"
           placeholder="예) 땅끄부부 운동 인증샷입니다! 역시 운동하는건 즐거워요 :)"
           class="certification-text-upload"
           content-cols-10
@@ -61,6 +62,7 @@ export default {
         petName: '',
         file: '',
         //   desc: ''
+        content: '',
       },
       show: true,
       previewImageData: null,
