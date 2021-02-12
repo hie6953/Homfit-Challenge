@@ -1,21 +1,27 @@
+/* pc */
 @media (min-width: 480px) {
   :root {
     --progress-bar-width: 10vw;
     --progress-bar-width-half: 5vw;
+    --background-creating-padding-top:40px;
   }
 }
 
+/* mobile */
 @media (max-width: 480px) {
   :root {
     --progress-bar-width: 18vw;
     --progress-bar-width-half: 9vw;
+    --background-creating-padding-top:10px;
   }
+
+
 }
 
 .background-creating {
   /* background-color: #eeeeee; */
   height: 100%;
-  padding-top: 40px;
+  padding-top: var(--background-creating-padding-top);
 }
 
 .component {
