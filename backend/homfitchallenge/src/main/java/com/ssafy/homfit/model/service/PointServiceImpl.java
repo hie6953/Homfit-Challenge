@@ -62,4 +62,16 @@ public class PointServiceImpl implements PointService {
         return sum;
     }
 
+    @Override
+    public int calcPoint(int numberOfParticipants, int numberOfDays, boolean everyoneDoPerfect) throws Exception {
+        int point = Math.round(numberOfDays * numberOfDays * 5 / 9);
+        if(everyoneDoPerfect){
+            if(numberOfParticipants >= 10 && numberOfParticipants < 50) point *= 1.5;
+            else if(numberOfParticipants >= 50 && numberOfParticipants < 100) point *= 2;
+            else if(numberOfParticipants >= 100 && numberOfParticipants < 500) point *= 5;
+            else if(numberOfParticipants >= 505) point *= 10;
+        }
+        
+        return point;
+    }
 }
