@@ -9,20 +9,19 @@
         :feed="feed"
       >
       </feed-card> -->
-      <FeedCard />
-      <FeedCard />
+      <FeedCardChat />
     </div>
   </div>
 </template>
 
 <script>
-import '../assets/css/FeedCard/feedcardlist.css';
-import FeedCard from '../components/FeedCard.vue';
+import '../assets/css/FeedCard/feedcardlistchat.css';
+import FeedCardChat from '../components/FeedCardChat.vue';
 
 export default {
-  name: 'MainFeedPage',
+  name: 'FeedCardListChat',
   components: {
-    FeedCard,
+    FeedCardChat,
   },
   data: function() {
     return {

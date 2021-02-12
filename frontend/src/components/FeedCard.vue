@@ -51,67 +51,12 @@
           좋아요
         </b-button>
 
-        <b-button class="feed-card-button-left">
-          <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
-          댓글
-        </b-button>
-
-        <b-button class="feed-card-button-left">
-          <b-icon
-            icon="arrow-right-circle"
-            variant="warning"
-            aria-hidden="true"
-          ></b-icon>
-          바로가기
-        </b-button>
-
-        <b-button class="feed-card-button-right">
-          <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
-          신고
-        </b-button>
-      </div>
-    </div>
-
-    <br />
-    <div class="feed-card">
-      <div class="feed-card-header">
-        <img
-          src="@/assets/NavBar/anonimous_user.png"
-          class="feed-card-user-image"
-        />
-        <div class="feed-card-user-name">이건내이름이얌</div>
-        <div class="feed-card-time">
-          2021년 02월 11일<i class="fa fa-globe"></i>
-        </div>
-      </div>
-
-      <!-- 이미지 -->
-      <div class="feed-card-img-information">
-        <img
-          src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg"
-          class="feed-card-image"
-        />
-      </div>
-
-      <!-- 챌린지바로가기? or 내용? -->
-      <div class="feed-card-information">
-        <p>왜 벌써 3시야...</p>
-      </div>
-
-      <!-- 하단바_좋아요,댓글,바로가기,신고 -->
-
-      <hr class="feed-card-hr" />
-      <div class="feed-icons">
-        <!-- <a href="#"><span class="feed-card-button-left">좋아요</span></a> -->
-        <b-button class="feed-card-button-left">
-          <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
-          좋아요
-        </b-button>
-
-        <b-button class="feed-card-button-left">
-          <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
-          댓글
-        </b-button>
+        <router-link to="/feedcardlistchat">
+          <b-button class="feed-card-button-left">
+            <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
+            댓글
+          </b-button>
+        </router-link>
 
         <b-button class="feed-card-button-left">
           <b-icon
@@ -132,7 +77,7 @@
 </template>
 
 <script>
-import '../assets/css/feedcard.css';
+import '../assets/css/FeedCard/feedcard.css';
 
 export default {
   name: 'FeedCard',
