@@ -215,6 +215,7 @@ export default {
   //     .get(`${SERVER_URL}/challenge/bookmark/${this.getUserUid}`)
   //     .then((data) => {
   //       this.challengeList = data.data
+  //       // 해당 리스트에 담기
   //       for (let i = 0; i<challengeList.length; i++) {
   //         if (challengeList[i].check_date === 0) {
   //           this.items[1].push(challengeList[i])
@@ -237,6 +238,7 @@ export default {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
     DeleteChallenge(challenge_id) {
+      // 삭제 버튼 클릭시 리스트[1]에서 삭제
       const itemToFind = this.lists[1].find(function(item) {return item.challenge_id === challenge_id})
       const idx = this.lists[1].indexOf(itemToFind)
       if (idx > -1) this.lists[1].splice(idx, 1)
@@ -252,6 +254,7 @@ export default {
       //   });
     },
     tabValue(num) {
+      // 탭 누르면 카테고리 0으로 초기화, 해당 탭내용으로 변경
       this.category = 0
       document.querySelector(`.tab-${this.tab}`).classList.remove("active")
       document.querySelector(`.tab-${num}`).classList.add("active")
@@ -264,7 +267,7 @@ export default {
       this.items = this.lists[num]
     },
     updateCategory() {
-      console.log(this.category)
+      // 카테고리에 따른 데이터 정렬
       if (this.category > 0) {
         this.items = []
         for (let i = 0; i<this.lists[this.tab].length; i++) {

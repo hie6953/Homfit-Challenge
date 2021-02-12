@@ -131,6 +131,7 @@ export default {
       this.$emit("deleteChallengeManage", this.challenge.challenge_id);
     },
     DeleteUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 활성화
       const challengeManage = document.querySelectorAll('.challengeManage-icon')
       for (let i = 0; i<challengeManage.length; i++) {
         if (this.deleteActive === 1) {
