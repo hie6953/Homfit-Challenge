@@ -10,7 +10,7 @@
         >
       </div>
       <!-- 업로드 -->
-      <b-form-group class="row col-12 col-md-8">
+      <b-form-group class="row col-12 cert-form-group">
         <!-- 이미지 -->
         <b-form-file
           v-model="form.file"
@@ -22,9 +22,9 @@
           @change="previewImage"
           class="certification-image-upload"
         ></b-form-file>
-        <div class="certification-image-name">
+        <!-- <div class="certification-image-name">
           파일명: {{ form.file ? form.file.name : '' }}
-        </div>
+        </div> -->
         <div class="">
           <b-img class="cert-upload-image" :src="previewImageData"></b-img>
         </div>
@@ -33,13 +33,17 @@
         <b-form-input
           placeholder="예) 땅끄부부 운동 인증샷입니다! 역시 운동하는건 즐거워요 :)"
           class="certification-text-upload"
+          content-cols-10
+          style="height:100px"
         >
         </b-form-input>
 
         <!-- 제출 -->
-        <b-button type="submit" class="certification-submit" variant="warning"
-          >업로드</b-button
-        >
+        <div class="align-center">
+          <b-button type="submit" class="certification-submit" variant="warning"
+            >업로드</b-button
+          >
+        </div>
       </b-form-group>
     </div>
   </div>
@@ -53,7 +57,11 @@ export default {
   components: {},
   data: function() {
     return {
-      form: { petName: '', file: '', desc: '' },
+      form: {
+        petName: '',
+        file: '',
+        //   desc: ''
+      },
       show: true,
       previewImageData: null,
     };
@@ -68,7 +76,7 @@ export default {
       // Reset
       this.form.petName = '';
       this.form.file = '';
-      this.form.desc = '';
+      //   this.form.desc = '';
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
