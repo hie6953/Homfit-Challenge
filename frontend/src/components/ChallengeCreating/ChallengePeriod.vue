@@ -14,6 +14,7 @@
       <vl-range-selector
         :startDate="start_date"
         :endDate="end_date"
+         class="col-md-12 mx-auto"
         @startDate="(date) => updateStartDate(date)"
         @endDate="(date) => updateEndDate(date)"
       ></vl-range-selector>

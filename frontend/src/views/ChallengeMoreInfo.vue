@@ -3,7 +3,7 @@
     <challenge-title
       :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
-      challenge_img=""
+      :challenge_img="challenge.challenge_img"
       :day_certify_count="challenge.day_certify_count"
       :start_date="challenge.start_date"
       :end_date="challenge.end_date"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="row col-12 col-lg-8 mx-auto">
-      <div class="info-main">
+      <div class="col-12 info-main">
         <challenge-contents
           id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
@@ -50,9 +50,8 @@
     </div>
 
     <div v-if="!isMobile">
-      <div v-if="getAccessToken" class="row info-float align-center">
-        <div class="col-2 my-auto">
-          <button class="my-auto" id="bookmark-button" @click="checkBookmark">
+      <b-button-group v-if="getAccessToken" id="info-float-button-group" class="row info-float align-center">
+          <b-button  id="bookmark-button" @click="checkBookmark">
             <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
             <b-icon
               v-if="isBookmarked"
@@ -60,21 +59,16 @@
               icon="bookmark-fill"
               scale="1.6"
             ></b-icon>
-          </button>
-        </div>
-        <div v-if="isParticipant" class="col-10 my-auto">
-          <b-button class="apply-button pc" @click="GoChallengeDoing"
+          </b-button>
+          <b-button v-if="isParticipant" class="apply-button pc" @click="GoChallengeDoing"
             >참여중</b-button
           >
-        </div>
-        <div v-else class="col-10 my-auto">
-          <b-button class="apply-button pc" @click="ChallengeApply"
+          <b-button  v-else class="apply-button pc" @click="ChallengeApply"
             >참가하기</b-button
           >
-        </div>
-      </div>
+      </b-button-group>
       <div v-else class="info-float align-center col-12">
-        <b-button class="apply-button pc mt-2" @click="GoLogin"
+        <b-button class="apply-button no-login pc mt-2" @click="GoLogin"
           >로그인하기</b-button
         >
       </div>
@@ -120,6 +114,7 @@ import ChallengeContents from "../components/ChallengeMoreInfo/ChallengeContents
 import ChallengeCertifyContents from "../components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
 import ChallengeResult from "../components/ChallengeMoreInfo/ChallengeResult.vue";
 import ChallengeReview from "../components/ChallengeMoreInfo/ChallengeReview.vue";
+import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
 
 import { mapGetters } from "vuex";
@@ -183,6 +178,7 @@ export default {
       })
       .catch(() => {
         alert("챌린지 정보를 불러오지 못했습니다.");
+        this.challenge = ChallengeListDummyData.challengeList[0];
       });
 
     //로그인했으면 북마크, 참여정보 조회
@@ -202,7 +198,7 @@ export default {
   methods: {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
-      this.isMobile = window.innerWidth <= 992;
+      this.isMobile = window.innerWidth <= 480;
     },
     // 스크롤 위치 판단
     handleScroll: function() {

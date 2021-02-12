@@ -3,7 +3,7 @@
     <div class="vl-calendar-month__title">{{ year }}년 {{ month + 1 }}월</div>
 
     <div class="vl-flex">
-      <div>
+      <div class="mx-auto">
         <div class="vl-flex">
           <span
             v-for="name in daysNames"

@@ -59,6 +59,16 @@ const routes = [
     component: () => import('../views/MainFeedPage.vue'),
   },
   {
+    path: '/feedcardlistchat',
+    name: 'FeedCardListChat',
+    component: () => import('../views/FeedCardListChat.vue'),
+  },
+  {
+    path: '/feedcardlist',
+    name: 'FeedCardList',
+    component: () => import('../views/FeedCardList.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
@@ -73,6 +83,12 @@ const routes = [
     path:'/challenge-edit/:challenge_id',
     name:"ChallengeEdit",
     component: () => import('../views/ChallengeEdit.vue'),
+  },
+  {
+    path:'/challenge-recommend',
+    name:"ChallengeRecommend",
+    component: () => import('../views/ChallengeRecommend.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/mypage',
@@ -96,12 +112,6 @@ const routes = [
     path: '/mypoint',
     name: 'MyPoint',
     component: () => import('../views/MyPoint.vue'),
-    beforeEnter: requireAuth(),
-  },
-  {
-    path: '/selectpreference',
-    name: 'SelectPreference',
-    component: () => import('../views/SelectPreference.vue'),
     beforeEnter: requireAuth(),
   },
   {

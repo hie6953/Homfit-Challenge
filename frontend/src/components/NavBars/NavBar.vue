@@ -33,21 +33,6 @@
           ></nav-bar-notice-card>
         </b-nav-item-dropdown>
 
-        <!-- 북마크 -->
-        <router-link
-          to="/bookmark"
-          v-if="getAccessToken"
-          class="mt-auto mb-auto main-menu"
-          ><b-icon
-            id="bookmarkIcon"
-            icon="bookmark"
-            scale="1.6"
-            variant="dark"
-          ></b-icon>
-          <b-tooltip target="bookmarkIcon" triggers="hover">
-            북마크
-          </b-tooltip>
-        </router-link>
 
         <!-- 마이페이지 -->
         <b-nav-item-dropdown
@@ -72,7 +57,8 @@
               </b-tooltip>
             </button>
           </template>
-          <b-nav-item><router-link id="myPageLink" to="/mypage">마이페이지</router-link></b-nav-item>
+          <b-nav-item><router-link class="myPageIconLink" to="/mypage">마이페이지</router-link></b-nav-item>
+          <b-nav-item><router-link class="myPageIconLink" to="/bookmark">북마크</router-link></b-nav-item>
           <b-nav-item><button id="logoutButton" @click="LogOut">로그아웃</button></b-nav-item>
         </b-nav-item-dropdown>
         <!-- <router-link

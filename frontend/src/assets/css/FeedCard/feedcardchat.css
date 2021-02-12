@@ -1,0 +1,158 @@
+.feedchat-border {
+  border: 15px solid #fff;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.feedchat-card {
+  background: #ffffff;
+  /* border: 2px solid #e2e2e2; */
+  border-radius: 7px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.feedchat-card-header {
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-right: 30px;
+}
+
+.feedchat-card-user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  vertical-align: middle;
+  margin-top: 12px;
+}
+
+.feedchat-card-user-name {
+  font-weight: bold;
+  margin-left: 5px;
+  font-size: 17px;
+  color: #eac03a;
+  display: inline;
+}
+
+.feedchat-card-time {
+  color: #999;
+  margin-left: 52px;
+  margin-top: -21px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  font-size: 13px;
+}
+
+/* 글내용 이미지 */
+.feedchat-card-img-information {
+  padding-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+}
+.feedchat-card-image {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+/* 글내용 텍스트 */
+.feedchat-card-information {
+  padding-top: 10px;
+  margin-left: 30px;
+  margin-right: 20px;
+  display: flex;
+}
+
+/* 하단바 */
+.feedchat-card-hr {
+  border: none;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 10px;
+  margin: 20px;
+}
+
+/* 버튼 */
+.feedchat-icons {
+  font-weight: regular;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 25px;
+  margin-bottom: 15px;
+  margin-top: -11px;
+}
+
+.feedchat-icons .btn-secondary {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.feedchat-icons .btn-secondary:active {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #fff;
+}
+.feedchat-icons .btn-secondary:hover {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.feedchat-right {
+  float: right;
+  margin-right: 1px;
+  padding-top: 0px;
+  text-align: right;
+}
+
+.feedchat-card-button-left {
+  float: left;
+  font-size: 14px;
+}
+
+.feedchat-card-button-right {
+  float: right;
+  font-size: 14px;
+}
+
+/* 댓글 */
+.feedchat-card-comments {
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-bottom: 12px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Comment-section {
+  vertical-align: middle;
+}
+
+.commenter-image {
+  padding-right: 5px;
+  float: left;
+  border-radius: 100%;
+}
+
+.user {
+  font-weight: bold;
+  color: black;
+}
+
+.comment {
+  color: #90949c;
+}
+
+.comment-time {
+  color: #90949c;
+  font-size: 12px;
+  padding-left: 38px;
+}

@@ -188,6 +188,8 @@
 import ChallengeListCard from "../components/ChallengeListCard.vue";
 import ChallengeListFilter from "../components/ChallengeListFilter.vue";
 import InfiniteLoading from "vue-infinite-loading";
+
+import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/challengelist.css";
 
 import axios from "axios";
@@ -224,8 +226,6 @@ export default {
       page: 1,
       challengeAllList: null,
       challengeList: [],
-      scrollUpDelay: 1,
-      scrollUpSpeed: 30,
     };
   },
   created() {
@@ -269,6 +269,7 @@ export default {
         })
         .catch(() => {
           alert("챌린지 목록을 불러오지 못했습니다.");
+          this.challengeAllList = ChallengeListDummyData.challengeList;
         });
     },
 
@@ -277,8 +278,8 @@ export default {
         await this.getAllData();
       }
       let getArray = this.challengeAllList.slice(
-        (this.page - 1) * 20,
-        this.page * 20
+        (this.page - 1) * 10,
+        this.page * 10
       );
       setTimeout(() => {
         if (getArray.length > 0) {

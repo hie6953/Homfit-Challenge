@@ -91,9 +91,14 @@
   overflow: hidden;
 }
 
-#myPageLink{
+.myPageIconLink{
   text-decoration: none;
   color:black;
+}
+
+.myPageIconLink:hover{
+  text-decoration: none;
+  color:#E65C2E;
 }
 
 #logoutButton{
@@ -101,6 +106,10 @@
   outline: none;
   border:none;
   padding:0px !important;
+}
+
+#logoutButton:hover{
+  color:#E65C2E;
 }
 
 
