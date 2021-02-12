@@ -69,13 +69,13 @@
 		good_img, bad_img, day_certify_count,
 		only_cam, start_date, end_date,
 		make_date, make_uid, fit_id,
-		check_date, period, daylist_string)
+		check_date, period, daylist_string,bodylist_string, certification )
 		values(#{challenge_title},
 		#{challenge_contents}, #{challenge_img},
 		#{challenge_certify_contents},#{good_img}, #{bad_img},
 		#{day_certify_count}, #{only_cam}, #{start_date}, #{end_date},
 		#{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period},
-		#{daylist_string})
+		#{daylist_string}, #{bodylist_string}, #{certification})
 	</insert>
 
 	<!-- 챌린지 요일 등록 -->
