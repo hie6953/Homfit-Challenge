@@ -109,7 +109,11 @@ const routes = [
     name: 'ChallengeManage',
     component: () => import('../views/ChallengeManage.vue'),
   },
- 
+  {
+    path: '/diary',
+    name: 'Diary',
+    component: () => import('../views/Diary.vue'),
+  },
   {
     path: '/search',
     name: 'Search',
