@@ -44,7 +44,7 @@
       </div>
       <hr class="challenge-list-card-hr" />
       <div class="challenge-list-card-footer">
-        <span>{{ challenge.people }}명 참여중</span>
+        <span>{{ challenge.people }}명 참여</span>
       </div>
     </b-card>
   </div>
@@ -67,7 +67,8 @@ export default {
     };
   },
   created() {
-    if (this.challenge.challenge_img != "") {
+    console.log(this.challenge);
+    if (this.challenge.challenge_img != "" && this.challenge.challenge_img != null) {
       this.image = this.challenge.challenge_img;
     } else {
       this.image = "https://picsum.photos/600/300/?image=25";
