@@ -8,23 +8,14 @@
   text-align: right;
 }
 
-#challenge-edit-dropdown button{
+#go-challenge-edit{
   background:none;
   border:none;
-  color:gray;
+  transition:0.3s;
 }
 
-#challenge-edit-dropdown button:focus{
-  box-shadow: none !important;
-}
-
-#challenge-edit-dropdown button::after{
-display: none;
-}
-
-#delete-challenge-info{
-  font-size: xx-small;
-  color:#e65c2e;
+#go-challenge-edit:hover{
+  transform: scale(1.2);
 }
 
 

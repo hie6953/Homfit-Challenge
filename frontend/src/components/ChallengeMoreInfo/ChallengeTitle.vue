@@ -1,87 +1,73 @@
 <template>
-  <div>
-    <div class="challenge-title-background">
-      <!-- 설정버튼 -->
-      <div v-if="equalNickName" class="col-12 col-md-9 mx-auto edit-menu">
-        <b-dropdown id="challenge-edit-dropdown" right>
-          <template #button-content>
-            <b-icon icon="gear" scale="1.2"></b-icon>
-          </template>
-          <b-dropdown-item @click="GoChallengeEdit">챌린지 수정</b-dropdown-item>
-          <b-dropdown-item id="delete-challenge" :disabled="people>1">
-            <span>챌린지 삭제</span>
-            <br>
-            <span id="delete-challenge-info"><b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> 참가인원이 1명이하일 때만 삭제가 가능합니다.</span>  
-          </b-dropdown-item>
-        </b-dropdown>
-        <b-tooltip
-          target="challenge-edit-dropdown"
-          triggers="hover"
-          placement="bottomleft"
-        >
-          챌린지 설정
-        </b-tooltip>
+<div>
+  <div class="challenge-title-background">
+    <!-- 설정버튼 -->
+    <div v-if="equalNickName" class="col-12 col-md-9 mx-auto edit-menu">
+      <button id="go-challenge-edit" @click="GoChallengeEdit"><b-icon icon="gear" scale="1.2"></b-icon></button>
+      <b-tooltip target="go-challenge-edit" triggers="hover" placement="bottomleft">
+       챌린지 수정하기
+      </b-tooltip>
+    </div>
+    <!-- 챌린지 타이틀 -->
+    <div class="row col-12 col-md-8 mx-auto">
+      <div class="col-12 col-md-6">
+        <img id="challenge-img" :src="titleImage" />
       </div>
-      <!-- 챌린지 타이틀 -->
-      <div class="row col-12 col-md-8 mx-auto">
-        <div class="col-12 col-md-6">
-          <img id="challenge-img" :src="titleImage" />
-        </div>
-        <div class="col-12 col-md-6 my-auto">
-          <div class="challenge-info">
-            <span id="title-fit-category" class="ml-1">
-              <span v-if="fit_id != 9">{{ fitKind[kind] }}</span>
-              <span v-if="fit_id != 9" id="fit-category-arrow"> > </span>
-              <span>{{ fitList[fit_id] }}</span>
-            </span>
-            <br />
-            <span id="title-main-title"
-              >{{ challenge_title }}
-              <span
-                id="title-check-date"
-                :class="{
-                  'check-date-todo': check_date == 0,
-                  'check-date-doing': check_date == 1,
-                  'check-date-done': check_date == 2,
-                }"
-                >{{ checkDateList[check_date] }}</span
-              ></span
-            >
-            <br />
+      <div class="col-12 col-md-6 my-auto">
+        <div class="challenge-info">
+          <span id="title-fit-category" class="ml-1">
+            <span v-if="fit_id != 9">{{ fitKind[kind] }}</span>
+            <span v-if="fit_id != 9" id="fit-category-arrow"> > </span>
+            <span>{{ fitList[fit_id] }}</span>
+          </span>
+          <br />
+          <span id="title-main-title"
+            >{{ challenge_title }}
+            <span
+              id="title-check-date"
+              :class="{
+                'check-date-todo': check_date == 0,
+                'check-date-doing': check_date == 1,
+                'check-date-done': check_date == 2,
+              }"
+              >{{ checkDateList[check_date] }}</span
+            ></span
+          >
+          <br />
 
-            <ul id="title-info-ul">
-              <li>
-                <span class="text-emphasize">{{ period }}일간</span>
-                <span class="text-not-emphasize ml-1"
-                  >({{ start_date }}~{{ end_date }})</span
-                >
-              </li>
-              <li>
-                <span class="text-emphasize">{{ GetDayList() }}요일</span>
-                <span> 하루 </span>
-                <span class="text-emphasize"> {{ day_certify_count }}회</span>
-                <span> 인증해주세요!</span>
-              </li>
-            </ul>
-            <div v-if="tagList != null && tagList.length > 0">
-              <span
-                ><b-icon icon="hash" variant="warning" scale="1.5"></b-icon
-              ></span>
-              <span
-                v-for="(tag, index) in tagList"
-                :key="`${index}_tagList`"
-                class="title-tag"
-                >{{ tag }}
-              </span>
-            </div>
+          <ul id="title-info-ul">
+            <li>
+              <span class="text-emphasize">{{ period }}일간</span>
+              <span class="text-not-emphasize ml-1"
+                >({{ start_date }}~{{ end_date }})</span
+              >
+            </li>
+            <li>
+              <span class="text-emphasize">{{ GetDayList() }}요일</span>
+              <span> 하루 </span>
+              <span class="text-emphasize"> {{ day_certify_count }}회</span>
+              <span> 인증해주세요!</span>
+            </li>
+          </ul>
+          <div v-if="tagList != null && tagList.length > 0">
+            <span
+              ><b-icon icon="hash" variant="warning" scale="1.5"></b-icon
+            ></span>
+            <span
+              v-for="(tag, index) in tagList"
+              :key="`${index}_tagList`"
+              class="title-tag"
+              >{{ tag }}
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div class="challenge-people-background">
+  </div>
+   <div class="challenge-people-background">
       <table class="col-11 col-md-3 mx-auto">
         <tr>
-          <td class="font-wight-600"><b-icon icon="dot" />참가인원</td>
+          <td class="font-wight-600"><b-icon icon="dot"/>참가인원</td>
           <td class="align-center">
             <span>현재 </span>
             <span class="text-emphasize">{{ people }}명</span>
@@ -89,7 +75,7 @@
           </td>
         </tr>
         <tr>
-          <td class="font-wight-600"><b-icon icon="dot" />개설자</td>
+          <td class="font-wight-600"><b-icon icon="dot"/>개설자</td>
           <td class="align-center">
             <span
               ><img
@@ -110,7 +96,7 @@ const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 export default {
   name: "ChallengeTitle",
   props: {
-    equalNickName: Boolean,
+    equalNickName:Boolean,
     challenge_title: String,
     challenge_img: String,
     day_certify_count: Number,
@@ -144,13 +130,13 @@ export default {
         "기타",
       ],
       fitCategory: "",
-      titleImage: "",
+      titleImage:'',
     };
   },
   created() {
-    if (this.challenge_img == "") {
+    if(this.challenge_img == ""){
       this.titleImage = "https://picsum.photos/600/300/?image=25";
-    } else {
+    }else{
       this.titleImage = this.challenge_img;
     }
   },
@@ -169,9 +155,9 @@ export default {
       }
       return "";
     },
-    GoChallengeEdit: function() {
-      this.$emit("challengeEdit");
-    },
+  GoChallengeEdit:function(){
+    this.$emit("challengeEdit");
+  },
   },
 };
 </script>
