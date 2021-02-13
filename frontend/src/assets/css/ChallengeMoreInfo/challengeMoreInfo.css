@@ -1,258 +1,303 @@
 /* 모바일 */
 @media (max-width: 480px) {
-    #info-navbar{
-        top:64px;
-        height:38px;
-    }
+  #info-navbar {
+    top: 64px;
+    height: 38px;
+  }
 
-    .info-float{
-        background-color: white;
-        position:fixed;
-        bottom:60px;
-        width: 100%;
-        height: 60px;
-        z-index:5;
-        box-shadow:0px 0px 2px rgba(1, 1, 1, 0.1);
-    }
+  .info-float {
+    background-color: white;
+    position: fixed;
+    bottom: 60px;
+    width: 100%;
+    height: 60px;
+    z-index: 5;
+    box-shadow: 0px 0px 2px rgba(1, 1, 1, 0.1);
+  }
 
-    .info-main{
-        margin-bottom:80px;
-    }
+  .info-main {
+    margin-bottom: 80px;
+  }
+
+  #bookmark-button {
+    color: #eac03a;
+    background: none;
+    border: none;
+  }
+
+  #bookmark-button:focus,
+  #bookmark-button:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .challenge-result-content {
+    text-align: center;
+    margin-top:10px;
+  }
 }
 /* PC */
 @media (min-width: 480px) {
-    #info-navbar{
-        top:130px;
-    }
+  #info-navbar {
+    top: 130px;
+  }
 
-    .info-float{
-        position: fixed;
-        width:200px;
-        height:65px;
-        bottom : 40px;
-        right:50px;
-        z-index:5;
-    }
+  .info-float {
+    position: fixed;
+    width: 250px;
+    bottom: 40px;
+    right: 50px;
+    z-index: 5;
+  }
 
-    .info-main{
-        margin-bottom:30px;
-    }
+  .info-main {
+    margin-bottom: 30px;
+  }
 
-    .more-info-total-score{
-    
-        font-size: large;
-    }
+  .more-info-total-score {
+    font-size: large;
+  }
+
+  #bookmark-button {
+    color: white;
+    background-color: #eac03a;
+    border: none;
+  }
+
+  #bookmark-button:hover {
+    background-color: #e4b724;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  #bookmark-button:focus,
+  #bookmark-button:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+
+  .challenge-result-content {
+    line-height: 120px;
+    vertical-align: middle;
+  }
 }
-
 
 /* 상세페이지 네비게이션바 */
-#info-navbar{
-    background-color:#EAC03A;
-    position:sticky;
-    height: 50px;
-    z-index: 5;
+#info-navbar {
+  background-color: #eac03a;
+  position: sticky;
+  height: 50px;
+  z-index: 5;
 }
 
-.info-navbar-ul{
-    display: inline-block;
-    list-style: none;
-    padding:0 !important;
-    margin-bottom: 0px !important;
+.info-navbar-ul {
+  display: inline-block;
+  list-style: none;
+  padding: 0 !important;
+  margin-bottom: 0px !important;
 }
 
 .info-navbar-ul li {
-    position:relative;
-    z-index: 1;
-    display: inline-block;
-    padding:12px 5vw;
-    font-size: large;
-    font-weight: 700;
-    color: white;
-  }
-  .info-navbar-ul li:hover {
-    color: #000000;
-  }
-  .info-navbar-ul li:after {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    width: 100%;
-    height: 1px;
-    content: '.';
-    color: transparent;
-    background: #fafafa60;
-    visibility: none;
-    opacity: 0;
-    z-index: -1;
-  }
-  .info-navbar-ul li:hover:after {
-    opacity: 1;
-    visibility: visible;
-    height: 100%;
-  }
-
-  .info-navbar-ul li,
-  .info-navbar-ul li:after,
-  .info-navbar-ul li:before {
-  transition: all .5s;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 12px 5vw;
+  font-size: large;
+  font-weight: 700;
+  color: white;
+}
+.info-navbar-ul li:hover {
+  color: #000000;
+}
+.info-navbar-ul li:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 1px;
+  content: ".";
+  color: transparent;
+  background: #fafafa60;
+  visibility: none;
+  opacity: 0;
+  z-index: -1;
+}
+.info-navbar-ul li:hover:after {
+  opacity: 1;
+  visibility: visible;
+  height: 100%;
 }
 
-
+.info-navbar-ul li,
+.info-navbar-ul li:after,
+.info-navbar-ul li:before {
+  transition: all 0.5s;
+}
 
 /* 상세 정보 */
-.more-info-title{
-    display: inline-block;
-    
-    margin: 10px 0px;
-    padding:5px 10px;
+.more-info-title {
+  display: inline-block;
 
-    background-color: #eac13a50;
-    border-radius: 10px;
+  margin: 10px 0px;
+  padding: 5px 10px;
 
-    font-size: larger;
-    font-weight: 600;
-   
+  background-color: #eac13a50;
+  border-radius: 10px;
+
+  font-size: larger;
+  font-weight: 600;
 }
 
-
-
 /* 챌린지 인증방법 */
-.certify-contents-onlycam span{
-    font-size:small;
-    margin-left:3px;
+.certify-contents-onlycam span {
+  font-size: small;
+  margin-left: 3px;
+}
+
+.certify-content-img-title{
+  margin-top:10px;
+}
+
+.certify-content-img-title span{
+  font-weight: 600;
+  color: #eac13a;
+  border-radius: 10px;
+}
+
+.certify-content-img{
+  height:180px;
+  width:100%;
+}
+
+/* 챌린지 달성률 */
+.challenge-result-rate {
+  display: inline-block;
+  text-align: center;
 }
 
 
 /* 챌린지 후기 */
-.more-info-header{
-    display: flex;
+.more-info-header {
+  display: flex;
 }
 
-.color-yellow{
-    color: #EAC03A;
+.color-yellow {
+  color: #eac03a;
 }
 
-.color-gray{
-    color: #eeeeee;
+.color-gray {
+  color: #eeeeee;
 }
 
-.total-score-number{
-    color: gray;
-    font-weight: 600;
+.total-score-number {
+  color: gray;
+  font-weight: 600;
 }
 
-.more-info-total-score{
-    
-    margin:auto 0;
+.more-info-total-score {
+  margin: auto 0;
 }
 
-.review-go-detail{
-    margin:auto 0 auto auto;
-    background: none;
-    border: none;
-    color:#999999;
-    font-size: small;
+.review-go-detail {
+  margin: auto 0 auto auto;
+  background: none;
+  border: none;
+  color: #999999;
+  font-size: small;
 }
 
-#review-more-modal-title{
-    font-weight: 700;
+#review-more-modal-title {
+  font-weight: 700;
 }
 
-#review-more-modal-sort button{
-    background: none;
-    border:none;
-    color:#EAC03A;
+#review-more-modal-sort button {
+  background: none;
+  border: none;
+  color: #eac03a;
 }
-
 
 #review-more-modal-sort button:hover,
 #review-more-modal-sort button:focus,
-#review-more-modal-sort button:active{
-    background: none;
-    box-shadow: none;
+#review-more-modal-sort button:active {
+  background: none;
+  box-shadow: none;
 }
 
-
-#review-more-modal-sort li a:active{
-    background-color: #EAC03A;
+#review-more-modal-sort li a:active {
+  background-color: #eac03a;
 }
-
-
 
 /* 참여버튼 창 */
-.info-float-inside{
-    height: 100%;
+.info-float-inside {
+  height: 100%;
 }
 
-#bookmark-button{
-    color:white;
-    background-color: #EAC03A;
-    border:none;
+#info-float-button-group {
+  background-color: #eac03a;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgba(1, 1, 1, 0.2);
 }
 
-#bookmark-button:hover{
-    background-color: #e4b724;
+.apply-button {
+  background-color: #eac03a;
+  border: none;
 }
 
-#bookmark-button:focus,
-#bookmark-button:active{
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-#info-float-button-group{
-    background-color: #EAC03A;
-    border-radius: 10px;
-    box-shadow:2px 2px 3px rgba(1, 1, 1, 0.2);
-}
-
-.apply-button{
-    background-color: #EAC03A;
-    border: none;
-    
-}
-
-.apply-button:hover{
-    background-color: #e4b724;
+.apply-button:hover {
+  background-color: #e4b724;
 }
 .apply-button:focus,
-.apply-button:active{
-    border: none;
-    outline: none;
-    box-shadow: none;
-    background-color: #e4b724 !important;
+.apply-button:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: #e4b724 !important;
 }
 
-.apply-button.mobile{
-    width: 100%;
-    height: 45px;
+.apply-button.mobile {
+  width: 100%;
+  height: 45px;
 }
 
-.apply-button.pc{
-    display: inline;
-    font-size: larger;
-    font-weight: 600;
-    padding:10px 30px;
+.apply-button.pc {
+  display: inline;
+  font-size: larger;
+  font-weight: 600;
+  padding: 10px 30px;
+  width: 200px;
+  height: 60px;
 }
 
-.apply-button.no-login{
-    box-shadow:2px 2px 3px rgba(1, 1, 1, 0.2);
+.apply-button.no-login {
+  box-shadow: 2px 2px 3px rgba(1, 1, 1, 0.2);
+}
+
+.apply-button.pc.cantParticipant {
+  font-size: medium !important;
+  background-color: gray !important;
+}
+
+.apply-button.mobile.cantParticipant {
+  font-size: medium !important;
+  background-color: gray !important;
 }
 
 /* 기본 */
-.align-center{
-    text-align: center;
+.align-center {
+  text-align: center;
 }
 
-.vertical-align-middle{
-    vertical-align: middle;
+.vertical-align-middle {
+  vertical-align: middle;
 }
 
-.width-100{
-    width:100%;
+.width-100 {
+  width: 100%;
 }

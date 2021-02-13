@@ -2,7 +2,7 @@
   <div>
     <div class="mb-3 width-100">
       <div class="more-info-header">
-        <span class="more-info-title">챌린지 후기</span>
+        
         <span class="ml-3 more-info-total-score">
           <span v-for="num in RoundTotalScore" :key="`${num}_totalScore`"
             ><b-icon icon="star-fill" class="color-yellow"></b-icon

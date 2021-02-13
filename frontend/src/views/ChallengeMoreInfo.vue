@@ -32,22 +32,24 @@
 
     <div class="row col-12 col-lg-8 mx-auto">
       <div class="col-12 info-main">
+        <p id="challenge-contents" class="more-info-title">챌린지 설명</p>
         <challenge-contents
-          id="challenge-contents"
           :challenge_contents="challenge.challenge_contents"
         ></challenge-contents>
 
+        <p id="challenge-certify-contents" class="more-info-title">
+          챌린지 인증방법
+        </p>
         <challenge-certify-contents
-          id="challenge-certify-contents"
           :challenge_certify_contents="challenge.challenge_certify_contents"
           :only_cam="challenge.only_cam"
         ></challenge-certify-contents>
 
-        <challenge-result id="challenge-result"></challenge-result>
+        <p id="challenge-result" class="more-info-title">챌린지 달성률</p>
+        <challenge-result></challenge-result>
 
-        <challenge-review
-          id="challenge-review"
-        ></challenge-review>
+        <p id="challenge-review" class="more-info-title">챌린지 후기</p>
+        <challenge-review></challenge-review>
       </div>
     </div>
 
@@ -72,8 +74,14 @@
           @click="GoChallengeDoing"
           >참여중</b-button
         >
-        <b-button v-else class="apply-button pc" @click="ChallengeApply"
-          >참가하기</b-button
+        <b-button
+          v-else-if="canParticiapnt"
+          class="apply-button pc"
+          @click="ChallengeApply"
+          >참여하기</b-button
+        >
+        <b-button v-else class="apply-button pc cantParticipant"
+          >참여할 수 없습니다.</b-button
         >
       </b-button-group>
       <div v-else class="info-float align-center col-12">
@@ -101,9 +109,14 @@
               >참여중</b-button
             >
           </div>
-          <div v-else class="col-10 align-center my-auto">
+          <div v-else-if="canParticiapnt" class="col-10 align-center my-auto">
             <b-button class="apply-button mobile" @click="ChallengeApply"
-              >참가하기</b-button
+              >참여하기</b-button
+            >
+          </div>
+          <div v-else class="col-10 align-center my-auto">
+            <b-button class="apply-button mobile cantParticipant"
+              >참여할 수 없습니다.</b-button
             >
           </div>
         </div>
@@ -116,8 +129,8 @@
       </div>
     </div>
     <review-more
-    :challenge_title="challenge.challenge_title"
-    :challlenge_id="challenge.challenge_id"
+      :challenge_title="challenge.challenge_title"
+      :challlenge_id="challenge.challenge_id"
     ></review-more>
   </div>
 </template>
@@ -151,6 +164,7 @@ export default {
       // 모바일여부
       isMobile: false,
       // 화면 스크롤 위치
+      challengeContentsLocation: 0,
       challengeCertifyContentsLocation: 0,
       challengeResultLocation: 0,
       challengeReviewLocation: 0,
@@ -159,6 +173,7 @@ export default {
       challenge_id: 0,
       isBookmarked: false,
       isParticipant: false,
+      canParticiapnt: false,
       challenge: {
         kind: 0,
         fit_id: 1,
@@ -189,7 +204,8 @@ export default {
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
         this.challenge = data;
-        console.log(this.challenge);
+
+        this.calculateCanParticipant();
       })
       .catch(() => {
         alert("챌린지 정보를 불러오지 못했습니다.");
@@ -216,19 +232,7 @@ export default {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
-    },
-    // 스크롤 위치 판단
-    handleScroll: function() {
-      let scrollPosition = window.scrollY || document.documentElement.scrollTop;
-      if (scrollPosition >= this.challengeReviewLocation) {
-        this.scrollPosition = 4;
-      } else if (scrollPosition >= this.challengeResultLocation) {
-        this.scrollPosition = 3;
-      } else if (scrollPosition >= this.challengeCertifyContentsLocation) {
-        this.scrollPosition = 2;
-      } else {
-        this.scrollPosition = 1;
-      }
+      this.calculateScroll();
     },
 
     checkBookmark: function() {
@@ -263,12 +267,19 @@ export default {
     },
     moveScroll: function(pos) {
       let dest = 0;
-      if (pos == 2) {
-        dest = this.challengeCertifyContentsLocation;
-      } else if (pos == 3) {
-        dest = this.challengeResultLocation;
-      } else if (pos == 4) {
-        dest = this.challengeReviewLocation;
+      switch (pos) {
+        case 1:
+          dest = this.challengeContentsLocation;
+          break;
+        case 2:
+          dest = this.challengeCertifyContentsLocation;
+          break;
+        case 3:
+          dest = this.challengeResultLocation;
+          break;
+        case 4:
+          dest = this.challengeReviewLocation;
+          break;
       }
       window.scrollTo({ top: dest, behavior: "smooth" });
     },
@@ -304,32 +315,63 @@ export default {
     ChallengeEdit: function() {
       this.$router.push(`/challenge-edit/${this.challenge_id}`);
     },
+    //참여가능여부 판단
+    calculateCanParticipant: function() {
+      let startTimeArr = this.challenge.start_date.split("-");
+      let limitTime = new Date(
+        startTimeArr[0],
+        startTimeArr[1],
+        startTimeArr[2],
+        23,
+        59,
+        59
+      );
+      if (
+        this.challenge.check_date == 0 ||
+        (this.challenge.check_date == 1 &&
+          new Date() <= limitTime)
+      ) {
+        this.canParticiapnt = true;
+      }
+    },
+
+    calculateScroll: function() {
+      let deviceOffset = 190;
+      if(this.isMobile){
+        deviceOffset = 120;
+      }
+      
+      this.challengeContentsLocation =
+        document.getElementById("challenge-contents").getBoundingClientRect()
+          .top +
+        window.pageYOffset -
+        deviceOffset;
+
+      this.challengeCertifyContentsLocation =
+        document
+          .getElementById("challenge-certify-contents")
+          .getBoundingClientRect().top +
+        window.pageYOffset -
+        deviceOffset;
+      this.challengeResultLocation =
+        document.getElementById("challenge-result").getBoundingClientRect()
+          .top +
+        window.pageYOffset -
+        deviceOffset;
+      this.challengeReviewLocation =
+        document.getElementById("challenge-review").getBoundingClientRect()
+          .top +
+        window.pageYOffset -
+        deviceOffset;
+    },
   },
   computed: {
     ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
   },
   mounted() {
-    let infoNavbarHeight = 160;
-    this.challengeCertifyContentsLocation =
-      document
-        .getElementById("challenge-certify-contents")
-        .getBoundingClientRect().top +
-      window.pageYOffset -
-      infoNavbarHeight;
-    this.challengeResultLocation =
-      document.getElementById("challenge-result").getBoundingClientRect().top +
-      window.pageYOffset -
-      infoNavbarHeight;
-    this.challengeReviewLocation =
-      document.getElementById("challenge-review").getBoundingClientRect().top +
-      window.pageYOffset -
-      infoNavbarHeight;
-
     // 화면 너비 측정 이벤트 추가/
-    this.handleResize();
     window.addEventListener("resize", this.handleResize);
-    this.handleScroll();
-    window.addEventListener("scroll", this.handleScroll);
+    this.handleResize();
   },
 };
 </script>
