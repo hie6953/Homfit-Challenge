@@ -67,10 +67,38 @@
           바로가기
         </b-button>
 
-        <b-button class="feed-card-button-right">
+        <b-button v-b-modal.modal-scrollable class="feed-card-button-right">
           <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
           신고
         </b-button>
+
+        <!-- <b-button v-b-modal.modal-scrollable class="feed-card-button-right">
+          <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
+          신고
+        </b-button>
+        <b-modal id="modal-scrollable" scrollable title="인증샷 신고">
+          <div class="declaration-modal">
+            <p class="declaration-info">
+              인증샷은 다수에게 신고를 당하면 자동으로 삭제됩니다. 또한, 스탭이
+              악의적이라고 판단되는 인증샷의 경우 레드카드가 발급될 수 있습니다.
+            </p>
+
+            <b-form-radio
+              class="declaration-radio"
+              v-model="declarationtype"
+              name="some-radios"
+              value="1"
+              >인증샷 무효 신고
+            </b-form-radio>
+            <b-form-radio
+              class="declaration-radio"
+              v-model="declarationtype"
+              name="some-radios"
+              value="2"
+              >악성 유저 신고</b-form-radio
+            >
+          </div>
+        </b-modal> -->
       </div>
     </div>
   </div>
