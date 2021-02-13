@@ -1,5 +1,5 @@
 <template>
-  <div class="feed-container">
+  <div class="col-12 col-md-8 feed-container">
     <div id="instafeed">
       <div class="feedItem">
         <img
