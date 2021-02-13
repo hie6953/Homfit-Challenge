@@ -19,6 +19,9 @@ public class FeedServiceImpl implements FeedService {
 
     @Autowired
     TagService tagService;
+    
+    @Autowired
+    FeedDAO FeedDao;
 
     @Override
     public boolean create(Feed feed) throws Exception {
@@ -137,5 +140,16 @@ public class FeedServiceImpl implements FeedService {
     public  List<Feed> searchByChallengeTitle(String keyword) throws Exception{
         return sqlSession.getMapper(FeedDAO.class).searchByChallengeTitle(keyword);
     }
+
+    /**챌린지에서 사용함 */
+	@Override
+	public int[] selectUserFeed(String uid, int challenge_id) {
+		return FeedDao.selectUserFeed(uid, challenge_id);
+	}
+
+	@Override
+	public List<Feed> selectFeedImg(String uid, int challenge_id) {
+		return FeedDao.selectFeedImg(uid, challenge_id);
+	}
 
 }
