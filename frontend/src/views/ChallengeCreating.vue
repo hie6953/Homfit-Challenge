@@ -73,6 +73,7 @@
           :props_bodyList="challenge.bodyList"
           :props_challenge_title="challenge.challenge_title"
           :props_challenge_contents="challenge.challenge_contents"
+          :props_challenge_img="challenge.challenge_img"
           @NextPage="PageOneNext"
         ></ChallengeMain>
       </div>
@@ -143,8 +144,8 @@ import "@/assets/css/ChallengeCreating/challengecreating.css";
 
 import { mapGetters } from "vuex";
 
-import axios from "axios";
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+// import axios from "axios";
+// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "ChallengeCreating",
@@ -165,19 +166,19 @@ export default {
       challenge_id: 0,
       isLoading:false,
       challenge: {
-        kind: 0,
+        kind: 1,
         fit_id: 1,
         bodyList: [],
         challenge_title: "",
         challenge_contents: "",
-        challenge_img: "",
+        challenge_img: null,
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
         challenge_certify_contents: "",
-        good_img: "",
-        bad_img: "",
+        good_img: null,
+        bad_img:null,
         only_cam: 1,
         tagList: [],
         make_date: "",
@@ -189,18 +190,18 @@ export default {
   },
 
 created(){
-  axios.interceptors.request.use(
-    config=>{
-      this.setLoading(true);
-      return config;
-    },
-  ),
-  axios.interceptors.response.use(
-    response => {
-      this.setLoading(false);
-      return response;
-    },
-  )
+  // axios.interceptors.request.use(
+  //   config=>{
+  //     this.setLoading(true);
+  //     return config;
+  //   },
+  // ),
+  // axios.interceptors.response.use(
+  //   response => {
+  //     this.setLoading(false);
+  //     return response;
+  //   },
+  // )
 },
 
   computed: {
@@ -218,21 +219,10 @@ created(){
       this.challenge.make_uid = this.getUserUid;
 
       this.pageComplete_4 = true;
-      // 챌린지 개설 axios
+      
       console.log(this.challenge);
-      axios
-        .post(`${SERVER_URL}/challenge`, this.challenge)
-        .then((success) => {
-          this.page = 5;
-          this.challenge_id = success.data;
-          alert("챌린지가 생성되었습니다.");
-        })
-        .catch(() => {
-          alert("등록 처리시 에러가 발생했습니다.");
-        });
-    },
 
-    // // Object To FormData 변환
+ // // Object To FormData 변환
       // var formData = new FormData();
       // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
       // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
@@ -256,19 +246,36 @@ created(){
       //     commonUtils.$alertUncatchedError(error);
       //   });
 
+      // 챌린지 개설 axios
+      // axios
+      //   .post(`${SERVER_URL}/challenge`, this.challenge)
+      //   .then((success) => {
+      //     this.page = 5;
+      //     this.challenge_id = success.data;
+      //     alert("챌린지가 생성되었습니다.");
+      //   })
+      //   .catch(() => {
+      //     alert("등록 처리시 에러가 발생했습니다.");
+      //   });
+    },
+
+   
+
     // 1페이지
     PageOneNext: function(
       kind,
       fit_id,
       bodyList,
       challenge_title,
-      challenge_contents
+      challenge_contents,
+      challenge_img
     ) {
       this.challenge.kind = kind;
       this.challenge.fit_id = fit_id;
       this.challenge.bodyList = bodyList;
       this.challenge.challenge_title = challenge_title;
       this.challenge.challenge_contents = challenge_contents;
+      this.challenge.challenge_img = challenge_img;
       this.pageComplete_1 = true;
       this.NextPage();
     },
@@ -306,14 +313,18 @@ created(){
     },
 
     // 3페이지
-    PageThreePrev: function(challenge_certify_contents, only_cam) {
+    PageThreePrev: function(challenge_certify_contents,good_img,bad_img, only_cam) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
+      this.challenge.good_img = good_img;
+      this.challenge.bad_img = bad_img;
       this.PrevPage();
     },
-    PageThreeNext: function(challenge_certify_contents, only_cam) {
+    PageThreeNext: function(challenge_certify_contents,good_img,bad_img, only_cam) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
+      this.challenge.good_img = good_img;
+      this.challenge.bad_img = bad_img;
       this.pageComplete_3 = true;
       this.NextPage();
     },
