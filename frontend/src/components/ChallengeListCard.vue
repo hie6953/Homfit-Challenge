@@ -39,12 +39,16 @@
         <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
         <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">{{ challenge.period }}일</span>
+        <div class="card-day-info">
+          <span>{{ GetDayList() }}</span>
+          <span>{{ challenge.period }}일</span>
+         
+        </div>
       </div>
       <hr class="challenge-list-card-hr" />
       <div class="challenge-list-card-footer">
         <span>{{ challenge.people }}명 참여</span>
+         <span class="card-check-date" :class="`check-date-${challenge.check_date}`">{{ checkDateList[challenge.check_date] }}</span>
       </div>
     </b-card>
   </div>
@@ -64,11 +68,15 @@ export default {
   data() {
     return {
       image: "",
+      checkDateList: ["진행전", "진행중", "완료"],
     };
   },
   created() {
     console.log(this.challenge);
-    if (this.challenge.challenge_img != "" && this.challenge.challenge_img != null) {
+    if (
+      this.challenge.challenge_img != "" &&
+      this.challenge.challenge_img != null
+    ) {
       this.image = this.challenge.challenge_img;
     } else {
       this.image = "https://picsum.photos/600/300/?image=25";
@@ -76,8 +84,8 @@ export default {
   },
   watch: {
     deleteActive() {
-      this.DeleteUpdate()
-    }
+      this.DeleteUpdate();
+    },
   },
   mounted() {
     if (this.isfromBookmark === 1) {
@@ -101,7 +109,7 @@ export default {
       return "";
     },
     ChallengeMoreInfo: function() {
-      console.log(this.challenge.challenge_id)
+      console.log(this.challenge.challenge_id);
       this.$emit("moreInfo", this.challenge.challenge_id);
     },
     DeleteBookmarkBtn() {
@@ -112,15 +120,17 @@ export default {
     },
     DeleteUpdate() {
       // 카테고리가 진행전 일때만 삭제 버튼 활성화
-      const challengeManage = document.querySelectorAll('.challengeManage-icon')
-      for (let i = 0; i<challengeManage.length; i++) {
+      const challengeManage = document.querySelectorAll(
+        ".challengeManage-icon"
+      );
+      for (let i = 0; i < challengeManage.length; i++) {
         if (this.deleteActive === 1) {
-          challengeManage[i].classList.remove('challengeManage-disabled')
+          challengeManage[i].classList.remove("challengeManage-disabled");
         } else {
-          challengeManage[i].classList.add('challengeManage-disabled')
+          challengeManage[i].classList.add("challengeManage-disabled");
         }
       }
-    }
+    },
   },
 };
 </script>
