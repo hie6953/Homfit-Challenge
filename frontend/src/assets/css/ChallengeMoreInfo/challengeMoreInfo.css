@@ -37,6 +37,11 @@
     .info-main{
         margin-bottom:30px;
     }
+
+    .more-info-total-score{
+    
+        font-size: large;
+    }
 }
 
 
@@ -97,6 +102,7 @@
 }
 
 
+
 /* 상세 정보 */
 .more-info-title{
     display: inline-block;
@@ -118,6 +124,61 @@
 .certify-contents-onlycam span{
     font-size:small;
     margin-left:3px;
+}
+
+
+/* 챌린지 후기 */
+.more-info-header{
+    display: flex;
+}
+
+.color-yellow{
+    color: #EAC03A;
+}
+
+.color-gray{
+    color: #eeeeee;
+}
+
+.total-score-number{
+    color: gray;
+    font-weight: 600;
+}
+
+.more-info-total-score{
+    
+    margin:auto 0;
+}
+
+.review-go-detail{
+    margin:auto 0 auto auto;
+    background: none;
+    border: none;
+    color:#999999;
+    font-size: small;
+}
+
+#review-more-modal-title{
+    font-weight: 700;
+}
+
+#review-more-modal-sort button{
+    background: none;
+    border:none;
+    color:#EAC03A;
+}
+
+
+#review-more-modal-sort button:hover,
+#review-more-modal-sort button:focus,
+#review-more-modal-sort button:active{
+    background: none;
+    box-shadow: none;
+}
+
+
+#review-more-modal-sort li a:active{
+    background-color: #EAC03A;
 }
 
 
@@ -190,4 +251,8 @@
 
 .vertical-align-middle{
     vertical-align: middle;
+}
+
+.width-100{
+    width:100%;
 }

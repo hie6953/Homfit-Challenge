@@ -45,27 +45,36 @@
 
         <challenge-result id="challenge-result"></challenge-result>
 
-        <challenge-review id="challenge-review"></challenge-review>
+        <challenge-review
+          id="challenge-review"
+        ></challenge-review>
       </div>
     </div>
 
     <div v-if="!isMobile">
-      <b-button-group v-if="getAccessToken" id="info-float-button-group" class="row info-float align-center">
-          <b-button  id="bookmark-button" @click="checkBookmark">
-            <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
-            <b-icon
-              v-if="isBookmarked"
-              class="bookmark-fill-color"
-              icon="bookmark-fill"
-              scale="1.6"
-            ></b-icon>
-          </b-button>
-          <b-button v-if="isParticipant" class="apply-button pc" @click="GoChallengeDoing"
-            >참여중</b-button
-          >
-          <b-button  v-else class="apply-button pc" @click="ChallengeApply"
-            >참가하기</b-button
-          >
+      <b-button-group
+        v-if="getAccessToken"
+        id="info-float-button-group"
+        class="row info-float align-center"
+      >
+        <b-button id="bookmark-button" @click="checkBookmark">
+          <b-icon v-if="!isBookmarked" icon="bookmark" scale="1.6"></b-icon>
+          <b-icon
+            v-if="isBookmarked"
+            class="bookmark-fill-color"
+            icon="bookmark-fill"
+            scale="1.6"
+          ></b-icon>
+        </b-button>
+        <b-button
+          v-if="isParticipant"
+          class="apply-button pc"
+          @click="GoChallengeDoing"
+          >참여중</b-button
+        >
+        <b-button v-else class="apply-button pc" @click="ChallengeApply"
+          >참가하기</b-button
+        >
       </b-button-group>
       <div v-else class="info-float align-center col-12">
         <b-button class="apply-button no-login pc mt-2" @click="GoLogin"
@@ -106,15 +115,20 @@
         </div>
       </div>
     </div>
+    <review-more
+    :challenge_title="challenge.challenge_title"
+    :challlenge_id="challenge.challenge_id"
+    ></review-more>
   </div>
 </template>
 <script>
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
-import ChallengeContents from "../components/ChallengeMoreInfo/ChallengeContents.vue";
-import ChallengeCertifyContents from "../components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
-import ChallengeResult from "../components/ChallengeMoreInfo/ChallengeResult.vue";
-import ChallengeReview from "../components/ChallengeMoreInfo/ChallengeReview.vue";
+import ChallengeContents from "@/components/ChallengeMoreInfo/ChallengeContents.vue";
+import ChallengeCertifyContents from "@/components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
+import ChallengeResult from "@/components/ChallengeMoreInfo/ChallengeResult.vue";
+import ChallengeReview from "@/components/ChallengeMoreInfo/ChallengeReview.vue";
 import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
+import ReviewMore from "@/components/ChallengeMoreInfo/ReviewMore.vue";
 import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
 
 import { mapGetters } from "vuex";
@@ -130,6 +144,7 @@ export default {
     ChallengeCertifyContents,
     ChallengeResult,
     ChallengeReview,
+    ReviewMore,
   },
   data() {
     return {
@@ -184,7 +199,9 @@ export default {
     //로그인했으면 북마크, 참여정보 조회
     if (this.getAccessToken) {
       axios
-        .get(`${SERVER_URL}/challenge/user/${this.challenge_id}/${this.getUserUid}`)
+        .get(
+          `${SERVER_URL}/challenge/user/${this.challenge_id}/${this.getUserUid}`
+        )
         .then(({ data }) => {
           // console.log(data);
           this.isBookmarked = data.bookmark == "1";
@@ -262,7 +279,7 @@ export default {
       });
     },
     GoChallengeDoing: function() {
-      alert("참여중 페이지로 이동")
+      alert("참여중 페이지로 이동");
     },
     ChallengeApply: function() {
       if (this.getAccessToken != null) {
