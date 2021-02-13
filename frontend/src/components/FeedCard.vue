@@ -67,10 +67,58 @@
           바로가기
         </b-button>
 
-        <b-button v-b-modal.modal-scrollable class="feed-card-button-right">
+        <b-button class="feed-card-button-right" @click="openModal">
           <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
           신고
         </b-button>
+
+        <!-- 컴포넌트 MyModal -->
+        <DeclarationModal @close="closeModal" v-if="modal">
+          <!-- default 슬롯 콘텐츠 -->
+
+          <div class="declaration-modal">
+            <div class="declaration-title">인증샷 신고</div>
+
+            <div class="declaration-info">
+              인증샷은 다수에게 신고를 당하면 자동으로 삭제됩니다. <br />
+              또한, 스탭이 악의적이라고 판단되는 인증샷의 경우 레드카드가 발급될
+              수 있습니다.
+            </div>
+
+            <div class="declaration-radio-group">
+              <b-form-radio
+                class="declaration-radio"
+                v-model="declarationtype"
+                name="some-radios"
+                value="1"
+                >인증샷 무효 신고
+              </b-form-radio>
+              <b-form-radio
+                class="declaration-radio"
+                v-model="declarationtype"
+                name="some-radios"
+                value="2"
+                >악성 유저 신고</b-form-radio
+              >
+            </div>
+
+            <div class="declaration-contents-align">
+              <textarea
+                class="declaration-contents"
+                type="text"
+                placeholder="신고 내용을 입력해주세요. (5자 이상)"
+                v-model="message"
+              />
+            </div>
+          </div>
+
+          <!-- footer 슬롯 콘텐츠 -->
+          <template slot="footer">
+            <button class="d-modal-btn" @click="doSend">제출</button>
+            <button class="d-modal-btn-back" @click="closeModal">취소</button>
+          </template>
+          <!-- /footer -->
+        </DeclarationModal>
 
         <!-- <b-button v-b-modal.modal-scrollable class="feed-card-button-right">
           <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
@@ -106,15 +154,38 @@
 
 <script>
 import '../assets/css/FeedCard/feedcard.css';
+import DeclarationModal from './DeclarationModal.vue';
 
 export default {
   name: 'FeedCard',
+  components: {
+    DeclarationModal,
+  },
   props: {
     feed: Object,
   },
   data: function() {
-    return {};
+    return {
+      modal: false,
+      message: '',
+    };
   },
-  methods: {},
+  methods: {
+    openModal() {
+      this.modal = true;
+    },
+    closeModal() {
+      this.modal = false;
+    },
+    doSend() {
+      if (this.message.length > 5) {
+        alert(this.message);
+        this.message = '';
+        this.closeModal();
+      } else {
+        alert('메시지를 입력해주세요.');
+      }
+    },
+  },
 };
 </script>
