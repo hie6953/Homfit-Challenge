@@ -50,7 +50,7 @@
               <img
                 id="userIcon"
                 class="circle-user-image"
-                src="@/assets/NavBar/anonimous_user.png"
+                :src="userImg"
               />
               <b-tooltip target="userIcon" triggers="hover">
                 마이페이지
@@ -135,6 +135,7 @@ export default {
         { type: "ranking", comment: "실버로의 승급을 축하드립니다!" },
         { type: "ToDo", comment: "1시간 요가하기 챌린지 인증하세요." },
       ],
+      userImg:'',
     };
   },
   methods: {
@@ -153,9 +154,22 @@ export default {
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
     },
+     UserImg:function(){
+      this.userImg = this.getUserImg;
+      console.log(this.getUserImg);
+      if(this.userImg == null || this.userImg == ''){
+        this.userImg = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4';
+      }
+    },
+  },
+  watch:{
+    getUserImg:function(){
+      this.UserImg();
+    }
   },
   computed: {
-    ...mapGetters(["getAccessToken"]),
+    ...mapGetters(["getAccessToken","getUserImg"]),
+    
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/

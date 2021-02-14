@@ -27,7 +27,7 @@
   line-height: 20px;
   letter-spacing: 1px;
   margin: 15px 10px 10px 5px;
-  width:130px;
+  width:150px;
   text-align: center;
   border-radius: 4px;
   overflow: hidden;
@@ -92,10 +92,26 @@
 }
 
 
+.challenge-recommend-highlight{
+  font-size: large;
+  font-weight: 600;
+  color: #e65c2e;
+}
+
+.challenge-recommend-text{
+  margin:20px 0;
+  text-align: center;
+}
+
+.display-inline-block{
+  display: inline-block;
+}
+
+
+
 /* 카드 */
 .list-card {
     clear: both;
-    padding-top: 15px;
     display: flex;
   }
   
