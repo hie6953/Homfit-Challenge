@@ -313,9 +313,6 @@ export default {
     challenge_contents: function() {
       this.CanGoNext();
     },
-    challenge_img: function() {
-      this.CanGoNext();
-    },
   },
   methods: {
     ImageUploaded:function(image){
@@ -331,8 +328,7 @@ export default {
       if (
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
-        this.challenge_contents.length > 7 &&
-        this.challenge_img != null
+        this.challenge_contents.length > 7
       ) {
         this.canGoNext = true;
       } else {

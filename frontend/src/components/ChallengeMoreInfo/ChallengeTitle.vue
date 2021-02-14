@@ -11,7 +11,7 @@
     <!-- 챌린지 타이틀 -->
     <div class="row col-12 col-md-8 mx-auto">
       <div class="col-12 col-md-6">
-        <img id="challenge-img" :src="titleImage" />
+        <img id="challenge-img" :src="challenge_img" />
       </div>
       <div class="col-12 col-md-6 my-auto">
         <div class="challenge-info">
@@ -132,13 +132,6 @@ export default {
       fitCategory: "",
       titleImage:'',
     };
-  },
-  created() {
-    if(this.challenge_img == ""){
-      this.titleImage = "https://picsum.photos/600/300/?image=25";
-    }else{
-      this.titleImage = this.challenge_img;
-    }
   },
   methods: {
     // 날짜 숫자 -> 요일로 변경
