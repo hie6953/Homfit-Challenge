@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import MessageForm from "../components/Chat/MessageForm.vue";
-import MessageList from "../components/Chat/MessageList.vue";
+import "@/assets/css/chat.css"
+import MessageForm from "@/components/Chat/MessageForm.vue";
+import MessageList from "@/components/Chat/MessageList.vue";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 import axios from "axios";
@@ -20,11 +21,23 @@ export default {
     return {
       msgs: [],
       connected: false,
-      challenge_id: 128,
       stompClient: "",
+      user_img: "",
     };
   },
+  props: {
+    challenge_id: Number,
+  },
   created() {
+    // axios
+    //   .post(`${SERVER_URL}/user`, this.getUserUid)
+    //   .then(({ data }) => {
+    //     this.user_img = data.user_img;
+    //     console.log(this.user_img)
+    //   })
+    //   .catch(() => {
+    //     alert("유저 정보를 불러오지 못했습니다.");
+    //   });
     this.connect();
   },
   components: {
@@ -78,10 +91,12 @@ export default {
       this.connected = false;
     },
     getChat() {
+      console.log(this.challenge_id)
       axios
         .get(`${SERVER_URL}/chat/log/${this.challenge_id}`)
         .then(({ data }) => {
           this.msgs = data;
+          console.log(this.msgs)
           this.msgs.reverse();
         })
         .catch(() => {

@@ -10,6 +10,18 @@
         @click="DeleteBookmarkBtn"
       ></b-icon>
     </div>
+    <div class="cancel-icon cancel-disabled btn-sm btn-warning">
+      <div
+        class="challengeManage-btn"
+        @click="CancelChallengeManageBtn"
+      >취소</div>
+    </div>
+    <div class="delete-icon delete-disabled btn-sm btn-warning">
+      <div
+        class="challengeManage-btn"
+        @click="DeleteChallengeManageBtn"
+      >삭제</div>
+    </div>
     <b-card
       :img-src="image"
       img-alt="Image"
@@ -49,6 +61,9 @@ export default {
   props: {
     challenge: Object,
     isfromBookmark: Number,
+    isfromChallengeManage: Number,
+    cancelActive: Number,
+    deleteActive: Number,
   },
   data() {
     return {
@@ -61,6 +76,14 @@ export default {
     } else {
       this.image = "https://picsum.photos/600/300/?image=25";
     }
+  },
+  watch: {
+    cancelActive() {
+      this.CancelUpdate()
+    },
+    deleteActive() {
+      this.DeleteUpdate();
+    },
   },
   mounted() {
     if (this.isfromBookmark === 1) {
@@ -89,6 +112,34 @@ export default {
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
     },
-  },
-};
+    CancelChallengeManageBtn() {
+      this.$emit("cancelChallengeManage", this.challenge.challenge_id);
+    },
+    DeleteChallengeManageBtn() {
+      this.$emit("deleteChallengeManage", this.challenge.challenge_id);
+    },
+    CancelUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 활성화
+      const challengeManage = document.querySelectorAll('.cancel-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.cancelActive === 1) {
+          challengeManage[i].classList.remove('cancel-disabled')
+        } else {
+          challengeManage[i].classList.add('cancel-disabled')
+        }
+      }
+    },
+    DeleteUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 
+      const challengeManage = document.querySelectorAll('.delete-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.deleteActive === 1) {
+          challengeManage[i].classList.remove('delete-disabled')
+        } else {
+          challengeManage[i].classList.add('delete-disabled')
+        }
+      }
+    },
+  }
+}
 </script>

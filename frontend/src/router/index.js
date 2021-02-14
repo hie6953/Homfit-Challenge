@@ -108,6 +108,7 @@ const routes = [
     path: '/challengemanage',
     name: 'ChallengeManage',
     component: () => import('../views/ChallengeManage.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/diary',
@@ -134,23 +135,31 @@ const routes = [
     path: '/mypage/statistics',
     name: 'Statistics',
     component: () => import('../views/StatisticsPage.vue'),
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
+
     path: '/bookmark',
     name: 'Bookmark',
     component: () => import('../views/Bookmark.vue'),
     beforeEnter: requireAuth(),
   },
   {
+    path: '/participated/:challenge_id',
+    name: 'ParticipatedChallenge',
+    component: () => import('../views/ParticipatedChallenge.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: '/certify/:challenge_id',
+    name: 'Certify',
+    component: () => import('../views/Certify.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path:'/404',
     name:"notFound",
     component: () => import('../views/NotFound.vue'),
-  },
-  {
-    path:'/chatroom/:challenge_id',
-    name:"ChatRoom",
-    component: () => import('../views/ChatRoom.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

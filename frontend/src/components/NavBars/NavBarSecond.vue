@@ -15,7 +15,7 @@
         <router-link to="/challenge-recommend" class="second-menu">
           <span>추천 챌린지</span>
         </router-link>
-        <router-link to="/" class="second-menu">
+        <router-link to="/challengemanage" class="second-menu">
           <span>나의 챌린지</span>
         </router-link>
       </b-navbar-nav>

@@ -1,5 +1,5 @@
 <template>
-  <b-list-group>
+  <b-list-group class="chat-box col-12 col-md-8 mx-auto">
       <message v-for="(msg, index) in msgs" :key="index" :msg="msg"></message>
   </b-list-group>
 </template>
