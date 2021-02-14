@@ -23,6 +23,10 @@
   margin-top:20px;
 }
 
+#diary-textarea{
+  margin-top: 10px;
+}
+
 #diary-textarea.focusoff{
   border: 1px solid white !important;
 }
