@@ -46,23 +46,9 @@
                 <span class="calendar-column-dots">
                   <span>
                     <b-icon
-                      v-if="true"
-                      :class="{ diaryTrueLeft: diaryTrue }"
-                      icon="dot"
-                      variant="success"
-                    ></b-icon>
-                    <b-icon
-                      v-else
-                      :class="{ diaryTrueLeft: diaryTrue }"
-                      icon="dot"
-                      variant="danger"
-                    ></b-icon>
-
-                    <b-icon
                       v-if="diaryTrue"
-                      :class="{ diaryTrueRight: diaryTrue }"
                       icon="dot"
-                      variant="secondary"
+                      variant="warning"
                     ></b-icon>
                   </span>
                 </span>
@@ -73,11 +59,7 @@
         </tbody>
       </table>
       <div class="calendar-dot-info">
-      <b-icon icon="dot" variant="success"></b-icon>
-      <span>챌린지 성공</span>
-      <b-icon icon="dot" variant="danger"></b-icon>
-      <span>챌린지 실패</span>
-      <b-icon icon="dot" variant="secondary"></b-icon>
+      <b-icon icon="dot" variant="warning"></b-icon>
       <span>일기 작성</span>
       </div>
     </div>
@@ -93,7 +75,7 @@ export default {
       currentMonth: new Date().getMonth() + 1,
       choiceDate: 0,
       currentMonthDateMatrix: [],
-      diaryTrue: false,
+      diaryTrue: true,
     };
   },
   created() {
