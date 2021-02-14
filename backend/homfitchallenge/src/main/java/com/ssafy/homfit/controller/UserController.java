@@ -94,6 +94,7 @@ public class UserController {
                 resultMap.put("message", SUCCESS);
                 resultMap.put("uid", loginUser.getUid());
                 resultMap.put("nickName", loginUser.getNick_name());
+                resultMap.put("userImg", loginUser.getUser_img());
                 status = HttpStatus.ACCEPTED;
             } else {
                 resultMap.put("message", FAIL);
