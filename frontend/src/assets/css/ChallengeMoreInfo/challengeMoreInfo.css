@@ -31,11 +31,6 @@
     outline: none;
     box-shadow: none;
   }
-
-  .challenge-result-content {
-    text-align: center;
-    margin-top:10px;
-  }
 }
 /* PC */
 @media (min-width: 480px) {
@@ -79,10 +74,9 @@
     box-shadow: none;
   }
 
-  .challenge-result-content {
-    line-height: 120px;
-    vertical-align: middle;
-  }
+  
+
+  
 }
 
 /* 상세페이지 네비게이션바 */
@@ -182,6 +176,12 @@
   text-align: center;
 }
 
+.challenge-result-info{
+  color:#EAC03A;
+  /* font-size: smaller; */
+  font-weight: 600;;
+}
+
 
 /* 챌린지 후기 */
 .more-info-header {
@@ -196,14 +196,19 @@
   color: #eeeeee;
 }
 
-.total-score-number {
-  color: gray;
-  font-weight: 600;
-}
-
 .more-info-total-score {
   margin: auto 0;
 }
+
+.total-score-number {
+  color: gray;
+}
+
+#total-score-number-info{
+  font-weight: 600;
+}
+
+
 
 .review-go-detail {
   margin: auto 0 auto auto;

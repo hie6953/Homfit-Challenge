@@ -1,19 +1,16 @@
 <template>
   <div class="mb-3">
-    
+    <p class="challenge-result-info"><b-icon icon="exclamation-circle-fill"></b-icon> 챌린지 달성률은 하루 한번 업데이트됩니다.</p>
     <div class="row">
-      <div class="col-12 col-md-3 challenge-result-rate">
+      <div class="col-12 mx-auto challenge-result-rate">
         <Progress
           strokeColor="#EAC03A"
           :radius="50"
           :strokeWidth="10"
-          :value="result"
+          :value="average_rate"
         >
-          <div class="content">{{ result }}%</div>
+          <div class="content">{{ average_rate }}%</div>
         </Progress>
-      </div>
-      <div class="challenge-result-content col-12 col-md-9">
-        총 x명중 x명이 챌린지를 달성했어요!
       </div>
     </div>
   </div>
@@ -26,11 +23,8 @@ export default {
   components: {
     Progress,
   },
-  props: {},
-  data() {
-    return {
-      result: 80,
-    };
+  props: {
+    average_rate:Number
   },
 };
 </script>

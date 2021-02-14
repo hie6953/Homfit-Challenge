@@ -25,7 +25,7 @@
           <li @click="moveScroll(1)">설명</li>
           <li @click="moveScroll(2)">인증방법</li>
           <li @click="moveScroll(3)">달성률</li>
-          <li @click="moveScroll(4)">후기</li>
+          <li v-if="challenge.check_date == 2" @click="moveScroll(4)">후기</li>
         </ul>
       </div>
     </div>
@@ -46,10 +46,22 @@
         ></challenge-certify-contents>
 
         <p id="challenge-result" class="more-info-title">챌린지 달성률</p>
-        <challenge-result></challenge-result>
+        <challenge-result
+        :average_rate="challenge.average_rate"
+        ></challenge-result>
 
-        <p id="challenge-review" class="more-info-title">챌린지 후기</p>
-        <challenge-review></challenge-review>
+        <p
+          id="challenge-review"
+          class="more-info-title"
+          v-if="challenge.check_date == 2"
+        >
+          챌린지 후기
+        </p>
+        <challenge-review
+          v-if="challenge.check_date == 2"
+          :reviewList="reviewList"
+          :avg_review="avg_review"
+        ></challenge-review>
       </div>
     </div>
 
@@ -130,7 +142,7 @@
     </div>
     <review-more
       :challenge_title="challenge.challenge_title"
-      :challlenge_id="challenge.challenge_id"
+      :challenge_id="challenge_id"
     ></review-more>
   </div>
 </template>
@@ -190,11 +202,14 @@ export default {
         bad_img: "",
         only_cam: 1,
         tagList: [],
+        average_rate:0,
         make_date: "",
         make_uid: "",
         check_date: 0,
         period: 0,
       },
+      reviewList:[],
+      avg_review:0,
     };
   },
   created() {
@@ -203,8 +218,10 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
-        this.challenge = data;
-
+        this.challenge = data.challenge;
+        this.reviewList = data.review;
+        this.avg_review = data.avg_review;
+        console.log(data);
         this.calculateCanParticipant();
       })
       .catch(() => {
@@ -340,7 +357,7 @@ export default {
       if(this.isMobile){
         deviceOffset = 120;
       }
-      
+
       this.challengeContentsLocation =
         document.getElementById("challenge-contents").getBoundingClientRect()
           .top +
@@ -358,11 +375,13 @@ export default {
           .top +
         window.pageYOffset -
         deviceOffset;
+        if(this.challenge.check_date == 2){
       this.challengeReviewLocation =
         document.getElementById("challenge-review").getBoundingClientRect()
           .top +
         window.pageYOffset -
         deviceOffset;
+    }
     },
   },
   computed: {

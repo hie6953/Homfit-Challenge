@@ -72,7 +72,6 @@ export default {
     };
   },
   created() {
-    console.log(this.challenge);
     if (
       this.challenge.challenge_img != "" &&
       this.challenge.challenge_img != null
@@ -109,7 +108,6 @@ export default {
       return "";
     },
     ChallengeMoreInfo: function() {
-      console.log(this.challenge.challenge_id);
       this.$emit("moreInfo", this.challenge.challenge_id);
     },
     DeleteBookmarkBtn() {
