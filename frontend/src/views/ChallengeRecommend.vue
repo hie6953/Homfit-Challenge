@@ -47,10 +47,14 @@
       </div>
     </div>
     <div class="col-12 col-md-8 mx-auto challenge-recommend-text">
+      <span class="display-inline-block">
       <span class="challenge-recommend-highlight">{{ getUserNickName }}</span>
       <span>님이 선호하는 {{ getCategoryName }} </span>
+      </span>
+      <span class="ml-1 display-inline-block">
       <span class="challenge-recommend-highlight">{{getCategoryList}}</span>
       <span>입니다.</span>
+      </span>
     </div>
     <div class="row col-12 col-md-8  mx-auto list-card">
       <challenge-list-card
