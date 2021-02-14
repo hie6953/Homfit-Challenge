@@ -2,12 +2,12 @@
   <div class="mt-3">
     <hr id="hr-top" />
 
-    <div class="mx-auto col-8 search-container">
+    <div class="mx-auto col-12 col-md-8 search-tmp-container">
       <!-- 검색바 -->
-      <div class="search-bar">
-        <div class="col-12 col-md-10 col-lg-8 search-container">
+      <div class="col-12 col-md-10 col-lg-8 search-container">
+        <div class="search-align">
           <b-dropdown
-            class="col-2"
+            class="col-2 search-dropdown"
             id="search-dropdown"
             variant="outline-dark"
             :text="searchList[searchValue]"
@@ -19,6 +19,8 @@
               >{{ value }}
             </b-dropdown-item>
           </b-dropdown>
+        </div>
+        <div class="search-align">
           <input
             class="col-10"
             type="text"
@@ -27,11 +29,7 @@
             v-model="keyword"
             @keyup.enter="ChallengeListSearch"
           />
-          <!-- <a href="#"
-            ><img
-              class="search-icon"
-              src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
-          /></a> -->
+
           <b-icon
             icon="search"
             variant="secondary"
@@ -43,7 +41,7 @@
 
       <!-- 태그 -->
       <div class="row search-tag">
-        <ul class="col-12 col-md-10 col-lg-8 mx-auto s-tags">
+        <ul class="col-12 col-md-10 mx-auto s-tags">
           <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#땅끄부부</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#인기태그</a></li>
@@ -79,7 +77,7 @@
               <div class="row search-feed">
                 <feed
                   v-for="(feed, index) in feedList"
-                  class="col-12 col-md-12 col-lg-4 challenge-list-feed"
+                  class="col-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
                 >
@@ -117,14 +115,17 @@ export default {
     };
   },
   methods: {
+    ChallengeMoreInfo: function(challenge_id) {
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
+    },
     ChallengeListSearch: function() {
-      console.log('hihi');
+      // console.log('hihi');
       axios
         .get(`${SERVER_URL}/challenge/search`, {
           params: { keyword: this.keyword, kind: this.searchValue },
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           this.challengeList = data;
         })
         .catch(() => {
@@ -136,7 +137,7 @@ export default {
           params: { keyword: this.keyword, kind: this.searchValue },
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           this.feedList = data;
         })
         .catch(() => {

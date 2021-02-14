@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.service.FeedService;
-import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.util.UploadImg;
 
 import org.slf4j.Logger;
@@ -36,9 +35,6 @@ public class FeedController {
     private static final String FAIL = "fail";
 
     @Autowired
-    S3Service s3service;
-
-    @Autowired
     private FeedService feedService;
 
     @ApiOperation(value = "피드 생성", notes = "입력된 데이터(maked_uid = 작성자 uid, challenge_id = 챌린지 식별번호, feed_contents = 피드 내용, imgFile = 이미지 파일)를 토대로 피드를 생성")
@@ -48,7 +44,7 @@ public class FeedController {
         String msg = null;
 
         try {
-            feed.setFeed_picture(s3service.uploadImg(feed.getImgFile()));
+            feed.setFeed_picture(UploadImg.writeImg(feed.getImgFile()));
             if (feedService.create(feed)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
@@ -72,7 +68,7 @@ public class FeedController {
         String msg = null;
 
         try {
-            if (feedService.updateImg(feed_id, s3service.uploadImg(imgFile))) {
+            if (feedService.updateImg(feed_id, UploadImg.writeImg(imgFile))) {
                 msg = SUCCESS;
             } else {
                 msg = FAIL;

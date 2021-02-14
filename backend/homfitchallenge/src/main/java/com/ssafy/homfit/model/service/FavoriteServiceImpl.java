@@ -2,7 +2,6 @@ package com.ssafy.homfit.model.service;
 
 import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
-import com.ssafy.homfit.model.dao.FeedDAO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,6 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Autowired
     SqlSession sqlSession;
-    
-    @Autowired
-    FavoriteDAO favoriteDao;
-    
 
     @Override
     public boolean init(String uid) throws Exception {
@@ -44,11 +39,5 @@ public class FavoriteServiceImpl implements FavoriteService {
     public boolean isSetting(String uid) throws Exception {
         return sqlSession.getMapper(FavoriteDAO.class).isSetting(uid);
     }
-
-	@Override
-	public Favorite selectUserInfo(String uid) {
-		return favoriteDao.selectUserInfo(uid);
-	}
-
     
 }

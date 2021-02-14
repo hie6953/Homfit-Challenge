@@ -11,11 +11,11 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <p class="certify-content-img-title"><span>좋은 인증샷</span></p>
-        <img class="certify-content-img" src="https://picsum.photos/600/300/?image=25">
+        <img class="certify-content-img" :src="good_img">
       </div>
       <div class="col-12 col-md-6">
         <p class="certify-content-img-title"><span>나쁜 인증샷</span></p>
-        <img class="certify-content-img" src="https://picsum.photos/600/300/?image=25">
+        <img class="certify-content-img" :src="bad_img">
       </div>
     </div>
   </div>
@@ -26,6 +26,8 @@ export default {
   name: "ChallengeCertifyContents",
   props: {
     challenge_certify_contents: String,
+    good_img:String,
+    bad_img:String,
     only_cam: Number,
   },
 };

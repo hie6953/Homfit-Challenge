@@ -136,9 +136,7 @@ export default {
     },
     CanGoNext: function() {
       if (
-        this.challenge_certify_contents.length > 7 &&
-        this.good_img != null &&
-        this.bad_img != null
+        this.challenge_certify_contents.length > 7
       )
         this.canGoNext = true;
       else this.canGoNext = false;
