@@ -19,6 +19,17 @@
   background-color: #eac03a;
 }
 
+.btn-outline-dark:hover {
+  color: #fff;
+  border-color: #eac03a;
+  background-color: #eac03a;
+}
+
+.btn-outline-dark.focus,
+.btn-outline-dark:focus {
+  box-shadow: none;
+}
+
 .search-container .search-dropdown {
   box-shadow: none !important;
 }
