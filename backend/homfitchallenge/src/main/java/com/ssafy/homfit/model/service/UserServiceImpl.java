@@ -147,11 +147,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateImg(String uid, MultipartFile imgFile) throws Exception {
+    public boolean updateImg(String uid, String imgURL) throws Exception {
         try {
-            if (uid != null && imgFile != null) {
-                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, s3service.uploadImg(imgFile));
-                
+            if (uid != null && imgURL != null) {
+                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, imgURL);
                 return true;
             }
         } catch (Exception e) {

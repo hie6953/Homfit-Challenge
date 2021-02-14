@@ -12,6 +12,7 @@ import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
+import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.model.service.UserService;
 
 import org.slf4j.Logger;
@@ -49,6 +50,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    S3Service s3service;
 
     @Autowired
     private FavoriteService favoriteService;
@@ -156,24 +160,26 @@ public class UserController {
 
     @ApiOperation(value = "회원 프로필 사진 수정")
     @PutMapping("/updateImg")
-    public ResponseEntity<String> updateImg(@RequestPart("imgFile") MultipartFile imgFile,
+    public ResponseEntity<Map<String, Object>> updateImg(@RequestPart("imgFile") MultipartFile imgFile,
             @RequestPart("uid") String uid) {
         HttpStatus status = null;
-        String msg = null;
+        Map<String, Object> resultMap = new HashMap();
         try {
-            if (userService.updateImg(uid, imgFile)) {
-                msg = SUCCESS;
+            String imgURL = s3service.uploadImg(imgFile);
+            if (userService.updateImg(uid, imgURL)) {
+                resultMap.put("msg", SUCCESS);
+                resultMap.put("imgurl", imgURL);
                 status = HttpStatus.ACCEPTED;
             } else {
-                msg = FAIL;
+                resultMap.put("msg", FAIL);
                 status = HttpStatus.ACCEPTED;
             }
         } catch (Exception e) {
             logger.error("회원 프로필 사진수정 실패 : {}", e);
-            msg = e.getMessage();
+            resultMap.put("msg", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<String>(msg, status);
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
     @ApiOperation(value = "닉네임 중복확인 체크", notes = "해당 닉네임이 중복인지 체크한다 중복시 true 반환")
