@@ -259,7 +259,10 @@ public class ChallengeController {
 	
 	/** 추천 챌린지  */
 	@GetMapping("/recommend/{uid}/{kind}")
-	public ResponseEntity<List<Challenge>> recommendChallenge (@PathVariable String uid, @PathVariable int kind){
+	public ResponseEntity<HashMap<String, Object>> recommendChallenge (@PathVariable String uid, @PathVariable int kind){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		
 		Favorite userFavorite =  favoriteService.selectUserInfo(uid);
 		String fit = userFavorite.getFit_list();
@@ -269,6 +272,7 @@ public class ChallengeController {
 		//string -> string[]
 		String[] fit_string = fit.substring(1, fit.length()-1).split(",");
 		String[] body_string = body.substring(1, body.length()-1).split(",");
+		String[] day_string = day.substring(1, day.length()-1).split(",");
 			
 		//string[] -> int[]
 		int[] fit_arr = Arrays.asList(fit_string).stream().mapToInt(Integer::parseInt).toArray();
@@ -276,8 +280,14 @@ public class ChallengeController {
 		List<Challenge> cacheList =  (List<Challenge>) challengeRepository.findAll();
 		List<Challenge> returnList = new ArrayList<Challenge>();
 		
-		//챌린지 진행중, 완료중은 뺀다면 처리 필요
-		
+		//진행중, 완료중 챌린지는 제외
+		for (Iterator<Challenge> it = cacheList.iterator(); it.hasNext();) {
+			Challenge value = it.next();
+			if (value.getCheck_date() == 1 || value.getCheck_date() == 2) {
+				it.remove();
+			}
+		}
+			
 		if(kind == 1) { //선호 카테고리 kind - 1
 			for (int i = 0; i < fit_arr.length; i++) {
 				for (Challenge challenge : cacheList) {
@@ -300,11 +310,16 @@ public class ChallengeController {
 						returnList.add(challenge);
 				}
 				
-		}else if(kind == 4){ //나이, 성별 추천 kind - 4
+		}else if(kind == 4){ //나이, 성별 추천 kind - 4 //보류
 			
 		}
 		
-		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
+		map.put("returnList", returnList);
+		map.put("fit", fit_string);
+		map.put("body", body_string);
+		map.put("day", day_string);
+		
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
 	/** 챌린지 참여 */
