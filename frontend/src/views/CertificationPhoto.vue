@@ -10,11 +10,12 @@
         >
       </div>
       <!-- 업로드 -->
+      <!-- :state="Boolean(form.file)" -->
       <b-form-group class="row col-12 cert-form-group">
         <!-- 이미지 -->
         <b-form-file
+          id="photo"
           v-model="form.file"
-          :state="Boolean(form.file)"
           placeholder="이미지를 업로드해주세요"
           drop-placeholder="이미지를 업로드해주세요"
           required
@@ -41,7 +42,11 @@
 
         <!-- 제출 -->
         <div class="align-center">
-          <b-button type="submit" class="certification-submit" variant="warning"
+          <b-button
+            type="submit"
+            class="certification-submit"
+            variant="warning"
+            @click="UploadCertification"
             >업로드</b-button
           >
         </div>
@@ -52,6 +57,10 @@
 
 <script>
 import '../assets/css/certificationphoto.css';
+
+import { mapGetters } from 'vuex';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'CertificationPhoto',
@@ -69,6 +78,29 @@ export default {
     };
   },
   methods: {
+    UploadCertification() {
+      let frm = new FormData();
+      frm.append('imgFile', document.getElementById('photo').files[0]);
+      frm.append('maked_uid', this.getUserUid);
+      frm.append('challenge_id', 229);
+      frm.append('feed_contents', this.form.content);
+
+      axios
+        .post(`${SERVER_URL}/feed/create`, frm, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          // if (data === true) {
+          // } else {
+          // }
+          //console.log(this.nicknamecheck);
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+
     onSubmit(evt) {
       evt.preventDefault();
       alert(JSON.stringify(this.form));
@@ -96,6 +128,9 @@ export default {
         this.previewImageData = null;
       }
     },
+  },
+  computed: {
+    ...mapGetters(['getUserUid']),
   },
 };
 </script>
