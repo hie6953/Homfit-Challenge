@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.util.UploadImg;
 
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class FeedController {
     private static final Logger logger = LoggerFactory.getLogger(FeedController.class);
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
+
+    @Autowired
+    S3Service s3service;
 
     @Autowired
     private FeedService feedService;
@@ -68,7 +72,7 @@ public class FeedController {
         String msg = null;
 
         try {
-            if (feedService.updateImg(feed_id, UploadImg.writeImg(imgFile))) {
+            if (feedService.updateImg(feed_id, s3service.uploadImg(imgFile))) {
                 msg = SUCCESS;
             } else {
                 msg = FAIL;
