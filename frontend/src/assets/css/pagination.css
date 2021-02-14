@@ -1,0 +1,24 @@
+.pagination-button-group [type='button']{
+    width:35px;
+    text-align: center;
+    background-color: white;
+    color:#EAC03A;
+    border:none;
+}
+
+.pagination-button-group [type='button']:hover,
+.pagination-button-group [type='button']:focus,
+.pagination-button-group [type='button']:active{
+    font-weight: 700;
+    background:none !important;
+    border:none !important;
+    box-shadow: none !important;
+}
+
+.pagination-button-group [type='button'].disabled{
+    color:#e7d69c;
+}
+
+.pagination-button-group .pageChoice{
+    font-weight: 700;
+}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -24,4 +25,10 @@ public interface FeedDAO {
 	public List<Feed> searchAll() throws SQLException;
 	public List<Feed> searchCategory(int category) throws SQLException;
 	public List<Feed> searchByChallengeTitle(String keyword) throws SQLException;
+	
+	/**챌린지에서 사용함 */
+	//지금까지 찍은 피드 갯수
+	public int[] selectUserFeed (@Param("uid") String uid, @Param("challenge_id") int challenge_id);
+	//오늘 찍은 피드 img url
+	public List<Feed> selectFeedImg (@Param("uid") String uid, @Param("challenge_id") int challenge_id);
 }

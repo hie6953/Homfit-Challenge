@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/report")
 public class ReportController {
@@ -27,6 +29,7 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
+    @ApiOperation(value = "모든 신고기록 가져오기")
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> searchAll(){
         Map<String, Object> resultMap = new HashMap<>();

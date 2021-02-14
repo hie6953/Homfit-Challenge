@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "easy-circular-progress": "^1.0.4",
     "jwt-decode": "^3.1.2",
     "mdbvue": "^6.7.2",
     "sass": "^1.32.6",

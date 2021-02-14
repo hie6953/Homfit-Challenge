@@ -41,23 +41,33 @@
     color: #aaa;
     margin-left: 5px;
   }
-  
-  #card-day {
+
+  .card-day-info span{
+    display: inline-block;
     background-color: #eac03a;
-    border-radius: 7%;
+    border-radius: 3px;
     font-size: small;
     color: #fff;
-    padding: 4px 3px;
+    padding: 2px 3px;
     margin-right: 3px;
   }
-  
-  #card-period {
-    background-color: #eac03a;
-    border-radius: 10%;
+
+  .card-check-date{
+    float:right;
     font-size: small;
     color: #fff;
-    padding: 4px 3px;
-    margin-right: 3px;
+    padding: 2px 3px;
+  }
+
+  .check-date-0{
+    color: #eac03a !important;
+  }
+  .check-date-1{
+    color: #e65c2e !important;
+  }
+  
+  .check-date-2{
+    color: #aaa !important;
   }
   /* .bookmark-icon {
     position: absolute;

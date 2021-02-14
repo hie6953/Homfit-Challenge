@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.TodayChallenge;
+import com.ssafy.homfit.model.UserRate;
 import com.ssafy.homfit.model.dao.ChallengeDAO;
 
 @Service
@@ -99,6 +101,69 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public String selectUserNickname(int challenge_id) {
 		return challengeDAO.selectUserNickname(challenge_id);
 	}
+
+	//회원의 완료된 챌린지
+	@Override
+	public int[]  selectEndChallenge(String uid) {
+		return challengeDAO.selectEndChallenge(uid);
+	}
+
+
+	//회원의 진행전 챌린지
+	@Override
+	public int[]  selectPreChallenge(String uid) {
+		return challengeDAO.selectPreChallenge(uid);
+	}
+
+	//회원의 진행중 챌린지
+	@Override
+	public int[]  selectIngChallenge(String uid) {
+		return challengeDAO.selectIngChallenge(uid);
+	}
+
+	//오늘 진행하는 챌린지
+	@Override
+	public List<TodayChallenge> selectTodayChallenge(int day) {
+		return challengeDAO.selectTodayChallenge(day);
+	}
+
+	//완료된 참여한 운동 카테고리 리스트
+	@Override
+	public int[] selectFitId(String uid) {
+		return challengeDAO.selectFitId(uid);
+	}
+
+	//완료된 참여한 부위 카테고리 리스트
+	@Override
+	public int[] selectBodyId(String uid) {
+		return challengeDAO.selectBodyId(uid);
+	}
+
+	//해당 월 챌린지 데이터
+	@Override
+	public List<UserRate> selectMonthChallenge(String uid, int month) {
+		return challengeDAO.selectMonthChallenge(uid, month);
+	}
+
+	//진행중 -> 완료로 갈 챌린지 id
+	@Override
+	public int[] selectIngToComp() {
+		return challengeDAO.selectIngToComp();
+	}
+
+	//시작전 -> 진행중으로 갈 챌린지 id
+	@Override
+	public int[] selectBefoToIng() {
+		return challengeDAO.selectBefoToIng();
+	}
+
+	//챌린지 id 받아 상태 업데이트
+	@Override
+	public boolean updateChallengeStatus(Map<String, Object> map) {
+		return challengeDAO.updateChallengeStatus(map) > 0;
+	}
+
+
 
 
 }

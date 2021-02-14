@@ -1,10 +1,14 @@
 package com.ssafy.homfit.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,10 +20,7 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,15 +36,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.homfit.api.ChallengeRepository;
+import com.ssafy.homfit.api.TodayChallengeRepository;
 import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.Favorite;
+import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.Review;
 import com.ssafy.homfit.model.Tag;
+import com.ssafy.homfit.model.TodayChallenge;
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.UserRate;
 import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.ChallengeService;
+import com.ssafy.homfit.model.service.FavoriteService;
+import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.ReviewService;
 import com.ssafy.homfit.model.service.TagService;
-
-import io.lettuce.core.dynamic.annotation.Param;
 
 /**
  * @author 황다희
@@ -59,38 +67,150 @@ public class ChallengeController {
 
 	@Autowired
 	ChallengeService challengeService;
-
 	@Autowired
 	BookmarkService bookmarkService;
-
 	@Autowired
 	TagService tagService;
+	@Autowired
+	ReviewService reviewService;
+	@Autowired
+	FavoriteService favoriteService;
+	@Autowired
+	FeedService feedService;
+	
 
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
-
 	@Autowired
 	private ChallengeRepository challengeRepository;
+	@Autowired
+	private TodayChallengeRepository todayRepository;
 
-	/** 테스트코드 */
+	
+	
+	/** 테스트코드 
+	 * @throws ParseException */
 	@GetMapping("/test")
-	public ResponseEntity<String> testChallenge() {
-//		Challenge ch = challengeService.detailChallenge(176);
-//		challengeRepository.save(ch);
-
-		// System.out.println(challengeRepository.findAll());
-
-//		List<Challenge> clist = (List<Challenge>) challengeRepository.findAll();
-//		System.out.println(clist.toString());
-//		Optional<Challenge> opt =  challengeRepository.findById(175);
-//		Challenge ch = opt.get();
-//		System.out.println(ch);
-//		ch.setChallenge_title("테스트로바꿀게요!");
-//		challengeRepository.save(ch);
-//		clist =  (List<Challenge>) challengeRepository.findAll();
-//		System.out.println(clist.toString());
+	public ResponseEntity<String> testChallenge() throws ParseException {
+		
 
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
+	}
+	
+	
+	/**챌린지 관리 페이지*/
+	@GetMapping("/management/{kind}")
+	public ResponseEntity<List<Challenge>> challengeManagement (@RequestParam String uid, @PathVariable int kind){
+		
+		List<Challenge> returnList = new ArrayList<Challenge>();
+		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+		List<TodayChallenge> todayList = (List<TodayChallenge>) todayRepository.findAll();
+		//카테고리 정렬은 front에서
+		
+		if(kind == 0) { //kind - 0 : 오늘 할 챌린지 
+			//회원이 참가중이고 진행중인 챌린지 가져옴
+			int [] c_id = challengeService.selectIngChallenge(uid);
+			// 그  id값이 오늘 해야될 챌린지에 있으면 추가.
+			for (int i = 0; i < c_id.length; i++) {
+				if(todayRepository.findById(c_id[i]).isPresent()) {
+					returnList.add(challengeRepository.findById(c_id[i]).get());
+				}	
+			}
+			//returnList에 담음
+		}else if(kind == 1) {//kind - 1 : 진행전 챌린지
+			int [] c_id = challengeService.selectPreChallenge(uid);
+			for (int i = 0; i < c_id.length; i++) {
+				Optional<Challenge> opt =  challengeRepository.findById(c_id[i]);
+				if(opt.isPresent()) {
+					returnList.add(opt.get());
+				}		
+			}
+		}else if(kind == 2) { //kind - 2 : 진행중 챌린지
+			int [] c_id = challengeService.selectIngChallenge(uid);
+			for (int i = 0; i < c_id.length; i++) {
+				Optional<Challenge> opt =  challengeRepository.findById(c_id[i]);
+				if(opt.isPresent()) {
+					returnList.add(opt.get());
+				}		
+			}
+		}else if(kind == 3) {//kind - 3 : 완료한 챌린지 
+			int [] c_id = challengeService.selectEndChallenge(uid);
+			for (int i = 0; i < c_id.length; i++) {
+				Optional<Challenge> opt =  challengeRepository.findById(c_id[i]);
+				if(opt.isPresent()) {
+					returnList.add(opt.get());
+				}		
+			}	
+		}else { //kind - 4 : 개설한 챌린지
+			for (Challenge challenge : cacheList) {
+				if(challenge.getMake_uid().equals(uid)) {
+					returnList.add(challenge);
+				}
+			}
+		}
+		 
+		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
+	}
+	
+	/** 참여한 챌린지 관리 상세페이지  */
+	@GetMapping("/detailManagement/{challengeId}")
+	public ResponseEntity<HashMap<String, Object>> detailManagementChallenge (@RequestParam String uid, @PathVariable int challengeId){
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+		Optional<Challenge> opt = challengeRepository.findById(challengeId);
+		if(!opt.isPresent()) { //혹여나 없다면
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.NO_CONTENT);
+		}else {
+			Challenge challenge = opt.get();
+			
+			int average_rate = challenge.getAverage_rate();
+			double total_cnt = challenge.getCertification(); //소수점계산을 위해
+			int user_cnt = feedService.selectUserFeed(uid, challengeId).length;
+			double div = (user_cnt / total_cnt);
+			int user_rate = (int) Math.round(div * 100); //소수 첫번째자리 반올림
+				
+			//현재 나의 달성률 (실시간)			
+			map.put("user_rate", user_rate);	
+			//회원이 지금까지 인증한 피드 수
+			map.put("user_cnt", user_cnt);
+			//챌린지 평균 달성률
+			map.put("average_rate", average_rate);
+			//챌린지 총 인증해야할 갯수
+			map.put("total_cnt", (int)total_cnt);
+			
+			//오늘해야될 챌린지인지 체크
+			Optional<TodayChallenge> today_opt = todayRepository.findById(challengeId);
+			if(!today_opt.isPresent()) {
+				map.put("today_cnt", 0);
+				map.put("imgList", null);
+			}else {//오늘 해야된다면
+				int today_cnt = challenge.getDay_certify_count();
+				map.put("today_cnt", today_cnt);//하루인증 횟수	
+				List<Feed> imgList = feedService.selectFeedImg(uid, challengeId);//오늘 날짜에 인증한 사진이 있다면 리스트
+				map.put("imgList", imgList);
+			}
+			
+			//후기리스트 주기
+			Review r = reviewService.selectReview(uid, challengeId);
+			map.put("review", r);
+			
+		}
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+	}
+	
+	
+	/**챌린지 후기 작성*/
+	@PostMapping("/review")
+	public ResponseEntity<String> writeReview(@RequestBody Review review){
+		
+		if(reviewService.writeReview(review)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		
 	}
 
 	/** 챌린지 검색 */
@@ -136,6 +256,69 @@ public class ChallengeController {
 		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
 
 	}
+	
+	/** 추천 챌린지  */
+	@GetMapping("/recommend/{kind}")
+	public ResponseEntity<HashMap<String, Object>> recommendChallenge (@RequestParam String uid, @PathVariable int kind){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Favorite userFavorite =  favoriteService.selectUserInfo(uid);
+		String fit = userFavorite.getFit_list();
+		String body = userFavorite.getBody_list();
+		String day = userFavorite.getDay_list();
+		
+		//string -> string[]
+		String[] fit_string = fit.substring(1, fit.length()-1).split(",");
+		String[] body_string = body.substring(1, body.length()-1).split(",");
+		String[] day_string = day.substring(1, day.length()-1).split(",");
+			
+		//string[] -> int[]
+		int[] fit_arr = Arrays.asList(fit_string).stream().mapToInt(Integer::parseInt).toArray();
+			
+		List<Challenge> cacheList =  (List<Challenge>) challengeRepository.findAll();
+		List<Challenge> returnList = new ArrayList<Challenge>();
+		
+		//진행중, 완료중 챌린지는 제외
+		for (Iterator<Challenge> it = cacheList.iterator(); it.hasNext();) {
+			Challenge value = it.next();
+			if (value.getCheck_date() == 1 || value.getCheck_date() == 2) {
+				it.remove();
+			}
+		}
+			
+		if(kind == 1) { //선호 카테고리 kind - 1
+			for (int i = 0; i < fit_arr.length; i++) {
+				for (Challenge challenge : cacheList) {
+					if(challenge.getFit_id() == fit_arr[i])
+						returnList.add(challenge);
+				}
+			}
+		}else if(kind == 2) { //선호 부위 kind - 2 
+			for (int i = 0; i < body_string.length; i++) {
+				for (Challenge challenge : cacheList) {
+					if(challenge.getBodylist_string().contains(body_string[i])) {
+						returnList.add(challenge);
+					}
+				}
+			}
+		}else if(kind == 3) { //선호 요일 kind - 3 
+				for (Challenge challenge : cacheList) {
+					String s = challenge.getDaylist_string().replace(" ", "");
+					if(day.equals(s)) 
+						returnList.add(challenge);
+				}
+				
+		}else if(kind == 4){ //나이, 성별 추천 kind - 4 //보류
+			
+		}
+		
+		map.put("returnList", returnList);
+		map.put("fit", fit_string);
+		map.put("body", body_string);
+		map.put("day", day_string);
+		
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+	}
 
 	/** 챌린지 참여 */
 	@PostMapping("/join/{challengeId}")
@@ -155,9 +338,9 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
-	@DeleteMapping("/join/{challengeId}/{uid}")
+	@DeleteMapping("/join/{challengeId}")
 	@Transactional
-	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @PathVariable String uid) {
+	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestParam String uid) {
 		
 		if (challengeService.quitChallenge(challengeId, uid)) {
 			// 챌린지 참여 삭제시 캐시 people --;
@@ -192,6 +375,12 @@ public class ChallengeController {
 					throw new Exception();
 				}
 				challenge.setDaylist_string(Arrays.toString(dayList));
+				challenge.setBodylist_string(Arrays.toString(bodyList));
+				
+				// 0. 총 인증해야할 사진 수 계산
+				int cert_day = certification_day(dayList, challenge.getStart_date(), challenge.getDay_certify_count(), challenge.getPeriod());
+				challenge.setCertification(cert_day);
+				
 				challengeService.writeChallenge(challenge);
 				int challengeId = challenge.getChallenge_id();
 
@@ -228,7 +417,8 @@ public class ChallengeController {
 						tagService.writeTagInChallenge(map_tag); // tag in challenge
 					}
 				}
-
+				
+				
 				// 4. 개설자는 참여테이블에 바로 insert
 				challengeService.joinChallenge(challengeId, challenge.getMake_uid());
 				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
@@ -321,8 +511,8 @@ public class ChallengeController {
 	}
 
 	/** 해당 챌린지 user의 참여여부, user의 북마크 */
-	@GetMapping("/user/{challengeId}/{uid}")
-	public ResponseEntity<HashMap<String, String>> userInChallenge(@PathVariable int challengeId, @PathVariable String uid) {
+	@GetMapping("/user/{challengeId}")
+	public ResponseEntity<HashMap<String, String>> userInChallenge(@PathVariable int challengeId, @RequestParam String uid) {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
@@ -343,17 +533,49 @@ public class ChallengeController {
 
 		return new ResponseEntity<HashMap<String, String>>(map, HttpStatus.OK);
 	}
-
-	/** 챌린지 상세보기 */
+	
+	/** 챌린지 후기 리스트 반환  */
+	@GetMapping("/review/{challengeId}/{sort}")
+	public ResponseEntity<List<Review>> ReviewList(@PathVariable int challengeId, @PathVariable int sort){
+		List <Review> returnList = reviewService.selectAllReview(challengeId);		
+		if(returnList.size() == 0) {
+		 return new ResponseEntity<List<Review>>(returnList, HttpStatus.NO_CONTENT);
+		}
+		
+		//정렬 - sort = 0: 최신 -> 기본
+		if(sort == 1) { // sort = 1:평점높 
+			Collections.sort(returnList, new Comparator<Review>() {
+				@Override
+				public int compare(Review o1, Review o2) {
+					return o2.getStar_point() - o1.getStar_point();
+				}
+			});
+		}else if(sort == 2) {//sort = 2:평점낮
+			Collections.sort(returnList, new Comparator<Review>() {
+				@Override
+				public int compare(Review o1, Review o2) {
+					return o1.getStar_point() - o2.getStar_point();
+				}
+			});
+		}
+			
+		return new ResponseEntity<List<Review>>(returnList, HttpStatus.OK);
+	}
+	
+	/** 챌린지 상세보기 -> 완료된 챌린지는 후기 최신순 3개담음 */
 	@GetMapping("{challengeId}")
-	public ResponseEntity<Challenge> detailChallenge(@PathVariable int challengeId) {
+	public ResponseEntity<HashMap<String, Object>> detailChallenge(@PathVariable int challengeId) {
 
-		// 캐시에서 가져옴
-		Optional<Challenge> opt = challengeRepository.findById(challengeId);
-		Challenge challenge = opt.get();
-		if (challenge == null) {
-			return new ResponseEntity<Challenge>(challenge, HttpStatus.NO_CONTENT);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Review> reviewList = new ArrayList<Review>();
+		Challenge challenge = new Challenge();
+		Optional<Challenge> opt = challengeRepository.findById(challengeId); // 캐시에서 가져옴
+		if (!opt.isPresent()) {
+			map.put("challenge", challenge);
+			map.put("reivew", reviewList);
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.NO_CONTENT);
 		} else {
+			challenge = opt.get();
 			// 태그리스트
 			Tag tag[] = tagService.selectTagInChallenge(challengeId);
 			if (tag.length != 0) {
@@ -365,16 +587,39 @@ public class ChallengeController {
 			}
 			// 부위리스트
 			challenge.setBodyList(challengeService.selectBodyPart(challengeId));
-
+			
+			//완료된 챌린지 일 경우 후기 3개 담아서 주기
+			if(challenge.getCheck_date() == 2) {
+				reviewList = reviewService.selectThreeReview(challengeId);
+			}
+			
+			map.put("challenge", challenge);
+			map.put("review", reviewList);
+			
+			//후기 총 평점 계산
+			List<Review> allReviewList = reviewService.selectAllReview(230);
+			int avg_review = 0;
+			int size = allReviewList.size();
+			if( size !=0) {
+				double sum = 0.0;
+				for (Review review : allReviewList) {
+					sum += review.getStar_point();
+				}		
+				avg_review = (int) Math.round(sum/size);
+			}
+			
+			map.put("avg_review", avg_review);
+			
+			
 		}
-		return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
 	/**
 	 * 북마크한 챌린지 리스트 반환
 	 */
-	@GetMapping("/bookmark/{uid}")
-	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@PathVariable String uid) {
+	@GetMapping("/bookmark")
+	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@RequestParam String uid) {
 		
 		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
 
@@ -424,7 +669,9 @@ public class ChallengeController {
 
 		}
 		
-		for (int i = 0; i < 20; i++) {
+		int size = cacheList.size();
+		if(cacheList.size() > 20) size = 20;
+		for (int i = 0; i < size; i++) {
 			returnList.add(cacheList.get(i));
 		}
 		
@@ -504,9 +751,101 @@ public class ChallengeController {
 		for (Challenge ch : cacheList) {
 			returnList.add(ch);
 		}
-		
-		
+				
 		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
+	}
+	
+	/** 챌린지 통계*/
+	@GetMapping("/figures/{month}")
+	public ResponseEntity<HashMap<String, Object>> figures (@RequestParam String uid, @PathVariable int month){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		//1. 월별챌린지
+		List<UserRate> monthList = challengeService.selectMonthChallenge(uid, month);
+		map.put("monthList", monthList);
+		
+		//1-1. 이번달 평균 담아서 주기.
+		int current_average_rate = 0;
+		int monthCnt = monthList.size();
+		double sum = 0.0;
+		for (UserRate userRate : monthList) {
+			sum += userRate.getAchievement_rate();
+		}
+		current_average_rate = (int) Math.round((sum / monthCnt)); //소수 첫번째자리 반올림
+		map.put("current_average_rate", current_average_rate);
+
+		//2. 지난달 나와의 비교 -> 지난달 평균 계산
+		int premonth = month -1;
+		int previous_average_rate = 0;
+		if( premonth > 0) { // 1월 이전인 12월은 x
+			List<UserRate> preList = challengeService.selectMonthChallenge(uid, premonth);
+			int premonthCnt = preList.size();
+			double presum = 0.0;
+			for (UserRate userRate : preList) {
+				presum += userRate.getAchievement_rate();
+			}
+			previous_average_rate = (int) Math.round((presum / premonthCnt)); //소수 첫번째자리 반올림
+		}
+		map.put("previous_average_rate", previous_average_rate);
+		
+		//3. 완료된 참여한 운동 카테고리 별 갯수 반환
+		int fitList[] = new int [11];
+		int dbfitList [] = challengeService.selectFitId(uid);
+		for (int i = 0; i < dbfitList.length; i++) {
+			int num = dbfitList[i];
+			fitList[num] ++;
+		}
+		map.put("categoryList", fitList);
+		
+		//4. 완료된 참여한 부위 별 갯수 반환
+		int bodyList[] = new int [10];
+		int dbbodyList [] = challengeService.selectBodyId(uid);
+		for (int i = 0; i < dbbodyList.length; i++) {
+			int num = dbbodyList[i];
+			bodyList[num]++;
+		}
+		map.put("bodyList", bodyList);
+		
+		//5. 다른 사람들과의 비교 top
+		//나이, 연령대 선호하는 운동카테고리 (인기순 정렬)
+		//- 회원의 성별, 나이 가져옴
+		//- 
+		//나이, 연령대 선호하는 부위 카테고리 (인기순 정렬)
+		
+		//6. 나이,연령대 가장 많이 도전한 챌린지 -> 보류
+		return new ResponseEntity<HashMap<String,Object>> (map, HttpStatus.OK);
+	}
+	
+	/**인증수 계산 method
+	 * @throws ParseException */
+	static public int certification_day(int[] dayList, String date, int oneCnt, int period) throws ParseException {
+
+		DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date data = dataFormat.parse(date);
+		Calendar cal = Calendar.getInstance() ;
+		cal.setTime(data);
+		
+		//int oneCnt = ch.getDay_certify_count();//하루 인증횟수
+		int certDay = 0; //인증요일 수 
+		int startDayNum = cal.get(Calendar.DAY_OF_WEEK)-1 ;//일정의 시작요일 숫자(ex.월 =1, 수 = 3)
+		if(startDayNum == 0) startDayNum = 7; //일요일 0 -> 7
+		
+		if(period <= 7){
+			certDay = dayList.length;
+		}
+		else{
+		   int count = 0;
+		   //int period = ch.getPeriod();
+		   for(int i = 0; i< dayList.length;++i){
+		      int day = dayList[i];
+		      if((startDayNum <= day && day < period%7 + startDayNum) || ((startDayNum <= day+7 && day+7 < period%7 + startDayNum))){
+	               ++count;
+	            }
+		   }
+		   certDay =  (period/7  * dayList.length)  + count;
+		}
+		int certification = certDay * oneCnt;
+		return certification;
 	}
 
 }
