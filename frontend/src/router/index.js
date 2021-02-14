@@ -108,7 +108,7 @@ const routes = [
     path: '/challengemanage',
     name: 'ChallengeManage',
     component: () => import('../views/ChallengeManage.vue'),
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/diary',
@@ -135,7 +135,7 @@ const routes = [
     path: '/mypage/statistics',
     name: 'Statistics',
     component: () => import('../views/StatisticsPage.vue'),
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
 
@@ -148,13 +148,13 @@ const routes = [
     path: '/participated/:challenge_id',
     name: 'ParticipatedChallenge',
     component: () => import('../views/ParticipatedChallenge.vue'),
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/certify/:challenge_id',
     name: 'Certify',
     component: () => import('../views/Certify.vue'),
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
     path:'/404',
