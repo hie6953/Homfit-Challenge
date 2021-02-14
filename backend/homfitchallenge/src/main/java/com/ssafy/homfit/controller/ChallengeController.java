@@ -362,8 +362,8 @@ public class ChallengeController {
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge, @RequestPart("challengeImgFile") MultipartFile challengeImgFile,
-			 @RequestPart("badImgFile") MultipartFile badImgFile,  @RequestPart("goodImgFile") MultipartFile goodImgFile) {
+	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
+			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -389,13 +389,13 @@ public class ChallengeController {
 				challenge.setCertification(cert_day);
 
 				// 1. 사진세팅 - 이미지가 null이 아닐경우만
-				if(!goodImgFile.isEmpty()) {
+				if(goodImgFile != null) {
 					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
-				if(!badImgFile.isEmpty()) {
+				if(badImgFile != null) {
 					challenge.setBad_img(s3service.uploadImg(badImgFile));
 				}
-				if(!challengeImgFile.isEmpty()) {
+				if(challengeImgFile != null) {
 					challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 				}
 				
@@ -459,8 +459,8 @@ public class ChallengeController {
 	/** 챌린지 수정 */
 	@PutMapping("{challengeId}")
 	@Transactional
-	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge, @RequestPart("challengeImgFile") MultipartFile challengeImgFile,
-			 @RequestPart("badImgFile") MultipartFile badImgFile,  @RequestPart("goodImgFile") MultipartFile goodImgFile) {
+	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
+			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -470,13 +470,13 @@ public class ChallengeController {
 
 		try {
 			// 1. 사진세팅 - 이미지가 null이 아닐경우만
-			if(!goodImgFile.isEmpty()) {
+			if(goodImgFile != null) {
 				challenge.setGood_img(s3service.uploadImg(goodImgFile));
 			}
-			if(!badImgFile.isEmpty()) {
+			if(badImgFile != null) {
 				challenge.setBad_img(s3service.uploadImg(badImgFile));
 			}
-			if(!challengeImgFile.isEmpty()) {
+			if(challengeImgFile != null) {
 				challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 			}
 
