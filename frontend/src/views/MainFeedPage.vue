@@ -136,12 +136,33 @@
       </main-feed>
       <!-- <MainFeed /> -->
     </div>
+
+    <div class="align-center">
+      <infinite-loading
+        ref="InfiniteLoading"
+        @infinite="getData"
+        spinner="waveDots"
+      >
+        <div class="infinite-loading-message" slot="no-more">
+          <b-button @click="scrollUp"
+            >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+          ></b-button>
+        </div>
+        <div class="infinite-loading-message" slot="no-results">
+          결과가 없습니다 :(
+        </div>
+        <div class="infinite-loading-message" slot="error">
+          불러오지 못했습니다.
+        </div>
+      </infinite-loading>
+    </div>
   </div>
 </template>
 
 <script>
 import '../assets/css/mainfeed/mainfeedpage.css';
 import MainFeed from '../components/MainFeed.vue';
+import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -149,6 +170,7 @@ export default {
   name: 'MainFeedPage',
   components: {
     MainFeed,
+    InfiniteLoading,
   },
   data: function() {
     return {
@@ -193,6 +215,14 @@ export default {
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
+    },
+
+    scrollUp: function() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
     },
   },
 };
