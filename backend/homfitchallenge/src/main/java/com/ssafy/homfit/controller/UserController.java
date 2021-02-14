@@ -250,8 +250,8 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원의 특정 북마크 삭제")
-    @DeleteMapping(value = "/bookmark/{uid}/{challenge_id}")
-    public ResponseEntity<String> deleteBookMark(@PathVariable String uid, @PathVariable int challenge_id) {
+    @DeleteMapping(value = "/bookmark/challenge_id}")
+    public ResponseEntity<String> deleteBookMark(@RequestParam String uid, @PathVariable int challenge_id) {
         String msg = null;
         HttpStatus status = null;
         Bookmark bookmark = new Bookmark();
