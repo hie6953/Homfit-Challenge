@@ -10,8 +10,11 @@
         </router-link>
       </div>
       <div class="user-profile-container">
-        <div class="user-profile-image">
+        <div v-if="this.user.user_img == ''" class="user-profile-image">
           <img class="user-img" src="@/assets/NavBar/anonimous_user.png" />
+        </div>
+        <div v-else class="user-profile-image">
+          <img class="user-img" :src="this.user.user_img" />
         </div>
         <div class="user-profile-info">
           <div class="user-profile-nickname">
@@ -167,6 +170,7 @@ export default {
         nick_name: '',
         point: '',
         grade: '',
+        user_img: '',
       },
       challenge: {
         today: '1',
