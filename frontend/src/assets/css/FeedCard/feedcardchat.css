@@ -23,6 +23,23 @@
   padding-right: 30px;
 }
 
+.feed-delete {
+  float: right;
+  display: inline;
+  margin-top: 15px;
+  margin-right: -10px;
+}
+
+.feed-delete-btn {
+  color: #6c757d !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  background: #fff;
+  box-shadow: none !important;
+  border: #fff;
+  outline-color: #fff;
+}
+
 .feedchat-card-user-image {
   width: 45px;
   height: 45px;
@@ -82,7 +99,6 @@
 /* 버튼 */
 .feedchat-icons {
   font-weight: regular;
-  margin-left: 20px;
   margin-right: 20px;
   padding-bottom: 25px;
   margin-bottom: 15px;
@@ -90,9 +106,13 @@
 }
 
 .feedchat-icons .btn-secondary {
-  color: #6c757d;
-  background-color: #fff;
-  border-color: #fff;
+  color: #6c757d !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  background: #fff;
+  box-shadow: none !important;
+  border: #fff;
+  outline-color: #fff;
 }
 
 .feedchat-icons .btn-secondary:active {
@@ -101,9 +121,13 @@
   border-color: #fff;
 }
 .feedchat-icons .btn-secondary:hover {
-  color: #6c757d;
+  color: #eac03a !important;
   background-color: #fff;
   border-color: #fff;
+  background: #fff;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
 }
 
 .feedchat-right {

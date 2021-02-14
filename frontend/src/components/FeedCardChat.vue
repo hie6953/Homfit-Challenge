@@ -23,6 +23,11 @@
           class="feedchat-card-user-image"
         />
         <div class="feedchat-card-user-name">이건내이름이얌</div>
+        <div class="feed-delete">
+          <b-button class="feed-delete-btn">
+            <b-icon icon="trash"></b-icon>
+          </b-button>
+        </div>
         <div class="feedchat-card-time">
           2021년 02월 11일<i class="fa fa-globe"></i>
         </div>
@@ -44,7 +49,7 @@
       <!-- 하단바_좋아요,댓글,바로가기,신고 -->
 
       <hr class="feedchat-card-hr" />
-      <div class="feedchat-icons">
+      <div class="col-12 feedchat-icons">
         <!-- <a href="#"><span class="feedchat-card-button-left">좋아요</span></a> -->
         <b-button class="feedchat-card-button-left">
           <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
@@ -80,17 +85,25 @@
       <!-- 댓글쓰기 -->
       <hr class="feedchat-card-hr" />
       <div class="feedchat-card-comments">
-        <div class="Comment-section">
-          <img
-            src="@/assets/NavBar/anonimous_user.png"
-            class="commenter-image"
-            height="32px"
-          />
+        <div
+          class="Comment-section"
+          v-for="(comment, index) in commentList"
+          :key="index"
+        >
+          <img :src="comment.user_img" class="commenter-image" height="32px" />
+
           <div class="feedchat-div-tmp">
-            <div class="user">C107</div>
-            <div class="comment">하잉</div>
-            <div class="comment-time">20 h</div>
+            <div class="user">{{ comment.nick_name }}</div>
+            <div class="comment">{{ comment.comment.contents }}</div>
+            <div class="comment-time">
+              {{ comment.comment.comment_regist_date }}
+            </div>
           </div>
+        </div>
+
+        <div class="write-comment">
+          <textarea v-model="contents"> </textarea>
+          <input type="button" value="댓글쓰기" @click="FeedCommentWrite" />
         </div>
       </div>
     </div>
@@ -99,6 +112,9 @@
 
 <script>
 import '../assets/css/FeedCard/feedcardchat.css';
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'FeedCardChat',
@@ -106,8 +122,45 @@ export default {
     feed: Object,
   },
   data: function() {
-    return {};
+    return {
+      contents: '',
+      commentList: [],
+    };
   },
-  methods: {},
+  created() {
+    this.LoadComments();
+  },
+  methods: {
+    FeedCommentWrite() {
+      axios
+        .post(`${SERVER_URL}/comment/create`, {
+          uid: this.getUserUid,
+          contents: this.contents,
+          feed_id: this.feed.feed_id,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          this.feedList = data;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+
+    LoadComments() {
+      axios
+        .get(`${SERVER_URL}/search/${this.feed.feed_id}`)
+        .then(({ data }) => {
+          console.log(data);
+          this.commentList = data.list;
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
+  },
+  computed: {
+    ...mapGetters(['getUserUid']),
+  },
 };
 </script>
