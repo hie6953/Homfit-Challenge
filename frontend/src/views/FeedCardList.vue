@@ -11,6 +11,8 @@
       </feed-card> -->
       <FeedCard />
       <FeedCard />
+      <FeedCard />
+      <FeedCard />
     </div>
   </div>
 </template>

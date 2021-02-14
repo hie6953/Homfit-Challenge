@@ -147,6 +147,14 @@
   font-size: 14px;
 }
 
+.feedcard-like-v {
+  display: inline;
+}
+
+.feedcard-comment-v {
+  display: inline;
+}
+
 /* 신고 */
 .d-modal-btn {
   background: #eac03a;

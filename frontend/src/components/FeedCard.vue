@@ -48,7 +48,7 @@
       <div class="col-12 feed-icons">
         <!-- <a href="#"><span class="feed-card-button-left">좋아요</span></a> -->
 
-        <div class="feedcard-good-v">
+        <div class="feedcard-like-v">
           <b-button class="feed-card-button-left" @click="FeedCardLike">
             <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
             좋아요
@@ -56,7 +56,7 @@
           <span>1</span>
         </div>
 
-        <div class="feedcard-chat-v">
+        <div class="feedcard-comment-v">
           <router-link to="/feedcardlistchat">
             <b-button class="feed-card-button-left">
               <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
@@ -183,6 +183,7 @@ export default {
     return {
       modal: false,
       message: '',
+      likepostflag: false, //좋아요 버튼 (fill/non-fill) 플래그
     };
   },
   methods: {
