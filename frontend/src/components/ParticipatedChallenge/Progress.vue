@@ -174,15 +174,18 @@ export default {
     //   .catch(() => {
     //     alert("챌린지 목록을 불러오지 못했습니다.");
     //   });
-    while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
-      this.certifyInfo.imgList.push({
-        feed_picture: "https://picsum.photos/300/300/?image=24",
-        register_date: "",
-      })
-    }
+    // while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
+    //   this.certifyInfo.imgList.push({
+    //     feed_picture: "https://picsum.photos/300/300/?image=24",
+    //     register_date: "",
+    //   })
+    // }
   },
   computed: {
     ...mapGetters(["getUserUid", "getUserNickName"]),
+  },
+  mounted() {
+    this.ProgressBarWidth()
   },
   watch: {
     certifyInfo() {
