@@ -48,7 +48,7 @@ public class FeedController {
         String msg = null;
 
         try {
-            feed.setFeed_picture(UploadImg.writeImg(feed.getImgFile()));
+            feed.setFeed_picture(s3service.uploadImg(feed.getImgFile()));
             if (feedService.create(feed)) {
                 msg = SUCCESS;
                 status = HttpStatus.ACCEPTED;
