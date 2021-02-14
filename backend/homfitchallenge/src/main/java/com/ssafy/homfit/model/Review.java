@@ -8,11 +8,18 @@ public class Review {
 
 	private int challenge_id;
 	private String uid;
+	private String nick_name;
 	private int star_point;
 	private String review_contents;
 	private Timestamp regist_time;
 	
 
+	public String getNick_name() {
+		return nick_name;
+	}
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
+	}
 	public int getChallenge_id() {
 		return challenge_id;
 	}
@@ -45,9 +52,10 @@ public class Review {
 	}
 	@Override
 	public String toString() {
-		return "Review [challenge_id=" + challenge_id + ", uid=" + uid + ", star_point=" + star_point
-				+ ", review_contents=" + review_contents + ", regist_time=" + regist_time + "]";
+		return "Review [challenge_id=" + challenge_id + ", uid=" + uid + ", nick_name=" + nick_name + ", star_point="
+				+ star_point + ", review_contents=" + review_contents + ", regist_time=" + regist_time + "]";
 	}
+	
 	
 	
 	
