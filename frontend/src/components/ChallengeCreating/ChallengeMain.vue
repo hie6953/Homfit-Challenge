@@ -6,7 +6,7 @@
       <b-container>
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
-            <span class="vertical-align-middle">챌린지 이름</span>
+            <span class="">챌린지 이름</span>
           </b-col>
           <b-col sm="9">
             <b-form-input
@@ -24,7 +24,7 @@
 
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
-            <span class="vertical-align-middle">챌린지 설명</span>
+            <span>챌린지 설명</span>
           </b-col>
           <b-col sm="9">
             <TextEditor
@@ -33,33 +33,51 @@
             ></TextEditor>
           </b-col>
         </b-row>
+
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center ">
+            <span>대표 이미지</span>
+          </b-col>
+          <b-col sm="9">
+            <image-uploader
+            :props_challenge_img="props_challenge_img"
+            @imageUploaded="ImageUploaded"
+            ></image-uploader>
+          </b-col>
+        </b-row>
+
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+            <span>카테고리</span>
+          </b-col>
+          <b-col sm="9">
+            <div class="align-center mx-auto">
+              <input
+                class="challenge_kind"
+                type="radio"
+                name="kind"
+                :value="1"
+                id="fit_id_exercise"
+                v-model="kind"
+              />
+              <label for="fit_id_exercise">
+                <span data-hover="운동">운동</span>
+              </label>
+              <input
+                class="challenge_kind"
+                type="radio"
+                name="kind"
+                :value="2"
+                id="fit_id_diet"
+                v-model="kind"
+              />
+              <label for="fit_id_diet">
+                <span data-hover="식단">식단</span>
+              </label>
+            </div>
+          </b-col>
+        </b-row>
       </b-container>
-    </div>
-    <div>
-      <div class="align-center mx-auto">
-        <input
-          class="challenge_kind"
-          type="radio"
-          name="kind"
-          :value="1"
-          id="fit_id_exercise"
-          v-model="kind"
-        />
-        <label for="fit_id_exercise">
-          <span data-hover="운동">운동</span>
-        </label>
-        <input
-          class="challenge_kind"
-          type="radio"
-          name="kind"
-          :value="2"
-          id="fit_id_diet"
-          v-model="kind"
-        />
-        <label for="fit_id_diet">
-          <span data-hover="식단">식단</span>
-        </label>
-      </div>
     </div>
 
     <div v-if="kind == 1">
@@ -239,11 +257,13 @@
 </template>
 
 <script>
-import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
+import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
+import ImageUploader from "@/components/ImageUploader.vue";
 
 export default {
   components: {
     TextEditor,
+    ImageUploader
   },
 
   props: {
@@ -252,14 +272,16 @@ export default {
     props_bodyList: Array,
     props_challenge_title: String,
     props_challenge_contents: String,
+    props_challenge_img: Object,
   },
   data() {
     return {
       kind: 0,
       fit_id: 0,
       bodyList: [],
-      challenge_title: '',
-      challenge_contents: '',
+      challenge_title: "",
+      challenge_contents: "",
+      challenge_img:null,
       canGoNext: false,
     };
   },
@@ -291,8 +313,14 @@ export default {
     challenge_contents: function() {
       this.CanGoNext();
     },
+    challenge_img: function() {
+      this.CanGoNext();
+    },
   },
   methods: {
+    ImageUploaded:function(image){
+      this.challenge_img = image;
+    },
     FitId: function(num) {
       this.fit_id = num;
     },
@@ -304,7 +332,8 @@ export default {
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
         this.challenge_contents.length > 7 &&
-        ((this.kind != 0 && this.bodyList.length > 0) || this.kind == 2)
+        ((this.kind != 0 && this.bodyList.length > 0) || this.kind == 2) &&
+        this.challenge_img != null
       ) {
         this.canGoNext = true;
       } else {
@@ -313,12 +342,13 @@ export default {
     },
     NextPage: function() {
       this.$emit(
-        'NextPage',
+        "NextPage",
         this.kind,
         this.fit_id,
         this.bodyList,
         this.challenge_title,
-        this.challenge_contents
+        this.challenge_contents,
+        this.challenge_img
       );
     },
   },
