@@ -30,6 +30,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectThreeReview(challenge_id);
 	}
 
+	@Override
+	public Review selectReview(String uid, int challenge_id) {
+		return reviewDao.selectReview(uid, challenge_id);
+	}
+
 	
 	
 }

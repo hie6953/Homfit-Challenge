@@ -15,6 +15,13 @@
 		values(#{challenge_id}, #{uid}, #{star_point}, #{review_contents}, now())
 	</insert>
 	
+	<!-- 후기 썼는지 안썼는지 확인 -->
+	<!-- public Review selectReview(@Param("uid") String uid, @Param("challenge_id") int challenge_id); -->
+	<select id="selectReview" resultType="Review">
+		select *
+		from review
+		where uid = #{uid} and challenge_id = #{challenge_id}
+	</select>
 	
 	<!-- 후기 3개만 -->
 	<!-- public List<Review> selectThreeReview(int challenge_id); -->
@@ -30,8 +37,9 @@
 	<!-- 후기 전체 리스트 반환 -->
 	<!-- public List<Review> selectAllReview(int challenge_id); -->
 	<select id="selectAllReview" resultType="Review">
-		select *
-		from review
+		select r.*, u.nick_name
+		from review as r join user as u
+		on r.uid = u.uid
 		where challenge_id = #{challenge_id}
 		order by regist_time desc
 	</select>

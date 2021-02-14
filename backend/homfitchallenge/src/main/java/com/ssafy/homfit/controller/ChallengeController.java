@@ -86,11 +86,15 @@ public class ChallengeController {
 	@Autowired
 	private TodayChallengeRepository todayRepository;
 
+	
+	
 	/** 테스트코드 
 	 * @throws ParseException */
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() throws ParseException {
 		
+		Review r = reviewService.selectReview("관리자888", 230);
+		System.out.println(r);
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
 	}
 	
@@ -189,6 +193,9 @@ public class ChallengeController {
 				List<Feed> imgList = feedService.selectFeedImg(uid, challengeId);//오늘 날짜에 인증한 사진이 있다면 리스트
 				map.put("imgList", imgList);
 			}
+			
+			//후기리스트 주기
+			
 			
 		}
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);

@@ -10,4 +10,5 @@ public interface ReviewDAO {
 	public int insertReview(Review review);
 	public List<Review> selectAllReview(int challenge_id);
 	public List<Review> selectThreeReview(int challenge_id);
+	public Review selectReview(@Param("uid") String uid, @Param("challenge_id") int challenge_id);
 }
