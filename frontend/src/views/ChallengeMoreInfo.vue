@@ -47,7 +47,7 @@
 
         <p id="challenge-result" class="more-info-title">챌린지 달성률</p>
         <challenge-result
-        :average_rate="challenge.average_rate"
+          :average_rate="challenge.average_rate"
         ></challenge-result>
 
         <p
@@ -202,14 +202,14 @@ export default {
         bad_img: "",
         only_cam: 1,
         tagList: [],
-        average_rate:0,
+        average_rate: 0,
         make_date: "",
         make_uid: "",
         check_date: 0,
         period: 0,
       },
-      reviewList:[],
-      avg_review:0,
+      reviewList: [],
+      avg_review: 0,
     };
   },
   created() {
@@ -232,9 +232,11 @@ export default {
     //로그인했으면 북마크, 참여정보 조회
     if (this.getAccessToken) {
       axios
-        .get(
-          `${SERVER_URL}/challenge/user/${this.challenge_id}/${this.getUserUid}`
-        )
+        .get(`${SERVER_URL}/challenge/user/${this.challenge_id}`, {
+          params: {
+            uid: this.getUserUid,
+          },
+        })
         .then(({ data }) => {
           // console.log(data);
           this.isBookmarked = data.bookmark == "1";
@@ -270,9 +272,11 @@ export default {
       } else {
         // 북마크 해제
         axios
-          .delete(
-            `${SERVER_URL}/user/bookmark/${this.getUserUid}/${this.challenge_id}`
-          )
+          .delete(`${SERVER_URL}/user/bookmark/${this.challenge_id}`, {
+            params: {
+              uid: this.getUserUid,
+            },
+          })
           .then(() => {
             alert("북마크가 해제되었습니다.");
             this.isBookmarked = !this.isBookmarked;
@@ -345,8 +349,7 @@ export default {
       );
       if (
         this.challenge.check_date == 0 ||
-        (this.challenge.check_date == 1 &&
-          new Date() <= limitTime)
+        (this.challenge.check_date == 1 && new Date() <= limitTime)
       ) {
         this.canParticiapnt = true;
       }
@@ -354,7 +357,7 @@ export default {
 
     calculateScroll: function() {
       let deviceOffset = 190;
-      if(this.isMobile){
+      if (this.isMobile) {
         deviceOffset = 120;
       }
 
@@ -375,13 +378,13 @@ export default {
           .top +
         window.pageYOffset -
         deviceOffset;
-        if(this.challenge.check_date == 2){
-      this.challengeReviewLocation =
-        document.getElementById("challenge-review").getBoundingClientRect()
-          .top +
-        window.pageYOffset -
-        deviceOffset;
-    }
+      if (this.challenge.check_date == 2) {
+        this.challengeReviewLocation =
+          document.getElementById("challenge-review").getBoundingClientRect()
+            .top +
+          window.pageYOffset -
+          deviceOffset;
+      }
     },
   },
   computed: {

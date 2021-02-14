@@ -144,8 +144,8 @@ import "@/assets/css/ChallengeCreating/challengecreating.css";
 
 import { mapGetters } from "vuex";
 
-// import axios from "axios";
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: "ChallengeCreating",
@@ -168,7 +168,7 @@ export default {
       challenge: {
         kind: 1,
         fit_id: 1,
-        bodyList: [],
+        bodyList: [1],
         challenge_title: "",
         challenge_contents: "",
         challenge_img: null,
@@ -222,6 +222,11 @@ created(){
       
       console.log(this.challenge);
 
+
+      this.challenge.challenge_img = "";
+      this.challenge.good_img = "";
+      this.challenge.bad_img = "";
+
  // // Object To FormData 변환
       // var formData = new FormData();
       // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
@@ -247,16 +252,16 @@ created(){
       //   });
 
       // 챌린지 개설 axios
-      // axios
-      //   .post(`${SERVER_URL}/challenge`, this.challenge)
-      //   .then((success) => {
-      //     this.page = 5;
-      //     this.challenge_id = success.data;
-      //     alert("챌린지가 생성되었습니다.");
-      //   })
-      //   .catch(() => {
-      //     alert("등록 처리시 에러가 발생했습니다.");
-      //   });
+      axios
+        .post(`${SERVER_URL}/challenge`, this.challenge)
+        .then((success) => {
+          this.page = 5;
+          this.challenge_id = success.data;
+          alert("챌린지가 생성되었습니다.");
+        })
+        .catch(() => {
+          alert("등록 처리시 에러가 발생했습니다.");
+        });
     },
 
    

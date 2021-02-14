@@ -161,7 +161,7 @@
         <h4 class="challenge-creating-title">부위별 선택</h4>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="1"
           v-model="bodyList"
@@ -170,7 +170,7 @@
         <label for="bodyList_whole"> <span class="text">전신</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="2"
           v-model="bodyList"
@@ -179,7 +179,7 @@
         <label for="bodyList_upper"> <span class="text">상체</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="3"
           v-model="bodyList"
@@ -188,7 +188,7 @@
         <label for="bodyList_lower"> <span class="text">하체</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="4"
           v-model="bodyList"
@@ -197,7 +197,7 @@
         <label for="bodyList_chest"> <span class="text">가슴</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="5"
           v-model="bodyList"
@@ -206,7 +206,7 @@
         <label for="bodyList_arm"> <span class="text">팔</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="6"
           v-model="bodyList"
@@ -215,7 +215,7 @@
         <label for="bodyList_abdominal"> <span class="text">복부</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="7"
           v-model="bodyList"
@@ -224,7 +224,7 @@
         <label for="bodyList_hip"> <span class="text">엉덩이</span> </label>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="8"
           v-model="bodyList"
@@ -233,7 +233,7 @@
         <label for="bodyList_leg"> <span class="text">다리</span> </label>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           id="bodyList_etc"
           :value="9"
@@ -278,7 +278,7 @@ export default {
     return {
       kind: 0,
       fit_id: 0,
-      bodyList: [],
+      bodyList: [1],
       challenge_title: "",
       challenge_contents: "",
       challenge_img:null,
@@ -288,7 +288,7 @@ export default {
   created() {
     this.kind = this.props_kind;
     this.fit_id = this.props_fit_id;
-    this.bodyList = this.props_bodyList;
+    this.bodyList = this.props_bodyList[0];
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
   },
@@ -332,7 +332,6 @@ export default {
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
         this.challenge_contents.length > 7 &&
-        ((this.kind != 0 && this.bodyList.length > 0) || this.kind == 2) &&
         this.challenge_img != null
       ) {
         this.canGoNext = true;
@@ -345,7 +344,7 @@ export default {
         "NextPage",
         this.kind,
         this.fit_id,
-        this.bodyList,
+        [this.bodyList],
         this.challenge_title,
         this.challenge_contents,
         this.challenge_img
