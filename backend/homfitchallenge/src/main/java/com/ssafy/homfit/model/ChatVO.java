@@ -1,13 +1,22 @@
 package com.ssafy.homfit.model;
 
-import java.security.Timestamp;
+import java.sql.Date;
 
 public class ChatVO {
     private String uid;
     private String nick_name;
+    private Date regist_date;
+
+    public Date getRegist_date() {
+        return this.regist_date;
+    }
+
+    public void setRegist_date(Date regist_date) {
+        this.regist_date = regist_date;
+    }
+
     private int challenge_id;
     private String content;
-    private Timestamp regist_date;
     private String user_img;
 
     public String getUser_img() {
@@ -53,23 +62,11 @@ public class ChatVO {
         this.content = content;
     }
 
-    public Timestamp getRegist_date() {
-        return this.regist_date;
-    }
-
-    public void setRegist_date(Timestamp regist_date) {
-        this.regist_date = regist_date;
-    }
-
     @Override
     public String toString() {
-        return "ChatVO {" +
-            " uid='" + getUid() + "'" +
-            ", nick_name='" + getNick_name() + "'" +
-            ", challenge_id='" + getChallenge_id() + "'" +
-            ", content='" + getContent() + "'" +
-            ", regist_date='" + getRegist_date() + "'" +
-            "}";
+        return "ChatVO {" + " uid='" + getUid() + "'" + ", nick_name='" + getNick_name() + "'" + ", challenge_id='"
+                + getChallenge_id() + "'" + ", content='" + getContent() + "'" + ", regist_date='" + getRegist_date()
+                + "'" + "}";
     }
-    
+
 }

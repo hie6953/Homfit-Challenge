@@ -389,13 +389,13 @@ public class ChallengeController {
 				challenge.setCertification(cert_day);
 
 				// 1. 사진세팅 - 이미지가 null이 아닐경우만
-				if(goodImgFile != null) {
+				if(!goodImgFile.isEmpty()) {
 					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
-				if(badImgFile != null) {
+				if(!badImgFile.isEmpty()) {
 					challenge.setBad_img(s3service.uploadImg(badImgFile));
 				}
-				if(challengeImgFile != null) {
+				if(!challengeImgFile.isEmpty()) {
 					challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 				}
 				
@@ -470,13 +470,13 @@ public class ChallengeController {
 
 		try {
 			// 1. 사진세팅 - 이미지가 null이 아닐경우만
-			if(goodImgFile != null) {
+			if(!goodImgFile.isEmpty()) {
 				challenge.setGood_img(s3service.uploadImg(goodImgFile));
 			}
-			if(badImgFile != null) {
+			if(!badImgFile.isEmpty()) {
 				challenge.setBad_img(s3service.uploadImg(badImgFile));
 			}
-			if(challengeImgFile != null) {
+			if(!challengeImgFile.isEmpty()) {
 				challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 			}
 
