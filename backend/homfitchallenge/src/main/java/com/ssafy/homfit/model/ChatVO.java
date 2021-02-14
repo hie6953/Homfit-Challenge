@@ -1,12 +1,15 @@
 package com.ssafy.homfit.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ChatVO {
     private String uid;
     private String nick_name;
     private Date regist_date;
-
+    private int challenge_id;
+    private String content;
+    private String user_img;
+    
     public Date getRegist_date() {
         return this.regist_date;
     }
@@ -14,10 +17,6 @@ public class ChatVO {
     public void setRegist_date(Date regist_date) {
         this.regist_date = regist_date;
     }
-
-    private int challenge_id;
-    private String content;
-    private String user_img;
 
     public String getUser_img() {
         return this.user_img;
