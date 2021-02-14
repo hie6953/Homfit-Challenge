@@ -126,6 +126,12 @@ const routes = [
     component: () => import('../views/Search.vue'),
   },
   {
+    path: '/certificationphoto',
+    name: 'CertificationPhoto',
+    component: () => import('../views/CertificationPhoto.vue'),
+  },
+
+  {
     path: '/',
     name: 'MainPage',
     component: MainPage,

@@ -68,7 +68,9 @@
   margin: -5px 10px;
   color: #424242;
 }
-
+.sign-in-form__form {
+  width: 100%;
+}
 .sign-in-form__form__submit {
   display: block;
   width: 100%;
