@@ -93,8 +93,7 @@ public class ChallengeController {
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() throws ParseException {
 		
-		Review r = reviewService.selectReview("관리자888", 230);
-		System.out.println(r);
+	
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
 	}
 	
@@ -195,7 +194,8 @@ public class ChallengeController {
 			}
 			
 			//후기리스트 주기
-			
+			Review r = reviewService.selectReview(uid, challengeId);
+			map.put("review", r);
 			
 		}
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
