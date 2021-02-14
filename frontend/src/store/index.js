@@ -11,7 +11,7 @@ export default new Vuex.Store({
     userEmail: '', //dao랑 변수명 같게
     userNickName: '',
     userUid: '',
-
+    userImg:'',
   },
   getters: {
     getAccessToken(state) {
@@ -26,6 +26,9 @@ export default new Vuex.Store({
     getUserUid(state) {
       return state.userUid;
     },
+    getUserImg(state){
+      return state.userImg;
+    }
   },
   mutations: {
     LOGIN(state, payload) {
@@ -34,6 +37,7 @@ export default new Vuex.Store({
       state.userEmail = payload['user-email'];
       state.userNickName = payload['nickName'];
       state.userUid = payload['uid'];
+      state.userImg = payload['userImg'];
       sessionStorage.setItem('loginInfo', JSON.stringify(payload));
     },
     LOGOUT(state) {
@@ -41,10 +45,14 @@ export default new Vuex.Store({
       state.userEmail = '';
       state.userNickName = '';
       state.userUid = '';
+      state.userImg = '';
       sessionStorage.removeItem('loginInfo');
     },
     SETEMAIL(state, email) { 
       state.userEmail = email;
+    },
+    SETEIMAGE(state, img) { 
+      state.userImg = img;
     }
   },
   actions: {

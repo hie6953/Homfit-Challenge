@@ -267,9 +267,10 @@ export default {
 
           .then(({ data }) => {
             // console.log(data);
-            if (data == 'success') {
+            if (data.msg == 'success') {
               alert('회원정보가 변경되었습니다.');
               this.giveAlert = true;
+              this.$store.dispatch('SETIMAGE', data.imgurl);
             }
           })
           .catch(() => {
