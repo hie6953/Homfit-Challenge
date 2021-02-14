@@ -21,4 +21,13 @@
         select setting_first from favorite
         where uid = #{uid}
     </select>
+    
+    <!-- User 정보 select  -->
+    <!--  public Favorite selectUserInfo (String uid); -->
+    <select id="selectUserInfo" resultType="Favorite">
+    	select uid, fit_list, body_list, day_list
+    	from favorite
+    	where uid = #{uid}
+    </select>
+    
 </mapper>

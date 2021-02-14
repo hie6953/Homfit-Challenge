@@ -33,10 +33,14 @@ public class Challenge implements Serializable{
 	private String nick_name; //개설자 닉네임
 	private int people; //참여자수
 	private int kind; //종류 1 - 운동, 2 - 식단
+	private int certification; //인증갯수
+	private int average_rate; //평균 달성률
 	
-
 	//요일리스트 스트링
 	private String daylist_string;
+	//body리스트 스트링
+	private String bodylist_string;
+	
 	//요일리스트
 	private int[] dayList;
 	//태그리스트
@@ -189,20 +193,25 @@ public class Challenge implements Serializable{
 		this.kind = kind;
 	}
 	
-	@Override
-	public String toString() {
-		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
-				+ ", challenge_contents=" + challenge_contents + ", challenge_img=" + challenge_img
-				+ ", challenge_certify_contents=" + challenge_certify_contents + ", good_img=" + good_img + ", bad_img="
-				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
-				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
-				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
-				+ nick_name + ", people=" + people + ", kind=" + kind + ", daylist_string=" + daylist_string
-				+ ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList) + ", bodyList="
-				+ Arrays.toString(bodyList) + "]";
+	public int getCertification() {
+		return certification;
+	}
+	public void setCertification(int certification) {
+		this.certification = certification;
+	}
+	public int getAverage_rate() {
+		return average_rate;
+	}
+	public void setAverage_rate(int average_rate) {
+		this.average_rate = average_rate;
 	}
 	
-	
+	public String getBodylist_string() {
+		return bodylist_string;
+	}
+	public void setBodylist_string(String bodylist_string) {
+		this.bodylist_string = bodylist_string;
+	}
 	
 	
 }
