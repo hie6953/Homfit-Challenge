@@ -228,16 +228,10 @@
         <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">성별</div>
           <div class="user-sign-up-form__form-group__input">
-            <b-form-radio
-              v-model="sex"
-              name="some-radios"
-              value="f"
+            <b-form-radio v-model="sex" name="some-radios" value="f"
               >여자</b-form-radio
             >
-            <b-form-radio
-              v-model="sex"
-              name="some-radios"
-              value="m"
+            <b-form-radio v-model="sex" name="some-radios" value="m"
               >남자</b-form-radio
             >
           </div>
@@ -302,11 +296,6 @@ export default {
     passwordcheck(value) {
       this.passwordcheck = value;
       this.checkPasswordconfirm(value);
-    },
-
-    nick_name(value) {
-      this.nick_name = value;
-      this.checknick_name(value);
     },
   },
 
