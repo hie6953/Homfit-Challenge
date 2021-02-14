@@ -7,7 +7,7 @@
     </div>
     <div v-if="tab === 0">
       <Progress
-        :challenge="challenge"
+        :challenge="certifyInfo.challenge"
         :certifyInfo="certifyInfo"
         :isMobile="isMobile"
       />
@@ -17,7 +17,7 @@
     </div>
     <div v-if="tab === 2">
       <ChatRoom 
-        :challenge_id="challenge.challenge_id"
+        :challenge_id="certifyInfo.challenge.challenge_id"
       />
     </div>
     
@@ -58,15 +58,14 @@ export default {
         "기타",
       ],
       fitCategory: "",
-      challenge_id: 0,
-      challenge: {},
-      // challenge: { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
+      
       certifyInfo: {
+        challenge: { "challenge_id": 231, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
         total_cnt: 3,
         today_cnt: 3,
         user_cnt: 1,
-        average_rate: 90,
-        user_rate: 80,
+        average_rate: 10,
+        user_rate: 10,
         imgList: [
           {
             feed_picture: "https://picsum.photos/300/300/?image=25",
@@ -79,27 +78,20 @@ export default {
   created() {
     this.challenge_id = this.$route.params.challenge_id;
     axios
-      .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
+      .get(`${SERVER_URL}/challenge/detailManagement/${this.challenge_id}`, {
+        params: {
+          uid: this.getUserUid,
+        }
+      })
       .then(({ data }) => {
-        this.challenge = data;
-        axios
-          .get(`${SERVER_URL}/challenge/detailManageMent/${this.challenge.challenge_id}`, {
-            params: {
-              uid: this.getUserUid
-            }
+        console.log(data)
+        this.certifyInfo = data;
+        while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
+          this.certifyInfo.imgList.push({
+            feed_picture: "https://picsum.photos/300/300/?image=24",
+            register_date: "",
           })
-          .then(({ data }) => {
-            this.certifyInfo = data;
-            while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
-              this.certifyInfo.imgList.push({
-                feed_picture: "https://picsum.photos/300/300/?image=24",
-                register_date: "",
-              })
-            }
-          })
-          .catch(() => {
-            alert("챌린지 목록을 불러오지 못했습니다.");
-          });
+        }
       })
       .catch(() => {
         alert("챌린지 목록을 불러오지 못했습니다.");

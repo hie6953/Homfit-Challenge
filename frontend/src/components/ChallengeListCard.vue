@@ -138,7 +138,8 @@ export default {
       }
     },
     DeleteUpdate() {
-      // 카테고리가 진행전 일때만 삭제 버튼 활성화
+      // 카테고리가 진행전 일때만 삭제 버튼 
+      const challengeManage = document.querySelectorAll('.delete-icon')
       for (let i = 0; i<challengeManage.length; i++) {
         if (this.deleteActive === 1) {
           challengeManage[i].classList.remove('delete-disabled')

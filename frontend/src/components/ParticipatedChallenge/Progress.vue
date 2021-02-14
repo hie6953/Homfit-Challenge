@@ -184,12 +184,10 @@ export default {
   computed: {
     ...mapGetters(["getUserUid", "getUserNickName"]),
   },
-  mounted() {
-    const myProgress = document.getElementById('my-progress')
-    myProgress.style.width = `${this.certifyInfo.user_rate}%`
-    const avgProgress = document.getElementById('avg-progress')
-    avgProgress.style.width = `${this.certifyInfo.average_rate}%`
-    
+  watch: {
+    certifyInfo() {
+      this.ProgressBarWidth()
+    }
   },
   methods: {
     Certify() {
@@ -202,6 +200,12 @@ export default {
       //   name: "login",
       //   params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
       // });
+    },
+    ProgressBarWidth() {
+      const myProgress = document.getElementById('my-progress')
+      myProgress.style.width = `${this.certifyInfo.user_rate}%`
+      const avgProgress = document.getElementById('avg-progress')
+      avgProgress.style.width = `${this.certifyInfo.average_rate}%`
     }
   }
 }

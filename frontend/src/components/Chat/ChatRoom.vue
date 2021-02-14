@@ -91,6 +91,7 @@ export default {
       this.connected = false;
     },
     getChat() {
+      console.log(this.challenge_id)
       axios
         .get(`${SERVER_URL}/chat/log/${this.challenge_id}`)
         .then(({ data }) => {
