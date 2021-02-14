@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
 
+import io.lettuce.core.dynamic.annotation.Param;
+
 public interface FeedService {
 
     public boolean create(Feed feed) throws Exception;
@@ -29,5 +31,9 @@ public interface FeedService {
     public List<Feed> searchByKeyword(int type, String keyword) throws Exception;
     
     public List<Feed> searchByChallengeTitle(String keyword) throws Exception;
+    
+    /**챌린지에서 사용함 */
+	public int[] selectUserFeed (String uid, int challenge_id);
+	public List<Feed> selectFeedImg (String uid, int challenge_id);
 
 }
