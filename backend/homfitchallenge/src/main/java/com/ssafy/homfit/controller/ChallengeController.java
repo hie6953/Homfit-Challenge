@@ -170,7 +170,7 @@ public class ChallengeController {
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.NO_CONTENT);
 		} else {
 			Challenge challenge = opt.get();
-
+			map.put("challenge", challenge);
 			int average_rate = challenge.getAverage_rate();
 			double total_cnt = challenge.getCertification(); // 소수점계산을 위해
 			int user_cnt = feedService.selectUserFeed(uid, challengeId).length;
