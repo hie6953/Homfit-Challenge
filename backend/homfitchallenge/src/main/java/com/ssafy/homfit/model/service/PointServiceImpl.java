@@ -17,6 +17,7 @@ public class PointServiceImpl implements PointService {
     @Autowired
     private SqlSession sqlSession;
 
+    //특정 회원의 포인트 정보 가져오기
     @Override
     public List<Point> inquiry(String uid) throws Exception {
         List<Point> list = sqlSession.getMapper(PointDAO.class).inquiry(uid);
@@ -27,6 +28,7 @@ public class PointServiceImpl implements PointService {
         }
     }
 
+    //포인트 지급 및 포인트에 따른 등급 수정
     @Override    
     public boolean earn(Point point) throws Exception {
         if(point.getPoint() > 0 && sqlSession.getMapper(UserDAO.class).getUid(point.getUid()) != null){
@@ -53,6 +55,7 @@ public class PointServiceImpl implements PointService {
         return false;
     }
 
+    //가져온 포인트의 합계 계산
     @Override
     public long sumPoint(List<Point> list) throws Exception {
         long sum = 0;
@@ -62,4 +65,18 @@ public class PointServiceImpl implements PointService {
         return sum;
     }
 
+    //포인트 지급을 위한 계산
+    //numberOfParticipants : 챌린지 총 참여자수, numberOfDays : 챌린지 총 일수, everyoneDoPerfect : 모든 인원 달성 여부
+    @Override
+    public int calcPoint(int numberOfParticipants, int numberOfDays, boolean everyoneDoPerfect) throws Exception {
+        int point = Math.round(numberOfDays * numberOfDays * 5 / 9);
+        if(everyoneDoPerfect){
+            if(numberOfParticipants >= 10 && numberOfParticipants < 50) point *= 1.5;
+            else if(numberOfParticipants >= 50 && numberOfParticipants < 100) point *= 2;
+            else if(numberOfParticipants >= 100 && numberOfParticipants < 500) point *= 5;
+            else if(numberOfParticipants >= 505) point *= 10;
+        }
+        
+        return point;
+    }
 }
