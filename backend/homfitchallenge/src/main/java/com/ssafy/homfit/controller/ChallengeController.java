@@ -99,8 +99,8 @@ public class ChallengeController {
 	
 	
 	/**챌린지 관리 페이지*/
-	@GetMapping("/management/{uid}/{kind}")
-	public ResponseEntity<List<Challenge>> challengeManagement (@PathVariable String uid, @PathVariable int kind){
+	@GetMapping("/management/{kind}")
+	public ResponseEntity<List<Challenge>> challengeManagement (@RequestParam String uid, @PathVariable int kind){
 		
 		List<Challenge> returnList = new ArrayList<Challenge>();
 		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
@@ -153,8 +153,8 @@ public class ChallengeController {
 	}
 	
 	/** 참여한 챌린지 관리 상세페이지  */
-	@GetMapping("/detailManagement/{challengeId}/{uid}")
-	public ResponseEntity<HashMap<String, Object>> detailManagementChallenge (@PathVariable String uid, @PathVariable int challengeId){
+	@GetMapping("/detailManagement/{challengeId}")
+	public ResponseEntity<HashMap<String, Object>> detailManagementChallenge (@RequestParam String uid, @PathVariable int challengeId){
 		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -258,12 +258,10 @@ public class ChallengeController {
 	}
 	
 	/** 추천 챌린지  */
-	@GetMapping("/recommend/{uid}/{kind}")
-	public ResponseEntity<HashMap<String, Object>> recommendChallenge (@PathVariable String uid, @PathVariable int kind){
+	@GetMapping("/recommend/{kind}")
+	public ResponseEntity<HashMap<String, Object>> recommendChallenge (@RequestParam String uid, @PathVariable int kind){
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		
 		Favorite userFavorite =  favoriteService.selectUserInfo(uid);
 		String fit = userFavorite.getFit_list();
 		String body = userFavorite.getBody_list();
@@ -340,9 +338,9 @@ public class ChallengeController {
 	}
 
 	/** 챌린지 참여 삭제 -> 참여자 일때만, 개설자는 챌린지 삭제로 가야함 */
-	@DeleteMapping("/join/{challengeId}/{uid}")
+	@DeleteMapping("/join/{challengeId}")
 	@Transactional
-	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @PathVariable String uid) {
+	public ResponseEntity<String> quitChallenge(@PathVariable int challengeId, @RequestParam String uid) {
 		
 		if (challengeService.quitChallenge(challengeId, uid)) {
 			// 챌린지 참여 삭제시 캐시 people --;
@@ -620,8 +618,8 @@ public class ChallengeController {
 	/**
 	 * 북마크한 챌린지 리스트 반환
 	 */
-	@GetMapping("/bookmark/{uid}")
-	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@PathVariable String uid) {
+	@GetMapping("/bookmark")
+	public ResponseEntity<List<Challenge>> BookmarkCahllengeList(@RequestParam String uid) {
 		
 		List<Challenge> returnList = new ArrayList<Challenge>(); // 반환리스트
 
@@ -758,8 +756,8 @@ public class ChallengeController {
 	}
 	
 	/** 챌린지 통계*/
-	@GetMapping("/figures/{uid}/{month}")
-	public ResponseEntity<HashMap<String, Object>> figures (@PathVariable String uid, @PathVariable int month){
+	@GetMapping("/figures/{month}")
+	public ResponseEntity<HashMap<String, Object>> figures (@RequestParam String uid, @PathVariable int month){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		//1. 월별챌린지
