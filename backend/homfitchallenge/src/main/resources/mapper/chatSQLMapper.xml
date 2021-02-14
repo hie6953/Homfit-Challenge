@@ -9,7 +9,7 @@
     </insert>
 
     <select id="findChatLog" parameterType="int" resultType="chatVO"> 
-        select c.uid, c.content, c.regist_date, u.nick_name from chatlog c left outer join user u
+        select c.uid, c.content, c.regist_date, u.nick_name, u.user_img from chatlog c left outer join user u
         on c.uid = u.uid
         where c.challenge_id = #{challenge_id}
         order by chatlog_id desc
