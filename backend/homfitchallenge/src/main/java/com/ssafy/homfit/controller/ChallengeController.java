@@ -93,8 +93,7 @@ public class ChallengeController {
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() throws ParseException {
 		
-		Review r = reviewService.selectReview("관리자888", 230);
-		System.out.println(r);
+
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
 	}
 	
@@ -195,7 +194,8 @@ public class ChallengeController {
 			}
 			
 			//후기리스트 주기
-			
+			Review r = reviewService.selectReview(uid, challengeId);
+			map.put("review", r);
 			
 		}
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
@@ -582,6 +582,22 @@ public class ChallengeController {
 			
 			map.put("challenge", challenge);
 			map.put("review", reviewList);
+			
+			//후기 총 평점 계산
+			List<Review> allReviewList = reviewService.selectAllReview(230);
+			int avg_review = 0;
+			int size = allReviewList.size();
+			if( size !=0) {
+				double sum = 0.0;
+				for (Review review : allReviewList) {
+					sum += review.getStar_point();
+				}		
+				avg_review = (int) Math.round(sum/size);
+			}
+			
+			map.put("avg_review", avg_review);
+			
+			
 		}
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
