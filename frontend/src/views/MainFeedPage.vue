@@ -126,7 +126,7 @@
       </div>
     </div>
     <!-- 피드 -->
-    <div class="row col-12 col-lg-8 mainfeedpage-container">
+    <div class="row col-8 mainfeedpage-container">
       <main-feed
         v-for="(feed, index) in feedList"
         class="col-6 col-md-4 col-lg-3 challenge-list-feed"

@@ -10,7 +10,4 @@ public interface FavoriteDAO {
     public void init(String uid) throws SQLException;
     public void updateFavorite(Favorite favorite) throws SQLException;
     public Boolean isSetting(String uid) throws SQLException;
-    
-    /**추천 챌린지*/
-    public Favorite selectUserInfo (String uid);
 }
