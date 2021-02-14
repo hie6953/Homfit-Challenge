@@ -23,11 +23,11 @@
           class="feedchat-card-user-image"
         />
         <div class="feedchat-card-user-name">이건내이름이얌</div>
-        <div class="feed-delete">
+        <!-- <div class="feed-delete">
           <b-button class="feed-delete-btn">
             <b-icon icon="trash"></b-icon>
           </b-button>
-        </div>
+        </div> -->
         <div class="feedchat-card-time">
           2021년 02월 11일<i class="fa fa-globe"></i>
         </div>
@@ -100,11 +100,15 @@
             </div>
           </div>
         </div>
-
-        <div class="write-comment">
-          <textarea v-model="contents"> </textarea>
-          <input type="button" value="댓글쓰기" @click="FeedCommentWrite" />
-        </div>
+      </div>
+      <div class="write-comment">
+        <input type="text" class="comment-input-box" v-model="contents" />
+        <input
+          type="button"
+          value="작성"
+          class="comment-submit-btn"
+          @click="FeedCommentWrite"
+        />
       </div>
     </div>
   </div>

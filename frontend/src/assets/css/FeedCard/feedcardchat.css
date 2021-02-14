@@ -180,3 +180,55 @@
   font-size: 12px;
   padding-left: 38px;
 }
+
+.write-comment {
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-bottom: 2rem;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.comment-input-box {
+  margin: 5px;
+}
+
+.comment-submit-btn {
+  color: white;
+  background-color: #eac03a;
+  border-color: #eac03a;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
+}
+
+input[type='text'] {
+  width: 75%;
+  padding: 15px;
+  height: 100%;
+  border: 1px solid #dadce0;
+  font-size: 1em;
+  padding-left: 5px;
+  font-style: oblique;
+  display: inline;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+input[type='button'] {
+  width: 25%;
+  height: 100%;
+  padding: 13.5px;
+  background-color: #eac03a;
+  border: none;
+  font-size: 1em;
+  color: white;
+  font-weight: bold;
+  outline: none;
+  display: inline;
+  margin-left: -10px;
+  box-sizing: border-box;
+}
+input[type='button']:hover {
+  background-color: #eac03a;
+}
