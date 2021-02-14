@@ -56,8 +56,44 @@
 		from participate
 		where uid= #{uid} and challenge_id = #{challenge_id}
 	</select>
+	
+	<!-- 오늘 진행하는 챌린지 select -->
+	<!-- public int[] selectTodayChallenge(String uid); -->
+	<select id="selectTodayChallenge" resultType="TodayChallenge">
+		select c.challenge_id
+		from challenge as c join challenge_day as d
+		on c.challenge_id = d.challenge_id
+		where d.day_id = #{day} and c.check_date = 1
+	</select>
+	
+	<!-- 회원의 완료된 챌린지 select -->
+	<!-- public List<Challenge> selectEndChallenge(String uid); -->
+	<select id="selectEndChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 2
+	</select>
+	
+	<!-- 회원의 진행전 챌린지 select -->
+	<!-- public List<Challenge> selectPreChallenge(String uid); //진행전 -->
+	<select id="selectPreChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 0
+	</select>
+	
+	<!-- 회원의 진행중 챌린지 select -->
+	<!-- public List<Challenge> selectIngChallenge(String uid); -->
+	<select id="selectIngChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 1
+	</select>
 
-
+	
 	<!-- 챌린지 정보 등록 -->
 	<!-- public int insertChallenge(Challenge challenge); -->
 	<insert id="insertChallenge" parameterType="Challenge"
@@ -143,6 +179,69 @@
 		where
 		challenge_id = #{challenge_id}
 	</update>
-
-
+	
+	<!-- batch작업 -->
+	<!-- public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id -->
+	<select id="selectBefoToIng" resultType="int">
+		select challenge_id
+		from challenge
+		where check_date=0 and start_date = curdate()
+	</select>
+	
+	<!-- public int [] selectIngToComp(); //진행중 -> 완료중으로 갈 c_id  -->
+	<select id="selectIngToComp" resultType="int">
+		select challenge_id
+		from challenge
+		where end_date = (curdate()-interval 1 day)
+		and check_date = 1;
+	</select>
+	
+	<!-- 챌린지 id 받아 상태변경  -->
+	<!-- public int updateChallengeStatus(Map<String, Object> map); //c_id를 받아 챌린지 상태 업데이트 -->
+	<update id="updateChallengeStatus" parameterType="Map">
+		update challenge
+		<set>
+			<if test="checkDate==1">
+				check_date = 1
+			</if>
+			<if test="checkDate==2">
+				check_date = 2
+			</if>
+		</set>
+		where challenge_id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+	
+	
+	
+	<!-- 통계 -->
+	<!-- 완료된 참여한 모든 운동카테고리 리스트 -->
+	<!-- public int[] selectFitId(String uid); //완료된 참여한 모든 운동 카테고리 -->
+	<select id="selectFitId" resultType="int">
+		select c.fit_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where c.check_date=2 and p.uid = #{uid}
+	</select>
+	
+	<!-- 완료된 참여한 모든 부위 카테고리 리스트 -->
+	<!-- public int[] selectBodyId(String uid); -->
+	<select id="selectBodyId" resultType="int">
+		select b.body_id
+		from challenge as c 
+		join participate as p on c.challenge_id = p.challenge_id
+		join search_body as b on c.challenge_id = b.challenge_id
+		where c.check_date=2 and p.uid = #{uid}
+	</select>
+	
+	<!-- 해당월의 유저의 챌린지 달성률 리스트 -->
+	<!-- public List<UserRate> selectMonthChallenge(String uid, int month); -->
+	<select id="selectMonthChallenge" resultType="UserRate">
+		select r.challenge_id, r.end_date, r.achievement_rate, c.challenge_title
+		from challenge as c join user_rate as r
+		on c.challenge_id = r.challenge_id
+		where month(r.end_date) = #{month} and r.uid= #{uid}
+	</select>
 </mapper>
