@@ -8,6 +8,15 @@ public class ChatVO {
     private int challenge_id;
     private String content;
     private Timestamp regist_date;
+    private String user_img;
+
+    public String getUser_img() {
+        return this.user_img;
+    }
+
+    public void setUser_img(String user_img) {
+        this.user_img = user_img;
+    }
 
     public ChatVO() {
     }
