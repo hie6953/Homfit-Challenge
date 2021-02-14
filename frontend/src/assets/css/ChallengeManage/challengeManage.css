@@ -16,6 +16,9 @@
   .active {
     color: #EAC03A;
   }
+  .tab-pd {
+      padding: 0;
+  }
   .tab-cursor:hover {
     cursor: pointer;
   }
@@ -79,18 +82,4 @@
   }
   .checkbox-tools:not(:checked) + label:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  .challengeManage-btn {
-    color: black;
-    position: absolute;
-    width: 1em;
-    height: 1em;
-    z-index: 4;
-    right: 20px;
-    top: 5px;
-  }
-  .challengeManage-btn:hover {
-    cursor: pointer;
-    color: #E65C2E;
-  }
+  }  

@@ -38,6 +38,12 @@
       <p></p>
       <p></p>
       <p></p>
+      <router-link :to="{
+        name: 'ParticipatedChallenge',
+        params: { challenge_id: 128 }
+      }">
+        <button>이동</button>
+      </router-link>
     </div>
   </div>
 </template>

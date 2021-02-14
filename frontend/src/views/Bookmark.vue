@@ -47,7 +47,11 @@ export default {
   created() {
     console.log(this.getUserUid)
     axios
-      .get(`${SERVER_URL}/challenge/bookmark/${this.getUserUid}`)
+      .get(`${SERVER_URL}/challenge/bookmark/`, {
+        params: {
+          uid: this.getUserUid
+        }
+      })
       .then((data) => {
         console.log(data.data)
         this.challengeList = data.data
@@ -79,7 +83,11 @@ export default {
       if (idx > -1) this.challengeList.splice(idx, 1)
       axios
         .delete(
-          `${SERVER_URL}/user/bookmark/${this.getUserUid}/${challenge_id}`
+          `${SERVER_URL}/user/bookmark/${challenge_id}`, {
+            params: {
+              uid: this.getUserUid
+            }
+          }
         )
         .then(() => {
           alert("북마크가 해제되었습니다.");

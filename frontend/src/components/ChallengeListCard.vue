@@ -10,14 +10,17 @@
         @click="DeleteBookmarkBtn"
       ></b-icon>
     </div>
-    <div class="challengeManage-icon challengeManage-disabled">
-      <b-icon
-        id="challengeManageIcon"
-        icon="x-circle"
-        scale="1"
+    <div class="cancel-icon cancel-disabled btn-sm btn-warning">
+      <div
+        class="challengeManage-btn"
+        @click="CancelChallengeManageBtn"
+      >취소</div>
+    </div>
+    <div class="delete-icon delete-disabled btn-sm btn-warning">
+      <div
         class="challengeManage-btn"
         @click="DeleteChallengeManageBtn"
-      ></b-icon>
+      >삭제</div>
     </div>
     <b-card
       :img-src="image"
@@ -59,6 +62,7 @@ export default {
     challenge: Object,
     isfromBookmark: Number,
     isfromChallengeManage: Number,
+    cancelActive: Number,
     deleteActive: Number,
   },
   data() {
@@ -74,6 +78,9 @@ export default {
     }
   },
   watch: {
+    cancelActive() {
+      this.CancelUpdate()
+    },
     deleteActive() {
       this.DeleteUpdate()
     }
@@ -106,17 +113,31 @@ export default {
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
     },
+    CancelChallengeManageBtn() {
+      this.$emit("cancelChallengeManage", this.challenge.challenge_id);
+    },
     DeleteChallengeManageBtn() {
       this.$emit("deleteChallengeManage", this.challenge.challenge_id);
     },
+    CancelUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 활성화
+      const challengeManage = document.querySelectorAll('.cancel-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.cancelActive === 1) {
+          challengeManage[i].classList.remove('cancel-disabled')
+        } else {
+          challengeManage[i].classList.add('cancel-disabled')
+        }
+      }
+    },
     DeleteUpdate() {
       // 카테고리가 진행전 일때만 삭제 버튼 활성화
-      const challengeManage = document.querySelectorAll('.challengeManage-icon')
+      const challengeManage = document.querySelectorAll('.delete-icon')
       for (let i = 0; i<challengeManage.length; i++) {
         if (this.deleteActive === 1) {
-          challengeManage[i].classList.remove('challengeManage-disabled')
+          challengeManage[i].classList.remove('delete-disabled')
         } else {
-          challengeManage[i].classList.add('challengeManage-disabled')
+          challengeManage[i].classList.add('delete-disabled')
         }
       }
     }

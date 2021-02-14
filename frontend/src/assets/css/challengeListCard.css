@@ -77,6 +77,49 @@
   .bookmark-disabled {
     display: none;
   }
-  .challengeManage-disabled {
+  .cancel-disabled {
     display: none;
+  }
+  .delete-disabled {
+    display: none;
+  }
+  .cancel-icon {
+    color: white;
+    position: absolute;
+    width: 4em;
+    height: 2em;
+    z-index: 4;
+    right: 20px;
+    bottom: 12px;
+    text-align: center;
+    background: #EAC03A;
+  }
+  @media (max-width: 480px) {
+    .cancel-icon {
+        padding: 4px;
+        width: 2.5em;
+    }
+    .delete-icon  {
+        padding: 4px;
+        width: 2.5em;
+    }
+  }
+  .cancel-icon:hover {
+    cursor: pointer;
+    color: #E65C2E;
+  }
+  .delete-icon {
+    color: white;
+    position: absolute;
+    width: 4em;
+    height: 2em;
+    z-index: 4;
+    right: 20px;
+    bottom: 12px;
+    text-align: center;
+    background: #EAC03A;
+  }
+  .delete-icon:hover {
+    cursor: pointer;
+    color: #E65C2E;
   }

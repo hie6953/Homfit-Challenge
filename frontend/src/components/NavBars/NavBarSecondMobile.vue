@@ -32,7 +32,7 @@
             <span>추천</span>
           </div>
         </router-link>
-        <router-link to="/" class="second-menu-mobile">
+        <router-link to="/challengemanage" class="second-menu-mobile">
           <div class="navbar-second-icon">
             <img src="@/assets/NavBar/my_challenge.png" />
             <br />
