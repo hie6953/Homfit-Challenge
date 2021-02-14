@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 /** 챌린지 정보 */
 
@@ -29,12 +30,17 @@ public class Challenge implements Serializable{
 	private String make_uid;
 	private int fit_id;
 	private int check_date;
+	
 	private int period;
 	private String nick_name; //개설자 닉네임
 	private int people; //참여자수
 	private int kind; //종류 1 - 운동, 2 - 식단
 	private int certification; //인증갯수
 	private int average_rate; //평균 달성률
+	
+	private MultipartFile goodImgFile;
+	private MultipartFile badImgFile;
+	private MultipartFile challengeImgFile;
 	
 	//요일리스트 스트링
 	private String daylist_string;
@@ -206,12 +212,47 @@ public class Challenge implements Serializable{
 		this.average_rate = average_rate;
 	}
 	
+	public MultipartFile getGoodImgFile() {
+		return goodImgFile;
+	}
+	public void setGoodImgFile(MultipartFile goodImgFile) {
+		this.goodImgFile = goodImgFile;
+	}
+	public MultipartFile getBadImgFile() {
+		return badImgFile;
+	}
+	public void setBadImgFile(MultipartFile badImgFile) {
+		this.badImgFile = badImgFile;
+	}
+	public MultipartFile getChallengeImgFile() {
+		return challengeImgFile;
+	}
+	public void setChallengeImgFile(MultipartFile challengeImgFile) {
+		this.challengeImgFile = challengeImgFile;
+	}
 	public String getBodylist_string() {
 		return bodylist_string;
 	}
 	public void setBodylist_string(String bodylist_string) {
 		this.bodylist_string = bodylist_string;
 	}
+	@Override
+	public String toString() {
+		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
+				+ ", challenge_contents=" + challenge_contents + ", challenge_img=" + challenge_img
+				+ ", challenge_certify_contents=" + challenge_certify_contents + ", good_img=" + good_img + ", bad_img="
+				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
+				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
+				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
+				+ nick_name + ", people=" + people + ", kind=" + kind + ", certification=" + certification
+				+ ", average_rate=" + average_rate + ", goodImgFile=" + goodImgFile + ", badImgFile=" + badImgFile
+				+ ", challengeImgFile=" + challengeImgFile + ", daylist_string=" + daylist_string + ", bodylist_string="
+				+ bodylist_string + ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList)
+				+ ", bodyList=" + Arrays.toString(bodyList) + "]";
+	}
 	
+	
+	
+
 	
 }
