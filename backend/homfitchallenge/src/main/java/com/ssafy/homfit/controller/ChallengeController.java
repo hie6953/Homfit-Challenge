@@ -171,7 +171,6 @@ public class ChallengeController {
 		} else {
 			Challenge challenge = opt.get();
 
-			map.put("challenge", challenge);
 			int average_rate = challenge.getAverage_rate();
 			double total_cnt = challenge.getCertification(); // 소수점계산을 위해
 			int user_cnt = feedService.selectUserFeed(uid, challengeId).length;
@@ -363,8 +362,8 @@ public class ChallengeController {
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> insertChallenge(@RequestPart("challenge") Challenge challenge, @RequestPart("GoodImgFile") MultipartFile GoodImgFile,
-			 @RequestPart("BadImgFile") MultipartFile BadImgFile, @RequestPart("ChallengeImgFile") MultipartFile ChallengeImgFile) {
+	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge, @RequestPart("challengeImgFile") MultipartFile challengeImgFile,
+			 @RequestPart("badImgFile") MultipartFile badImgFile,  @RequestPart("goodImgFile") MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -389,17 +388,17 @@ public class ChallengeController {
 						challenge.getPeriod());
 				challenge.setCertification(cert_day);
 
-				// 1. 사진세팅- 사진 있을 경우만 url 저장
-				if ( ChallengeImgFile!= null) {
-					challenge.setChallenge_img(s3service.uploadImg(ChallengeImgFile));
+				// 1. 사진세팅 - 이미지가 null이 아닐경우만
+				if(goodImgFile != null) {
+					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
-				if ( GoodImgFile!= null) {
-					challenge.setGood_img(s3service.uploadImg(GoodImgFile));
+				if(badImgFile != null) {
+					challenge.setBad_img(s3service.uploadImg(badImgFile));
 				}
-				if (BadImgFile != null) {
-					challenge.setBad_img(s3service.uploadImg(BadImgFile));
+				if(challengeImgFile != null) {
+					challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 				}
-
+				
 				challengeService.writeChallenge(challenge); // 입력
 				int challengeId = challenge.getChallenge_id();
 
@@ -460,7 +459,8 @@ public class ChallengeController {
 	/** 챌린지 수정 */
 	@PutMapping("{challengeId}")
 	@Transactional
-	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge) {
+	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge, @RequestPart("challengeImgFile") MultipartFile challengeImgFile,
+			 @RequestPart("badImgFile") MultipartFile badImgFile,  @RequestPart("goodImgFile") MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -469,16 +469,16 @@ public class ChallengeController {
 		int challenge_id = challengeId;
 
 		try {
-			// 1. 사진세팅 - 사진 있을 경우만 url 저장
-//			if (challenge.getChallengeImgFile() != null) {
-//				challenge.setChallenge_img(s3service.uploadImg(challenge.getChallengeImgFile()));
-//			}
-//			if (challenge.getGoodImgFile() != null) {
-//				challenge.setGood_img(s3service.uploadImg(challenge.getGoodImgFile()));
-//			}
-//			if (challenge.getBadImgFile() != null) {
-//				challenge.setBad_img(s3service.uploadImg(challenge.getBadImgFile()));
-//			}
+			// 1. 사진세팅 - 이미지가 null이 아닐경우만
+			if(goodImgFile != null) {
+				challenge.setGood_img(s3service.uploadImg(goodImgFile));
+			}
+			if(badImgFile != null) {
+				challenge.setBad_img(s3service.uploadImg(badImgFile));
+			}
+			if(challengeImgFile != null) {
+				challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
+			}
 
 			if (challengeService.updateChallenge(challenge)) {
 

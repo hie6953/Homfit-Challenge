@@ -38,6 +38,7 @@ public class Challenge implements Serializable{
 	private int certification; //인증갯수
 	private int average_rate; //평균 달성률
 	
+
 	
 	//요일리스트 스트링
 	private String daylist_string;
@@ -209,6 +210,7 @@ public class Challenge implements Serializable{
 		this.average_rate = average_rate;
 	}
 	
+
 	public String getBodylist_string() {
 		return bodylist_string;
 	}
