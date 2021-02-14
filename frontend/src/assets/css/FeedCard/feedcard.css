@@ -56,6 +56,7 @@
   margin-left: 20px;
   margin-right: 20px;
   display: flex;
+  height: 100%;
 }
 .feed-card-image {
   padding-left: 10px;
@@ -82,28 +83,51 @@
 /* 버튼 */
 .feed-icons {
   font-weight: regular;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   margin-right: 20px;
   padding-bottom: 50px;
   margin-bottom: 15px;
   margin-top: -11px;
+  white-space: nowrap;
 }
 
 .feed-icons .btn-secondary {
-  color: #6c757d;
-  background-color: #fff;
-  border-color: #fff;
+  color: #6c757d !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  background: #fff;
+  box-shadow: none !important;
+  border: #fff;
+  outline-color: #fff;
 }
 
 .feed-icons .btn-secondary:active {
-  color: #6c757d;
+  color: #eac03a;
   background-color: #fff;
   border-color: #fff;
+  background: #fff;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
 }
 .feed-icons .btn-secondary:hover {
+  color: #eac03a !important;
+  background-color: #fff;
+  border-color: #fff;
+  background: #fff;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
+}
+
+.feed-icons .btn-secondary:focus {
   color: #6c757d;
   background-color: #fff;
   border-color: #fff;
+  background: #fff;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
 }
 
 .feed-right {
@@ -121,4 +145,68 @@
 .feed-card-button-right {
   float: right;
   font-size: 14px;
+}
+
+/* 신고 */
+.d-modal-btn {
+  background: #eac03a;
+  border-radius: 4px;
+  border-color: #eac03a;
+  color: white;
+  text-align: center;
+  width: 10%;
+}
+
+.d-modal-btn-back {
+  background: white;
+  border-radius: 4px;
+  border-color: #eac03a;
+  color: black;
+  text-align: center;
+  width: 10%;
+}
+
+.declaration-modal {
+  margin: auto;
+  padding: 10px;
+}
+
+.declaration-title {
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.declaration-info {
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  padding: 15px;
+}
+
+.declaration-radio-group {
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  padding-bottom: 25px;
+}
+
+.declaration-radio {
+  display: inline;
+  margin: 10px;
+  text-align: center;
+}
+
+.declaration-contents {
+  padding: 10px;
+  width: 85%;
+  /* border: #dee2e6; */
+}
+
+.declaration-contents-align {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
 }

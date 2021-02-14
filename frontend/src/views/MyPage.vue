@@ -3,15 +3,18 @@
     <hr id="hr-top" />
 
     <!-- 사용자 프로필 div -->
-    <div class="mx-auto col-8 user-profile">
+    <div class="mx-auto col-12 col-md-8 user-profile">
       <div class="user-profile-edit">
         <router-link to="/editprofilepassconfirm" class="justtext">
           <b-icon icon="pencil-square" class="edit-icon"></b-icon>
         </router-link>
       </div>
       <div class="user-profile-container">
-        <div class="user-profile-image">
+        <div v-if="this.user.user_img == ''" class="user-profile-image">
           <img class="user-img" src="@/assets/NavBar/anonimous_user.png" />
+        </div>
+        <div v-else class="user-profile-image">
+          <img class="user-img" :src="this.user.user_img" />
         </div>
         <div class="user-profile-info">
           <div class="user-profile-nickname">
@@ -74,12 +77,23 @@
     </div>
 
     <!-- 챌린지 현황 -->
-    <div class="mx-auto col-8 user-status-todo">
+    <div class="mx-auto col-12 col-md-8 user-status-todo">
       <!-- 과제 -->
-      <div class="user-challenge-status">
+      <div class="col-12 user-challenge-status">
         <h3 class="label-challenge-status">챌린지 현황</h3>
-        <div class="move-challenge-list">
-          <div class="status-list">
+        <div class="col-12 move-challenge-list">
+          <div class="status-list-right">
+            <div class="status">
+              <span>오늘</span>
+            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.today }}</span>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="status-list-both">
             <div class="status">
               <span>참가중</span>
             </div>
@@ -89,7 +103,8 @@
               </div>
             </router-link>
           </div>
-          <div class="status-list">
+
+          <div class="status-list-both">
             <div class="status">
               <span>완료</span>
             </div>
@@ -97,7 +112,8 @@
               <span>{{ challenge.done }}</span>
             </div>
           </div>
-          <div class="status-list">
+
+          <div class="status-list-left">
             <div class="status">
               <span>개설</span>
             </div>
@@ -107,16 +123,16 @@
           </div>
         </div>
       </div>
-      <div class="vertical-bar-second"></div>
+      <!-- <div class="vertical-bar-second"></div> -->
       <!-- 나의 과제 -->
-      <div class="user-todo-list">
+      <!-- <div class="user-todo-list">
         <h3 class="label-today-todo">오늘의 과제</h3>
         <ToDoList />
-      </div>
+      </div> -->
     </div>
 
     <!-- 나의피드 -->
-    <div class="mx-auto col-8 myfeeds">
+    <div class="mx-auto col-12 col-md-8 myfeeds">
       <div class="mypage-myfeed">
         <h3 class="my-feed-label">나의 피드</h3>
         <div class="my-feed-plus">
@@ -134,7 +150,7 @@
 </template>
 
 <script>
-import ToDoList from '../components/ToDoList.vue';
+// import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
 import '../assets/css/MyPage/mypage.css';
 import { mapGetters } from 'vuex';
@@ -145,7 +161,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'Mypage',
   components: {
-    ToDoList,
+    // ToDoList,
     MyPageFeed,
   },
   data: function() {
@@ -154,8 +170,10 @@ export default {
         nick_name: '',
         point: '',
         grade: '',
+        user_img: '',
       },
       challenge: {
+        today: '1',
         ing: '3',
         done: '5',
         create: '1',
