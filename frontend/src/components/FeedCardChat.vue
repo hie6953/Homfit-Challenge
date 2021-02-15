@@ -10,24 +10,32 @@
       >
         <img :src="comment.user_img" class="commenter-image" height="32px" />
         <div class="feedchat-div-tmp">
-          <div class="user">{{ comment.nick_name }}</div>
+          <div class="comment-delete">
+            <b-button
+              class="comment-delete-btn"
+              @click="DeleteComments(comment.comment_id)"
+            >
+              <b-icon icon="trash"></b-icon>
+            </b-button>
+          </div>
+          <div class="comment-user">{{ comment.nick_name }}</div>
+
           <div class="comment">{{ comment.contents }}</div>
           <div class="comment-time">
-            {{ comment.comment_regist_date }}
+            {{ getFormatDate(comment.comment_regist_date) }}
           </div>
         </div>
-
-        <input
-          type="button"
-          value="삭제"
-          @click="DeleteComments(comment.comment_id)"
-        />
       </div>
     </div>
 
     <!-- 댓글작성 -->
     <div class="write-comment">
-      <input type="text" class="comment-input-box" v-model="contents" />
+      <input
+        type="text"
+        class="comment-input-box"
+        v-model="contents"
+        @keyup.enter="FeedCommentWrite"
+      />
       <input
         type="button"
         value="작성"
@@ -43,6 +51,7 @@ import '../assets/css/FeedCard/feedcardchat.css';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 export default {
   name: 'FeedCardChat',
@@ -98,6 +107,9 @@ export default {
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
+    },
+    getFormatDate(register_date) {
+      return moment(new Date(register_date)).format('YYYY.MM.DD HH:mm:ss');
     },
   },
   computed: {
