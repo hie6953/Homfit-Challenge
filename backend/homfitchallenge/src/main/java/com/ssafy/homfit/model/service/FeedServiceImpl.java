@@ -1,6 +1,8 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.Tag;
@@ -64,10 +66,12 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public Feed searchByFeedId(int feed_id) throws Exception {
+    public Feed searchByFeedId(int feed_id, String uid) throws Exception {
         Feed data = null;
-
-        data = sqlSession.getMapper(FeedDAO.class).searchByFeedId(feed_id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("feed_id", feed_id);
+        map.put("uid", uid);
+        data = sqlSession.getMapper(FeedDAO.class).searchByFeedId(map);
         return data;
     }
 
@@ -86,9 +90,13 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id) throws Exception {
+    public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id, String uid) throws Exception {
         List<Feed> list = null;
-        list = sqlSession.getMapper(FeedDAO.class).searchByChallengeNotFeedId(challenge_id, feed_id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("feed_id", feed_id);
+        map.put("uid", uid);
+        map.put("challenge_id", challenge_id);
+        list = sqlSession.getMapper(FeedDAO.class).searchByChallengeNotFeedId(map);
         return list;
     }
 

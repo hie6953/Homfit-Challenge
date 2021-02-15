@@ -2,6 +2,7 @@ package com.ssafy.homfit.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.homfit.model.Feed;
 
@@ -17,9 +18,9 @@ public interface FeedDAO {
 
 	public List<Feed> searchByChallenge(int challenge_id) throws SQLException;
 
-	public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id) throws SQLException;
+	public List<Feed> searchByChallengeNotFeedId(Map<String, Object> map) throws SQLException;
 
-	public Feed searchByFeedId(int feed_id) throws SQLException;
+	public Feed searchByFeedId(Map<String, Object> map) throws SQLException;
 
 	public void updateImg(Feed feed) throws SQLException;
 
