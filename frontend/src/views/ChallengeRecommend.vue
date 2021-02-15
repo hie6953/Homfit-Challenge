@@ -2,6 +2,9 @@
   <div>
     <select-preference
       :modalShow="modalShow"
+      :fit="fit"
+  :body="body"
+  :day="day"
       @modalClose="modalShow = false"
     ></select-preference>
 
@@ -25,7 +28,7 @@
           v-model="recommendCategory"
           id="favorit-bodypart"
         />
-        <label for="favorit-bodypart"> 선호 운동 부위 추천</label>
+        <label for="favorit-bodypart"> 선호 운동 부위 추천 </label>
         <input
           class="recommend-checkbox-tools"
           type="radio"
@@ -33,7 +36,8 @@
           v-model="recommendCategory"
           id="favorit-daylist"
         />
-        <label for="favorit-daylist"> 선호 요일 추천</label>
+        <label for="favorit-daylist"> 선호 요일 추천 </label
+        >
         <!-- <input
           class="recommend-checkbox-tools"
           type="radio"
@@ -54,6 +58,7 @@
       <span class="ml-1 display-inline-block">
       <span class="challenge-recommend-highlight">{{getCategoryList}}</span>
       <span>입니다.</span>
+      <b-button id="challenge-recommend-edit-button" v-b-tooltip.hover.bottom="'선호정보 수정'" @click="modalShow = true"><b-icon icon="pencil"></b-icon></b-button>
       </span>
     </div>
     <div class="row col-12 col-md-8  mx-auto list-card">
@@ -100,13 +105,13 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "ChallengeRecommend",
-  components: { SelectPreference, ChallengeListCard, InfiniteLoading },
+  components: { SelectPreference,ChallengeListCard,InfiniteLoading },
   data() {
     return {
       recommendCategory: 1,
       page: 1,
       challengeAllList: null,
-      modalShow: false,
+     modalShow: false,
       didSurvey: false,
       challengeList: [],
       fit: [],
@@ -138,13 +143,13 @@ export default {
           "다리",
           "기타",
         ],
-        ["요일은", "월", "화", "수", "목", "금", "토", "일"],
-      ],
+        ["요일은", "월", "화", "수", "목", "금", "토", "일"]],
     };
   },
   watch: {
     recommendCategory: function() {
       this.challengeAllList = null;
+     this.challengeAllList = null;
       this.challengeList = [];
       this.page = 1;
       if (this.$refs.InfiniteLoading) {
@@ -158,7 +163,7 @@ export default {
     getCategoryName: function() {
       return this.categoryName[this.recommendCategory - 1][0];
     },
-    getCategoryList: function() {
+ getCategoryList: function() {
       let result = [];
       let arr = [];
       switch (this.recommendCategory) {
@@ -178,13 +183,14 @@ export default {
       }
       return result.join(',');
     },
+   
   },
-  methods: {
+methods: {
     async CheckFavoriteSurvey() {
       await axios
         .get(`${SERVER_URL}/user/favorite/isSetting`, {
           params: {
-            uid: this.getUserUid,
+            uid:this.getUserUid,
           },
         })
         .then(({ data }) => {
@@ -192,21 +198,20 @@ export default {
         })
         .catch(() => {
           alert("선호도 정보를 불러오지 못했습니다.");
-        });
+      });
     },
     async getAllData() {
       await axios
-        .get(`${SERVER_URL}/challenge/recommend/${this.recommendCategory}`, {
+         .get(`${SERVER_URL}/challenge/recommend/${this.recommendCategory}`, {
           params: {
             uid: this.getUserUid,
           },
         })
         .then(({ data }) => {
           this.challengeAllList = data.returnList;
-          this.fit = data.fit;
-          this.day = data.day;
-          this.body = data.body;
-          console.log(this.challengeAllList);
+          this.fit = this.StringToNumberList(data.fit);
+          this.day = this.StringToNumberList(data.day);
+          this.body = this.StringToNumberList(data.body);
         })
         .catch(() => {
           if (!this.modalShow) {
@@ -215,6 +220,7 @@ export default {
           } else {
             this.challengeAllList = [];
           }
+          
         });
     },
 
@@ -240,6 +246,12 @@ export default {
           $state.complete();
         }
       }, 500);
+    },
+     StringToNumberList:function(list){
+      for (let index = 0; index < list.length; index++) {
+        list[index] = Number(list[index]);
+      }
+        return list;
     },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);

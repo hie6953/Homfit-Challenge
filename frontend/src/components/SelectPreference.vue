@@ -202,7 +202,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="1"
+            :value="7"
             v-model="week"
             id="sunday"
           />
@@ -211,7 +211,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="2"
+            :value="1"
             v-model="week"
             id="monday"
           />
@@ -220,7 +220,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="3"
+            :value="2"
             v-model="week"
             id="tuesday"
           />
@@ -229,7 +229,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="4"
+            :value="3"
             v-model="week"
             id="wednesday"
           />
@@ -238,7 +238,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="5"
+            :value="4"
             v-model="week"
             id="thursday"
           />
@@ -247,7 +247,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="6"
+            :value="5"
             v-model="week"
             id="friday"
           />
@@ -256,7 +256,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="7"
+            :value="6"
             v-model="week"
             id="saturday"
           />
@@ -305,6 +305,9 @@ export default {
   },
 props:{
   modalShow:Boolean,
+  fit:Array,
+  body:Array,
+  day:Array,
 },
   watch: {
     kindList: function() {
@@ -316,6 +319,11 @@ props:{
     week: function() {
       this.CanGoNext();
     },
+    modalShow:function(){
+      this.kindList = this.fit;
+      this.bodyList = this.body;
+      this.week = this.day;
+    }
   },
   methods: {
     CanGoNext: function() {
@@ -336,9 +344,9 @@ props:{
       axios
         .put(`${SERVER_URL}/user/updateFavorite`, {
           uid: this.getUserUid,
-          fit_list: JSON.stringify(this.kindList),
-          body_list: JSON.stringify(this.bodyList),
-          day_list: JSON.stringify(this.week),
+          fit_list: JSON.stringify(this.kindList.sort()),
+          body_list: JSON.stringify(this.bodyList.sort()),
+          day_list: JSON.stringify(this.week.sort()),
           // fit_list: this.kindList,
           // body_list: this.bodyList,
           // day_list: this.week,
@@ -353,9 +361,9 @@ props:{
           }
         })
         .catch(() => {
-          alert('문제가 발생했습니다. 다시 시도해주세요.');
+          alert('에러가 발생했습니다.');
         });
-      window.location.reload();
+        window.location.reload();
     },
   },
 
