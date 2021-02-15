@@ -31,6 +31,7 @@
 		select * from feed
 		where maked_uid = #{maked_uid}
 		order by register_date desc
+		limit 0, 9
 	</select>
 
 	<select id="searchByChallenge" parameterType="int"
