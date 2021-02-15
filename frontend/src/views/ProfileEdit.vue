@@ -16,15 +16,15 @@
             <div class="form-group">
               <div v-if="this.user_img == ''" class="edit-user-photo">
                 <img
-                  class="user-img"
+                  class="profiledeit-user-img"
                   src="@/assets/NavBar/anonimous_user.png"
                 />
               </div>
               <div v-else-if="changeuserimg" class="edit-user-photo">
-                <img class="user-img" :src="imgurl" />
+                <img class="profiledeit-user-img" :src="imgurl" />
               </div>
               <div v-else class="edit-user-photo">
-                <img class="user-img" :src="user_img" />
+                <img class="profiledeit-user-img" :src="user_img" />
               </div>
               <div class="edit-user-photo">
                 <label class="input-file-button" for="input-file">
@@ -71,10 +71,16 @@
                       class="phonecode-btn"
                       @click="NicknameCheck()"
                     />
-                    <span class="error-text" v-if="isDuplicate"
-                      >이미 동일한 별명이 존재합니다.</span
-                    >
                   </div>
+
+                  <span v-if="isDuplicate"></span>
+
+                  <span class="error-text" v-if="errormsg.nick_name">{{
+                    errormsg.nick_name
+                  }}</span>
+                  <span class="correct-text" v-if="correctmsg.nick_name">{{
+                    correctmsg.nick_name
+                  }}</span>
                 </div>
               </div>
 
@@ -179,10 +185,11 @@ export default {
       password: '',
       passwordcheck: '',
       errormsg: [],
+      correctmsg: [],
       nick_name: '',
       email: '',
-      nicknamecheck: false,
-      isDuplicate: false,
+      nicknamecheck: false, //닉네임 중복체크를 했는지 안했는지
+      isDuplicate: false, //닉네임이 중복되는지 아닌지
       imgurl: defaultImg,
       user_img: '',
       changeuserimg: false,
@@ -278,6 +285,7 @@ export default {
           });
       }
 
+      //닉네임
       if (
         this.isDuplicate == false &&
         this.nicknamecheck == true &&
@@ -291,6 +299,16 @@ export default {
 
           .then(({ data }) => {
             // console.log(data);
+            if (data == 'success') {
+              this.nicknamecheck = true;
+              this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+              this.correctmsg['nick_name'] = ``;
+            } else {
+              this.nicknamecheck = false;
+              this.errormsg['nick_name'] = ``;
+              this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
+            }
+
             if (data == 'success' && !this.giveAlert) {
               alert('회원정보가 변경되었습니다.');
             }
