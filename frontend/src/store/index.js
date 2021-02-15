@@ -56,7 +56,7 @@ export default new Vuex.Store({
     SETEMAIL(state, email) { 
       state.userEmail = email;
     },
-    SETEIMAGE(state, img) { 
+    SETIMAGE(state, img) { 
       state.userImg = img;
     },
     SETTMPFEED(state, feed) {

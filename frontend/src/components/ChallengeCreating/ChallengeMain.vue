@@ -6,7 +6,9 @@
       <b-container>
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
-            <span class="">챌린지 이름</span>
+            <span class="require-icon">*</span>
+            <span>챌린지 이름</span>
+            
           </b-col>
           <b-col sm="9">
             <b-form-input
@@ -24,6 +26,7 @@
 
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
+             <span class="require-icon">*</span>
             <span>챌린지 설명</span>
           </b-col>
           <b-col sm="9">
@@ -41,6 +44,7 @@
           <b-col sm="9">
             <image-uploader
             :props_challenge_img="props_challenge_img"
+            props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"
             @imageUploaded="ImageUploaded"
             ></image-uploader>
           </b-col>
@@ -48,6 +52,7 @@
 
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
+             <span class="require-icon">*</span>
             <span>카테고리</span>
           </b-col>
           <b-col sm="9">
@@ -297,7 +302,7 @@ export default {
       if (this.kind == 1) {
         this.fit_id = 1;
       } else {
-        this.bodyList = [];
+        this.bodyList = 1;
         this.fit_id = 9;
       }
     },
