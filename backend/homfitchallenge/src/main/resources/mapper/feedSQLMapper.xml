@@ -40,6 +40,10 @@
 		order by register_date desc
 	</select>
 
+	<select id="searchLikeCnt" parameterType="int" resultType="int">
+		select like_count from feed where feed_id = #{feed_id}
+	</select>
+
 	<select id="searchByFeedId" parameterType="map"
 		resultType="feed">
 		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 

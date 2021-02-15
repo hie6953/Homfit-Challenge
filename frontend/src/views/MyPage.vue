@@ -88,7 +88,7 @@
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
-                <span>{{ challenge.today }}</span>
+                <span>{{ challenge.todayCnt }}</span>
               </div>
             </router-link>
           </div>
@@ -99,7 +99,7 @@
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
-                <span>{{ challenge.ing }}</span>
+                <span>{{ ingingCnt }}</span>
               </div>
             </router-link>
           </div>
@@ -108,18 +108,22 @@
             <div class="status">
               <span>완료</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.done }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.endCnt }}</span>
+              </div>
+            </router-link>
           </div>
 
           <div class="status-list-left">
             <div class="status">
               <span>개설</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.create }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.makeCnt }}</span>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -173,12 +177,14 @@ export default {
         user_img: '',
       },
       challenge: {
-        today: '1',
-        ing: '3',
-        done: '5',
-        create: '1',
+        endCnt: '',
+        ingCnt: '',
+        makeCnt: '',
+        preCnt: '',
+        todayCnt: '',
       },
       sum: '',
+      ingingCnt: '',
     };
   },
   created() {
@@ -204,6 +210,21 @@ export default {
       .post(`${SERVER_URL}/point/inquiry`, { uid })
       .then(({ data }) => {
         this.sum = data.sum;
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
+
+    axios
+      .get(`${SERVER_URL}/challenge/challengeStatus`, {
+        params: {
+          uid: uid,
+        },
+      })
+      .then(({ data }) => {
+        this.challenge = data;
+        this.ingingCnt = this.challenge.ingCnt + this.challenge.preCnt;
+        console.log(data);
       })
       .catch(() => {
         alert('에러가 발생했습니다.');
