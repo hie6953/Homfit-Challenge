@@ -10,8 +10,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.TodayChallenge;
 import com.ssafy.homfit.model.service.ChallengeService;
+import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.PointService;
 
 /**
  * batch작업 진행
@@ -30,13 +33,38 @@ public class ScheduleTask {
 	@Autowired
 	private TodayChallengeRepository todayRepository;
 
+	@Autowired
+	private FeedService feedService;
+	
+	@Autowired
+	private PointService PointService;
 	/**
 	 * 매일 밤 12시마다 할 batch 작업
+	 * @throws Exception 
 	 */
 	@Scheduled(cron = "0 0 0 * * ? ", zone = "Asia/Seoul")
-	private void publ() {
+	private void publ() throws Exception {
 		// 1. 진행중 챌린지별 평균 달성률 업데이트
+
+//		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+//		//캐쉬에 없을경우 
+		//if(cacheList.size() == 0) cacheList = challengeService.AllChallengeList();
 		
+		List<Challenge> challengelist = challengeService.AllChallengeList();
+		
+		for (Challenge challenge : challengelist) {
+			if(challenge.getCheck_date() == 1) { //진행중 챌린지 id 가져와서 하나씩 다 업데이트
+				int challenge_id = challenge.getChallenge_id();
+				List<Feed> feedList = feedService.searchByChallenge(challenge_id);
+				int size = feedList.size();
+				Challenge c = challengeRepository.findById(challenge_id).get();
+				int people = c.getPeople();
+				int cerCnt = c.getCertification();
+				double totalCnt = people * cerCnt;
+				int average_rate = (int )Math.round((size / totalCnt) * 100);
+				challengeService.updateAverageRate(challenge_id, average_rate);
+			}
+		}
 	
 		
 		// 2. 챌린지 시작전 -> 진행중 변경
@@ -70,8 +98,8 @@ public class ScheduleTask {
 		
 		// 4-4. cache 챌린지 리스트 업데이트
 		challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
-		List<Challenge> challengelist = challengeService.AllChallengeList();
-		challengeRepository.saveAll(challengelist);
+		List<Challenge> reloadList = challengeService.AllChallengeList();
+		challengeRepository.saveAll(reloadList);
 
 	}
 

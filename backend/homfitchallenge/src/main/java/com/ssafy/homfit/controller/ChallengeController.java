@@ -94,19 +94,19 @@ public class ChallengeController {
 
 	/**
 	 * 테스트코드
-	 * 
-	 * @throws ParseException
+	 * @throws Exception 
 	 */
 	@GetMapping("/test")
-	public ResponseEntity<String> testChallenge() throws ParseException {
+	public ResponseEntity<String> testChallenge() throws Exception {
 
-		//평균 달성률 업데이트
-		//진행중 챌린지 id 가져와서 하나씩 다 업데이트
-		// 평균달성률 계산
-		//유저가 인증한 갯수 가져와 -> 피드테이블 챌린지 아이디로 검색 -> 유저가 올린 인증수 가져와
-		//people * certCnt 
-		//평균구해.
-		//챌린지별로 하나씩 업데이트!
+		
+//		// 평균달성률 계산
+//		//유저들이 인증한 갯수 가져와 -> 피드테이블 챌린지 아이디로 검색 -> 유저들이 올린 인증수 가져와
+//		
+//		System.out.println("유저가 인증한 피드수" +size + "참여자수" + people + "인당 인증해야할 수 " + cerCnt + 
+//				"총인증해야할 수 " + totalCnt + " 평균" + average_rate);
+//		//평균구해.
+		
 		
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
 	}

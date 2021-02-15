@@ -47,6 +47,7 @@ public interface ChallengeDAO {
 	public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id
 	public int [] selectIngToComp(); //진행중 -> 완료중으로 갈 c_id
 	public int updateChallengeStatus(Map<String, Object> map); //c_id를 받아 챌린지 상태 업데이트
+	public int updateAverageRate(@Param("challenge_id")int challenge_id, @Param("average_rate") int average_rate); //챌린지 id별 평균달성률 업데이트
 	
 	/** 통계 */
 	public int[] selectFitId(String uid); //완료된 참여한 모든 운동 카테고리
