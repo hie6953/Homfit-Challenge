@@ -1,3 +1,24 @@
+/* mobile */
+@media (max-width: 480px) {
+  .user-container {
+    background: #ffffff;
+    box-shadow: 0px 14px 20px rgb(34 35 58 / 20%);
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s;
+  }
+
+  .signup_label {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  .user-background {
+    padding: 10px;
+    padding-top: 18px;
+  }
+}
+
 .hr {
   height: 0.5px;
   margin: 40px 0 27px 0;

@@ -1,8 +1,8 @@
 <template>
   <div class="user-background">
-    <div class="user-container  col-sm-10 col-lg-6">
+    <div class="user-container  col-sm-12 col-lg-6">
       <form class="user-sign-up__form" name="signup" @submit.prevent="signup">
-        <h3>회원가입</h3>
+        <h3 class="signup_label">회원가입</h3>
         <br />
         <br />
 
@@ -118,59 +118,6 @@
           </div>
         </div>
 
-        <!-- <div class="user-sign-up-form__form-group">
-          <div class="user-sign-up-form-label">휴대폰 번호</div>
-          <div class="user-sign-up-form__form-group__input">
-            <div class="input-group email-input">
-              <select
-                class="form-control"
-                name="phone1"
-                size="1"
-                id="phone1"
-                v-model="phone1"
-              >
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="012">012</option>
-                <option value="013">013</option>
-                <option value="014">014</option>
-                <option value="015">015</option>
-                <option value="016">016</option>
-                <option value="017">017</option>
-                <option value="018">018</option>
-                <option value="019">019</option>
-                <option value="070">070</option>
-                <option value="02">02</option>
-              </select>
-
-              <span class="email-input__separator">-</span>
-              <input
-                class="form-control"
-                name="phone2"
-                id="phone2"
-                v-model="phone2"
-                size="1"
-                required
-              />
-              <span class="email-input__separator">-</span>
-              <input
-                class="form-control"
-                name="phone3"
-                id="phone3"
-                v-model="phone3"
-                size="1"
-                required
-              />
-
-              <input
-                type="button"
-                value="인증번호 발송"
-                class="phonecode-btn"
-              />
-            </div>
-          </div>
-        </div> -->
-
         <div class="user-sign-up-form__form-group">
           <div class="user-sign-up-form-label">별명</div>
           <div class="user-sign-up-form__form-group__description">
@@ -194,14 +141,29 @@
                 @click="NicknameCheck()"
               />
             </div>
-            <span v-if="nicknamecheck"></span>
+            <!-- <span v-if="nicknamecheck">
+              <span class="error-text" v-if="errormsg.nick_name">{{
+                errormsg.nick_name
+              }}</span>
+            </span>
 
-            <span class="error-text" v-if="errormsg.nick_name">{{
-              errormsg.nick_name
-            }}</span>
-            <span class="correct-text" v-if="correctmsg.nick_name">{{
-              correctmsg.nick_name
-            }}</span>
+            <span v-else>
+              <span class="correct-text" v-if="correctmsg.nick_name">{{
+                correctmsg.nick_name
+              }}</span>
+            </span> -->
+
+            <span v-if="nicknamecheck">
+              <span class="error-text" v-if="errormsg.nick_name">{{
+                errormsg.nick_name
+              }}</span>
+            </span>
+
+            <span v-else class="correct-text">
+              <span class="correct-text" v-if="donicknamecheck"
+                >사용 가능한 닉네임입니다.</span
+              >
+            </span>
           </div>
         </div>
 
@@ -274,6 +236,7 @@ export default {
       age: '20',
       passwordcheck: '',
       nicknamecheck: false,
+      donicknamecheck: false,
       emailcheck: false,
       ageOptions: [
         { text: '10대', value: '10' },
@@ -312,7 +275,8 @@ export default {
           } else {
             this.nicknamecheck = false;
             this.errormsg['nick_name'] = ``;
-            this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
+            this.donicknamecheck = true;
+            // this.correctmsg['nick_name'] = `사용 가능한 닉네임입니다.`;
           }
           //console.log(this.nicknamecheck);
         })
