@@ -26,7 +26,6 @@
 		limit 0, 1000
 	</select>
 
-
 	<select id="searchByUser" parameterType="String"
 		resultType="feed">
 		select * from feed
@@ -45,6 +44,14 @@
 		select * from feed
 		where challenge_id = #{challenge_id}
 		order by register_date desc
+	</select>
+	
+	<select id="searchByChallengeNotFeedId" parameterType="int"
+		resultType="feed">
+		select * from feed
+		where challenge_id = #{challenge_id} and feed_id != #{feed_id}
+		order by register_date desc
+		limit 0, 100
 	</select>
 
 	<insert id="createLikes">

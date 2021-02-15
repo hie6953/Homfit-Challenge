@@ -20,6 +20,8 @@ public interface FeedService {
 
     public List<Feed> searchByChallenge(int challenge_id) throws Exception;
 
+    public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id) throws Exception;
+
     public boolean createLikes(String uid, int feed_id) throws Exception;
 
     public boolean deleteLikes(String uid, int feed_id) throws Exception;
