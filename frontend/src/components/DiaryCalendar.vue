@@ -46,7 +46,7 @@
                 <span class="calendar-column-dots">
                   <span>
                     <b-icon
-                      v-if="diaryTrue"
+                      v-if="haveDiary[date].have"
                       icon="dot"
                       variant="warning"
                     ></b-icon>
@@ -68,6 +68,11 @@
 <script>
 import "@/assets/css/diarycalendar.css";
 export default {
+  props:{
+    diaryList:Array,
+    prop_choiceDate:Number,
+    prop_change:Boolean,
+  },
   data() {
     return {
       weekDay: ["일", "월", "화", "수", "목", "금", "토"],
@@ -75,21 +80,33 @@ export default {
       currentMonth: new Date().getMonth() + 1,
       choiceDate: 0,
       currentMonthDateMatrix: [],
-      diaryTrue: true,
+      haveDiary: [],
     };
   },
   created() {
     this.createCalendar();
+    this.$emit('getInfo',this.currentYear,this.currentMonth);
   },
-  watch: {},
+  watch: {
+    currentMonth:function(){
+      this.$emit('getInfo',this.currentYear,this.currentMonth);
+    },
+    prop_change:function(){
+      this.createCalendar();
+    }
+  },
   methods: {
+    //날짜 선택
     DateChoice: function(date) {
       this.choiceDate = date;
+      this.$emit('choiceDate',this.currentYear,this.currentMonth,date,this.haveDiary[date]);
     },
 
     createCalendar: function() {
       this.currentMonthDateMatrix = [];
       this.choiceDate = 0;
+      let diaryListIdx = 0;
+      let diaryListLength = this.diaryList.length;
       let date = 1;
       let firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
       let lastDate = new Date(this.currentYear, this.currentMonth, 0).getDate();
@@ -104,11 +121,23 @@ export default {
           if ((index == 0 && i < firstDay) || date > lastDate) {
             calendarRow[i] = " ";
           } else {
+            let temp = {have:false,dateIdx:0};
+            this.haveDiary[date] = temp;
+            //기록 있는지 계산
+            if(diaryListIdx < diaryListLength){
+              let diaryDate = new Date(this.diaryList[diaryListIdx].date).getDate();
+              if(date == diaryDate){  //i일에 기록이 있으면
+                this.haveDiary[date].have  = true;
+                this.haveDiary[date].dateIdx = diaryListIdx;
+                ++diaryListIdx;
+              }
+            }
             calendarRow[i] = date++;
           }
         }
         this.currentMonthDateMatrix[index] = calendarRow;
       }
+      this.DateChoice(this.prop_choiceDate);
     },
     ClickNext: function() {
       if (this.currentMonth == 12) {

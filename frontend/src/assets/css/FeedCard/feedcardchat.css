@@ -1,9 +1,9 @@
 .feedchat-border {
-  border: 15px solid #fff;
+  /* border: 15px solid #fff;
   border-radius: 4px;
   width: 100%;
   max-width: 600px;
-  margin: auto;
+  margin: auto; */
 }
 
 .feedchat-card {
@@ -93,14 +93,14 @@
   border: none;
   border-bottom: 1px solid #e2e2e2;
   margin-bottom: 10px;
-  margin: 20px;
+  margin: 5px;
 }
 
 /* 버튼 */
 .feedchat-icons {
   font-weight: regular;
   margin-right: 20px;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
   margin-bottom: 15px;
   margin-top: -11px;
 }
@@ -171,12 +171,13 @@
   padding-right: 12px;
   padding-left: 12px;
   padding-bottom: 12px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .Comment-section {
   vertical-align: middle;
+  padding-top: 15px;
 }
 
 .commenter-image {
@@ -185,13 +186,15 @@
   border-radius: 100%;
 }
 
-.user {
+.comment-user {
   font-weight: bold;
-  color: black;
+  color: #4f5052;
+  font-size: 15px;
 }
 
 .comment {
   color: #90949c;
+  font-size: 14px;
 }
 
 .comment-time {
@@ -201,11 +204,11 @@
 }
 
 .write-comment {
-  padding-right: 12px;
+  /* padding-right: 12px;
   padding-left: 12px;
-  padding-bottom: 2rem;
-  margin-left: 20px;
-  margin-right: 20px;
+  padding-bottom: 2rem; */
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .comment-input-box {
@@ -249,6 +252,16 @@ input[type='button'] {
 }
 input[type='button']:hover {
   background-color: #eac03a;
+}
+
+.comment-delete {
+  float: right;
+  margin-top: -8px;
+}
+
+.comment-delete-btn .b-icon.bi {
+  width: 15x;
+  height: 15px;
 }
 
 /* 신고 */

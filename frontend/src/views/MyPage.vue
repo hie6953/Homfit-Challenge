@@ -139,13 +139,21 @@
     <div class="mx-auto col-12 col-md-8 myfeeds">
       <div class="mypage-myfeed">
         <h3 class="my-feed-label">나의 피드</h3>
-        <div class="my-feed-plus">
+        <div class="my-feed-plus" @click="MoveToMyWholeFeed">
           <p class="mb-2">
             <b-icon icon="plus"></b-icon>
             전체보기
           </p>
         </div>
         <div class="grid-feed">
+          <!-- <my-page-feed
+            v-for="(feed, index) in feedList"
+            class="col-12"
+            :key="`${index}_feed`"
+            :feed="feed"
+            @click="FeedMoreInfo"
+          >
+          </my-page-feed> -->
           <MyPageFeed />
         </div>
       </div>
@@ -231,6 +239,9 @@ export default {
       });
   },
   methods: {
+    MoveToMyWholeFeed() {
+      this.$router.push('/mypagefeedtotal');
+    },
     // getUserInfo() {
     //   axios
     //     .post(`${SERVER_URL}/user`, {

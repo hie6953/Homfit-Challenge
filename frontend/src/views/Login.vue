@@ -37,7 +37,7 @@
 
           <label class="checkbox">
             <input type="checkbox" id="auto_login" v-model="auto_login" />
-            로그인유지
+            아이디저장
           </label>
 
           <input
