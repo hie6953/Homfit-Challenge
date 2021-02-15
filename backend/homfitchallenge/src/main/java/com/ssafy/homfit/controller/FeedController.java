@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.LikeVO;
 import com.ssafy.homfit.model.service.FeedService;
 import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.util.UploadImg;
@@ -90,15 +91,15 @@ public class FeedController {
 
     @ApiOperation(value = "좋아요 수정", notes = "회원이 피드를 좋아할 경우 좋아요 삭제, 아닐경우 좋아요 생성")
     @PutMapping(value = "/like")
-    public ResponseEntity<String> updateLikes(@RequestBody String uid, @RequestBody int feed_id, @RequestBody boolean user_liked){
+    public ResponseEntity<String> updateLikes(@RequestBody LikeVO like) {
         String msg = null;
         HttpStatus status = null;
 
         try {
-            if (user_liked) {
-                feedService.deleteLikes(uid, feed_id);
+            if (like.getUser_liked()) {
+                feedService.deleteLikes(like.getUid(), like.getFeed_id());
             } else {
-                feedService.createLikes(uid, feed_id);
+                feedService.createLikes(like.getUid(), like.getFeed_id());
             }
             msg = SUCCESS;
             status = HttpStatus.ACCEPTED;
@@ -112,7 +113,7 @@ public class FeedController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Feed>> searchAllFeed(){
+    public ResponseEntity<List<Feed>> searchAllFeed() {
         List<Feed> result = null;
         HttpStatus status = null;
 
@@ -127,9 +128,9 @@ public class FeedController {
 
         return new ResponseEntity<List<Feed>>(result, status);
     }
-    
+
     @GetMapping("/category")
-    public ResponseEntity<List<Feed>> searchCategoryFeed(@RequestParam int category){
+    public ResponseEntity<List<Feed>> searchCategoryFeed(@RequestParam int category) {
         List<Feed> result = null;
         HttpStatus status = null;
 
@@ -144,9 +145,9 @@ public class FeedController {
 
         return new ResponseEntity<List<Feed>>(result, status);
     }
-    
+
     @GetMapping("/search")
-    public ResponseEntity<List<Feed>> search(@RequestParam int kind, @RequestParam String keyword){
+    public ResponseEntity<List<Feed>> search(@RequestParam int kind, @RequestParam String keyword) {
         List<Feed> result = null;
         HttpStatus status = null;
 
@@ -163,7 +164,8 @@ public class FeedController {
     }
 
     @GetMapping("/all/focus/{feed_id}")
-    public ResponseEntity<List<Feed>> focusfeed(@PathVariable int feed_id, @RequestParam int challenge_id, @RequestParam String uid){
+    public ResponseEntity<List<Feed>> focusfeed(@PathVariable int feed_id, @RequestParam int challenge_id,
+            @RequestParam String uid) {
         List<Feed> result = new LinkedList<Feed>();
         HttpStatus status = null;
 
