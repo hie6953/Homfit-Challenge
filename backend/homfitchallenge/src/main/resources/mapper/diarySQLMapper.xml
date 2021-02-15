@@ -29,4 +29,10 @@
         select * from diary
         where uid = #{uid} and date = #{date}
     </select>
+
+    <select id="getMonthDiary" parameterType="String" resultType="diary">
+        select * from diary
+        where uid=#{uid} and date_format(date, '%Y-%m') = #{date}
+        order by date asc
+    </select>
 </mapper>

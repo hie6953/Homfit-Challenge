@@ -1,5 +1,7 @@
 package com.ssafy.homfit.controller;
 
+import java.util.List;
+
 import com.ssafy.homfit.model.Diary;
 import com.ssafy.homfit.model.service.DiaryService;
 
@@ -16,6 +18,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Api("DiaryController V1")
@@ -83,6 +88,22 @@ public class DiaryController {
         }
 
         return new ResponseEntity<Diary>(data, status);
+    }
+    
+    @ApiOperation(value = "해당 달 기록 내용 검색")
+    @GetMapping(value="/search/month")
+    public ResponseEntity<List<Diary>> getMonthDiary(@RequestParam String uid, @RequestParam String date) {
+        List<Diary> list = null;
+        HttpStatus status = null;
+
+        try {
+            list = diaryService.getMonthDiary(uid, date);
+        } catch (Exception e) {
+            logger.error("기록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        
+        return new ResponseEntity<List<Diary>>(list, status);
     }
     
 }

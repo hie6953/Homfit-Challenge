@@ -1,6 +1,7 @@
 package com.ssafy.homfit.model.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.ssafy.homfit.model.Diary;
 
@@ -18,5 +19,7 @@ public interface DiaryDAO {
 	public void delete(Diary diary) throws SQLException;
 
 	public Diary search(Diary diary) throws SQLException;
+
+	public List<Diary> getMonthDiary(String uid, String date) throws SQLException;
 
 }

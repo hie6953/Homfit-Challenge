@@ -49,7 +49,7 @@ public class CommentController {
             if(list.size() > 0){
                 msg = SUCCESS;
             } else{
-                msg = FAIL;
+                msg = "empty";
             }
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
