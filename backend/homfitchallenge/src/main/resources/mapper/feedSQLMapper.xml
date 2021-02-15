@@ -46,7 +46,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid=null)
+		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid is null)
 	</select>
 	
 	<select id="searchByChallengeNotFeedId" parameterType="map"
@@ -55,7 +55,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id} and (l.uid=#{uid} or l.uid=null)
+		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id} and (l.uid=#{uid} or l.uid is null)
 		order by f.register_date desc
 		limit 0, 100
 	</select>
