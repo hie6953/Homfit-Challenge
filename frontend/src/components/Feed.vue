@@ -4,7 +4,7 @@
     <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
       class="responsive-image"
-      @click="ChallengeMoreInfo"
+      @click="FeedMoreInfo"
     />
     <div class="gallery-item-info">
       <ul>
@@ -33,14 +33,6 @@
             </ul>
           </div>
         </div> -->
-
-  <!-- 사진2 -->
-  <!-- <div class="col-xs-4 gallery-item">
-          <img
-            src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop"
-            class="responsive-image"
-          />
-        </div> -->
 </template>
 
 <script>
@@ -55,8 +47,9 @@ export default {
     return {};
   },
   methods: {
-    ChallengeMoreInfo: function() {
-      this.$emit('moreInfo', this.challenge.challenge_id);
+    FeedMoreInfo: function() {
+      this.$store.commit('SETTMPFEED', this.feed);
+      this.$router.push('/feedcardlist');
     },
   },
 };
