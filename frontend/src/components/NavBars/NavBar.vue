@@ -40,8 +40,12 @@
           class="notice-dropdown"
         >
           <template slot="button-content">
-            <button id="myPageButton" v-if="getAccessToken" class=" my-auto">
-              <img id="userIcon" class="circle-user-image" :src="userImg" />
+            <button
+              id="myPageButton"
+              v-if="getAccessToken"
+              class=" my-auto mr-1"
+            >
+              <img id="userIcon" class="circle-user-image" :src="user_img" />
               <b-tooltip target="userIcon" triggers="hover">
                 마이페이지
               </b-tooltip>
@@ -101,7 +105,7 @@
         </button>
 
         <!-- 검색 -->
-        <router-link to="/search" class="mt-auto mb-auto main-menu"
+        <router-link to="/search" class="my-auto main-menu"
           ><b-icon
             id="searchIcon"
             icon="search"
@@ -137,8 +141,13 @@ export default {
         { type: "ranking", comment: "실버로의 승급을 축하드립니다!" },
         { type: "ToDo", comment: "1시간 요가하기 챌린지 인증하세요." },
       ],
-      userImg: "",
+      user_img: "",
     };
+  },
+  watch: {
+    getUserImg: function() {
+      this.user_img = this.getUserImg;
+    },
   },
   methods: {
     // 로그인
@@ -154,20 +163,6 @@ export default {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
-    },
-    UserImg: function() {
-      this.userImg = this.getUserImg;
-      console.log(this.getUserImg);
-      if (this.userImg == null || this.userImg == "") {
-        //이미지 없을 경우 디폴트 이미지
-        this.userImg =
-          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4";
-      }
-    },
-  },
-  watch: {
-    getUserImg: function() {
-      this.UserImg();
     },
   },
   computed: {

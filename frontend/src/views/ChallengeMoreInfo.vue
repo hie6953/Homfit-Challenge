@@ -3,7 +3,7 @@
     <challenge-title
       :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
-      :challenge_img="GetChallengeImg"
+      :challenge_img="challenge.challenge_img"
       :day_certify_count="challenge.day_certify_count"
       :start_date="challenge.start_date"
       :end_date="challenge.end_date"
@@ -43,8 +43,8 @@
         </p>
         <challenge-certify-contents
           :challenge_certify_contents="challenge.challenge_certify_contents"
-          :good_img="GetGoodImg"
-          :bad_img="GetBadImg"
+          :good_img="challenge.good_img"
+          :bad_img="challenge.bad_img"
           :only_cam="challenge.only_cam"
         ></challenge-certify-contents>
 
@@ -214,9 +214,6 @@ export default {
       },
       reviewList: [],
       avg_review: 0,
-      challenge_img: null,
-      good_img: null,
-      bad_img: null,
     };
   },
   created() {
@@ -255,6 +252,7 @@ export default {
     }
   },
   methods: {
+    
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
@@ -397,27 +395,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
-    GetChallengeImg: function() {
-      let img = this.challenge.challenge_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    },
-    GetGoodImg: function() {
-      let img = this.challenge.good_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    },
-    GetBadImg: function() {
-      let img = this.challenge.bad_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    },
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
