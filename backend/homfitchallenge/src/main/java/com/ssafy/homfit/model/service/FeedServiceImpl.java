@@ -86,6 +86,13 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
+    public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id) throws Exception {
+        List<Feed> list = null;
+        list = sqlSession.getMapper(FeedDAO.class).searchByChallengeNotFeedId(challenge_id, feed_id);
+        return list;
+    }
+
+    @Override
     @Transactional
     public boolean createLikes(String uid, int feed_id) throws Exception {
         try {

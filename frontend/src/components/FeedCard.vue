@@ -48,24 +48,25 @@
       <div class="col-12 feed-icons">
         <!-- <a href="#"><span class="feed-card-button-left">좋아요</span></a> -->
 
-        <div class="feedcard-like-v">
+        <div class="feedcard-v">
           <b-button class="feed-card-button-left" @click="FeedCardLike">
             <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
             좋아요
           </b-button>
-          <span>1</span>
+          <span class="howmany">1</span>
         </div>
 
-        <div class="feedcard-comment-v">
+        <div class="feedcard-v">
           <router-link to="/feedcardlistchat">
             <b-button class="feed-card-button-left">
               <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
               댓글
             </b-button>
           </router-link>
-          <span>2</span>
+          <span class="howmany">2</span>
         </div>
 
+        <!-- <div class="feedcard-v"> -->
         <b-button class="feed-card-button-left">
           <b-icon
             icon="arrow-right-circle"
@@ -74,6 +75,7 @@
           ></b-icon>
           바로가기
         </b-button>
+        <!-- </div> -->
 
         <b-button class="feed-card-button-right" @click="openModal">
           <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>

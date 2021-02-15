@@ -69,11 +69,11 @@
           </div>
         </div>
         <!-- 나의 후기 -->
-        <div>
-          <div class="result-title">나의 후기</div>
-        </div>
         <div v-if="isReview === true">
-
+          <div class="result-title">나의 후기</div>
+          <review
+            :review="certifyInfo.review"
+          ></review>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@
         <b-button class="apply-button pc" @click="Certify">인증하기</b-button>
       </b-button-group>
       <b-button-group
-        v-if="challenge.check_date === 2"
+        v-if="challenge.check_date === 2 & isReview === false"
         id="info-float-button-group"
         class="row info-float align-center"
       >
@@ -96,22 +96,22 @@
       </b-button-group>
     </div>
     <div v-if="isMobile">
-      <div class="info-float">
+      <div class="info-float" v-if="certifyInfo.today_cnt > 0">
         <div class="row info-float-inside col-12 mx-auto">
-          <div
-            v-if="certifyInfo.today_cnt > 0"
-            class="col-12 align-center certify-btn-my"
-          >
+          <div class="col-12 align-center certify-btn-my">
             <b-button
               class="apply-button mobile"
               @click="Certify"
             >인증하기</b-button
             >
           </div>
-          <div
-            v-else-if="challenge.check_date === 2"
-            class="col-12 align-center certify-btn-my"
-          >
+        </div>
+      </div>
+    </div>
+    <div v-if="isMobile">
+      <div class="info-float" v-if="challenge.check_date === 2 & isReview === false">
+        <div class="row info-float-inside col-12 mx-auto">
+          <div class="col-12 align-center certify-btn-my">
             <b-button
               class="apply-button mobile"
               @click="Review"
@@ -130,6 +130,7 @@
 
 <script>
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
+import Review from "@/components/ChallengeMoreInfo/Review.vue";
 import { mapGetters } from "vuex";
 // import axios from "axios";
 // const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -137,6 +138,7 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     ChallengeTitle,
+    Review,
   },
   props: {
     challenge: Object,
@@ -145,8 +147,11 @@ export default {
   },
   data() {
     return {
-      isReview: true,
+      isReview: false,
+      // 더미
       // certifyInfo: {
+      //   challenge: {},
+      //   review: {},
       //   total_cnt: 3,
       //   today_cnt: 3,
       //   user_cnt: 1,
@@ -190,25 +195,26 @@ export default {
   watch: {
     certifyInfo() {
       this.ProgressBarWidth()
+      this.IsReview()
     }
   },
   methods: {
     Certify() {
-      console.log('!')
-      this.$router.push(`/certify/${this.challenge_id}`);
+      this.$router.push(`/certify/${this.challenge.challenge_id}`);
     },
     Review() {
-      console.log('!')
-      // this.$router.push({
-      //   name: "login",
-      //   params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
-      // });
+      this.$router.push(`/review/${this.challenge.challenge_id}`);
     },
     ProgressBarWidth() {
       const myProgress = document.getElementById('my-progress')
       myProgress.style.width = `${this.certifyInfo.user_rate}%`
       const avgProgress = document.getElementById('avg-progress')
       avgProgress.style.width = `${this.certifyInfo.average_rate}%`
+    },
+    IsReview() {
+      if (this.certifyInfo.review) {
+        this.isReview = true
+      }
     }
   }
 }

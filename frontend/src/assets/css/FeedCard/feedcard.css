@@ -56,7 +56,6 @@
   margin-left: 20px;
   margin-right: 20px;
   display: flex;
-  height: 100%;
 }
 .feed-card-image {
   padding-left: 10px;
@@ -85,8 +84,7 @@
   font-weight: regular;
   /* margin-left: 20px; */
   margin-right: 20px;
-  padding-bottom: 50px;
-  margin-bottom: 15px;
+  padding-bottom: 40px;
   margin-top: -11px;
   white-space: nowrap;
 }
@@ -138,7 +136,7 @@
 }
 
 .feed-card-button-left {
-  float: left;
+  /* float: left; */
   font-size: 14px;
 }
 
@@ -147,12 +145,14 @@
   font-size: 14px;
 }
 
-.feedcard-like-v {
-  display: inline;
+.feedcard-v {
+  display: inline-block;
 }
 
-.feedcard-comment-v {
-  display: inline;
+.howmany {
+  font-size: 15px;
+  margin-left: -7px;
+  margin-right: 5px;
 }
 
 /* 신고 */
@@ -171,6 +171,8 @@
   border-color: #eac03a;
   color: black;
   text-align: center;
+  outline-color: #eac03a;
+  box-shadow: none;
   width: 10%;
 }
 

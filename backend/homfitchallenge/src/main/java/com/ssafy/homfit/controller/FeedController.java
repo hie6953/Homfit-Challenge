@@ -1,5 +1,6 @@
 package com.ssafy.homfit.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.ssafy.homfit.model.Feed;
@@ -161,4 +162,20 @@ public class FeedController {
         return new ResponseEntity<List<Feed>>(result, status);
     }
 
+    @GetMapping("/all/focus/{feed_id}")
+    public ResponseEntity<List<Feed>> focusfeed(@PathVariable int feed_id, @RequestParam int challenge_id){
+        List<Feed> result = new LinkedList<Feed>();
+        HttpStatus status = null;
+
+        try {
+            result.add(feedService.searchByFeedId(feed_id));
+            result.addAll(feedService.searchByChallengeNotFeedId(challenge_id, feed_id));
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("특정 피드 목록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
 }

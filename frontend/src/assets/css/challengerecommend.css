@@ -98,6 +98,13 @@
   color: #e65c2e;
 }
 
+#challenge-recommend-edit-button{
+  background: none;
+  color:gray;
+  box-shadow: none;
+  border: none;
+}
+
 .challenge-recommend-text{
   margin:20px 0;
   text-align: center;
