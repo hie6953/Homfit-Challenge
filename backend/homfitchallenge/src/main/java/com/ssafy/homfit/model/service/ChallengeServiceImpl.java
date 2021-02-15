@@ -164,6 +164,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 
+	//챌린지별 평균 달성률 업데이트
+	@Override
+	public boolean updateAverageRate(int challenge_id, int average_rate) {
+		return challengeDAO.updateAverageRate(challenge_id, average_rate) == 1;
+	}
+
+
+	
+
 
 
 }
