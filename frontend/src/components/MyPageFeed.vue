@@ -1,7 +1,16 @@
 <template>
   <div class="col-12 col-md-8 feed-container">
     <div id="instafeed">
-      <div class="feedItem" v-for="(feed, index) in feedList" :key="index">
+      <div v-if="isdatathere" class="thereisnomyfeed">
+        `업로드한 나의 피드가 존재하지 않습니다.`
+      </div>
+
+      <div
+        v-else
+        class="feedItem"
+        v-for="(feed, index) in feedList"
+        :key="index"
+      >
         <img :src="feed.feed_picture" />
         <!-- <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop"> -->
         <div class="imageInfo">
@@ -25,6 +34,7 @@ export default {
   data: function() {
     return {
       feedList: [],
+      isdatathere: false,
     };
   },
   created() {
@@ -41,6 +51,10 @@ export default {
         .then(({ data }) => {
           console.log(data);
           this.feedList = data;
+          if (this.feedList.length == 0) {
+            this.isdatathere = true;
+          }
+          console.log(this.isdatathere);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
