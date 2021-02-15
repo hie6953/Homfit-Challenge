@@ -230,38 +230,16 @@ export default {
 
       this.pageComplete_4 = true;
 
-      // console.log(this.challenge);
-
       // // Object To FormData 변환
       var formData = new FormData();
       formData.append("challengeImgFile", this.challenge.challenge_img);
       formData.append("goodImgFile", this.challenge.good_img);
       formData.append("badImgFile", this.challenge.bad_img);
-      formData.append("kind", this.challenge.kind);
-      formData.append("fit_id", this.challenge.fit_id);
-      formData.append("bodyList", this.challenge.bodyList);
-      formData.append("challenge_title", this.challenge.challenge_title);
-      formData.append("challenge_contents", this.challenge.challenge_contents);
-      formData.append("start_date", this.challenge.start_date);
-      formData.append("end_date", this.challenge.end_date);
-      formData.append("dayList", this.challenge.dayList);
-      formData.append("day_certify_count", this.challenge.day_certify_count);
-      formData.append(
-        "challenge_certify_contents",
-        this.challenge.challenge_certify_contents
-      );
-      formData.append("only_cam", this.challenge.only_cam);
-      formData.append("tagList", this.challenge.tagList);
-      formData.append("make_date", this.challenge.make_date);
-      formData.append("make_uid", this.challenge.make_uid);
-      formData.append("check_date", this.challenge.check_date);
-      formData.append("period", this.challenge.period);
-
-      // formData.append("challenge", this.challenge);
-      // console.log(formData);z
-      // for(var i in this.challenge){
-      //   formData.append(i,this.challenge[i]);
-      // }
+      for(var i in this.challenge){
+        if(i == 'bad_img' || i == 'good_img' || i == 'challenge_img')
+          continue;
+        formData.append(i,this.challenge[i]);
+      }
 
       // // FormData의 key 확인
       // for (let key of formData.keys()) {
@@ -272,14 +250,8 @@ export default {
       // for (let value of formData.values()) {
       //   console.log(value);
       // }
-      // console.log(formData);
-      // formData.append("kind", this.challenge.kind);
-      // formData.append("kind", this.challenge.kind);
-
-      // formData.append(
-      //   "challenge",
-      //   new Blob([JSON.stringify(this.challenge)], { type: "application/json" })
-      //   );
+     
+    
       // 챌린지 개설 axios
       axios
         .post(`${SERVER_URL}/challenge`, formData, {
