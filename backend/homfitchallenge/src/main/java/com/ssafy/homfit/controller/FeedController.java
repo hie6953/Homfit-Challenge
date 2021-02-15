@@ -91,8 +91,8 @@ public class FeedController {
 
     @ApiOperation(value = "좋아요 수정", notes = "회원이 피드를 좋아할 경우 좋아요 삭제, 아닐경우 좋아요 생성")
     @PutMapping(value = "/like")
-    public ResponseEntity<String> updateLikes(@RequestBody LikeVO like) {
-        String msg = null;
+    public ResponseEntity<Integer> updateLikes(@RequestBody LikeVO like) {
+        int count = -1;
         HttpStatus status = null;
 
         try {
@@ -101,15 +101,14 @@ public class FeedController {
             } else {
                 feedService.createLikes(like.getUid(), like.getFeed_id());
             }
-            msg = SUCCESS;
+            count = feedService.searchLikeCnt(like.getFeed_id());
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("좋아요 수정 실패 :{}", e);
-            msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<String>(msg, status);
+        return new ResponseEntity<Integer>(count, status);
     }
 
     @GetMapping("/all")

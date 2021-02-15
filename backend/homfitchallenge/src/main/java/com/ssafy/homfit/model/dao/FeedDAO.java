@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedDAO {
 
+	public int searchLikeCnt(int feed_id) throws SQLException;
+
 	public void create(Feed feed) throws SQLException;
 
 	public List<Feed> searchByUser(String uid) throws SQLException;
