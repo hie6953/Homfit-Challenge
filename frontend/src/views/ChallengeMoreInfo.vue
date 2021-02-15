@@ -61,10 +61,13 @@
           챌린지 후기
         </p>
         <challenge-review
-          v-if="challenge.check_date == 2"
+          v-if="challenge.check_date == 2 && reviewList.length > 0"
           :reviewList="reviewList"
           :avg_review="avg_review"
         ></challenge-review>
+        <div v-else>
+          <p>등록된 후기가 없습니다.</p>
+        </div>
       </div>
     </div>
 
