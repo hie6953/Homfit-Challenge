@@ -440,7 +440,14 @@ public class ChallengeController {
 						challenge.getPeriod());
 				challenge.setCertification(cert_day);
 
+				
 				// 1. 사진세팅 - 이미지가 null이 아닐경우만
+				//null제외 이미지 기본 url 세팅
+				challenge.setGood_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc");
+				challenge.setBad_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520");
+				challenge.setChallenge_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399");
+				
+				//multipartfile로 받았을때는 해당 사진 url담음
 				if (goodImgFile != null) {
 					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
