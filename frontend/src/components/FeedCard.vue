@@ -21,7 +21,7 @@
         <img :src="feed.user_img" class="feed-card-user-image" />
         <div class="feed-card-user-name">{{ feed.nick_name }}</div>
         <div class="feed-card-time">
-          {{ feed.register_date }}<i class="fa fa-globe"></i>
+          {{ getFormatDate(feed.register_date) }}<i class="fa fa-globe"></i>
         </div>
       </div>
 
@@ -45,7 +45,18 @@
 
         <div class="feedcard-v">
           <b-button class="feed-card-button-left" @click="FeedCardLike">
-            <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
+            <b-icon
+              v-if="feed.user_liked"
+              icon="heart-fill"
+              variant="warning"
+              aria-hidden="true"
+            ></b-icon>
+            <b-icon
+              v-else
+              icon="heart"
+              variant="warning"
+              aria-hidden="true"
+            ></b-icon>
             좋아요
           </b-button>
           <span class="howmany">{{ feed.like_count }}</span>
@@ -167,6 +178,7 @@ import DeclarationModal from './DeclarationModal.vue';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 export default {
   name: 'FeedCard',
@@ -186,6 +198,10 @@ export default {
   methods: {
     // 피드 좋아요 이벤트 함수
     FeedCardLike() {
+      // console.log(this.getUserUid);
+      console.log(this.feed.feed_id);
+      console.log(this.feed.user_liked);
+
       axios
         .put(`${SERVER_URL}/feed/like`, {
           uid: this.getUserUid,
@@ -194,7 +210,9 @@ export default {
         })
         .then(({ data }) => {
           console.log(data);
-          this.feedList = data;
+          // this.feedList = data;
+          this.feed.user_liked = !this.feed.user_liked;
+          this.feed.like_count = data;
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
@@ -221,6 +239,10 @@ export default {
     // 챌린지바로가기이동
     movetoChallengeInfo() {
       this.$router.push(`/challenge-more-info/${this.feed.challenge_id}`);
+    },
+
+    getFormatDate(register_date) {
+      return moment(new Date(register_date)).format('YYYY.MM.DD HH:mm:ss');
     },
   },
   computed: {

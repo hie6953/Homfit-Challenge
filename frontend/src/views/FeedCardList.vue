@@ -27,17 +27,21 @@ export default {
     FeedCard,
   },
   computed: {
-    ...mapGetters(['getTmpFeed']),
+    ...mapGetters(['getTmpFeed', 'getUserUid']),
   },
   created() {
     this.tmpfeed = this.getTmpFeed;
 
     axios
       .get(`${SERVER_URL}/feed/all/focus/${this.tmpfeed.feed_id}`, {
-        params: { challenge_id: this.tmpfeed.challenge_id },
+        params: {
+          uid: this.getUserUid,
+          challenge_id: this.tmpfeed.challenge_id,
+        },
       })
       .then(({ data }) => {
         this.feedList = data;
+        console.log(data);
       })
       .catch(() => {
         alert('에러가 발생했습니다.');
