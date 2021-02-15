@@ -8,7 +8,12 @@
         v-for="(comment, index) in commentList"
         :key="index"
       >
-        <img :src="comment.user_img" class="commenter-image" height="32px" />
+        <img
+          :src="comment.user_img"
+          class="commenter-image"
+          height="32px"
+          width="32px"
+        />
         <div class="feedchat-div-tmp">
           <div class="comment-delete">
             <b-button
