@@ -185,7 +185,6 @@ export default {
     },
    
   },
-  methods: {
 methods: {
     async CheckFavoriteSurvey() {
       await axios
@@ -211,6 +210,8 @@ methods: {
         .then(({ data }) => {
           this.challengeAllList = data.returnList;
           this.fit = this.StringToNumberList(data.fit);
+          this.day = this.StringToNumberList(data.day);
+          this.body = this.StringToNumberList(data.body);
         })
         .catch(() => {
           if (!this.modalShow) {
