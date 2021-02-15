@@ -1,8 +1,6 @@
 <template>
   <div class="mt-3">
-    <hr id="hr-top" />
-
-    <div class="mx-auto col-8 profile-edit-container">
+    <div class="mx-auto col-11 col-md-8 col-lg-6 profile-edit-container">
       <b-tabs
         content-class="mt-3"
         align="center"
@@ -16,15 +14,15 @@
             <div class="form-group">
               <div v-if="this.user_img == ''" class="edit-user-photo">
                 <img
-                  class="user-img"
+                  class="profiledeit-user-img"
                   src="@/assets/NavBar/anonimous_user.png"
                 />
               </div>
               <div v-else-if="changeuserimg" class="edit-user-photo">
-                <img class="user-img" :src="imgurl" />
+                <img class="profiledeit-user-img" :src="imgurl" />
               </div>
               <div v-else class="edit-user-photo">
-                <img class="user-img" :src="user_img" />
+                <img class="profiledeit-user-img" :src="user_img" />
               </div>
               <div class="edit-user-photo">
                 <label class="input-file-button" for="input-file">
@@ -71,10 +69,17 @@
                       class="phonecode-btn"
                       @click="NicknameCheck()"
                     />
-                    <span class="error-text" v-if="isDuplicate"
-                      >이미 동일한 별명이 존재합니다.</span
-                    >
                   </div>
+                  <span v-if="isDuplicate">
+                    <span class="error-text" v-if="errormsg.nick_name">{{
+                      errormsg.nick_name
+                    }}</span>
+                  </span>
+                  <span v-else class="correct-text">
+                    <span class="correct-text" v-if="nicknamecheck"
+                      >사용 가능한 닉네임입니다.</span
+                    >
+                  </span>
                 </div>
               </div>
 
@@ -181,8 +186,8 @@ export default {
       errormsg: [],
       nick_name: '',
       email: '',
-      nicknamecheck: false,
-      isDuplicate: false,
+      nicknamecheck: false, //닉네임 중복체크했나요?
+      isDuplicate: false, //닉네임이 중복되나요?
       imgurl: defaultImg,
       user_img: '',
       changeuserimg: false,
@@ -237,9 +242,14 @@ export default {
           // console.log(data);
           if (data === true) {
             this.isDuplicate = true;
-          } else this.isDuplicate = false;
-          //console.log(this.nicknamecheck);
-          this.nicknamecheck = true;
+            this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+            this.correctmsg['nick_name'] = ``;
+          } else {
+            this.isDuplicate = false;
+            this.errormsg['nick_name'] = ``;
+            //console.log(this.nicknamecheck);
+            this.nicknamecheck = true;
+          }
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
@@ -293,6 +303,7 @@ export default {
             // console.log(data);
             if (data == 'success' && !this.giveAlert) {
               alert('회원정보가 변경되었습니다.');
+              this.$router.push('/mypage');
             }
           })
           .catch(() => {
