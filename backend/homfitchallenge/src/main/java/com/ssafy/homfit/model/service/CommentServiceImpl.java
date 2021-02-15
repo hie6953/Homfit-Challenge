@@ -50,9 +50,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean delete(int feed_id) throws Exception {
+    public boolean delete(int comment_id) throws Exception {
         try {
-            sqlSession.getMapper(CommentDAO.class).delete(feed_id);
+            sqlSession.getMapper(CommentDAO.class).delete(comment_id);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

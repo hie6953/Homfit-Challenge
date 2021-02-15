@@ -9,5 +9,5 @@ public interface CommentService {
     public boolean create(Comment comment) throws Exception;
     public List<CommentVo> searchByFeedId(int feed_id) throws Exception;
     public boolean update(Comment comment) throws Exception;
-    public boolean delete(int feed_id) throws Exception;
+    public boolean delete(int comment_id) throws Exception;
 }
