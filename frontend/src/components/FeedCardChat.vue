@@ -82,7 +82,7 @@
         </b-button>
       </div>
 
-      <!-- 댓글쓰기 -->
+      <!-- 댓글목록 -->
       <hr class="feedchat-card-hr" />
       <div class="feedchat-card-comments">
         <div
@@ -101,6 +101,8 @@
           </div>
         </div>
       </div>
+
+      <!-- 댓글작성 -->
       <div class="write-comment">
         <input type="text" class="comment-input-box" v-model="contents" />
         <input
