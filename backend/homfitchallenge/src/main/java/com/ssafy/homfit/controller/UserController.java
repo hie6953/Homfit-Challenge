@@ -1,14 +1,17 @@
 package com.ssafy.homfit.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.ssafy.homfit.model.Alarm;
 import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.Favorite;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.service.AlarmService;
 import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.JwtServiceImpl;
@@ -20,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +63,9 @@ public class UserController {
 
     @Autowired
     private BookmarkService bookmarkService;
+
+    @Autowired
+    private AlarmService alarmService;
 
     @ApiOperation(value = "회원 등록", notes = "새로운 회원을 등록한다. 그리고 가입 성공 여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
     @PostMapping("/signup")
@@ -371,4 +378,22 @@ public class UserController {
 
         return new ResponseEntity<>(isSetting ,status);
     }
+
+    @GetMapping(value="/alarm")
+    @Transactional
+    public ResponseEntity<List<Alarm>> getMethodName(@RequestParam String uid) {
+        List<Alarm> list = null;
+        HttpStatus status = null;
+
+        try {
+            alarmService.getAlarm(uid);
+            alarmService.updateAlarmCheck(uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(list, status);
+    }
+    
 }
