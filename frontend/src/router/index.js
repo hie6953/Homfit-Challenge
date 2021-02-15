@@ -172,12 +172,6 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
-    path: '/certify/:challenge_id',
-    name: 'Certify',
-    component: () => import('../views/Certify.vue'),
-    beforeEnter: requireAuth(),
-  },
-  {
     path:'/404',
     name:"notFound",
     component: () => import('../views/NotFound.vue'),
