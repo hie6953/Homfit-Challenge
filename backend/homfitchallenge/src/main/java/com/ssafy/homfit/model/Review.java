@@ -12,7 +12,7 @@ public class Review {
 	private int star_point;
 	private String review_contents;
 	private Timestamp regist_time;
-	
+	private String user_img; //userImg
 
 	public String getNick_name() {
 		return nick_name;
@@ -50,13 +50,18 @@ public class Review {
 	public void setRegist_time(Timestamp regist_time) {
 		this.regist_time = regist_time;
 	}
+	public String getUser_img() {
+		return user_img;
+	}
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
 	@Override
 	public String toString() {
 		return "Review [challenge_id=" + challenge_id + ", uid=" + uid + ", nick_name=" + nick_name + ", star_point="
-				+ star_point + ", review_contents=" + review_contents + ", regist_time=" + regist_time + "]";
+				+ star_point + ", review_contents=" + review_contents + ", regist_time=" + regist_time + ", user_img="
+				+ user_img + "]";
 	}
-	
-	
 	
 	
 	

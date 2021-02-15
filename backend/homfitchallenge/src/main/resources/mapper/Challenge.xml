@@ -9,7 +9,7 @@
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
 		select
-		c.*, u.nick_name, count(p.uid) as people
+		c.*, u.nick_name, u.user_img, count(p.uid) as people
 		from
 		challenge as c
 		join participate as p on c.challenge_id = p.challenge_id
@@ -23,7 +23,7 @@
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
 	<select id="selectChallengeByid" parameterType="int"
 		resultType="Challenge">
-		select a.*, u.nick_name
+		select a.*, u.nick_name,u.user_img
 		from challenge as a
 		join user as u
 		on
@@ -181,6 +181,15 @@
 	</update>
 	
 	<!-- batch작업 -->
+	<!-- 챌린지 별 평균달성률 update -->
+	<!-- public int updateAverageRate(@Param("challenge_id")int challenge_id, @Param("average_rate") int average_rate); //챌린지 id별 평균달성률 업데이트 -->
+	<update id="updateAverageRate">
+		update challenge
+		set average_rate = #{average_rate}
+		where challenge_id = #{challenge_id}
+	</update>
+	
+	
 	<!-- public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id -->
 	<select id="selectBefoToIng" resultType="int">
 		select challenge_id
