@@ -41,7 +41,7 @@
 	</select>
 
 	<select id="searchLikeCnt" parameterType="int" resultType="int">
-		select like_count from likes where feed_id = #{feed_id}
+		select like_count from feed where feed_id = #{feed_id}
 	</select>
 
 	<select id="searchByFeedId" parameterType="map"
