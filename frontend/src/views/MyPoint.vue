@@ -1,8 +1,6 @@
 <template>
-  <div class="mt-3">
-    <hr id="hr-top" />
-
-    <div class="mx-auto col-8 mypoint-container">
+  <div class="">
+    <div class="mx-auto col-12 col-md-8 mypoint-container">
       <div class="mypoint-info">
         <!-- <div class="mypoint-user">{{user.nick_name}}님의 포인트 내역 조회</div> -->
         <div class="mypoint-user">포인트 내역 조회</div>
@@ -14,8 +12,8 @@
         <template v-if="lists.length != 0">
           <colgroup>
             <col :style="{ width: '15%' }" />
-            <col :style="{ width: '50%' }" />
-            <col :style="{ width: '10%' }" />
+            <col :style="{ width: '45%' }" />
+            <col :style="{ width: '15%' }" />
             <col :style="{ width: '25%' }" />
           </colgroup>
           <thead>
