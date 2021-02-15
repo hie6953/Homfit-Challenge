@@ -35,7 +35,6 @@
 
 
 .chat-box {
-    min-height: 362px;
     background: #f2f2f2;
     -webkit-overflow-scrolling: touch;
     padding: 10px;
@@ -74,6 +73,7 @@
         background-color: #EAC03A;
     }
     .chat-box {
+        min-height: 362px;
         padding-bottom: 68px;
     }
 }
@@ -94,6 +94,7 @@
         background-color: #fff;
     }
     .chat-box {
+        min-height: 1084px;
         padding-bottom: 82px;
     }
 }
