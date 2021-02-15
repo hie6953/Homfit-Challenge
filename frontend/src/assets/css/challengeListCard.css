@@ -87,7 +87,6 @@
   .bookmark-disabled {
     display: none;
   }
-<<<<<<< HEAD
   .cancel-disabled {
     display: none;
   }
@@ -133,8 +132,4 @@
   .delete-icon:hover {
     cursor: pointer;
     color: #E65C2E;
-=======
-  .challengeManage-disabled {
-    display: none;
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
   }

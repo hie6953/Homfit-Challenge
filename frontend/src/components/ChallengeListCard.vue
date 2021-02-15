@@ -10,7 +10,6 @@
         @click="DeleteBookmarkBtn"
       ></b-icon>
     </div>
-<<<<<<< HEAD
     <div class="cancel-icon cancel-disabled btn-sm btn-warning">
       <div
         class="challengeManage-btn"
@@ -22,16 +21,6 @@
         class="challengeManage-btn"
         @click="DeleteChallengeManageBtn"
       >삭제</div>
-=======
-    <div class="challengeManage-icon challengeManage-disabled">
-      <b-icon
-        id="challengeManageIcon"
-        icon="x-circle"
-        scale="1"
-        class="challengeManage-btn"
-        @click="DeleteChallengeManageBtn"
-      ></b-icon>
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
     </div>
     <b-card
       :img-src="image"
@@ -77,10 +66,7 @@ export default {
     challenge: Object,
     isfromBookmark: Number,
     isfromChallengeManage: Number,
-<<<<<<< HEAD
     cancelActive: Number,
-=======
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
     deleteActive: Number,
   },
   data() {
@@ -100,12 +86,9 @@ export default {
     }
   },
   watch: {
-<<<<<<< HEAD
     cancelActive() {
       this.CancelUpdate()
     },
-=======
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
     deleteActive() {
       this.DeleteUpdate();
     },
@@ -137,7 +120,6 @@ export default {
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
     },
-<<<<<<< HEAD
     CancelChallengeManageBtn() {
       this.$emit("cancelChallengeManage", this.challenge.challenge_id);
     },
@@ -168,24 +150,4 @@ export default {
     },
   }
 }
-=======
-    DeleteChallengeManageBtn() {
-      this.$emit("deleteChallengeManage", this.challenge.challenge_id);
-    },
-    DeleteUpdate() {
-      // 카테고리가 진행전 일때만 삭제 버튼 활성화
-      const challengeManage = document.querySelectorAll(
-        ".challengeManage-icon"
-      );
-      for (let i = 0; i < challengeManage.length; i++) {
-        if (this.deleteActive === 1) {
-          challengeManage[i].classList.remove("challengeManage-disabled");
-        } else {
-          challengeManage[i].classList.add("challengeManage-disabled");
-        }
-      }
-    },
-  },
-};
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
 </script>

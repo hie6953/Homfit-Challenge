@@ -16,12 +16,9 @@
   .active {
     color: #EAC03A;
   }
-<<<<<<< HEAD
   .tab-pd {
       padding: 0;
   }
-=======
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
   .tab-cursor:hover {
     cursor: pointer;
   }
@@ -85,22 +82,4 @@
   }
   .checkbox-tools:not(:checked) + label:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-<<<<<<< HEAD
   }  
-=======
-  }
-
-  .challengeManage-btn {
-    color: black;
-    position: absolute;
-    width: 1em;
-    height: 1em;
-    z-index: 4;
-    right: 20px;
-    top: 5px;
-  }
-  .challengeManage-btn:hover {
-    cursor: pointer;
-    color: #E65C2E;
-  }
->>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
