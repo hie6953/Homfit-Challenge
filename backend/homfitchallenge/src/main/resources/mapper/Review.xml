@@ -26,7 +26,7 @@
 	<!-- 후기 3개만 -->
 	<!-- public List<Review> selectThreeReview(int challenge_id); -->
 	<select id="selectThreeReview" resultType="Review">
-		select r.*, u.nick_name
+		select r.*, u.nick_name, u.user_img
 		from review as r join user as u
         on r.uid = u.uid
 		where challenge_id = #{challenge_id}
@@ -37,7 +37,7 @@
 	<!-- 후기 전체 리스트 반환 -->
 	<!-- public List<Review> selectAllReview(int challenge_id); -->
 	<select id="selectAllReview" resultType="Review">
-		select r.*, u.nick_name
+		select r.*, u.nick_name, u.user_img
 		from review as r join user as u
 		on r.uid = u.uid
 		where challenge_id = #{challenge_id}
