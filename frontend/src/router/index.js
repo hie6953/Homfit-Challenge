@@ -131,6 +131,12 @@ const routes = [
     component: () => import('../views/Search.vue'),
   },
   {
+    path: '/review/:challenge_id',
+    name: 'Review',
+    component: () => import('../views/Review.vue'),
+    beforeEnter: requireAuth(),
+  },
+  {
     path: '/certificationphoto',
     name: 'CertificationPhoto',
     component: () => import('../views/CertificationPhoto.vue'),
