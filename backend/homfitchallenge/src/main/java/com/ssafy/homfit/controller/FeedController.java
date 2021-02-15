@@ -197,4 +197,20 @@ public class FeedController {
 
         return new ResponseEntity<List<Feed>>(result, status);
     }
+
+    @GetMapping("/mypage/allFeed")
+    public ResponseEntity<List<Feed>> mypageAllFeed(@RequestParam String uid) {
+        List<Feed> result = null;
+        HttpStatus status = null;
+
+        try {
+            result = feedService.searchByUserAll(uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("나의 피드 목록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
 }

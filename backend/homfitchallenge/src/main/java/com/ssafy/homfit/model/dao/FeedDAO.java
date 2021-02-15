@@ -50,4 +50,6 @@ public interface FeedDAO {
 
 	// 오늘 찍은 피드 img url
 	public List<Feed> selectFeedImg(@Param("uid") String uid, @Param("challenge_id") int challenge_id);
+
+	public List<Feed> searchByUserAll(String uid) throws SQLException;
 }

@@ -172,4 +172,9 @@ public class FeedServiceImpl implements FeedService {
         return FeedDao.searchLikeCnt(feed_id);
     }
 
+    @Override
+    public List<Feed> searchByUserAll(String uid) throws Exception {
+        return FeedDao.searchByUserAll(uid);
+    }
+
 }

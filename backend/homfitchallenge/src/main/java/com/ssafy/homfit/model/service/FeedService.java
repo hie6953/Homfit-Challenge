@@ -40,4 +40,6 @@ public interface FeedService {
 
     public List<Feed> selectFeedImg(String uid, int challenge_id);
 
+	public List<Feed> searchByUserAll(String uid) throws Exception;
+
 }
