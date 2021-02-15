@@ -23,7 +23,7 @@
       >삭제</div>
     </div>
     <b-card
-      :img-src="image"
+      :img-src="challenge.challenge_img"
       img-alt="Image"
       img-height="150"
       img-top
@@ -39,7 +39,7 @@
             challenge.challenge_title
           }}</span>
         </div>
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+        <img class="card-user-image" :src="challenge.user_img" />
         <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
         <div class="card-day-info">
@@ -71,19 +71,12 @@ export default {
   },
   data() {
     return {
-      image: "",
       checkDateList: ["진행전", "진행중", "완료"],
+      
     };
   },
   created() {
-    if (
-      this.challenge.challenge_img != "" &&
-      this.challenge.challenge_img != null
-    ) {
-      this.image = this.challenge.challenge_img;
-    } else {
-      this.image = "https://picsum.photos/600/300/?image=25";
-    }
+    
   },
   watch: {
     cancelActive() {
