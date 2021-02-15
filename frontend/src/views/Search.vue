@@ -4,25 +4,24 @@
 
     <div class="mx-auto col-12 col-md-8 search-tmp-container">
       <!-- 검색바 -->
-      <div class="col-12 col-md-10 col-lg-8 search-container">
-        <div class="search-align">
-          <b-dropdown
-            class="col-2 search-dropdown"
-            id="search-dropdown"
-            variant="outline-dark"
-            :text="searchList[searchValue]"
-          >
-            <b-dropdown-item
-              v-for="(value, index) in searchList"
-              :key="`${index}_searchValue`"
-              @click="searchValue = index"
-              >{{ value }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </div>
-        <div class="search-align">
+      <div class="row col-12 col-md-10 col-lg-8 search-container">
+        <b-dropdown
+          class="search-dropdown"
+          id="search-dropdown"
+          variant="outline-dark"
+          :text="searchList[searchValue]"
+        >
+          <b-dropdown-item
+            v-for="(value, index) in searchList"
+            :key="`${index}_searchValue`"
+            @click="searchValue = index"
+            >{{ value }}
+          </b-dropdown-item>
+        </b-dropdown>
+
+        <div class="search-align-input">
           <input
-            class="col-10"
+            class="search-input"
             type="text"
             id="search-bar"
             placeholder="검색어를 입력해주세요"
