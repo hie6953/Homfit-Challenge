@@ -79,7 +79,7 @@
               variant="warning"
               aria-hidden="true"
             ></b-icon>
-            바로가기
+            챌린지
           </b-button>
           <!-- </div> -->
 
