@@ -59,6 +59,11 @@ const routes = [
     component: () => import('../views/MainFeedPage.vue'),
   },
   {
+    path: '/mypagefeedtotal',
+    name: 'MyPageFeedTotal',
+    component: () => import('../views/MyPageFeedTotal.vue'),
+  },
+  {
     path: '/feedcardlistchat',
     name: 'FeedCardListChat',
     component: () => import('../views/FeedCardListChat.vue'),

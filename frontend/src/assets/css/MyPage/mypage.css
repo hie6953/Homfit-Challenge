@@ -259,6 +259,7 @@ input[type='reset'] {
   text-align: right;
   margin-right: 15px;
   font-size: 13px;
+  cursor: pointer;
 }
 .mypage-myfeed {
 }
