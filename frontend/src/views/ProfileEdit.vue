@@ -281,6 +281,7 @@ export default {
               alert('회원정보가 변경되었습니다.');
               this.giveAlert = true;
               this.$store.commit('SETIMAGE', data.imgurl);
+              this.$router.push('/mypage');
             }
           })
           .catch(() => {
