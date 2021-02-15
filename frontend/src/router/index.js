@@ -120,7 +120,11 @@ const routes = [
     component: () => import('../views/ChallengeManage.vue'),
     beforeEnter: requireAuth(),
   },
- 
+  {
+    path: '/diary',
+    name: 'Diary',
+    component: () => import('../views/Diary.vue'),
+  },
   {
     path: '/search',
     name: 'Search',
