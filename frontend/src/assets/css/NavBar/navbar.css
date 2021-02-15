@@ -37,6 +37,10 @@
 
 /* 알림 */
 /* 종 아이콘 옆 화살표 지우기 */
+#bellDropdown > a {
+  padding:8px 0px !important;
+}
+
 #bellDropdown > a::after {
   display: none;
 }
@@ -89,6 +93,7 @@
   height: 30px;
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .myPageIconLink{
