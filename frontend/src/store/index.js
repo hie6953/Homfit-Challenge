@@ -11,7 +11,9 @@ export default new Vuex.Store({
     userEmail: '', //dao랑 변수명 같게
     userNickName: '',
     userUid: '',
-    userImg:'',
+    userImg: '',
+    tmpFeed: {},
+    
   },
   getters: {
     getAccessToken(state) {
@@ -28,7 +30,10 @@ export default new Vuex.Store({
     },
     getUserImg(state){
       return state.userImg;
-    }
+    },
+    getTmpFeed(state) {
+      return state.tmpFeed;
+    },
   },
   mutations: {
     LOGIN(state, payload) {
@@ -53,7 +58,10 @@ export default new Vuex.Store({
     },
     SETEIMAGE(state, img) { 
       state.userImg = img;
-    }
+    },
+    SETTMPFEED(state, feed) {
+      state.tmpFeed = feed;
+    },
   },
   actions: {
     LOGIN(context, user) {

@@ -1,20 +1,4 @@
 <template>
-  <!-- axios -->
-  <!-- <div class="gallery-item">
-    <img
-      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
-      class="responsive-image"
-      @click="ChallengeMoreInfo"
-    />
-    <div class="gallery-item-info">
-      <ul>
-        <li class="gallery-item-likes">
-          <span class="visually-hidden">{{ feedchat.challenge_title }}</span>
-        </li>
-      </ul>
-    </div>
-  </div> -->
-
   <div class="feedchat-border">
     <div class="feedchat-card">
       <div class="feedchat-card-header">
@@ -22,15 +6,13 @@
           src="@/assets/NavBar/anonimous_user.png"
           class="feedchat-card-user-image"
         />
-        <div class="feedchat-card-user-name">이건내이름이얌</div>
+        <div class="feedchat-card-user-name">gdgdgd</div>
         <!-- <div class="feed-delete">
           <b-button class="feed-delete-btn">
             <b-icon icon="trash"></b-icon>
           </b-button>
         </div> -->
-        <div class="feedchat-card-time">
-          2021년 02월 11일<i class="fa fa-globe"></i>
-        </div>
+        <div class="feedchat-card-time">gdgdgd<i class="fa fa-globe"></i></div>
       </div>
 
       <!-- 이미지 -->
@@ -43,31 +25,48 @@
 
       <!-- 챌린지바로가기? or 내용? -->
       <div class="feedchat-card-information">
-        <p>왜 벌써 3시야...</p>
+        <p>gdgd</p>
       </div>
 
       <!-- 하단바_좋아요,댓글,바로가기,신고 -->
 
       <hr class="feedchat-card-hr" />
       <div class="col-12 feedchat-icons">
-        <!-- <a href="#"><span class="feedchat-card-button-left">좋아요</span></a> -->
-        <b-button class="feedchat-card-button-left">
-          <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
-          좋아요
-        </b-button>
+        <!-- <a href="#"><span class="feed-card-button-left">좋아요</span></a> -->
 
-        <router-link to="/feedcardlist">
-          <b-button class="feedchat-card-button-left">
-            <b-icon
-              icon="chat-fill"
+        <div class="feedcard-v">
+          <b-button class="feedchat-card-button-left" @click="FeedCardLike">
+            <!-- <b-icon
+              v-if="feed.user_liked"
+              icon="heart-fill"
               variant="warning"
               aria-hidden="true"
-            ></b-icon>
-            댓글
+            ></b-icon> -->
+            <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
+            좋아요
           </b-button>
-        </router-link>
+          <span class="howmany">1</span>
+        </div>
 
-        <b-button class="feedchat-card-button-left">
+        <div class="feedcard-v">
+          <router-link to="/feedcardlistchat">
+            <b-button class="feedchat-card-button-left">
+              <b-icon
+                icon="chat-fill"
+                variant="warning"
+                aria-hidden="true"
+              ></b-icon>
+              댓글
+            </b-button>
+          </router-link>
+          <!-- <span class="howmany">{{feed.comment_count}}</span> -->
+        </div>
+
+        <!-- <div class="feedcard-v"> -->
+        <b-button
+          class="feedchat-card-button-left"
+          @click="movetoChallengeInfo"
+        >
           <b-icon
             icon="arrow-right-circle"
             variant="warning"
@@ -75,31 +74,92 @@
           ></b-icon>
           바로가기
         </b-button>
+        <!-- </div> -->
 
-        <b-button class="feedchat-card-button-right">
+        <b-button class="feedchat-card-button-right" @click="openModal">
           <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
           신고
         </b-button>
-      </div>
 
-      <!-- 댓글목록 -->
-      <hr class="feedchat-card-hr" />
-      <div class="feedchat-card-comments">
-        <div
-          class="Comment-section"
-          v-for="(comment, index) in commentList"
-          :key="index"
-        >
-          <img :src="comment.user_img" class="commenter-image" height="32px" />
+        <!-- <button type="button" class="btm_image" id="img_btn">
+          <img src="@/assets/NavBar/anonimous_user.png" /> 신고
+        </button> -->
 
-          <div class="feedchat-div-tmp">
-            <div class="user">{{ comment.nick_name }}</div>
-            <div class="comment">{{ comment.comment.contents }}</div>
-            <div class="comment-time">
-              {{ comment.comment.comment_regist_date }}
+        <!-- 컴포넌트 MyModal -->
+        <DeclarationModal @close="closeModal" v-if="modal">
+          <!-- default 슬롯 콘텐츠 -->
+
+          <div class="declaration-modal">
+            <div class="declaration-title">인증샷 신고</div>
+
+            <div class="declaration-info">
+              인증샷은 다수에게 신고를 당하면 자동으로 삭제됩니다. <br />
+              또한, 스탭이 악의적이라고 판단되는 인증샷의 경우 레드카드가 발급될
+              수 있습니다.
+            </div>
+
+            <div class="declaration-radio-group">
+              <b-form-radio
+                class="declaration-radio"
+                v-model="declarationtype"
+                name="some-radios"
+                value="1"
+                >인증샷 무효 신고
+              </b-form-radio>
+              <b-form-radio
+                class="declaration-radio"
+                v-model="declarationtype"
+                name="some-radios"
+                value="2"
+                >악성 유저 신고</b-form-radio
+              >
+            </div>
+
+            <div class="declaration-contents-align">
+              <textarea
+                class="declaration-contents"
+                type="text"
+                placeholder="신고 내용을 입력해주세요. (5자 이상)"
+                v-model="message"
+              />
             </div>
           </div>
-        </div>
+
+          <!-- footer 슬롯 콘텐츠 -->
+          <template slot="footer">
+            <button class="d-modal-btn" @click="doSend">제출</button>
+            <button class="d-modal-btn-back" @click="closeModal">취소</button>
+          </template>
+          <!-- /footer -->
+        </DeclarationModal>
+
+        <!-- <b-button v-b-modal.modal-scrollable class="feed-card-button-right">
+          <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
+          신고
+        </b-button>
+        <b-modal id="modal-scrollable" scrollable title="인증샷 신고">
+          <div class="declaration-modal">
+            <p class="declaration-info">
+              인증샷은 다수에게 신고를 당하면 자동으로 삭제됩니다. 또한, 스탭이
+              악의적이라고 판단되는 인증샷의 경우 레드카드가 발급될 수 있습니다.
+            </p>
+
+            <b-form-radio
+              class="declaration-radio"
+              v-model="declarationtype"
+              name="some-radios"
+              value="1"
+              >인증샷 무효 신고
+            </b-form-radio>
+            <b-form-radio
+              class="declaration-radio"
+              v-model="declarationtype"
+              name="some-radios"
+              value="2"
+              >악성 유저 신고</b-form-radio
+            >
+          </div>
+        </b-modal> -->
       </div>
 
       <!-- 댓글작성 -->
