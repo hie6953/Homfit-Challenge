@@ -12,7 +12,7 @@
         select c.*, u.user_img, u.nick_name from comments c left outer join user u
         on c.uid = u.uid
         where c.feed_id = #{feed_id}
-        order by c.comment_regist_date desc
+        order by c.comment_regist_date asc
     </select>
 
     <update id="update" parameterType="comment">

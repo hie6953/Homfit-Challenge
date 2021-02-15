@@ -7,7 +7,6 @@ import java.util.Map;
 import com.ssafy.homfit.model.Report;
 import com.ssafy.homfit.model.service.ReportService;
 
-import org.apache.ibatis.annotations.Delete;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
