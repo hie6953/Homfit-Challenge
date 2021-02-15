@@ -62,6 +62,7 @@ export default {
       certifyInfo: {
         // challenge: { "challenge_id": 231, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
         challenge: {},
+        review: {},
         total_cnt: 3,
         today_cnt: 3,
         user_cnt: 1,
