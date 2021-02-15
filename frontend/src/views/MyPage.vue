@@ -144,20 +144,6 @@
         <div class="grid-feed">
           <MyPageFeed />
         </div>
-        <br />
-      </div>
-      <br />
-
-      <!-- 나의눈바디 -->
-      <h3 class="my-body-label">나의 눈바디</h3>
-      <div class="my-feed-plus">
-        <p class="mb-2">
-          <b-icon icon="plus"></b-icon>
-          전체보기
-        </p>
-      </div>
-      <div class="grid-feed">
-        <MyPageBodyPhoto />
       </div>
     </div>
   </div>
@@ -166,7 +152,6 @@
 <script>
 // import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
-import MyPageBodyPhoto from '../components/MyPageBodyPhoto.vue';
 import '../assets/css/MyPage/mypage.css';
 import { mapGetters } from 'vuex';
 
@@ -178,7 +163,6 @@ export default {
   components: {
     // ToDoList,
     MyPageFeed,
-    MyPageBodyPhoto,
   },
   data: function() {
     return {

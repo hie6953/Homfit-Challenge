@@ -179,7 +179,7 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
-        this.challenge = data;
+        this.challenge = data.challenge;
         this.getChallenge = !this.getChallenge;
         this.checkTagListLength();
       })
@@ -232,7 +232,7 @@ export default {
     },
 
     checkTagListLength: function() {
-      if (this.challenge.tagList.length >= 5) {
+      if (this.challenge.tagList != null && this.challenge.tagList.length >= 5) {
         document.getElementById("tag-input").readOnly = true;
       } else {
         document.getElementById("tag-input").readOnly = false;
@@ -240,7 +240,10 @@ export default {
     },
 
     ChallengeEdit: function() {
-      console.log(this.challenge);
+      if(this.challenge.tagList == null){
+        this.challenge.tagList = [];
+        }
+        console.log(this.challenge);
       axios
         .put(`${SERVER_URL}/challenge/${this.challenge_id}`, this.challenge)
         .then(() => {

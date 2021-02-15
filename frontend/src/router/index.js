@@ -59,6 +59,16 @@ const routes = [
     component: () => import('../views/MainFeedPage.vue'),
   },
   {
+    path: '/feedcardlistchat',
+    name: 'FeedCardListChat',
+    component: () => import('../views/FeedCardListChat.vue'),
+  },
+  {
+    path: '/feedcardlist',
+    name: 'FeedCardList',
+    component: () => import('../views/FeedCardList.vue'),
+  },
+  {
     path: '/challenge-creating',
     name: 'ChallengeCreating',
     component: () => import('../views/ChallengeCreating.vue'),
@@ -110,11 +120,7 @@ const routes = [
     component: () => import('../views/ChallengeManage.vue'),
     beforeEnter: requireAuth(),
   },
-  {
-    path: '/diary',
-    name: 'Diary',
-    component: () => import('../views/Diary.vue'),
-  },
+ 
   {
     path: '/search',
     name: 'Search',

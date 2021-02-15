@@ -346,15 +346,16 @@ props:{
         .then(({ data }) => {
           console.log(JSON.stringify(this.kindList));
           if (data == 'success') {
-            alert('선호도 저장되었엉');
+            alert('선호도 정보가 저장되었습니다.');
             this.$emit("modalClose");
           } else {
             alert('실패!!!');
           }
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          alert('문제가 발생했습니다. 다시 시도해주세요.');
         });
+      window.location.reload();
     },
   },
 

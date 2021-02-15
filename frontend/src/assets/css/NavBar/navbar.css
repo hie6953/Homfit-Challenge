@@ -41,10 +41,6 @@
   display: none;
 }
 
-#bellDropdown > a{
-  padding-right:0px !important;
-}
-
 #bellDropdown > .dropdown-menu {
   width: 250px;
 }

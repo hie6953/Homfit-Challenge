@@ -158,6 +158,7 @@ public class UserController {
         return new ResponseEntity<String>(msg, status);
     }
 
+    @ApiOperation(value = "회원 프로필 사진 수정")
     @PutMapping("/updateImg")
     public ResponseEntity<Map<String, Object>> updateImg(@RequestPart("imgFile") MultipartFile imgFile,
             @RequestPart("uid") String uid) {
@@ -233,6 +234,7 @@ public class UserController {
     // return new ResponseEntity<Map<String,Object>>(resultMap, status);
     // }
 
+    @ApiOperation(value = "회원의 북마크 추가")
     @PostMapping(value = "/bookmark")
     public ResponseEntity<String> addBookMark(@RequestBody Bookmark bookmark) {
         String msg = null;
@@ -254,8 +256,9 @@ public class UserController {
         return new ResponseEntity<>(msg, status);
     }
 
-    @DeleteMapping(value = "/bookmark/{uid}/{challenge_id}")
-    public ResponseEntity<String> deleteBookMark(@PathVariable String uid, @PathVariable int challenge_id) {
+    @ApiOperation(value = "회원의 특정 북마크 삭제")
+    @DeleteMapping(value = "/bookmark/{challenge_id}")
+    public ResponseEntity<String> deleteBookMark(@RequestParam String uid, @PathVariable int challenge_id) {
         String msg = null;
         HttpStatus status = null;
         Bookmark bookmark = new Bookmark();
@@ -295,6 +298,7 @@ public class UserController {
         return new ResponseEntity<User>(user, status);
     }
 
+    @ApiOperation(value = "회원 비밀번호 확인")
     @PostMapping("/checkPassword")
     public ResponseEntity<Boolean> checkPassword(@RequestBody User user) {
         boolean isRight = false;
@@ -329,6 +333,7 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
+    @ApiOperation(value = "회원 선호도 내용 수정")
     @PutMapping("/updateFavorite")
     public ResponseEntity<String> updateFavorite(@RequestBody Favorite favorite){
         String msg = null;
@@ -350,6 +355,7 @@ public class UserController {
         return new ResponseEntity<String>(msg, status);
     }
 
+    @ApiOperation(value = "회원이 최초 선호도 조사 했는지 여부 확인")
     @GetMapping("/favorite/isSetting")
     public ResponseEntity<Boolean> isFavoriteSetting(@RequestParam String uid){
         HttpStatus status = null;

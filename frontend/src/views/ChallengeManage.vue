@@ -1,11 +1,18 @@
 <template>
   <div class="manage-container">
     <div class="row col-12 col-md-8 manage-menu-bar justify-content-center">
+<<<<<<< HEAD
       <div class="col-2 tab-pd border-right"><span class="tab-0 tab-cursor active" @click="tabValue(0)">오늘</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-1 tab-cursor" @click="tabValue(1)">진행전</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-2 tab-cursor" @click="tabValue(2)">진행중</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-3 tab-cursor" @click="tabValue(3)">완료</span></div>
       <div class="col-2 tab-pd border-left"><span class="tab-4 tab-cursor" @click="tabValue(4)">개설</span></div>
+=======
+      <div class="col-3 col-sm-2 border-right"><span class="tab-0 tab-cursor active" @click="tabValue(0)">오늘</span></div>
+      <div class="col-3 col-sm-2 border-left border-right"><span class="tab-1 tab-cursor" @click="tabValue(1)">참여</span></div>
+      <div class="col-3 col-sm-2 border-left border-right"><span class="tab-2 tab-cursor" @click="tabValue(2)">완료</span></div>
+      <div class="col-3 col-sm-2 border-left"><span class="tab-3 tab-cursor" @click="tabValue(3)">개설</span></div>
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
     </div>
     <!-- 카테고리 -->
     <div class="mt-3">
@@ -142,10 +149,15 @@
           class="col-6 col-md-4 col-lg-3 challenge-list-card"
           :challenge="challenge"
           :isfromChallengeManage="isfromChallengeManage"
+<<<<<<< HEAD
           :cancelActive="cancelActive"
           :deleteActive="deleteActive"
           @moreInfo="ChallengeMoreInfo"
           @cancelChallengeManage="CancelChallenge"
+=======
+          :deleteActive="deleteActive"
+          @moreInfo="ChallengeMoreInfo"
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
           @deleteChallengeManage="DeleteChallenge"
         />
       </div>
@@ -167,7 +179,10 @@ export default {
   data() {
     return {
       isfromChallengeManage: 1,
+<<<<<<< HEAD
       cancelActive: 0,
+=======
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
       deleteActive: 0,
       tab: 0,
       category: 0,
@@ -190,21 +205,28 @@ export default {
           { "challenge_id": 128, "challenge_title": "기초체력 홈트 15분 루틴", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 7, "nick_name": "우지니", "people": 3, "kind": 0, "daylist_string": "[1, 2, 3, 4, 5]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 132, "challenge_title": "힙으뜸 8분 힙운동 따라하기", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 6, "check_date": 0, "period": 28, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[3, 5, 7]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 179, "challenge_title": "sad", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 29, "nick_name": "loco", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
+<<<<<<< HEAD
           { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
         ],
         [
           { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
+=======
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
         ],
         [
           { "challenge_id": 131, "challenge_title": "키쑥쑥 성장운동", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 7, "check_date": 2, "period": 7, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[2, 4, 6]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 178, "challenge_title": "챌린지개설", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 2, "period": 3, "nick_name": "닉네임", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
         ],
         [
+<<<<<<< HEAD
           { "challenge_id": 183, "challenge_title": "진행전", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 184, "challenge_title": "진행중", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 185, "challenge_title": "완료", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 2, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
           { "challenge_id": 186, "challenge_title": "진행전, 다른참가자", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
+=======
+          { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
         ],
       ],
       items: [
@@ -215,7 +237,11 @@ export default {
     }
   },
   computed: {
+<<<<<<< HEAD
     ...mapGetters(["getUserUid", "getUserNickName"]),
+=======
+    ...mapGetters(["getUserUid"]),
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
   },
   watch: {
     category() {
@@ -247,6 +273,7 @@ export default {
   // },
   methods: {
     ChallengeMoreInfo: function(challenge_id) {
+<<<<<<< HEAD
       this.$router.push(`/participated/${challenge_id}`);
     },
     CancelChallenge(challenge_id) {
@@ -258,6 +285,13 @@ export default {
         alert("챌린지 개설자는 참여 취소가 불가능합니다.")
         return false
       }
+=======
+      this.$router.push(`/challenge-more-info/${challenge_id}`);
+    },
+    DeleteChallenge(challenge_id) {
+      // 삭제 버튼 클릭시 리스트[1]에서 삭제
+      const itemToFind = this.lists[1].find(function(item) {return item.challenge_id === challenge_id})
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
       const idx = this.lists[1].indexOf(itemToFind)
       if (idx > -1) this.lists[1].splice(idx, 1)
       // axios
@@ -271,6 +305,7 @@ export default {
       //     alert("오류가 발생했습니다.");
       //   });
     },
+<<<<<<< HEAD
     DeleteChallenge(challenge_id) {
       const deleteConfirm = confirm("챌린지를 삭제하시겠습니까?")
       if (deleteConfirm === false) return false
@@ -287,6 +322,8 @@ export default {
       const idx = this.lists[4].indexOf(itemToFind)
       if (idx > -1) this.lists[4].splice(idx, 1)
     },
+=======
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
     tabValue(num) {
       // 탭 누르면 카테고리 0으로 초기화, 해당 탭내용으로 변경
       this.category = 0
@@ -294,6 +331,7 @@ export default {
       document.querySelector(`.tab-${num}`).classList.add("active")
       this.tab = num
       if (num === 1) {
+<<<<<<< HEAD
         this.cancelActive = 1
         this.deleteActive = 0
       } else if (num === 4) {
@@ -301,6 +339,10 @@ export default {
         this.deleteActive = 1
       } else {
         this.cancelActive = 0
+=======
+        this.deleteActive = 1
+      } else {
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
         this.deleteActive = 0
       }
       this.items = this.lists[num]
@@ -322,6 +364,12 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style scoped>
 
 </style>
+=======
+<style>
+
+</style>
+>>>>>>> parent of 9033a64 (Merge branch 'F/diaryPage' into develop)
