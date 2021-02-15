@@ -15,6 +15,7 @@
       :bodyList="challenge.bodyList"
       :check_date="challenge.check_date"
       :nick_name="challenge.nick_name"
+      :user_img="challenge.user_img"
       :people="challenge.people"
       @challengeEdit="ChallengeEdit"
     ></challenge-title>
@@ -206,15 +207,16 @@ export default {
         tagList: [],
         average_rate: 0,
         make_date: "",
+        nick_name:'',
         make_uid: "",
         check_date: 0,
         period: 0,
       },
       reviewList: [],
       avg_review: 0,
-      challenge_img:null,
-      good_img:null,
-      bad_img:null,
+      challenge_img: null,
+      good_img: null,
+      bad_img: null,
     };
   },
   created() {
@@ -226,7 +228,7 @@ export default {
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
-        console.log(data);
+        console.log(this.challenge);
         this.calculateCanParticipant();
       })
       .catch(() => {
@@ -394,33 +396,36 @@ export default {
   },
   computed: {
     ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
-    GetChallengeImg:function(){
+    GetChallengeImg: function() {
       let img = this.challenge.challenge_img;
       // if(img == null || img == ''){
 
       // }
       return img;
     },
-    GetGoodImg:function(){
+    GetGoodImg: function() {
       let img = this.challenge.good_img;
       // if(img == null || img == ''){
 
       // }
       return img;
     },
-    GetBadImg:function(){
+    GetBadImg: function() {
       let img = this.challenge.bad_img;
       // if(img == null || img == ''){
 
       // }
       return img;
-    }
+    },
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

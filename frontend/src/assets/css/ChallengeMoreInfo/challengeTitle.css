@@ -35,7 +35,7 @@
 
 #challenge-img {
   width: 100%;
-  object-fit: contain;
+  object-fit: fill;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px 1px rgba(39, 44, 56, 0.2);

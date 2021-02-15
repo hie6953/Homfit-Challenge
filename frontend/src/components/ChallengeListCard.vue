@@ -23,7 +23,7 @@
       >삭제</div>
     </div>
     <b-card
-      :img-src="image"
+      :img-src="titleImage"
       img-alt="Image"
       img-height="150"
       img-top
@@ -39,7 +39,7 @@
             challenge.challenge_title
           }}</span>
         </div>
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+        <img class="card-user-image" :src="userImg" />
         <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
         <div class="card-day-info">
@@ -71,8 +71,10 @@ export default {
   },
   data() {
     return {
-      image: "",
+      titleImage: "",
+      userImg:'',
       checkDateList: ["진행전", "진행중", "완료"],
+      
     };
   },
   created() {
@@ -84,6 +86,8 @@ export default {
     } else {
       this.image = "https://picsum.photos/600/300/?image=25";
     }
+    
+    
   },
   watch: {
     cancelActive() {
@@ -94,12 +98,26 @@ export default {
     },
   },
   mounted() {
+    this.TitleImage();
+    this.UserImg();
     if (this.isfromBookmark === 1) {
       const bookmark = document.querySelector(".bookmark-disabled");
       bookmark.classList.remove("bookmark-disabled");
     }
   },
   methods: {
+    TitleImage:function(){
+      this.titleImage = this.challenge.challenge_img;
+      if(this.titleImage == null || this.titleImage == ''){ //이미지 없을 경우 디폴트 이미지
+        this.titleImage = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399';
+      }
+    },
+    UserImg:function(){
+      this.userImg = this.challenge.user_img;
+      if(this.userImg == null || this.userImg == ''){ //이미지 없을 경우 디폴트 이미지
+        this.userImg = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4';
+      }
+    },
     // 날짜 숫자 -> 요일로 변경
     GetDayList: function() {
       if (this.challenge.daylist_string != null) {

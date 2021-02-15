@@ -2,7 +2,6 @@
   <div>
     <b-form-file
       v-model="challenge_img"
-      :state="Boolean(challenge_img)"
       accept="image/*"
       :capture="props_only_cam == 1"
       @change="previewImage"

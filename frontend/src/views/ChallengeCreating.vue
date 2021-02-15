@@ -230,7 +230,7 @@ export default {
 
       this.pageComplete_4 = true;
 
-      console.log(this.challenge);
+      // console.log(this.challenge);
 
       // // Object To FormData 변환
       var formData = new FormData();
@@ -263,15 +263,15 @@ export default {
       //   formData.append(i,this.challenge[i]);
       // }
 
-      // FormData의 key 확인
-      for (let key of formData.keys()) {
-        console.log(key + " " + formData.get(key));
-      }
+      // // FormData의 key 확인
+      // for (let key of formData.keys()) {
+      //   console.log(key + " " + formData.get(key));
+      // }
 
-      // FormData의 value 확인
-      for (let value of formData.values()) {
-        console.log(value);
-      }
+      // // FormData의 value 확인
+      // for (let value of formData.values()) {
+      //   console.log(value);
+      // }
       // console.log(formData);
       // formData.append("kind", this.challenge.kind);
       // formData.append("kind", this.challenge.kind);
@@ -287,7 +287,8 @@ export default {
         })
         .then((success) => {
           this.page = 5;
-          this.challenge_id = success.data;
+          this.challenge_id = String(success.data);
+          console.log(this.challenge_id);
           alert("챌린지가 생성되었습니다.");
         })
         .catch((error) => {

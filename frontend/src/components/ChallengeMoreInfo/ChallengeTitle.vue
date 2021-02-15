@@ -11,7 +11,7 @@
     <!-- 챌린지 타이틀 -->
     <div class="row col-12 col-md-8 mx-auto">
       <div class="col-12 col-md-6">
-        <img id="challenge-img" :src="challenge_img" />
+        <img id="challenge-img" :src="titleImage" />
       </div>
       <div class="col-12 col-md-6 my-auto">
         <div class="challenge-info">
@@ -80,7 +80,7 @@
             <span
               ><img
                 id="title-user-image"
-                src="@/assets/NavBar/anonimous_user.png"
+                :src="userImg"
             /></span>
             <span class="ml-1">{{ nick_name }}</span>
           </td>
@@ -108,6 +108,7 @@ export default {
     daylist_string: String,
     people: Number,
     nick_name: String,
+    user_img:String,
     tagList: Array,
     bodyList: Array,
     check_date: Number,
@@ -131,9 +132,26 @@ export default {
       ],
       fitCategory: "",
       titleImage:'',
+      userImg:'',
     };
   },
+  mounted() {
+    this.TitleImage();
+    this.UserImg();
+  },
   methods: {
+    TitleImage:function(){
+      this.titleImage = this.challenge_img;
+      if(this.titleImage == null || this.titleImage == ''){ //이미지 없을 경우 디폴트 이미지
+        this.titleImage = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399';
+      }
+    },
+    UserImg:function(){
+      this.userImg = this.user_img;
+      if(this.userImg == null || this.userImg == ''){ //이미지 없을 경우 디폴트 이미지
+        this.userImg = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4';
+      }
+    },
     // 날짜 숫자 -> 요일로 변경
     GetDayList: function() {
       if (this.daylist_string != null) {

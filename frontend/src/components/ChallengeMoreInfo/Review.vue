@@ -2,7 +2,7 @@
     <div class="review-whole">
         <div class="review-header">
             <div class="review-user-image">
-                <img src="@/assets/NavBar/anonimous_user.png" alt="">
+                <img :src="userImg" alt="">
             </div>
             <div class="review-user ml-2">
                 <div class="review-user-info">
@@ -28,10 +28,22 @@ export default {
     props:{
         review:Object,
     },
+    data() {
+        return {
+            userImg:'',
+        }
+    },
+    methods: {
+    UserImg:function(){
+      this.userImg = this.review.user_img;
+      if(this.userImg == null || this.userImg == ''){ //이미지 없을 경우 디폴트 이미지
+        this.userImg = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4';
+      }
+    },
+    },
     computed:{
         getRegistTime:function(){
             let time = new Date(this.review.regist_time);
-            console.log(this.review.regist_time +" "+ new Date(this.review.regist_time));
             return time.getFullYear()+"년 "+(time.getMonth()+1)+"월 "+time.getDate()+"일 " + time.getUTCHours()+"시 "+time.getUTCMinutes()+"분";
         }
     },

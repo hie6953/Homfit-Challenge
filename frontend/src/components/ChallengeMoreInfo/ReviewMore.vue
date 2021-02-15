@@ -83,7 +83,6 @@ export default {
         )
         .then(({ data }) => {
           this.reviewAllList = data;
-          console.log(this.reviewAllList);
         })
         .catch(() => {
           alert("후기 목록을 불러오지 못했습니다.");
