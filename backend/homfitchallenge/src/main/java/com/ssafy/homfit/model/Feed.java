@@ -25,15 +25,15 @@ public class Feed {
     private String feed_contents;
     private MultipartFile imgFile;
     private String challenge_title;
-    private String uid;
+    private String nick_name;
     private String user_img;
 
-    public String getUid() {
-        return this.uid;
+    public String getNick_name() {
+        return this.nick_name;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
     }
 
     public String getUser_img() {

@@ -35,7 +35,7 @@
 
 	<select id="searchByFeedId" parameterType="int"
 		resultType="feed">
-		select f.*, u.user_nickname, u.user_img from feed f left outer join user u
+		select f.*, u.nick_name, u.user_img from feed f left outer join user u
 		on f.maked_uid = u.uid
 		where f.feed_id = #{feed_id}
 	</select>
@@ -49,7 +49,7 @@
 	
 	<select id="searchByChallengeNotFeedId" parameterType="int"
 		resultType="feed">
-		select f.*, u.user_nickname, u.user_img from feed f left outer join user u
+		select f.*, u.nick_name, u.user_img from feed f left outer join user u
 		on f.maked_uid = u.uid
 		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id}
 		order by f.register_date desc
