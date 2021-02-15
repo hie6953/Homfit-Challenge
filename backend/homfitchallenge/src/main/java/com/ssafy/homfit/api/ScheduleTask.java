@@ -37,6 +37,8 @@ public class ScheduleTask {
 	private void publ() {
 		// 1. 진행중 챌린지별 평균 달성률 업데이트
 		
+	
+		
 		// 2. 챌린지 시작전 -> 진행중 변경
 		int[] ingId = challengeService.selectBefoToIng(); // ->체크데이트가 0이면서 시작날짜가 오늘인 애들뽑고
 		if (ingId.length != 0) {

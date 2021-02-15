@@ -9,7 +9,7 @@
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">
 		select
-		c.*, u.nick_name, count(p.uid) as people
+		c.*, u.nick_name, u.user_img, count(p.uid) as people
 		from
 		challenge as c
 		join participate as p on c.challenge_id = p.challenge_id
@@ -23,7 +23,7 @@
 	<!-- public Challenge selectChallengeByid(int challenge_id); -->
 	<select id="selectChallengeByid" parameterType="int"
 		resultType="Challenge">
-		select a.*, u.nick_name
+		select a.*, u.nick_name,u.user_img
 		from challenge as a
 		join user as u
 		on

@@ -37,7 +37,7 @@ public class Challenge implements Serializable{
 	private int kind; //종류 1 - 운동, 2 - 식단
 	private int certification; //인증갯수
 	private int average_rate; //평균 달성률
-	
+	private String user_img; //userImg
 
 	
 	//요일리스트 스트링
@@ -217,6 +217,12 @@ public class Challenge implements Serializable{
 	public void setBodylist_string(String bodylist_string) {
 		this.bodylist_string = bodylist_string;
 	}
+	public String getUser_img() {
+		return user_img;
+	}
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -226,11 +232,12 @@ public class Challenge implements Serializable{
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
 				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
 				+ nick_name + ", people=" + people + ", kind=" + kind + ", certification=" + certification
-				+ ", average_rate=" + average_rate + ", daylist_string=" + daylist_string + ", bodylist_string="
-				+ bodylist_string + ", dayList=" + Arrays.toString(dayList) + ", tagList=" + Arrays.toString(tagList)
-				+ ", bodyList=" + Arrays.toString(bodyList) + "]";
+				+ ", average_rate=" + average_rate + ", user_img=" + user_img + ", daylist_string=" + daylist_string
+				+ ", bodylist_string=" + bodylist_string + ", dayList=" + Arrays.toString(dayList) + ", tagList="
+				+ Arrays.toString(tagList) + ", bodyList=" + Arrays.toString(bodyList) + "]";
 	}
 
+	
 	
 	
 	

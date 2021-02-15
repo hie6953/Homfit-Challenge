@@ -100,7 +100,58 @@ public class ChallengeController {
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() throws ParseException {
 
+		//평균 달성률 업데이트
+		//진행중 챌린지 id 가져와서 하나씩 다 업데이트
+		// 평균달성률 계산
+		//유저가 인증한 갯수 가져와 -> 피드테이블 챌린지 아이디로 검색 -> 유저가 올린 인증수 가져와
+		//people * certCnt 
+		//평균구해.
+		//챌린지별로 하나씩 업데이트!
+		
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
+	}
+
+	/** 챌린지 현황 갯수 반환 */
+	@GetMapping("/challengeStatus")
+	public ResponseEntity<HashMap<String, Object>> challengeStatus(@RequestParam String uid) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+		List<TodayChallenge> todayList = (List<TodayChallenge>) todayRepository.findAll();
+		
+		// 1. 참가중인수
+		// 진행전
+		int[] prelist = challengeService.selectPreChallenge(uid);
+		int preCnt = prelist.length;
+		map.put("preCnt", preCnt);
+		// 진행중
+		int[] inglist = challengeService.selectIngChallenge(uid);
+		int ingCnt = inglist.length;
+		map.put("ingCnt", ingCnt);
+
+		// 2. 오늘할 챌린지
+		int todayCnt = 0;
+		for (int i = 0; i < inglist.length; i++) {
+			if (todayRepository.findById(inglist[i]).isPresent()) {
+				todayCnt++;
+			}
+		}
+		map.put("todayCnt", todayCnt);
+		
+		// 3. 완료 수
+		int[] endlist = challengeService.selectEndChallenge(uid);
+		int endCnt = endlist.length;
+		map.put("endCnt", endCnt);
+
+		// 4. 개설 수
+		int makeCnt = 0;
+		for (Challenge challenge : cacheList) {
+			if (challenge.getMake_uid().equals(uid)) {
+				makeCnt++;
+			}
+		}
+		map.put("makeCnt", makeCnt);
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
 	/** 챌린지 관리 페이지 */
@@ -362,8 +413,9 @@ public class ChallengeController {
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
-			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
+	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge,
+			@ModelAttribute MultipartFile challengeImgFile, @ModelAttribute MultipartFile badImgFile,
+			@ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -389,16 +441,16 @@ public class ChallengeController {
 				challenge.setCertification(cert_day);
 
 				// 1. 사진세팅 - 이미지가 null이 아닐경우만
-				if(goodImgFile != null) {
+				if (goodImgFile != null) {
 					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
-				if(badImgFile != null) {
+				if (badImgFile != null) {
 					challenge.setBad_img(s3service.uploadImg(badImgFile));
 				}
-				if(challengeImgFile != null) {
+				if (challengeImgFile != null) {
 					challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 				}
-				
+
 				challengeService.writeChallenge(challenge); // 입력
 				int challengeId = challenge.getChallenge_id();
 
@@ -459,8 +511,9 @@ public class ChallengeController {
 	/** 챌린지 수정 */
 	@PutMapping("{challengeId}")
 	@Transactional
-	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
-			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
+	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge,
+			@ModelAttribute MultipartFile challengeImgFile, @ModelAttribute MultipartFile badImgFile,
+			@ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -470,13 +523,13 @@ public class ChallengeController {
 
 		try {
 			// 1. 사진세팅 - 이미지가 null이 아닐경우만
-			if(goodImgFile != null) {
+			if (goodImgFile != null) {
 				challenge.setGood_img(s3service.uploadImg(goodImgFile));
 			}
-			if(badImgFile != null) {
+			if (badImgFile != null) {
 				challenge.setBad_img(s3service.uploadImg(badImgFile));
 			}
-			if(challengeImgFile != null) {
+			if (challengeImgFile != null) {
 				challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 			}
 
