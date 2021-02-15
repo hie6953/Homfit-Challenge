@@ -235,8 +235,8 @@ export default {
       nick_name: '',
       age: '20',
       passwordcheck: '',
-      nicknamecheck: false,
-      donicknamecheck: false,
+      nicknamecheck: false, //닉네임이 중복되나요?
+      donicknamecheck: false, //닉네임 중복체크 했나요?
       emailcheck: false,
       ageOptions: [
         { text: '10대', value: '10' },
