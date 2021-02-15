@@ -44,6 +44,7 @@
           <b-col sm="9">
             <image-uploader
             :props_challenge_img="props_challenge_img"
+            props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"
             @imageUploaded="ImageUploaded"
             ></image-uploader>
           </b-col>

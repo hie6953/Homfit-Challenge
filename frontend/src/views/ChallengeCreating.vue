@@ -241,10 +241,10 @@ export default {
         formData.append(i,this.challenge[i]);
       }
 
-      // // FormData의 key 확인
-      // for (let key of formData.keys()) {
-      //   console.log(key + " " + formData.get(key));
-      // }
+      // FormData의 key 확인
+      for (let key of formData.keys()) {
+        console.log(key + " " + formData.get(key));
+      }
 
       // // FormData의 value 확인
       // for (let value of formData.values()) {

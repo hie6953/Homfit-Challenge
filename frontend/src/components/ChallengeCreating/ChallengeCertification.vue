@@ -28,6 +28,7 @@
       <b-col sm="9">
         <image-uploader
           :props_challenge_img="props_good_img"
+          props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc"
           @imageUploaded="GoodImageUploaded"
         ></image-uploader>
       </b-col>
@@ -40,6 +41,7 @@
       <b-col sm="9">
         <image-uploader
           :props_challenge_img="props_bad_img"
+          props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520"
           @imageUploaded="BadImageUploaded"
         ></image-uploader>
       </b-col>

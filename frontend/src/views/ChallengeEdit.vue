@@ -220,14 +220,14 @@ export default {
         check_date: 0,
         period: 0,
       },
-      new_challenge_img:'',
-      new_good_img:'',
-      new_bad_img:'',
+      new_challenge_img: "",
+      new_good_img: "",
+      new_bad_img: "",
     };
   },
-  async created() {
+  created() {
     this.challenge_id = this.$route.params.challenge_id;
-    await this.GetChallnege();
+    this.GetChallnege();
     this.CanEdit();
   },
   watch: {
@@ -239,19 +239,20 @@ export default {
     },
   },
   methods: {
-    async GetChallnege(){
-      await axios
-      .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
-      .then(({ data }) => {
-        this.challenge = data.challenge;
-        this.getChallenge = !this.getChallenge;
-        this.checkTagListLength();
-      })
-      .catch(() => {
-        alert("챌린지 정보를 불러오지 못했습니다.");
-      });
+    GetChallnege() {
+      axios
+        .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
+        .then(({ data }) => {
+          this.challenge = data.challenge;
+          this.getChallenge = !this.getChallenge;
+
+          this.checkTagListLength();
+        })
+        .catch(() => {
+          alert("챌린지 정보를 불러오지 못했습니다.");
+        });
     },
-    ImageUploaded:function(image){
+    ImageUploaded: function(image) {
       this.new_challenge_img = image;
     },
     GoodImageUploaded: function(image) {
@@ -282,9 +283,6 @@ export default {
     addTag: function() {
       this.input = this.input.replace(" ", "");
       if (this.input != "") {
-        if(this.challenge.tagList == null){
-          this.challenge.tagList = [];
-        }
         this.challenge.tagList.unshift(this.input);
         this.input = "";
       }
@@ -298,10 +296,11 @@ export default {
     },
 
     checkTagListLength: function() {
-      if (
-        this.challenge.tagList != null &&
-        this.challenge.tagList.length >= 5
-      ) {
+      if (this.challenge.tagList == null) {
+        //백엔드와의 통신, tagList가 null일 경우를 대비해서 바꿈
+        this.challenge.tagList = [];
+      }
+      if (this.challenge.tagList.length >= 5) {
         document.getElementById("tag-input").readOnly = true;
       } else {
         document.getElementById("tag-input").readOnly = false;
@@ -309,41 +308,36 @@ export default {
     },
 
     ChallengeEdit: function() {
-      if (this.challenge.tagList == null) {
-        this.challenge.tagList = [];
-      }
       console.log(this.challenge);
-      console.log(this.new_challenge_img);  //새로 불러오기 : file
-      console.log(this.new_good_img);       //삭제 : null
-      console.log(this.new_bad_img);        //손안댐 :undefined
+      console.log(this.new_challenge_img); //새로 불러오기 : file
+      console.log(this.new_good_img); //삭제 : null
+      console.log(this.new_bad_img); //손안댐 :undefined
 
-      // 기존이미지 삭제 : challenge안의 img = null
-      // 새로 불러왔으면 : new변수에 File.
-      // 손 안댐 : new변수에는 빈값, challenge안의 img는 있음
+      // undefined 이거나 null인 경우 : default image
+      // file이 있을 경우 : 이미지 변경
 
-      if(this.new_challenge_img == null){
-        this.challenge.challenge_img = null;
+      if (this.new_challenge_img == null) {
+        this.challenge.challenge_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
       }
-      if(this.new_good_img == null){
-        this.challenge.good_img = null;
+      if (this.new_good_img == null) {
+        this.challenge.good_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
       }
-      if(this.new_bad_img == null){
-        this.challenge.bad_img = null;
+      if (this.new_bad_img == null) {
+        this.challenge.bad_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
       }
 
       // // Object To FormData 변환
       var formData = new FormData();
-     
-      for(let i in this.challenge){
-        if(i == 'dayList')
-          continue;
-        formData.append(i,this.challenge[i]);
+
+      for (let i in this.challenge) {
+        if (i == "dayList") continue;
+        formData.append(i, this.challenge[i]);
       }
       formData.append("challengeImgFile", this.new_challenge_img);
       formData.append("goodImgFile", this.new_good_img);
       formData.append("badImgFile", this.new_bad_img);
 
-       // FormData의 key 확인
+      // FormData의 key 확인
       // for (let key of formData.keys()) {
       //   console.log(key+" "+formData.get(key));
       // }
@@ -365,7 +359,6 @@ export default {
           console.log(error);
           alert("등록 처리시 에러가 발생했습니다.");
         });
-
 
       // axios
       //   .put(`${SERVER_URL}/challenge/${this.challenge_id}`, this.challenge)
