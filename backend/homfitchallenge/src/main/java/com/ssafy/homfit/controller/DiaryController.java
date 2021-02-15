@@ -65,6 +65,7 @@ public class DiaryController {
         
         try {
             msg = diaryService.update(diary);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("기록 수정 실패 : {}", e);
             msg = e.getMessage();
@@ -82,6 +83,7 @@ public class DiaryController {
         
         try {
             data = diaryService.search(diary);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("기록 검색 실패 : {}", e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -98,6 +100,7 @@ public class DiaryController {
 
         try {
             list = diaryService.getMonthDiary(uid, date);
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("기록 검색 실패 : {}", e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
