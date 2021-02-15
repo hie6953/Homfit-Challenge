@@ -18,28 +18,23 @@
   <div class="feed-border">
     <div class="feed-card">
       <div class="feed-card-header">
-        <img
-          src="@/assets/NavBar/anonimous_user.png"
-          class="feed-card-user-image"
-        />
-        <div class="feed-card-user-name">이건내이름이얌</div>
+        <img :src="feed.user_img" class="feed-card-user-image" />
+        <div class="feed-card-user-name">{{ feed.nick_name }}</div>
         <div class="feed-card-time">
-          2021년 02월 11일<i class="fa fa-globe"></i>
+          {{ feed.register_date }}<i class="fa fa-globe"></i>
         </div>
       </div>
 
       <!-- 이미지 -->
       <!-- @/assets/NavBar/anonimous_user.png -->
+      <!-- src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg" -->
       <div class="feed-card-img-information">
-        <img
-          src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg"
-          class="feed-card-image"
-        />
+        <img :src="feed.feed_picture" class="feed-card-image" />
       </div>
 
       <!-- 챌린지바로가기? or 내용? -->
       <div class="feed-card-information">
-        <p>왜 벌써 3시야...</p>
+        <p>{{ feed.feed_contents }}</p>
       </div>
 
       <!-- 하단바_좋아요,댓글,바로가기,신고 -->
@@ -53,7 +48,7 @@
             <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
             좋아요
           </b-button>
-          <span class="howmany">1</span>
+          <span class="howmany">{{ feed.like_count }}</span>
         </div>
 
         <div class="feedcard-v">
@@ -63,11 +58,11 @@
               댓글
             </b-button>
           </router-link>
-          <span class="howmany">2</span>
+          <!-- <span class="howmany">{{feed.comment_count}}</span> -->
         </div>
 
         <!-- <div class="feedcard-v"> -->
-        <b-button class="feed-card-button-left">
+        <b-button class="feed-card-button-left" @click="movetoChallengeInfo">
           <b-icon
             icon="arrow-right-circle"
             variant="warning"
@@ -221,6 +216,11 @@ export default {
       } else {
         alert('5자 이상 입력해주세요.');
       }
+    },
+
+    // 챌린지바로가기이동
+    movetoChallengeInfo() {
+      this.$router.push(`/challenge-more-info/${this.feed.challenge_id}`);
     },
   },
   computed: {
