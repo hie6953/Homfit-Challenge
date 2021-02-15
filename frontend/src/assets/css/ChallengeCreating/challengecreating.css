@@ -88,6 +88,12 @@
   width: var(--progress-bar-width-half);
 }
 
+
+.require-icon{
+  color:#e65c2e;
+  vertical-align: top;
+}
+
 /* 챌린지 개설 소개 */
 
 .challenge-creating-title {

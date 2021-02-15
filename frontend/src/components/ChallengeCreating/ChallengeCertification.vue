@@ -5,6 +5,7 @@
     <!-- 인증 방법 설명 -->
     <b-row class="challenge-creating-row">
       <b-col sm="3" class="align-center">
+         <span class="require-icon">*</span>
         <span>인증 방법 설명</span>
       </b-col>
       <b-col sm="9">

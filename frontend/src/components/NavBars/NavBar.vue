@@ -20,7 +20,6 @@
               icon="bell"
               scale="1.3"
               variant="dark"
-              
             ></b-icon>
             <b-tooltip target="bellIcon" triggers="hover">
               알림
@@ -33,7 +32,6 @@
           ></nav-bar-notice-card>
         </b-nav-item-dropdown>
 
-
         <!-- 마이페이지 -->
         <b-nav-item-dropdown
           id="myPageDropdown"
@@ -42,24 +40,28 @@
           class="notice-dropdown"
         >
           <template slot="button-content">
-            <button
-              id="myPageButton"
-              v-if="getAccessToken"
-              class=" my-auto"
-            >
-              <img
-                id="userIcon"
-                class="circle-user-image"
-                :src="userImg"
-              />
+            <button id="myPageButton" v-if="getAccessToken" class=" my-auto">
+              <img id="userIcon" class="circle-user-image" :src="userImg" />
               <b-tooltip target="userIcon" triggers="hover">
                 마이페이지
               </b-tooltip>
             </button>
           </template>
-          <b-nav-item><router-link class="myPageIconLink" to="/mypage">마이페이지</router-link></b-nav-item>
-          <b-nav-item><router-link class="myPageIconLink" to="/bookmark">북마크</router-link></b-nav-item>
-          <b-nav-item><button id="logoutButton" @click="LogOut">로그아웃</button></b-nav-item>
+          <b-nav-item
+            ><router-link class="myPageIconLink" to="/mypage"
+              >마이페이지</router-link
+            ></b-nav-item
+          >
+          <b-nav-item
+            ><router-link class="myPageIconLink" to="/bookmark"
+              >북마크</router-link
+            ></b-nav-item
+          >
+          <b-nav-item
+            ><button id="logoutButton" @click="LogOut">
+              로그아웃
+            </button></b-nav-item
+          >
         </b-nav-item-dropdown>
         <!-- <router-link
           to="/mypage"
@@ -135,7 +137,7 @@ export default {
         { type: "ranking", comment: "실버로의 승급을 축하드립니다!" },
         { type: "ToDo", comment: "1시간 요가하기 챌린지 인증하세요." },
       ],
-      userImg:'',
+      userImg: "",
     };
   },
   methods: {
@@ -143,33 +145,33 @@ export default {
     Login: function() {
       this.$router.push("/login");
     },
-    LogOut:function(){
+    LogOut: function() {
       alert("로그아웃!");
       this.$store
-        .dispatch('LOGOUT')
-        .then(() => this.$router.replace('/').catch(() => {}));
-      
+        .dispatch("LOGOUT")
+        .then(() => this.$router.replace("/").catch(() => {}));
     },
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
     },
-     UserImg:function(){
+    UserImg: function() {
       this.userImg = this.getUserImg;
       console.log(this.getUserImg);
-      if(this.userImg == null || this.userImg == ''){
-        this.userImg = 'https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4';
+      if (this.userImg == null || this.userImg == "") {
+        //이미지 없을 경우 디폴트 이미지
+        this.userImg =
+          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4";
       }
     },
   },
-  watch:{
-    getUserImg:function(){
+  watch: {
+    getUserImg: function() {
       this.UserImg();
-    }
+    },
   },
   computed: {
-    ...mapGetters(["getAccessToken","getUserImg"]),
-    
+    ...mapGetters(["getAccessToken", "getUserImg"]),
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
