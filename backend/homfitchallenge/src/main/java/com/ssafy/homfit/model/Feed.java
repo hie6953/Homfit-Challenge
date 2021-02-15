@@ -27,6 +27,19 @@ public class Feed {
     private String challenge_title;
     private String nick_name;
     private String user_img;
+    private boolean user_liked;
+
+    public boolean isUser_liked() {
+        return this.user_liked;
+    }
+
+    public boolean getUser_liked() {
+        return this.user_liked;
+    }
+
+    public void setUser_liked(boolean user_liked) {
+        this.user_liked = user_liked;
+    }
 
     public String getNick_name() {
         return this.nick_name;

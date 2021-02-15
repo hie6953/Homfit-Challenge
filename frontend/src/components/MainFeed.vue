@@ -1,10 +1,9 @@
 <template>
   <!-- axios -->
-  <div class="main-feed-item">
+  <div class="main-feed-item" @click="FeedMoreInfo">
     <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
       class="responsive-image"
-      @click="ChallengeMoreInfo"
     />
     <div class="main-feed-item-info">
       <ul>
@@ -51,8 +50,9 @@ export default {
     return {};
   },
   methods: {
-    ChallengeMoreInfo: function() {
-      this.$emit('moreInfo', this.challenge.challenge_id);
+    FeedMoreInfo: function() {
+      this.$store.commit('SETTMPFEED', this.feed);
+      this.$router.push('/feedcardlist');
     },
   },
 };
