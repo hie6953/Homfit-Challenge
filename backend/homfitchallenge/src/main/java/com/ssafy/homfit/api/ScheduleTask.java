@@ -45,11 +45,6 @@ public class ScheduleTask {
 	@Scheduled(cron = "0 0 0 * * ? ", zone = "Asia/Seoul")
 	private void publ() throws Exception {
 		// 1. 진행중 챌린지별 평균 달성률 업데이트
-
-//		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
-//		//캐쉬에 없을경우 
-		//if(cacheList.size() == 0) cacheList = challengeService.AllChallengeList();
-		
 		List<Challenge> challengelist = challengeService.AllChallengeList();
 		
 		for (Challenge challenge : challengelist) {
@@ -92,9 +87,10 @@ public class ScheduleTask {
 		List<TodayChallenge> list = challengeService.selectTodayChallenge(date);
 		todayRepository.saveAll(list);
 		
-		// 4-2. 완료된 챌린지 유저별 개인 달성률 insert
-		
-		// 4-3. 포인트 적립
+		// 4-2. 완료된 챌린지 유저별 개인 달성률 insert, + 포인트적립
+		for (Challenge challenge : challengelist) {
+			
+		}
 		
 		// 4-4. cache 챌린지 리스트 업데이트
 		challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움

@@ -94,31 +94,42 @@ public class ChallengeController {
 
 	/**
 	 * 테스트코드
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@GetMapping("/test")
 	public ResponseEntity<String> testChallenge() throws Exception {
 
-		
-//		// 평균달성률 계산
-//		//유저들이 인증한 갯수 가져와 -> 피드테이블 챌린지 아이디로 검색 -> 유저들이 올린 인증수 가져와
-//		
-//		System.out.println("유저가 인증한 피드수" +size + "참여자수" + people + "인당 인증해야할 수 " + cerCnt + 
-//				"총인증해야할 수 " + totalCnt + " 평균" + average_rate);
-//		//평균구해.
-		
-		
+		// 완료된 챌린지 유저 달성률 기록
+		List<Challenge> challengelist = challengeService.AllChallengeList();
+		for (Challenge challenge : challengelist) {
+			if(challenge.getCheck_date() == 2) {
+				int compChallengeId = challenge.getChallenge_id();
+				double certification = challenge.getCertification();
+				String c_title = challenge.getChallenge_title();
+				String c_endDate = challenge.getEnd_date();
+				String user[] = challengeService.selectUidByChallenge(compChallengeId);
+				for (int i = 0; i < user.length; i++) {
+					 int size = feedService.selectUserFeed(user[i], compChallengeId).length;
+					 //평균 
+					 int avg = (int)Math.round((size/certification) * 100); 
+					 challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
+					//포인트적립
+				}
+			}
+		}
+
 		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
 	}
 
 	/** 챌린지 현황 갯수 반환 */
 	@GetMapping("/challengeStatus")
 	public ResponseEntity<HashMap<String, Object>> challengeStatus(@RequestParam String uid) {
-		
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
 		List<TodayChallenge> todayList = (List<TodayChallenge>) todayRepository.findAll();
-		
+
 		// 1. 참가중인수
 		// 진행전
 		int[] prelist = challengeService.selectPreChallenge(uid);
@@ -137,7 +148,7 @@ public class ChallengeController {
 			}
 		}
 		map.put("todayCnt", todayCnt);
-		
+
 		// 3. 완료 수
 		int[] endlist = challengeService.selectEndChallenge(uid);
 		int endCnt = endlist.length;

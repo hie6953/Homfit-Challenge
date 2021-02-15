@@ -170,6 +170,18 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.updateAverageRate(challenge_id, average_rate) == 1;
 	}
 
+	//완료된 챌린지 개인달성률 insert
+	@Override
+	public boolean insertUserRate(UserRate userRate) {
+		return challengeDAO.insertUserRate(userRate) == 1;
+	}
+
+	//챌린지 ID에 참여중인 userID목록
+	@Override
+	public String[] selectUidByChallenge(int challenge_id) {
+		return challengeDAO.selectUidByChallenge(challenge_id);
+	}
+
 
 	
 

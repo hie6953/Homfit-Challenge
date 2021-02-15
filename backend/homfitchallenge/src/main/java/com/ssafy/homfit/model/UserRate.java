@@ -8,6 +8,15 @@ public class UserRate {
 	private String end_date;
 	private String challenge_title;
 	
+
+	public UserRate(String uid, int challenge_id, int achievement_rate, String end_date, String challenge_title) {
+		super();
+		this.uid = uid;
+		this.challenge_id = challenge_id;
+		this.achievement_rate = achievement_rate;
+		this.end_date = end_date;
+		this.challenge_title = challenge_title;
+	}
 	public String getUid() {
 		return uid;
 	}
