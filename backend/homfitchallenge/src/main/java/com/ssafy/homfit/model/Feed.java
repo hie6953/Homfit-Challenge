@@ -25,6 +25,24 @@ public class Feed {
     private String feed_contents;
     private MultipartFile imgFile;
     private String challenge_title;
+    private String uid;
+    private String user_img;
+
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUser_img() {
+        return this.user_img;
+    }
+
+    public void setUser_img(String user_img) {
+        this.user_img = user_img;
+    }
 
     public String getChallenge_title() {
         return this.challenge_title;
