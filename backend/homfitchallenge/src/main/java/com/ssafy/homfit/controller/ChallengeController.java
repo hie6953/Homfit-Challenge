@@ -9,9 +9,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +36,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +45,7 @@ import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.Point;
 import com.ssafy.homfit.model.Review;
 import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.TodayChallenge;
@@ -53,6 +55,7 @@ import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.PointService;
 import com.ssafy.homfit.model.service.ReviewService;
 import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.model.service.TagService;
@@ -84,6 +87,9 @@ public class ChallengeController {
 
 	@Autowired
 	S3Service s3service;
+	
+	@Autowired
+	PointService PointService;
 
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
@@ -98,28 +104,75 @@ public class ChallengeController {
 	 * @throws Exception
 	 */
 	@GetMapping("/test")
-	public ResponseEntity<String> testChallenge() throws Exception {
+	public ResponseEntity<HashMap<String, Object>> testChallenge() throws Exception {
 
-		// 완료된 챌린지 유저 달성률 기록
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		Calendar cal2 = new GregorianCalendar(Locale.KOREA);
+		cal2.add(Calendar.DATE, -1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷
+		String yesterday = sdf.format(cal2.getTime()); // String으로 저장
+		
+		//PointService.calcPoint(numberOfParticipants, numberOfDays, everyoneDoPerfect);
+	
+		// 오늘 기준, 어제 완료된 챌린지 유저 달성률 기록
 		List<Challenge> challengelist = challengeService.AllChallengeList();
 		for (Challenge challenge : challengelist) {
-			if(challenge.getCheck_date() == 2) {
+			if(challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {
+				boolean everyoneDoPerfect = true; //모두의 100프로 여부
 				int compChallengeId = challenge.getChallenge_id();
 				double certification = challenge.getCertification();
 				String c_title = challenge.getChallenge_title();
 				String c_endDate = challenge.getEnd_date();
+				int period = challenge.getPeriod();
 				String user[] = challengeService.selectUidByChallenge(compChallengeId);
+				List<String> pointUser = new ArrayList<String>();
 				for (int i = 0; i < user.length; i++) {
 					 int size = feedService.selectUserFeed(user[i], compChallengeId).length;
-					 //평균 
+					 //유저 달성률 평균 
 					 int avg = (int)Math.round((size/certification) * 100); 
 					 challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
-					//포인트적립
+					 if(avg == 100) {
+						 pointUser.add(user[i]); //달성률 100프로시
+					 }else {//한명이라도 100프로가 아니면 false
+						everyoneDoPerfect = false; 
+					 }
+				}
+				//포인트 적립
+				if(pointUser.size() != 0) { //포인트 받을 유저가 있을 경우만
+					int point = PointService.calcPoint(user.length, period, everyoneDoPerfect);
+					Point p = new Point();
+					p.setPoint(point);
+					p.setTitle("챌린지 100% 달성");
+					String content = "";
+					if(everyoneDoPerfect) {
+						 content = "참가자 모두 100% 달성";	
+					}else {
+						 content = "참가자 개인 100% 달성";
+					}
+					p.setContent(content);
+					for (String pointUid : pointUser) {
+						p.setUid(pointUid);
+						PointService.earn(p);
+					}
 				}
 			}
 		}
-
-		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
+//		map.put("cal Time zone", cal.getTimeZone());
+//		map.put("cal get Time", cal.getTime());
+//		map.put("cal date", cal.get(Calendar.DATE));
+//		map.put("cal hour", cal.get(Calendar.HOUR));
+//		map.put("cal MINUTE", cal.get(Calendar.MINUTE));
+//		map.put("cal SECOND", cal.get(Calendar.SECOND));
+//		
+//		System.out.println(cal.getTime());
+//		//System.out.println(cal2.get(Calendar.DAY_OF_WEEK));
+		//Calendar cal = Calendar.getInstance();
+		//int date = cal.get(Calendar.DAY_OF_WEEK); // 요일 db테이블에 맞게 파싱
+		//System.out.println(date);
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
 	/** 챌린지 현황 갯수 반환 */
@@ -924,7 +977,7 @@ public class ChallengeController {
 
 		DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date data = dataFormat.parse(date);
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
 		cal.setTime(data);
 
 		// int oneCnt = ch.getDay_certify_count();//하루 인증횟수
