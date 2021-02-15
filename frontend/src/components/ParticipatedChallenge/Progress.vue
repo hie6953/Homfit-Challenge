@@ -80,19 +80,19 @@
     
     <!-- 오늘 인증하는 날일때 인증버튼(수정 필요), 완료면 후기버튼 -->
     <div v-if="!isMobile">
-      <b-button-group id="info-float-button-group" class="row info-float align-center">
-        <b-button
-          v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1"
-          class="apply-button pc"
-          @click="Certify"
-        >인증하기</b-button
-        >
-        <b-button
-          v-if="challenge.check_date === 2"
-          class="apply-button pc"
-          @click="Review"
-        >후기쓰기</b-button
-        >
+      <b-button-group
+        v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1"
+        id="info-float-button-group"
+        class="row info-float align-center"
+      >
+        <b-button class="apply-button pc" @click="Certify">인증하기</b-button>
+      </b-button-group>
+      <b-button-group
+        v-if="challenge.check_date === 2"
+        id="info-float-button-group"
+        class="row info-float align-center"
+      >
+        <b-button class="apply-button pc" @click="Review">후기쓰기</b-button>
       </b-button-group>
     </div>
     <div v-if="isMobile">
