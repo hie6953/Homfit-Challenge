@@ -151,6 +151,8 @@
 
 .howmany {
   font-size: 15px;
+  margin-left: -7px;
+  margin-right: 5px;
 }
 
 /* 신고 */
