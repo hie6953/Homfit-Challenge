@@ -60,6 +60,7 @@
 import '../assets/css/forgotpassword.css';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import Swal from 'sweetalert2';
 
 export default {
   data: () => ({
@@ -76,17 +77,38 @@ export default {
           email: this.email,
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           if (data == 'success') {
-            alert('메일을 발송했습니다.');
+            // alert('메일을 발송했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '이메일 발송 완료!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
             //this.$router.replace('/forgot-password-code');
             this.$store.commit('SETEMAIL', this.email);
           } else {
-            alert('존재하지 않는 이메일입니다.');
+            // alert('존재하지 않는 이메일입니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '존재하지 않는 이메일입니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          // alert('에러가 발생했습니다.');
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '에러가 발생했습니다.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
     CheckEmailCode() {
@@ -95,16 +117,37 @@ export default {
           email: this.email,
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           if (data != false) {
-            alert('인증번호 확인');
+            // alert('인증번호 확인');
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '이메일인증 성공!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
             this.$router.replace('/forgot-password-final');
           } else {
-            alert('인증번호가 일치하지 않습니다.');
+            // alert('인증번호가 일치하지 않습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '인증에 실패했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          // alert('에러가 발생했습니다.');
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '에러가 발생했습니다.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
     },
   },

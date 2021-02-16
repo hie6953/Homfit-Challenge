@@ -1,5 +1,5 @@
 <template>
-  <div class="mypage-container">
+  <div class=" col-lg-10 mypage-container">
     <!-- 사용자 프로필 div -->
     <div class="mx-auto col-12 col-md-8 user-profile">
       <div class="user-profile-edit">
@@ -82,7 +82,7 @@
         <div class="col-12 move-challenge-list">
           <div class="status-list-right">
             <div class="status">
-              <span>오늘</span>
+              <span class="status-font">오늘</span>
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
@@ -93,7 +93,7 @@
 
           <div class="status-list-both">
             <div class="status">
-              <span>참가중</span>
+              <span class="status-font">참가중</span>
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
@@ -104,7 +104,7 @@
 
           <div class="status-list-both">
             <div class="status">
-              <span>완료</span>
+              <span class="status-font">완료</span>
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
@@ -115,7 +115,7 @@
 
           <div class="status-list-left">
             <div class="status">
-              <span>개설</span>
+              <span class="status-font">개설</span>
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
@@ -137,6 +137,7 @@
     <div class="mx-auto col-12 col-md-8 myfeeds">
       <div class="mypage-myfeed">
         <h3 class="my-feed-label">나의 피드</h3>
+
         <div class="my-feed-plus" @click="MoveToMyWholeFeed">
           <p class="mb-2">
             <b-icon icon="plus"></b-icon>
