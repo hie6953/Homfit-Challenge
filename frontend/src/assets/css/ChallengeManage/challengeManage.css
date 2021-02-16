@@ -2,7 +2,57 @@
   .manage-container {
     margin: 25px auto 0;
   }
+
+  /* 모바일 */
+  @media (max-width: 480px) {
+    /* 상단에 붙어있는 위치 */
+    .manage-menu-bar {
+      top: 64px;
+      height: 38px;
+    }
+  }
+  /* PC */
+  @media (min-width: 480px) {
+    /* 상단에 붙어있는 위치 */
+    .manage-menu-bar {
+      top: 130px;
+    }
+  }
+  /* 상세페이지 네비게이션바 */
   .manage-menu-bar {
+    position: sticky;
+    height: 50px;
+    z-index: 5;
+  }
+
+  .manage-menu-bar ul{
+    background-color: #eac03a;
+    padding-top: 10px;
+  }
+
+
+  .manage-menu-bar a{
+    border-color: #dee2e6 #dee2e6 !important;
+    background-color: #eed891;
+    border-color: #eed891 !important;
+    width:100px;
+    text-align: center;
+    margin:0px 2px;
+    padding:4px 0px !important;
+    margin-top:4px !important;
+    color:#7a6f4b;
+  }
+
+  .manage-menu-bar a.active{
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    background-color: #fff !important;
+    padding:6px 0px !important;
+    margin-top:0px !important;
+    color:black;
+    font-weight: bold;
+  }
+
+  /* .manage-menu-bar {
     text-align: center;
     font-weight: 700;
     margin: 0 auto;
@@ -21,7 +71,7 @@
   }
   .tab-cursor:hover {
     cursor: pointer;
-  }
+  } */
 
   /* 카테고리 */
   #category-hr-top {
