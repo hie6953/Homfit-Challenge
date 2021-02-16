@@ -998,14 +998,10 @@ public class ChallengeController {
 			 map.put("people", people);
 			 map.put("favoriteBodyList", favoriteBodyList);
 			 map.put("favoriteFitList", favoriteFitList);
+			 map.put("age", user.getAge());
+			 map.put("sex", user.getSex());
 		}
 
-	
-		// 5. 다른 사람들과의 비교 top
-		// 총 몇명인지 줘야함.
-		// 나이, 연령대 선호하는 운동카테고리 
-		// - 회원의 성별, 나이 가져옴
-		// 나이, 연령대 선호하는 부위 카테고리
 
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}

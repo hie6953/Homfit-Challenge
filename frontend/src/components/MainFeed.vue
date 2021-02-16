@@ -1,10 +1,14 @@
 <template>
   <!-- axios -->
   <div class="main-feed-item" @click="FeedMoreInfo">
-    <img
+    <!-- <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
       class="responsive-image"
-    />
+    /> -->
+    <div class="mainfeed-center">
+      <img :src="feed.feed_picture" class="responsive-image" />
+    </div>
+
     <div class="main-feed-item-info">
       <ul>
         <li class="main-feed-item-likes">

@@ -82,7 +82,7 @@ export default {
       let frm = new FormData();
       frm.append('imgFile', document.getElementById('photo').files[0]);
       frm.append('maked_uid', this.getUserUid);
-      frm.append('challenge_id', 229);
+      frm.append('challenge_id', this.$route.params.challenge_id);
       frm.append('feed_contents', this.form.content);
 
       axios

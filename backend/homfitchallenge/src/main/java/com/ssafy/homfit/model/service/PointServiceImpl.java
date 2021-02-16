@@ -2,8 +2,10 @@ package com.ssafy.homfit.model.service;
 
 import java.util.List;
 
+import com.ssafy.homfit.model.Alarm;
 import com.ssafy.homfit.model.Point;
 import com.ssafy.homfit.model.User;
+import com.ssafy.homfit.model.dao.AlarmDAO;
 import com.ssafy.homfit.model.dao.PointDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
 
@@ -37,6 +39,14 @@ public class PointServiceImpl implements PointService {
             long sum = 0;
             String grade = null;
             String uid = point.getUid();
+            
+            //회원 포인트 지급에 따른 알림 생성
+            Alarm alarm_point = new Alarm();
+            alarm_point.setAlarm_title("포인트");
+            alarm_point.setAlarm_title(point.getPoint() + "를 획득하였습니다.");
+            alarm_point.setUid(uid);
+            sqlSession.getMapper(AlarmDAO.class).create(alarm_point);
+            
             User user = new User();
             // 회원의 모든 포인트의 합계를 가지고온다
             sum = this.sumPoint(this.inquiry(uid));
@@ -47,9 +57,18 @@ public class PointServiceImpl implements PointService {
             else if(2000 <= sum && sum <= 9999) grade = "diamond";
             else if(10000 <= sum) grade = "challenger";
             // 회원 등급 업데이트 요청
-            user.setUid(uid);
-            user.setGrade(grade);
-            sqlSession.getMapper(UserDAO.class).updateGrade(user);
+            if(!sqlSession.getMapper(UserDAO.class).getUid(uid).getGrade().equals(grade)){
+                user.setUid(uid);
+                user.setGrade(grade);
+                sqlSession.getMapper(UserDAO.class).updateGrade(user);
+                
+                //회원 등급 상승에 따른 알림 생성
+                Alarm alarm_grade = new Alarm();
+                alarm_grade.setAlarm_title("등급");
+                alarm_grade.setAlarm_title("등급이 " + grade + "가 되었습니다.");
+                alarm_grade.setUid(uid);
+                sqlSession.getMapper(AlarmDAO.class).create(alarm_grade);
+            }
             return true;
         }    
         return false;

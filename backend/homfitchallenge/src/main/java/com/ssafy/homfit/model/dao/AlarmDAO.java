@@ -11,4 +11,6 @@ public interface AlarmDAO {
     public List<Alarm> getAlarm(String uid) throws SQLException;
 
     public void updateAlarmCheck(int alarm_id) throws SQLException;
+
+    public boolean alreadyExist(String alarm_content) throws SQLException;
 }
