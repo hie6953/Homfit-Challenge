@@ -132,7 +132,7 @@
         class="col-6 col-md-4 col-lg-3 challenge-list-feed"
         :key="`${index}_feed`"
         :feed="feed"
-        @click="FeedMoreInfo"
+        @feedMoreInfo="FeedMoreInfo(feed)"
       >
       </main-feed>
       <!-- <MainFeed /> -->
@@ -186,9 +186,9 @@ export default {
     },
   },
   methods: {
-    FeedMoreInfo: function() {
-      this.$store.commit("SETTMPFEED", this.feed);
-      this.$router.push("/feedcardlist");
+    FeedMoreInfo: function(feed) {
+      // this.$store.commit("SETTMPFEED", this.feed);
+      this.$router.push(`/feedcardlist/${feed.challenge_id}/${feed.feed_id}`);
     },
     getNewData: function() {
       this.page = 1;

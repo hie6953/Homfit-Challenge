@@ -52,20 +52,18 @@ export default {
       page: 1,
       feedAllList:null,
       feedList: [],
-      tmpfeed: {},
     }
   },
   computed: {
-    ...mapGetters(['getTmpFeed', 'getUserUid']),
+    ...mapGetters(['getUserUid']),
   },
   methods: {
     async GetFeed() {
-      this.tmpfeed = this.getTmpFeed;
       await axios
-      .get(`${SERVER_URL}/feed/all/focus/${this.tmpfeed.feed_id}`, {
+      .get(`${SERVER_URL}/feed/all/focus/${this.$route.params.feed_id}`, {
         params: {
           uid: this.getUserUid,
-          challenge_id: this.tmpfeed.challenge_id,
+          challenge_id: this.$route.params.challenge_id,
         },
       })
       .then(({ data }) => {

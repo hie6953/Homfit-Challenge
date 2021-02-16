@@ -12,7 +12,6 @@ export default new Vuex.Store({
     userNickName: '',
     userUid: '',
     userImg: '',
-    tmpFeed: {},
     
   },
   getters: {
@@ -30,9 +29,6 @@ export default new Vuex.Store({
     },
     getUserImg(state){
       return state.userImg;
-    },
-    getTmpFeed(state) {
-      return state.tmpFeed;
     },
   },
   mutations: {
@@ -58,9 +54,6 @@ export default new Vuex.Store({
     },
     SETIMAGE(state, img) { 
       state.userImg = img;
-    },
-    SETTMPFEED(state, feed) {
-      state.tmpFeed = feed;
     },
   },
   actions: {

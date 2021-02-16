@@ -69,7 +69,7 @@ const routes = [
     component: () => import('../views/FeedCardListChat.vue'),
   },
   {
-    path: '/feedcardlist',
+    path: '/feedcardlist/:challenge_id/:feed_id',
     name: 'FeedCardList',
     component: () => import('../views/FeedCardList.vue'),
   },
