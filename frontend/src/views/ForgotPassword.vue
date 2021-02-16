@@ -1,6 +1,6 @@
 <template>
-  <div class="user-background">
-    <div class="user-container col-sm-10 col-lg-6">
+  <div class="fp-user-background">
+    <div class="fp-user-container col-sm-10 col-lg-6">
       <form>
         <h3>비밀번호 재설정</h3>
 
