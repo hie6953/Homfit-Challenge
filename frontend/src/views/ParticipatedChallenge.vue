@@ -9,7 +9,7 @@
         />
       </b-tab>
       <b-tab :class="{active:tab == 1}" title="인증샷">
-
+        <FeedList />
       </b-tab>
       <b-tab :class="{active:tab == 2}" title="대화">
          <ChatRoom 
@@ -27,6 +27,7 @@ import Progress from "../components/ParticipatedChallenge/Progress"
 import ChatRoom from "../components/Chat/ChatRoom"
 import { mapGetters } from "vuex";
 import axios from "axios";
+import FeedList from '../components/ParticipatedChallenge/FeedList.vue';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -34,6 +35,7 @@ export default {
   components: {
     Progress,
     ChatRoom,
+    FeedList,
   },
   data() {
     return {
@@ -106,7 +108,7 @@ export default {
         }
       })
       .catch(() => {
-        alert("챌린지 목록을 불러오지 못했습니다.");
+        // alert("챌린지 목록을 불러오지 못했습니다.");
       });
   },
     

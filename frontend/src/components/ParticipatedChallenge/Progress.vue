@@ -1,6 +1,7 @@
 <template>
   <div>
     <challenge-title
+      :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
       :challenge_img="challenge.challenge_img"
       :day_certify_count="challenge.day_certify_count"
@@ -14,7 +15,9 @@
       :bodyList="challenge.bodyList"
       :check_date="challenge.check_date"
       :nick_name="challenge.nick_name"
+      :user_img="challenge.user_img"
       :people="challenge.people"
+      :isParticipated="isParticipated"
     ></challenge-title>
 
     <div class="row col-12 col-lg-8 mx-auto pt-3">
@@ -80,8 +83,9 @@
     
     <!-- 오늘 인증하는 날일때 인증버튼(수정 필요), 완료면 후기버튼 -->
     <div v-if="!isMobile">
+        <!-- v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1" -->
       <b-button-group
-        v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1"
+        v-if="certifyInfo.imgList != null && certifyInfo.imgList[certifyInfo.imgList.length-1].register_date == ''"
         id="info-float-button-group"
         class="row info-float align-center"
       >
@@ -96,7 +100,7 @@
       </b-button-group>
     </div>
     <div v-if="isMobile">
-      <div class="info-float" v-if="certifyInfo.today_cnt > 0">
+      <div class="info-float" v-if="certifyInfo.imgList != null && certifyInfo.imgList[certifyInfo.imgList.length-1].register_date == ''">
         <div class="row info-float-inside col-12 mx-auto">
           <div class="col-12 align-center certify-btn-my">
             <b-button
@@ -121,9 +125,6 @@
         </div>
       </div>
     </div>
-    
-
-
 
   </div>
 </template>
@@ -147,6 +148,7 @@ export default {
   },
   data() {
     return {
+      isParticipated: true,
       isReview: false,
       // 더미
       // certifyInfo: {
@@ -227,16 +229,17 @@ export default {
         )
         .then(() => {
           alert("인증이 삭제되었습니다.");
-          this.certifyInfo.imgList[index] = {
-            feed_picture: "https://picsum.photos/300/300/?image=24",
-            register_date: "",
-          }
+          this.certifyInfo.imgList[index].feed_picture = "https://picsum.photos/300/300/?image=24",
+          this.certifyInfo.imgList[index].register_date = ""
+          this.certifyInfo.user_cnt--
         })
         .catch(() => {
           alert("오류가 발생했습니다.");
         });
     },
-  
+    dd() {
+      console.log(this.certifyInfo.imgList.length)
+    }
   }
 }
 </script>

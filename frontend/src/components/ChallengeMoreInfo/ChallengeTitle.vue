@@ -2,7 +2,7 @@
 <div>
   <div class="challenge-title-background">
     <!-- 설정버튼 -->
-    <div v-if="equalNickName" class="col-12 col-md-9 mx-auto edit-menu">
+    <div v-if="equalNickName && isParticipated == false" class="col-12 col-md-9 mx-auto edit-menu">
       <button id="go-challenge-edit" @click="GoChallengeEdit"><b-icon icon="gear" scale="1.2"></b-icon></button>
       <b-tooltip target="go-challenge-edit" triggers="hover" placement="bottomleft">
        챌린지 수정하기
@@ -112,6 +112,7 @@ export default {
     tagList: Array,
     bodyList: Array,
     check_date: Number,
+    isParticipated:Boolean,
   },
   data() {
     return {
