@@ -60,8 +60,8 @@
                 <div v-if="item.register_date !== ''" class="row mx-auto justify-content-between">
                   <p class="col-8 px-0 py-0 my-1">{{ item.register_date }}</p>
                   <div class="row col-4 mx-0 px-0 justify-content-around">
-                    <button class="btn-sm certify-btn certify-edit-btn col-5">편집</button>
-                    <button class="btn-sm certify-btn certify-delete-btn col-5">삭제</button>
+                    <!-- <button class="btn-sm certify-btn certify-edit-btn col-5">편집</button> -->
+                    <button class="btn-sm certify-btn certify-delete-btn col-5" @click="DeleteFeed(item.feed_id, index)">삭제</button>
                   </div>
                 </div>
               </div>
@@ -132,8 +132,8 @@
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
 import Review from "@/components/ChallengeMoreInfo/Review.vue";
 import { mapGetters } from "vuex";
-// import axios from "axios";
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   components: {
@@ -215,7 +215,28 @@ export default {
       if (this.certifyInfo.review) {
         this.isReview = true
       }
-    }
+    },
+    DeleteFeed(feed_id, index) {
+      axios
+        .delete(
+          `${SERVER_URL}/feed/delete`, {
+            params: {
+              feed_id: feed_id
+            }
+          }
+        )
+        .then(() => {
+          alert("인증이 삭제되었습니다.");
+          this.certifyInfo.imgList[index] = {
+            feed_picture: "https://picsum.photos/300/300/?image=24",
+            register_date: "",
+          }
+        })
+        .catch(() => {
+          alert("오류가 발생했습니다.");
+        });
+    },
+  
   }
 }
 </script>
