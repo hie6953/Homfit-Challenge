@@ -1,6 +1,6 @@
 <template>
   <dd class="bar" style="--start: 45;" @click="UpdateName(index)">
-    <span class="value">{{ month.a }}%</span>
+    <span class="value">{{ month.achievement_rate }}%</span>
   </dd>
 </template>
 
@@ -20,13 +20,13 @@ export default {
     const bars = document.querySelectorAll(".bar")
     let i = 0
     bars.forEach(bar => {
-      bar.style.setProperty('--start', (101-this.monthList[i].a));
+      bar.style.setProperty('--start', (101-this.monthList[i].achievement_rate));
       i++
     });
   },
   methods: {
     UpdateName(index) {
-      this.$emit("setChallengeName", this.month.b)
+      this.$emit("setChallengeName", this.month.challenge_title)
       const bars = document.querySelectorAll(".bar")
       let i = 0
       bars.forEach(bar => {
@@ -42,8 +42,4 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
 

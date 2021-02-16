@@ -38,8 +38,8 @@ export default {
     this.ProgressBarWidth()
   },
   watch: {
-    averageRate() {
-      this.ProgressBarWidth()
+    current:function(){
+      this.ProgressBarWidth();
     }
   },
   methods: {
