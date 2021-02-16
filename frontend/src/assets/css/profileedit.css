@@ -52,19 +52,29 @@
   padding-bottom: 10px;
 }
 
-.form-control {
+.control-input .form-control {
   font-size: 15px;
 }
 
-.form-control:hover {
+.control-input .form-control:hover {
   box-shadow: 0 0 0 1px #eac03a;
 }
-.form-control:focus {
+.control-input .form-control:focus {
+  box-shadow: 0 0 0 1px #eac03a, inset 0 2px 5px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* .input-group .form-control {
+  font-size: 15px;
+} */
+.input-group .form-control:hover {
+  box-shadow: 0 0 0 1px #eac03a;
+}
+.input-group .form-control:focus {
   box-shadow: 0 0 0 1px #eac03a, inset 0 2px 5px -1px rgba(0, 0, 0, 0.25);
 }
 
 .phonecode-btn {
-  font-size: 15px;
+  /* font-size: 15px; */
   padding-left: 10px;
   margin-left: 10px;
 }
