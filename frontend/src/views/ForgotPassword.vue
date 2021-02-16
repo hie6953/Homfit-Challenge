@@ -4,7 +4,7 @@
       <form>
         <h3>비밀번호 재설정</h3>
 
-        <div class="mt-3 forgot-info">
+        <div class="forgot-info">
           비밀번호 재설정 인증번호를 이메일로 안내드리겠습니다.
         </div>
 

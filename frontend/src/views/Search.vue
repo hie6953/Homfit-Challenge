@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <hr id="hr-top" />
 
     <div class="mx-auto col-12 col-md-8 search-tmp-container">
