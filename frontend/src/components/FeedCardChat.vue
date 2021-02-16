@@ -26,7 +26,7 @@
           <div class="comment-user">{{ comment.nick_name }}</div>
 
           <div class="comment">
-            <p>{{ comment.contents }}</p>
+            <span>{{ comment.contents }}</span>
           </div>
           <div class="comment-time">
             {{ getFormatDate(comment.comment_regist_date) }}
