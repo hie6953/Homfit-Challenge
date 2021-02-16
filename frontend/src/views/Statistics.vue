@@ -15,11 +15,10 @@
         <div class="statistics-background">
           <Calendar @selectedMonth="UpdateMonth" />
         </div>
-        <p class="statistics-tip">
+        <div class="statistics-tip col-12 flex-wrap">
           <b-icon icon="info-circle" scale="1"></b-icon>
-          통계는 챌린지 완료일 기준이며, 인증률이 0%일 경우 데이터를 제공하지
-          않습니다.
-        </p>
+          <p>통계는 챌린지 완료일 기준이며, 인증률이 0%일 경우 데이터를 제공하지않습니다.</p>
+        </div>
         <p class="statistics-title">월별 챌린지 인증률</p>
         <MonthGraph :monthList="statisticsData1.monthList" />
         <AverageRate
@@ -36,13 +35,13 @@
 
           <div class="mx-auto col-12 col-md-6">
             <CategoryDonut
-            :update="update"
+              :update="update2"
               :labels="categoryLabel"
               :dataList="categoryPercent"
             />
           </div>
           <div class="mx-auto col-12 col-md-6">
-            <BodyDonut :update="update" :labels="bodyLabel" :dataList="bodyPercent" />
+            <BodyDonut :update="update2" :labels="bodyLabel" :dataList="bodyPercent" />
           </div>
         </div>
       </b-tab>
@@ -51,19 +50,33 @@
         title="연령별/성별"
         @click="UpdateData(3)"
       >
+        <!-- <CategoryPrefer
+          :update="update3"
+          :sex="sex"
+          :age="statisticsData3.age"
+          :people="statisticsData3.people"
+          :labels="categoryLabel"
+          :favorite="favoriteCategoryPercent"
+        />
         <BodyPrefer
-          :sex="statisticsData3.sex"
+          :update="update3"
+          :sex="sex"
           :age="statisticsData3.age"
           :people="statisticsData3.people"
-          :per="bodyPreferPercent"
-        />
-        <!-- :age="statisticsData.age" -->
+          :labels="bodyLabel"
+          :favorite="favoriteBodyPercent"
+        /> -->
+        <div class="mx-auto col-12 col-md-6">
         <CategoryPrefer
-          :sex="statisticsData3.sex"
+          :update="update3"
+          :sex="sex"
           :age="statisticsData3.age"
           :people="statisticsData3.people"
-          :per="categoryPreferPercent"
+          :labels="bothLabel"
+          :bfavorite="favoriteBodyPercent"
+          :cfavorite="favoriteCategoryPercent"
         />
+        </div>
       </b-tab>
     </b-tabs>
   </div>
@@ -76,7 +89,7 @@ import MonthGraph from "../components/StatisticsPage/MonthGraph.vue";
 import AverageRate from "../components/StatisticsPage/AverageRate.vue";
 import CategoryDonut from "../components/StatisticsPage/CategoryDonut.vue";
 import BodyDonut from "../components/StatisticsPage/BodyDonut.vue";
-import BodyPrefer from "../components/StatisticsPage/BodyPrefer.vue";
+// import BodyPrefer from "../components/StatisticsPage/BodyPrefer.vue";
 import CategoryPrefer from "../components/StatisticsPage/CategoryPrefer.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -89,7 +102,7 @@ export default {
     AverageRate,
     CategoryDonut,
     BodyDonut,
-    BodyPrefer,
+    // BodyPrefer,
     CategoryPrefer,
   },
   data() {
@@ -101,9 +114,21 @@ export default {
       age: 20,
       selectedMonth: 0,
       bodyPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      bodyPreferPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      favoriteBodyPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       categoryPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      categoryPreferPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      favoriteCategoryPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      bothLabel: [
+        "요가",
+        "필라테스/전신",
+        "유산소/상체",
+        "댄스/하체",
+        "스트레칭/가슴",
+        "근력/팔",
+        "키즈/복부",
+        "복싱/엉덩이",
+        "식단/다리",
+        "기타",
+      ],
       bodyLabel: [
         "전신",
         "상체",
@@ -133,17 +158,18 @@ export default {
         previous_average_rate: 0,
       },
       statisticsData2: {
-        bodyList: [1, 0, 1, 0, 1, 0, 0, 0, 0],
-        categoryList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        bodyList: [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+        categoryList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       },
       statisticsData3: {
-        bodyList: [1, 0, 1, 0, 1, 0, 0, 0, 0],
-        categoryList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        favoriteBodyList: [1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+        favoriteFitList: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         sex: "w",
         age: 20,
         people: 53,
       },
-      update:false,
+      update2:false,
+      update3:false,
     };
   },
   computed: {
@@ -154,10 +180,7 @@ export default {
       this.UpdateData(1);
     },
   },
-  // mounted() {
-  //   this.UpdatePercent();
-  //   this.UpdateSex();
-  // },
+  
   methods: {
     UpdateMonth(selectedMonth) {
       this.selectedMonth = selectedMonth;
@@ -179,12 +202,19 @@ export default {
               break;
               case 3:
               this.statisticsData3= data.data;
+              console.log(this.statisticsData3)
+              
               break;
           }
-          this.update = !this.update;
+          this.update2 = !this.update2;
           if (value == 2) {
-        this.UpdatePercent();
-      }
+            this.UpdateSecondTab();
+          }
+          this.update3 = !this.update3;
+          if (value == 3) {
+            this.UpdateThirdTab();
+            this.UpdateSex();
+          }
           console.log(data);
         })
         .catch(() => {
@@ -193,24 +223,40 @@ export default {
 
       
     },
-    UpdatePercent() {
+    UpdateSecondTab() {
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       const totalBody = this.statisticsData2.bodyList.reduce(reducer);
       const totalCategory = this.statisticsData2.categoryList.reduce(reducer);
-      console.log("+++"+totalCategory+"+++"+this.statisticsData2.categoryList);
       for (let i = 1; i <= 10; i++) {
-        this.categoryPercent[i] = (
+        this.categoryPercent[i-1] = (
           (100 * this.statisticsData2.categoryList[i]) /
           totalCategory
         ).toFixed(0);
         if (i < 10) {
-          this.bodyPercent[i] = (
+          this.bodyPercent[i-1] = (
             (100 * this.statisticsData2.bodyList[i]) /
             totalBody
           ).toFixed(0);
         }
       }
-      console.log(this.categoryPercent);
+      console.log(this.statisticsData2.bodyList)
+      console.log(this.bodyPercent)
+    },
+    UpdateThirdTab() {
+      for (let i = 1; i <= 10; i++) {
+        this.favoriteCategoryPercent[i-1] = (
+          (100 * this.statisticsData3.favoriteFitList[i]) /
+          this.statisticsData3.people
+        ).toFixed(0);
+        if (i < 10) {
+          this.favoriteBodyPercent[i-1] = (
+            (100 * this.statisticsData3.favoriteBodyList[i]) /
+            this.statisticsData3.people
+          ).toFixed(0);
+        }
+      }
+      console.log(this.favoriteBodyPercent)
+      console.log(this.favoriteCategoryPercent)
     },
     UpdateSex() {
       if (this.statisticsData3.sex === "m") {

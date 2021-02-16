@@ -1,34 +1,46 @@
 <template>
   <div>
     <p class="statistics-title">{{ age }}대 {{ sex }}들의 선호 부위</p>
-    <div class="row">
-      <img v-if="sex === '남성'" src="@/assets/man.png" alt="man" class="col-6">
-      <img v-else src="@/assets/woman.png" alt="woman" class="col-6">
-      <div class="col-6">
-        <div class="progress mt-2 progress-box" v-for="(p,index) in per" :key="index">
-          <div
-            class="progress-bar progress-background"
-            id="current-progress"
-            role="progressbar"
-            width="p"
-            :aria-valuenow="p"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >{{ p }}%</div>
-        </div>
-      </div>
-    </div>
+    <canvas id="myChart-4" width="100%" height="100%"></canvas>
   </div>
 </template>
 
 <script>
+import Chart from 'chart.js'
 export default {
   props: {
+    update:Boolean,
     sex: String,
     age: Number,
     people: Number,
-    per: Array,
-  }
+    favorite: Array,
+    labels: Array,
+  },
+  watch:{
+    update:function(){
+      this.createChart();
+    }
+  },
+  methods: {
+    createChart() {
+      const ctx = document.getElementById("myChart-4")
+      const myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: this.labels,
+          datasets: [{
+            label: "부위",
+            data: this.favorite,
+            backgroundColor: 'rgba(230, 92, 46, 0.5)',
+            borderColor: 'rgba(230, 92, 46, 1)',
+            pointBackgroundColor: 'rgba(230, 92, 46, 1)',
+          }]
+        },
+        options: {}
+      })
+      console.log(myChart)
+    },
+  },
 }
 </script>
 
