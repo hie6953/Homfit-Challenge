@@ -227,7 +227,8 @@ input[type='reset'] {
 
 .myfeeds {
   padding-top: 30px;
-  margin-top: 40px;
+  margin-top: 35px;
+  margin-bottom: 35px;
   background-color: #fafafa;
   padding-bottom: 3rem;
 }
