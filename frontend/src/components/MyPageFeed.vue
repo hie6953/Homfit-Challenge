@@ -12,7 +12,7 @@
         :key="index"
       >
         <div class="centered">
-        <img  class="feed-picture" :src="feed.feed_picture" />
+          <img class="feed-picture" :src="feed.feed_picture" />
           <!-- <img class="feed-picture" src="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"> -->
         </div>
         <div class="imageInfo">
@@ -56,7 +56,7 @@ export default {
           if (this.feedList.length == 0) {
             this.isdatathere = true;
           }
-          
+
           console.log(this.isdatathere);
         })
         .catch(() => {
