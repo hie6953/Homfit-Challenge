@@ -18,7 +18,9 @@ public interface FeedDAO {
 
 	public List<Feed> searchByUser(String uid) throws SQLException;
 
-	public List<Feed> searchByChallenge(Map<String, Object> map) throws SQLException;
+	public List<Feed> searchByChallenge(int challenge_id) throws SQLException;
+	
+	public List<Feed> searchByChallengeForFeed(Map<String, Object> map) throws SQLException;
 
 	public List<Feed> searchByChallengeNotFeedId(Map<String, Object> map) throws SQLException;
 
