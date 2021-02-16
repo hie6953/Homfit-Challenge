@@ -5,7 +5,7 @@
       <ChallengeListCard
         v-for="(challenge, index) in challengeList"
         :key="`${index}_bookmark`"
-        class="col-6 col-md-4 col-lg-3"
+        class="col-6 col-md-4 mb-2"
         :challenge="challenge"
         :isfromBookmark="isfromBookmark"
         @moreInfo="ChallengeMoreInfo"
@@ -44,9 +44,9 @@ export default {
   computed: {
     ...mapGetters(["getUserUid"]),
   },
-  created() {
+  mounted() {
     axios
-      .get(`${SERVER_URL}/challenge/bookmark/`, {
+      .get(`${SERVER_URL}/challenge/bookmark`, {
         params: {
           uid: this.getUserUid
         }

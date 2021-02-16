@@ -146,7 +146,7 @@
         <ChallengeListCard
           v-for="(challenge, index) in items"
           :key="`${index}_challengemanage`"
-          class="col-6 col-md-4 col-lg-3 challenge-list-card"
+          class="col-6 col-md-4 challenge-list-card"
           :challenge="challenge"
           :isfromChallengeManage="isfromChallengeManage"
           :cancelActive="cancelActive"
@@ -164,8 +164,8 @@
 <script>
 import "@/assets/css/ChallengeManage/challengeManage.css"
 import ChallengeListCard from "../components/ChallengeListCard.vue";
-// import axios from "axios";
-// const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import axios from "axios";
+const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from "vuex";
 export default {
   components: {
@@ -229,29 +229,23 @@ export default {
       this.updateCategory()
     }
   },
-  // created() {
-  //   axios
-  //     .get(`${SERVER_URL}/challenge/bookmark/${this.getUserUid}`)
-  //     .then((data) => {
-  //       this.challengeList = data.data
-  //       // 해당 리스트에 담기
-  //       for (let i = 0; i<challengeList.length; i++) {
-  //         if (challengeList[i].check_date === 0) {
-  //           this.items[1].push(challengeList[i])
-  //         } else if (challengeList[i].check_date === 1) {
-  //           this.items[0].push(challengeList[i])
-  //         } else {
-  //           this.items[2].push(challengeList[i])
-  //         }
-  //         if (challengeList[i].make_uid === this.getUserUid) {
-  //           this.items[3].push(challengeList[i])
-  //         }
-  //       }
-  //     })
-  //     .catch(() => {
-  //       alert("챌린지 목록을 불러오지 못했습니다.");
-  //     });
-  // },
+  mounted() {
+    this.UpdateData()
+        // 해당 리스트에 담기
+        // for (let i = 0; i<challengeList.length; i++) {
+        //   if (challengeList[i].check_date === 0) {
+        //     this.items[1].push(challengeList[i])
+        //   } else if (challengeList[i].check_date === 1) {
+        //     this.items[0].push(challengeList[i])
+        //   } else {
+        //     this.items[2].push(challengeList[i])
+        //   }
+        //   if (challengeList[i].make_uid === this.getUserUid) {
+        //     this.items[3].push(challengeList[i])
+        //   }
+        // }
+      
+  },
   methods: {
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/participated/${challenge_id}`);
@@ -311,6 +305,7 @@ export default {
         this.deleteActive = 0
       }
       this.items = this.lists[num]
+      this.UpdateData()
     },
     updateCategory() {
       // 카테고리에 따른 데이터 정렬
@@ -325,6 +320,22 @@ export default {
         this.items = this.lists[this.tab]
       }
     },
+    UpdateData() {
+      console.log(this.tab)
+      axios
+      .get(`${SERVER_URL}/challenge/management/${this.tab}`, {
+        params: {
+          uid: this.getUserUid
+        }
+      })
+      .then((data) => {
+        this.challengeList = data.data
+        console.log(data)
+      })
+      .catch(() => {
+        alert("챌린지 목록을 불러오지 못했습니다.");
+      });
+    }
   }
 }
 </script>
