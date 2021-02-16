@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <!-- 피드 -->
     <div class="row col-12 col-lg-8 feedcardlist-container">
       <feed-card

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <div class="mx-auto col-11 col-md-8 col-lg-6 profile-edit-container">
       <b-tabs
         content-class="mt-3"

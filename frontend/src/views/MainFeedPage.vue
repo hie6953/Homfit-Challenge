@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <!-- 카테고리 -->
     <div class="category-background row mx-auto">
       <div class="category mx-auto">

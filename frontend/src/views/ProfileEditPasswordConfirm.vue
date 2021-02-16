@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <div class="mx-auto col-11 col-md-8 col-lg-6 password-confirm-container">
       <div class="password-confirm-info">
         <div class="pw-confirm-info">
