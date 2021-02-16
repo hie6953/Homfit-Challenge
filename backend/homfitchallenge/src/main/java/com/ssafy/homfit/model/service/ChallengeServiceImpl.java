@@ -141,7 +141,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	//해당 월 챌린지 데이터
 	@Override
-	public List<UserRate> selectMonthChallenge(String uid, int month) {
+	public List<UserRate> selectMonthChallenge(String uid, int month){
 		return challengeDAO.selectMonthChallenge(uid, month);
 	}
 
