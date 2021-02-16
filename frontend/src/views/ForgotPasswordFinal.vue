@@ -59,6 +59,7 @@
 import { mapGetters } from 'vuex';
 import '../assets/css/forgotpassword.css';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -103,12 +104,24 @@ export default {
           .then(({ data }) => {
             console.log(data);
             if (data == 'success') {
-              alert('비밀번호가 변경되었습니다.');
+              // alert('비밀번호가 변경되었습니다.');
+              Swal.fire(
+                '비밀번호 변경 완료',
+                '변경된 비밀번호로 로그인해주세요:)',
+                'success'
+              );
               this.$router.replace('/login');
             }
           })
           .catch(() => {
-            alert('에러가 발생했습니다.');
+            // alert('에러가 발생했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '에러가 발생했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
     },
