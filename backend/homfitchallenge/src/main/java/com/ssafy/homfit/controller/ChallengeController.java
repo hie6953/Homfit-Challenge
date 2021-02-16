@@ -139,7 +139,7 @@ public class ChallengeController {
 		if(cacheTag.size() < 5) 
 			returnList = cacheTag;
 		else {
-			for (int i = 0; i < cacheTag.size(); i++) {
+			for (int i = 0; i < 5; i++) {
 				returnList.add(cacheTag.get(i));
 			}
 		}
