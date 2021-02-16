@@ -152,6 +152,27 @@ export default {
 .main-view {
   z-index: 1;
 }
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  /* background-color: #e65c2e30; */
+  background-color: #EAC03A30;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+*::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+
+
+
 /* mobile */
 @media (max-width: 480px) {
   .main-view {

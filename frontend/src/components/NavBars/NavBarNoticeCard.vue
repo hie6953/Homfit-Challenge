@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <b-card class="mb-2">
-      <b-card-text>
-        <p id="notice-title">{{notice.type}}</p>
-        <span id="notice-comment">{{ notice.comment }}</span>
-      </b-card-text>
-    </b-card>
+  <div class="nav-bar-notice-card-container" :class="{disabled:notice.alarm_check}">
+    <div>
+      <div>
+        <span id="notice-title">{{ notice.alarm_title }}</span>
+        <b-button :disabled="notice.alarm_check" @click="AlarmCheck" class="nav-bar-notice-card-check-button">
+          <b-icon icon="check"></b-icon>
+          읽음
+        </b-button>
+      </div>
+      <span id="notice-comment">{{ notice.alarm_content }}</span>
+    </div>
   </div>
 </template>
 
@@ -13,6 +17,12 @@
 export default {
   props: {
     notice: Object,
+    index:Number,
+  },
+  methods: {
+    AlarmCheck:function(){
+      this.$emit('alarmCheck',this.notice.alarm_id,this.index);
+    }
   },
 };
 </script>
