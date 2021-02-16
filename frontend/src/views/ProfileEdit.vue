@@ -18,13 +18,16 @@
                   src="@/assets/NavBar/anonimous_user.png"
                 />
               </div> -->
-              <div v-if="changeuserimg" class="edit-user-photo">
-                <img class="profiledeit-user-img" :src="imgurl" />
+              <div class="profileedit-tmp">
+                <div v-if="changeuserimg" class="edit-user-photo">
+                  <img class="profiledeit-user-img" :src="imgurl" />
+                </div>
+
+                <div v-else class="edit-user-photo">
+                  <img class="profiledeit-user-img" :src="user_img" />
+                </div>
               </div>
-              <div v-else class="edit-user-photo">
-                <img class="profiledeit-user-img" :src="user_img" />
-              </div>
-              <div class="edit-user-photo">
+              <div class="edit-user-photo-input">
                 <label class="input-file-button" for="input-file">
                   사진선택
                 </label>
@@ -174,6 +177,8 @@ import '../assets/css/profileedit.css';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+import Swal from 'sweetalert2';
+
 export default {
   name: 'ProfileEdit',
   data: function() {
@@ -212,7 +217,14 @@ export default {
         // console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        // alert('에러가 발생했습니다.');
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '에러가 발생했습니다.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   },
 
@@ -220,7 +232,6 @@ export default {
     fileSelect: function(event) {
       var input = event.target;
       if (input.files && input.files[0]) {
-        
         var reader = new FileReader();
         reader.onload = (e) => {
           this.imgurl = e.target.result;
@@ -281,14 +292,28 @@ export default {
           .then(({ data }) => {
             // console.log(data);
             if (data.msg == 'success') {
-              alert('회원정보가 변경되었습니다.');
+              // alert('회원정보가 변경되었습니다.');
               this.giveAlert = true;
               this.$store.commit('SETIMAGE', data.imgurl);
               this.$router.push('/mypage');
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '회원정보가 변경되었습니다.',
+                showConfirmButton: false,
+                timer: 1500,
+              });
             }
           })
           .catch(() => {
-            alert('에러가 발생했습니다.');
+            // alert('에러가 발생했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '에러가 발생했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
 
@@ -306,12 +331,26 @@ export default {
           .then(({ data }) => {
             // console.log(data);
             if (data == 'success' && !this.giveAlert) {
-              alert('회원정보가 변경되었습니다.');
+              // alert('회원정보가 변경되었습니다.');
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '회원정보가 변경되었습니다.',
+                showConfirmButton: false,
+                timer: 1500,
+              });
               this.$router.push('/mypage');
             }
           })
           .catch(() => {
-            alert('에러가 발생했습니다.');
+            // alert('에러가 발생했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '에러가 발생했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
     },
@@ -331,11 +370,26 @@ export default {
           .then(({ data }) => {
             // console.log(data);
             if (data == 'success') {
-              alert('비밀번호가 변경되었습니다.');
+              // alert('비밀번호가 변경되었습니다.');
+              this.$router.push('/mypage');
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '비밀번호가 변경되었습니다.',
+                showConfirmButton: false,
+                timer: 1500,
+              });
             }
           })
           .catch(() => {
-            alert('에러가 발생했습니다.');
+            // alert('에러가 발생했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '에러가 발생했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
     },

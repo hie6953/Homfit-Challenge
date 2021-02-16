@@ -6,6 +6,47 @@
     border: 1px solid #dadce0;
     box-shadow: 0 2px 4px 0 rgba(63, 71, 77, 0.06);
 }
+
+/* 탭 */
+.statistics-menu-bar {
+    z-index: 5;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .statistics-menu-bar:first-child  ul{
+    /* background-color: #eac03a; */
+    height:50px;
+    padding-top: 5px;
+    width:100%;
+  }
+
+  .statistics-menu-bar:first-child ul li{
+    width:33%;
+    margin:0px auto;
+  }
+  .statistics-menu-bar:first-child  ul a{
+    border-color: #eed891 #eed891 #eed891 #eed891 !important;
+    background-color: #eed891;
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    text-align: center;
+    /* padding:4px 0px !important; */
+    height:40px;
+    margin-top:4px !important;
+    color:#7a6f4b;
+  }
+
+  .statistics-menu-bar:first-child  ul a.active{
+    border-color: #dee2e6 #dee2e6  #ffffff !important;
+    background-color:  #ffffff !important;
+    /* padding:6px 0px !important; */
+    height:45px;
+    margin-top:0px !important;
+    color:black;
+    font-weight: bold;
+  }
+
 /* 월 선택 바 */
 .month-top{
     display: flex;
@@ -65,7 +106,7 @@
     background: #fff;
     bottom: 0;
     content: ' ';
-    height: 1.4rem;
+    height: 1.5rem;
     left: 0;
     position: absolute;
     right: 0;
@@ -81,7 +122,7 @@
     max-width: 10vw;
  }
 .bar {
-    grid-row: var(--start) / -2;
+    grid-row: var(--start) / -1;
     opacity: 0.9;
     /* Background-Color */
     background-image: linear-gradient(to right, #E65C2E, #EAC03A, rgb(255, 255, 182));
@@ -130,6 +171,8 @@
     font-weight: 700;
     text-align: center;
 }
+
+
   /* 프로그래스바 */
 .progress-background {
     background: linear-gradient(30deg, rgba(234,192,58,1) 15%, rgba(230,92,46,1) 85%);
@@ -137,4 +180,8 @@
 }
 .progress-box {
     height: 1.5rem;
+}
+
+.statistics-donut > div{
+    display: block;
 }

@@ -20,11 +20,11 @@ export default {
     return {
       modalShow:true,
       endCreated:true,
-      month: 1,
-      year: 2021,
+      month: new Date().getMonth()+1,
+      year: new Date().getFullYear(),
       // 현재 날짜 기준 달
-      maxMonth: 2,
-      maxYear: 2021,
+      maxMonth: new Date().getMonth()+1,
+      maxYear: new Date().getFullYear(),
       // 가입일 기준이면 좋음... 현재 서비스 2021년 1월부터로 가정
       minMonth: 1,
       minYear: 2021,
@@ -32,13 +32,9 @@ export default {
   },
   mounted() {
     const date = new Date();
-    this.date *= 1000
     this.maxYear = date.getFullYear()
     // getMonth()가 현재 월보다 1작은거 가져옴
     this.maxMonth = date.getMonth()+1
-    if (this.maxMonth === 0) {
-      this.maxMonth = 12
-    }
     this.$emit("selectedMonth",this.maxMonth)
   },
   methods: {

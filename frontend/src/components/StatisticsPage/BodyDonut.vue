@@ -9,9 +9,15 @@
 import Chart from 'chart.js'
 export default {
   props: {
+    update:Boolean,
     labels: Array,
     dataList: Array,
     dist: Number,
+  },
+   watch:{
+    update:function(){
+      this.createChart();
+    }
   },
   methods: {
     createChart() {

@@ -10,6 +10,18 @@ input[type='reset'] {
   touch-action: manipulation;
 } */
 
+/* mobile */
+@media (max-width: 480px) {
+  .user-profile-container {
+    padding-left: 30px;
+    padding-bottom: 65px !important;
+  }
+
+  .status-font {
+    font-size: 14px !important;
+  }
+}
+
 .mypage-container {
   margin: auto;
 }
@@ -239,7 +251,7 @@ input[type='reset'] {
 
 .my-feed-label {
   font-weight: bold;
-  font-size: 19px;
+  font-size: 20px;
   padding-bottom: 10px;
   text-align: center;
 }

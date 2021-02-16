@@ -4,6 +4,11 @@
 
 <mapper namespace="com.ssafy.homfit.model.dao.ChallengeDAO">
 
+	<!--오늘 날짜 select -->
+	<!-- public String selectDate(); -->
+	<select id="selectDate" resultType="String">
+		select date(now())
+	</select>
 
 	<!-- 챌린지 전체 리스트 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->

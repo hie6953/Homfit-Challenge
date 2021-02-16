@@ -21,9 +21,11 @@ import com.ssafy.homfit.api.TagRepository;
 import com.ssafy.homfit.api.TodayChallengeRepository;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.TodayChallenge;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.TagService;
 
 @SpringBootApplication
 @MapperScan(value = "com.ssafy.homfit.model.dao")
@@ -46,6 +48,10 @@ public class HomfitchallengeApplication {
 	private TodayChallengeRepository todayRepository;
 	@Autowired
 	private FeedService feedService;
+	@Autowired
+	private TagRepository tagRepository;
+	@Autowired
+	TagService tagService;
 	
 	
 	//임시적으로 서버 시작시 바로 batch작업 실행
@@ -60,6 +66,11 @@ public class HomfitchallengeApplication {
 				challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
 				List<Challenge> reloadList = challengeService.AllChallengeList();
 				challengeRepository.saveAll(reloadList);
+				
+				//태그업로드
+				List<Tag> list = tagService.selectPopularTag();
+				tagRepository.deleteAll(); //한번 다 지우고 
+				tagRepository.saveAll(list); //태그 새로 저장
 
 			}
 		};

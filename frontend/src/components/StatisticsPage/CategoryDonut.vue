@@ -9,11 +9,18 @@
 import Chart from 'chart.js'
 export default {
   props: {
+    update:Boolean,
     labels: Array,
     dataList: Array,
   },
+  watch:{
+    update:function(){
+      this.createChart();
+    }
+  },
   methods: {
     createChart() {
+      // console.log(this.dataList);
       const ctx = document.getElementById("myChart-1")
       const myChart = new Chart(ctx, {
         type: 'doughnut',

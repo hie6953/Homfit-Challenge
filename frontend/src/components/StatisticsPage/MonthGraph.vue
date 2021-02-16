@@ -28,25 +28,21 @@ export default {
     MonthGraphElement,
   },
   props: {
-    // monthList: Array,
+    monthList: Array,
   },
   data() {
     return {
       selectedChallengeName: "",
       isMonthList: false,
-      monthList: [
-        // a = 인증성공률, b = 챌린지이름
-        // {a:100, b:"챌린지1"},
-        // {a:90, b:"챌린지2"},
-        // {a:80, b:"챌린지3"},
-        // {a:70, b:"챌린지4"},
-        // {a:60, b:"챌린지5"},
-        // {a:50, b:"챌린지6"},
-        // {a:40, b:"챌린지7"},
-        // {a:30, b:"챌린지8"},
-        // {a:20, b:"챌린지9"},
-        // {a:10, b:"챌린지10"},
-      ]
+    }
+  },
+  watch: {
+    monthList() {
+      if (this.monthList.length != 0) {
+        this.isMonthList = true
+      } else {
+        this.isMonthList = false
+      }
     }
   },
   mounted() {

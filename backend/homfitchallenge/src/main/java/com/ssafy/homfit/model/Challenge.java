@@ -30,6 +30,7 @@ public class Challenge implements Serializable{
 	private String make_uid;
 	private int fit_id;
 	private int check_date;
+	private String today;
 	
 	private int period;
 	private String nick_name; //개설자 닉네임
@@ -223,6 +224,8 @@ public class Challenge implements Serializable{
 	public void setUser_img(String user_img) {
 		this.user_img = user_img;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "Challenge [challenge_id=" + challenge_id + ", challenge_title=" + challenge_title
@@ -230,14 +233,19 @@ public class Challenge implements Serializable{
 				+ ", challenge_certify_contents=" + challenge_certify_contents + ", good_img=" + good_img + ", bad_img="
 				+ bad_img + ", day_certify_count=" + day_certify_count + ", only_cam=" + only_cam + ", start_date="
 				+ start_date + ", end_date=" + end_date + ", make_date=" + make_date + ", make_uid=" + make_uid
-				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", period=" + period + ", nick_name="
-				+ nick_name + ", people=" + people + ", kind=" + kind + ", certification=" + certification
-				+ ", average_rate=" + average_rate + ", user_img=" + user_img + ", daylist_string=" + daylist_string
-				+ ", bodylist_string=" + bodylist_string + ", dayList=" + Arrays.toString(dayList) + ", tagList="
-				+ Arrays.toString(tagList) + ", bodyList=" + Arrays.toString(bodyList) + "]";
+				+ ", fit_id=" + fit_id + ", check_date=" + check_date + ", today=" + today + ", period=" + period
+				+ ", nick_name=" + nick_name + ", people=" + people + ", kind=" + kind + ", certification="
+				+ certification + ", average_rate=" + average_rate + ", user_img=" + user_img + ", daylist_string="
+				+ daylist_string + ", bodylist_string=" + bodylist_string + ", dayList=" + Arrays.toString(dayList)
+				+ ", tagList=" + Arrays.toString(tagList) + ", bodyList=" + Arrays.toString(bodyList) + "]";
+	}
+	public String getToday() {
+		return today;
+	}
+	public void setToday(String today) {
+		this.today = today;
 	}
 
-	
 	
 	
 	

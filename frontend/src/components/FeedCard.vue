@@ -176,6 +176,7 @@
                   v-model="declarationtype"
                   name="some-radios"
                   value="인증샷 무효 신고"
+                  required
                   >인증샷 무효 신고
                 </b-form-radio>
                 <b-form-radio
@@ -183,6 +184,7 @@
                   v-model="declarationtype"
                   name="some-radios"
                   value="악성 유저 신고"
+                  required
                   >악성 유저 신고</b-form-radio
                 >
               </div>
@@ -249,6 +251,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
 import moment from 'moment';
 import FeedCardChat from './FeedCardChat.vue';
+import Swal from 'sweetalert2';
 
 export default {
   name: 'FeedCard',
@@ -324,13 +327,36 @@ export default {
           .then(({ data }) => {
             console.log(data);
             this.closeModal();
+            this.message = '';
+            this.declarationtype = '';
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '신고 완료!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
             // this.feedList = data;
           })
           .catch(() => {
-            alert('에러가 발생했습니다.');
+            // alert('에러가 발생했습니다.');
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '에러가 발생했습니다.',
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       } else {
-        alert('5자 이상 입력해주세요.');
+        // alert('5자 이상 입력해주세요.');
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: '5자 이상 입력해주세요.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     },
 
