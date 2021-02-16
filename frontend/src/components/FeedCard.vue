@@ -54,7 +54,32 @@
           <!-- <a href="#"><span class="feed-card-button-left">좋아요</span></a> -->
 
           <div class="feedcard-v">
-            <b-button class="feed-card-button-left" @click="FeedCardLike">
+            <!-- 모바일버튼 -->
+            <b-button
+              v-if="isMobile"
+              class="feed-card-button-left"
+              @click="FeedCardLike"
+            >
+              <b-icon
+                v-if="feed.user_liked"
+                icon="heart-fill"
+                variant="warning"
+                aria-hidden="true"
+              ></b-icon>
+              <b-icon
+                v-else
+                icon="heart"
+                variant="warning"
+                aria-hidden="true"
+              ></b-icon>
+            </b-button>
+
+            <!-- 웹버튼 -->
+            <b-button
+              v-else
+              class="feed-card-button-left"
+              @click="FeedCardLike"
+            >
               <b-icon
                 v-if="feed.user_liked"
                 icon="heart-fill"
@@ -73,16 +98,40 @@
           </div>
 
           <div class="feedcard-v">
-            <b-button class="feed-card-button-left" @click="openC">
+            <b-button
+              v-if="isMobile"
+              class="feed-card-button-left"
+              @click="openC"
+            >
+              <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
+            </b-button>
+
+            <b-button v-else class="feed-card-button-left" @click="openC">
               <b-icon icon="chat" variant="warning" aria-hidden="true"></b-icon>
               댓글
             </b-button>
-
             <!-- <span class="howmany">{{feed.comment_count}}</span> -->
           </div>
 
           <!-- <div class="feedcard-v"> -->
-          <b-button class="feed-card-button-left" @click="movetoChallengeInfo">
+
+          <b-button
+            v-if="isMobile"
+            class="feed-card-button-left"
+            @click="movetoChallengeInfo"
+          >
+            <b-icon
+              icon="arrow-right-circle"
+              variant="warning"
+              aria-hidden="true"
+            ></b-icon>
+          </b-button>
+
+          <b-button
+            v-else
+            class="feed-card-button-left"
+            @click="movetoChallengeInfo"
+          >
             <b-icon
               icon="arrow-right-circle"
               variant="warning"
@@ -92,7 +141,15 @@
           </b-button>
           <!-- </div> -->
 
-          <b-button class="feed-card-button-right" @click="openModal">
+          <b-button
+            v-if="isMobile"
+            class="feed-card-button-right"
+            @click="openModal"
+          >
+            <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
+          </b-button>
+
+          <b-button v-else class="feed-card-button-right" @click="openModal">
             <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
             신고
           </b-button>
@@ -209,9 +266,20 @@ export default {
       message: '',
       declarationtype: '',
       openComment: false,
+      isMobile: false,
     };
   },
+  mounted() {
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  },
+
   methods: {
+    // 모바일
+    onResize() {
+      this.isMobile = window.innerWidth <= 480;
+    },
+
     // 피드 좋아요 이벤트 함수
     FeedCardLike() {
       // console.log(this.getUserUid);
