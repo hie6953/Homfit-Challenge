@@ -200,7 +200,7 @@ export default {
   },
   methods: {
     Certify() {
-      this.$router.push({name: 'CertificationPhoto', params: {uid: this.getUserUid, challenge_id: this.challenge.challenge_id}});
+      this.$router.push({name: 'CertificationPhoto', params: {uid: this.getUserUid, challenge_id: this.challenge.challenge_id, only_cam: this.challenge.only_cam}});
     },
     Review() {
       this.$router.push(`/review/${this.challenge.challenge_id}`);

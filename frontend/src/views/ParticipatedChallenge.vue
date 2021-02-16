@@ -1,17 +1,19 @@
 <template>
   <div>
-    <b-tabs class="participated-menu-bar">
+    <b-tabs lazy v-model="tab" class="participated-menu-bar">
       <b-tab :class="{active:tab == 0}" title="달성률">
         <Progress
-        :challenge="certifyInfo.challenge"
-        :certifyInfo="certifyInfo"
-        :isMobile="isMobile"
+          :challenge="certifyInfo.challenge"
+          :certifyInfo="certifyInfo"
+          :isMobile="isMobile"
         />
       </b-tab>
-      <b-tab :class="{active:tab == 1}" title="인증샷"></b-tab>
+      <b-tab :class="{active:tab == 1}" title="인증샷">
+
+      </b-tab>
       <b-tab :class="{active:tab == 2}" title="대화">
          <ChatRoom 
-        :challenge_id="certifyInfo.challenge.challenge_id"
+        :challenge_id="challenge_id"
       />
       </b-tab>
     </b-tabs>
@@ -37,6 +39,7 @@ export default {
     return {
       tab: 0,
       isMobile: false,
+      challenge_id: 0,
       checkDateList: ["진행전", "진행중", "완료"],
       fitKind: ["운동", "식단"],
       fitList: [
@@ -53,7 +56,6 @@ export default {
         "기타",
       ],
       fitCategory: "",
-      
       certifyInfo: {
         // challenge: { "challenge_id": 231, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
         challenge: {},
@@ -87,7 +89,8 @@ export default {
       this.isMobile = window.innerWidth <= 480;
     },
     createInfo() {
-    this.challenge_id = this.$route.params.challenge_id;
+    this.challenge_id = parseInt(this.$route.params.challenge_id);
+    console.log('!')
     axios
       .get(`${SERVER_URL}/challenge/detailManagement/${this.challenge_id}`, {
         params: {
@@ -95,6 +98,7 @@ export default {
         }
       })
       .then(({ data }) => {
+        console.log(data)
         this.certifyInfo = data;
         while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
           this.certifyInfo.imgList.push({
@@ -104,7 +108,7 @@ export default {
         }
       })
       .catch(() => {
-        // alert("챌린지 목록을 불러오지 못했습니다.");
+        alert("챌린지 목록을 불러오지 못했습니다.");
       });
   },
     
