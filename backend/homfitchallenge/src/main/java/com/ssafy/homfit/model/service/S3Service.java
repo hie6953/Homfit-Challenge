@@ -1,6 +1,7 @@
 package com.ssafy.homfit.model.service;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -46,9 +47,10 @@ public class S3Service {
 
     public String uploadImg(MultipartFile file) throws IOException{
         String fileName = null;
+        Date now = new Date();
         try {
             String originalFileName = file.getOriginalFilename();
-            fileName = new MD5Generator(originalFileName).toString();
+            fileName = new MD5Generator(originalFileName).toString() + now.getTime();
             this.conn.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null).withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (Exception e) {
             e.printStackTrace();
