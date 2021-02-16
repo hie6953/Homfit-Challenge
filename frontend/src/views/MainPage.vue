@@ -3,6 +3,7 @@
     <div class="main-container container">
       <MainPageAd class="main-component-margin" />
       <MainPageCategory class="main-component-margin" />
+      <div class="main-component-card-margin">
       <div class="main-component-margin">
         <div class="d-flex bd-highlight px-4">
           <div class="p-2 bd-highlight main-list">인기 챌린지</div>
@@ -33,11 +34,7 @@
         class="main-content-margin"
         :mainPageList="newChallengeList"
       />
-    </div>
-    <div style="height: 100px">
-      <p></p>
-      <p></p>
-      <p></p>
+      </div>
     </div>
   </div>
 </template>
@@ -109,6 +106,10 @@ export default {
 .main-component-margin {
   margin-top: 40px;
   padding: 0;
+}
+
+.main-component-card-margin{
+  margin-top:100px;
 }
 
 .main-content-margin {
