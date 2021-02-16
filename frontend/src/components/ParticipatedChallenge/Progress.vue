@@ -61,8 +61,12 @@
               <img v-else :src="item.feed_picture" alt="certify" class="col-12 certify-mt certify-default-img px-0 mt-0" @click="Certify">
               <div class="certify-mt col-12">
                 <div v-if="item.register_date !== ''" class="row mx-auto justify-content-between">
-                  <p class="col-8 px-0 py-0 my-1">{{ item.register_date }}</p>
-                  <div class="row col-4 mx-0 px-0 justify-content-around">
+                  <li class="col-8 px-0 py-0 my-1">
+                    <span v-if="item.register_date.slice(11,13) < 13">오전 </span>
+                    <span v-else>오후 </span>
+                    {{ item.register_date.slice(11,13) }}시 {{ item.register_date.slice(14,16) }}분
+                  </li>
+                  <div class="row col-4 mx-0 px-0 justify-content-end">
                     <!-- <button class="btn-sm certify-btn certify-edit-btn col-5">편집</button> -->
                     <button class="btn-sm certify-btn certify-delete-btn col-5" @click="DeleteFeed(item.feed_id, index)">삭제</button>
                   </div>
