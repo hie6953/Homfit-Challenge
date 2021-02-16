@@ -45,7 +45,6 @@ export default {
     ...mapGetters(["getUserUid"]),
   },
   created() {
-    console.log(this.getUserUid)
     axios
       .get(`${SERVER_URL}/challenge/bookmark/`, {
         params: {

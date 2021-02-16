@@ -1,6 +1,5 @@
  /* 상세페이지 네비게이션바 */
  .participated-menu-bar {
-    height: 50px;
     z-index: 5;
     white-space: nowrap;
     overflow: hidden;
@@ -11,6 +10,7 @@
     height:50px;
     padding-top: 5px;
     width:100%;
+    margin-bottom:10px;
   }
 
   .participated-menu-bar li{

@@ -153,9 +153,9 @@ const routes = [
     component: MainPage,
   },
   {
-    path: '/mypage/statistics',
+    path: '/statistics',
     name: 'Statistics',
-    component: () => import('../views/StatisticsPage.vue'),
+    component: () => import('../views/Statistics.vue'),
     beforeEnter: requireAuth(),
   },
   {

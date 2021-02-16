@@ -47,7 +47,7 @@
             </router-link>
           </div>
           <div class="short-cut-item">
-            <router-link to="/diary" class="justtext">
+            <router-link to="/statistics" class="justtext">
               <div class="short-cut-icon">
                 <b-icon
                   icon="bar-chart-fill"
