@@ -26,7 +26,7 @@ export default {
   props: {
     sex: String,
     age: Number,
-    total: Number,
+    people: Number,
     per: Array,
   }
 }
