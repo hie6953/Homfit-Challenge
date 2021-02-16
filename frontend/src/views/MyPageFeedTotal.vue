@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <!-- 피드 -->
-    <div class="col-12 col-lg-8 feedcardli  st-container">
+    <div class="col-12 col-lg-8 feedcardlist-container">
       <feed-card
         v-for="(feed, index) in feedList"
         class="col-12 col-sm-12 challenge-list-feed"

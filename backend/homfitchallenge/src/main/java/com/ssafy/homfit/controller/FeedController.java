@@ -240,7 +240,7 @@ public class FeedController {
         HttpStatus status = null;
 
         try {
-            result = feedService.searchByChallenge(challenge_id, uid);
+            result = feedService.searchByChallengeForFeed(challenge_id, uid);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("나의 피드 목록 검색 실패 : {}", e);
