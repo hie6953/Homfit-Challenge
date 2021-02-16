@@ -9,6 +9,7 @@ import com.ssafy.homfit.model.service.FeedService;
 import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.util.UploadImg;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -212,5 +214,23 @@ public class FeedController {
         }
 
         return new ResponseEntity<List<Feed>>(result, status);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteFeed(@RequestParam int feed_id){
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            feedService.deleteFeed(feed_id);
+            msg = SUCCESS;
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("피드 삭제 실패 : {}", e);
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
     }
 }

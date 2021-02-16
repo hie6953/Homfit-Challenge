@@ -177,4 +177,9 @@ public class FeedServiceImpl implements FeedService {
         return FeedDao.searchByUserAll(uid);
     }
 
+    @Override
+    public void deleteFeed(int feed_id) throws Exception {
+        FeedDao.deleteFeed(feed_id);
+    }
+
 }

@@ -42,4 +42,6 @@ public interface FeedService {
 
 	public List<Feed> searchByUserAll(String uid) throws Exception;
 
+	public void deleteFeed(int feed_id) throws Exception;
+
 }
