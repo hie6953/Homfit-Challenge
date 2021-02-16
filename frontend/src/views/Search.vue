@@ -26,14 +26,14 @@
             id="search-bar"
             placeholder="검색어를 입력해주세요"
             v-model="keyword"
-            @keyup.enter="ChallengeListSearch"
+            @keyup.enter="getNewData"
           />
 
           <b-icon
             icon="search"
             variant="secondary"
             class="search-icon"
-            @click="ChallengeListSearch"
+            @click="getNewData"
           ></b-icon>
         </div>
       </div>
@@ -55,6 +55,7 @@
           content-class="mt-3"
           align="center"
           class="search-page-tab"
+          v-model="tabValue"
           justified
         >
           <b-tab title="리스트" active>
@@ -65,10 +66,33 @@
                   :key="`${index}_challenge`"
                   class="col-6 col-md-4 col-lg-3 challenge-list-card"
                   :challenge="challenge"
-                  @moreInfo="ChallengeMoreInfo"
                 ></challenge-list-card>
               </div>
             </div>
+              <infinite-loading
+                ref="InfiniteLoadingChallenge"
+                @infinite="getChallengeData"
+                spinner="waveDots"
+              >
+                <div class="infinite-loading-message" slot="no-more">
+                  <b-button @click="scrollUp"
+                    >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+                  ></b-button>
+                </div>
+                <div
+                  v-if="keyword.length > 0"
+                  class="infinite-loading-message"
+                  slot="no-results"
+                >
+                  결과가 없습니다 :(
+                </div>
+                <div v-else class="infinite-loading-message" slot="no-results">
+                  검색어를 입력해주세요.
+                </div>
+                <div class="infinite-loading-message" slot="error">
+                  불러오지 못했습니다.
+                </div>
+              </infinite-loading>
           </b-tab>
           <b-tab title="피드">
             <!-- 피드 -->
@@ -79,12 +103,35 @@
                   class="col-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
-                  @click="FeedMoreInfo"
                 >
                 </feed>
                 <!-- <Feed /> -->
               </div>
             </div>
+              <infinite-loading
+                ref="InfiniteLoadingFeed"
+                @infinite="getFeedData"
+                spinner="waveDots"
+              >
+                <div class="infinite-loading-message" slot="no-more">
+                  <b-button @click="scrollUp"
+                    >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+                  ></b-button>
+                </div>
+                <div
+                  v-if="keyword.length > 0"
+                  class="infinite-loading-message"
+                  slot="no-results"
+                >
+                  결과가 없습니다 :(
+                </div>
+                <div v-else class="infinite-loading-message" slot="no-results">
+                  검색어를 입력해주세요.
+                </div>
+                <div class="infinite-loading-message" slot="error">
+                  불러오지 못했습니다.
+                </div>
+              </infinite-loading>
           </b-tab>
         </b-tabs>
       </div>
@@ -93,60 +140,154 @@
 </template>
 
 <script>
-import '../assets/css/search.scss';
-import Feed from '../components/Feed.vue';
-import ChallengeListCard from '../components/ChallengeListCard.vue';
-import axios from 'axios';
+import "../assets/css/search.scss";
+import Feed from "../components/Feed.vue";
+import ChallengeListCard from "../components/ChallengeListCard.vue";
+import InfiniteLoading from "vue-infinite-loading";
+
+import "@/assets/css/infiniteloading.css";
+
+import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: 'Search',
+  name: "Search",
   components: {
     Feed,
     ChallengeListCard,
+    InfiniteLoading,
   },
   data: function() {
     return {
-      keyword: '',
-      searchList: ['제목', '태그'],
+      keyword: "",
+      searchList: ["제목", "태그"],
       searchValue: 0,
+      tabValue: 0,
+      challengeAllList: null,
       challengeList: [],
+      feedAllList: null,
       feedList: [],
+      challengePage: 1,
+      feedPage: 1,
     };
+  },
+  watch: {
+    tabValue: function() {
+      if (this == 0) {
+        //챌린지
+        this.challengePage = 1;
+        if (this.$refs.InfiniteLoadingChallenge) {
+          this.$refs.InfiniteLoadingChallenge.stateChanger.reset();
+        }
+      } else {
+        //피드
+        this.feedPage = 1;
+        if (this.$refs.InfiniteLoadingFeed) {
+          this.$refs.InfiniteLoadingFeed.stateChanger.reset();
+        }
+      }
+    },
   },
   methods: {
     FeedMoreInfo: function() {
-      this.$store.commit('SETTMPFEED', this.feed);
-      this.$router.push('/feedcardlist');
+      this.$store.commit("SETTMPFEED", this.feed);
+      this.$router.push("/feedcardlist");
     },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
-    ChallengeListSearch: function() {
+    getNewData: function() {
+      this.page = 1;
+      this.challengeAllList = null;
+      this.challengeList = [];
+      this.feedAllList = null;
+      this.feedList = [];
+      if (this.$refs.InfiniteLoadingChallenge) {
+        this.$refs.InfiniteLoadingChallenge.stateChanger.reset();
+      }
+      if (this.$refs.InfiniteLoadingFeed) {
+        this.$refs.InfiniteLoadingFeed.stateChanger.reset();
+      }
+      // this.getAllData();
+    },
+    async ChallengeListSearch() {
       // console.log('hihi');
-      axios
+      await axios
         .get(`${SERVER_URL}/challenge/search`, {
           params: { keyword: this.keyword, kind: this.searchValue },
         })
         .then(({ data }) => {
           // console.log(data);
-          this.challengeList = data;
+          this.challengeAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          alert("에러가 발생했습니다.");
         });
-
-      axios
+    },
+    async FeedListSearch() {
+      await axios
         .get(`${SERVER_URL}/feed/search`, {
           params: { keyword: this.keyword, kind: this.searchValue },
         })
         .then(({ data }) => {
           // console.log(data);
-          this.feedList = data;
+          this.feedAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          alert("에러가 발생했습니다.");
         });
+    },
+
+    async getChallengeData($state) {
+      if (this.keyword.length == 0) {
+        $state.complete();
+        return;
+      }
+      if (this.challengeAllList == null) {
+        await this.ChallengeListSearch();
+      }
+      let getArray = this.challengeAllList.slice(
+        (this.challengePage - 1) * 10,
+        this.challengePage * 10
+      );
+      setTimeout(() => {
+        if (getArray.length > 0) {
+          this.challengeList = this.challengeList.concat(getArray);
+          ++this.challengePage;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }, 500);
+    },
+    async getFeedData($state) {
+      if (this.keyword.length == 0) {
+        $state.complete();
+        return;
+      }
+      if (this.feedAllList == null) {
+        await this.FeedListSearch();
+      }
+      let getArray = this.feedAllList.slice(
+        (this.feedPage - 1) * 10,
+        this.feedPage * 10
+      );
+      setTimeout(() => {
+        if (getArray.length > 0) {
+          this.feedList = this.feedList.concat(getArray);
+          ++this.feedPage;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }, 500);
+    },
+    scrollUp: function() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     },
   },
 };

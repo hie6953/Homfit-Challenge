@@ -95,7 +95,6 @@ export default {
       if (!this.isMobile) {
         if (
           document.location.href.includes("challenge-more-info") || //챌린지 상세 페이지
-          document.location.href.includes("challengemanage") || //나의 챌린지 페이지
           this.prevScrollpos >= this.currentScrollPos
         ) {
           //내릴 때

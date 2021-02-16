@@ -134,38 +134,7 @@ h5 {
   border-color: #eac03a;
 }
 
-/* 무한스크롤 */
-.infinite-loading-message {
-  margin: 20px 0 40px 0;
-  font-size: large;
-  font-weight: 700;
-}
 
-.infinite-loading-message button,
-.infinite-loading-message button:hover,
-.infinite-loading-message button:focus,
-.infinite-loading-message button:active {
-  background-color: #eac03a !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  outline: none !important;
-  border: none !important;
-}
-
-.infinite-loading-message button {
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.infinite-loading-message button:hover,
-.infinite-loading-message button:focus,
-.infinite-loading-message button:active {
-  box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.2);
-}
-
-.infinite-loading-message button:focus,
-.infinite-loading-message button:active {
-  box-shadow: none !important;
-}
 
 /* 카드 */
 .list-card {
