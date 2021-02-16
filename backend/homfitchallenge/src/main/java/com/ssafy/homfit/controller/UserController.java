@@ -380,20 +380,35 @@ public class UserController {
     }
 
     @GetMapping(value="/alarm")
-    @Transactional
-    public ResponseEntity<List<Alarm>> getMethodName(@RequestParam String uid) {
+    public ResponseEntity<List<Alarm>> getAlarm(@RequestParam String uid) {
         List<Alarm> list = null;
         HttpStatus status = null;
 
         try {
             list = alarmService.getAlarm(uid);
-            alarmService.updateAlarmCheck(uid);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
         return new ResponseEntity<List<Alarm>>(list, status);
+    }
+    
+    @PutMapping(value="/alarm")
+    public ResponseEntity<String> updateAlarmCheck(@RequestParam int alarm_id) {
+        String msg = null;
+        HttpStatus status = null;
+
+        try {
+            alarmService.updateAlarmCheck(alarm_id);
+            msg = SUCCESS;
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            msg = e.getMessage();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<String>(msg, status);
     }
     
 }
