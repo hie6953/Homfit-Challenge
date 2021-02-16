@@ -134,7 +134,17 @@ public class ChallengeController {
 			}
 		});
 		
-		return new ResponseEntity<List<Tag>> (cacheTag, HttpStatus.OK);
+		List<Tag> returnList = new ArrayList<Tag>();
+		
+		if(cacheTag.size() < 5) 
+			returnList = cacheTag;
+		else {
+			for (int i = 0; i < 5; i++) {
+				returnList.add(cacheTag.get(i));
+			}
+		}
+		
+		return new ResponseEntity<List<Tag>> (returnList, HttpStatus.OK);
 	}
 	
 	/** 챌린지 현황 갯수 반환 */
