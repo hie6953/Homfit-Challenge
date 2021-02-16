@@ -1,7 +1,5 @@
 <template>
   <div class="">
-    <hr id="hr-top" />
-
     <div class="mx-auto col-12 col-md-8 search-tmp-container">
       <!-- 검색바 -->
       <div class="row col-12 col-md-10 col-lg-8 search-container">
@@ -69,30 +67,30 @@
                 ></challenge-list-card>
               </div>
             </div>
-              <infinite-loading
-                ref="InfiniteLoadingChallenge"
-                @infinite="getChallengeData"
-                spinner="waveDots"
+            <infinite-loading
+              ref="InfiniteLoadingChallenge"
+              @infinite="getChallengeData"
+              spinner="waveDots"
+            >
+              <div class="infinite-loading-message" slot="no-more">
+                <b-button @click="scrollUp"
+                  >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+                ></b-button>
+              </div>
+              <div
+                v-if="keyword.length > 0"
+                class="infinite-loading-message"
+                slot="no-results"
               >
-                <div class="infinite-loading-message" slot="no-more">
-                  <b-button @click="scrollUp"
-                    >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
-                  ></b-button>
-                </div>
-                <div
-                  v-if="keyword.length > 0"
-                  class="infinite-loading-message"
-                  slot="no-results"
-                >
-                  결과가 없습니다 :(
-                </div>
-                <div v-else class="infinite-loading-message" slot="no-results">
-                  검색어를 입력해주세요.
-                </div>
-                <div class="infinite-loading-message" slot="error">
-                  불러오지 못했습니다.
-                </div>
-              </infinite-loading>
+                결과가 없습니다 :(
+              </div>
+              <div v-else class="infinite-loading-message" slot="no-results">
+                검색어를 입력해주세요.
+              </div>
+              <div class="infinite-loading-message" slot="error">
+                불러오지 못했습니다.
+              </div>
+            </infinite-loading>
           </b-tab>
           <b-tab title="피드">
             <!-- 피드 -->
@@ -108,30 +106,30 @@
                 <!-- <Feed /> -->
               </div>
             </div>
-              <infinite-loading
-                ref="InfiniteLoadingFeed"
-                @infinite="getFeedData"
-                spinner="waveDots"
+            <infinite-loading
+              ref="InfiniteLoadingFeed"
+              @infinite="getFeedData"
+              spinner="waveDots"
+            >
+              <div class="infinite-loading-message" slot="no-more">
+                <b-button @click="scrollUp"
+                  >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+                ></b-button>
+              </div>
+              <div
+                v-if="keyword.length > 0"
+                class="infinite-loading-message"
+                slot="no-results"
               >
-                <div class="infinite-loading-message" slot="no-more">
-                  <b-button @click="scrollUp"
-                    >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
-                  ></b-button>
-                </div>
-                <div
-                  v-if="keyword.length > 0"
-                  class="infinite-loading-message"
-                  slot="no-results"
-                >
-                  결과가 없습니다 :(
-                </div>
-                <div v-else class="infinite-loading-message" slot="no-results">
-                  검색어를 입력해주세요.
-                </div>
-                <div class="infinite-loading-message" slot="error">
-                  불러오지 못했습니다.
-                </div>
-              </infinite-loading>
+                결과가 없습니다 :(
+              </div>
+              <div v-else class="infinite-loading-message" slot="no-results">
+                검색어를 입력해주세요.
+              </div>
+              <div class="infinite-loading-message" slot="error">
+                불러오지 못했습니다.
+              </div>
+            </infinite-loading>
           </b-tab>
         </b-tabs>
       </div>
@@ -140,18 +138,18 @@
 </template>
 
 <script>
-import "../assets/css/search.scss";
-import Feed from "../components/Feed.vue";
-import ChallengeListCard from "../components/ChallengeListCard.vue";
-import InfiniteLoading from "vue-infinite-loading";
+import '../assets/css/search.scss';
+import Feed from '../components/Feed.vue';
+import ChallengeListCard from '../components/ChallengeListCard.vue';
+import InfiniteLoading from 'vue-infinite-loading';
 
-import "@/assets/css/infiniteloading.css";
+import '@/assets/css/infiniteloading.css';
 
-import axios from "axios";
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: "Search",
+  name: 'Search',
   components: {
     Feed,
     ChallengeListCard,
@@ -159,8 +157,8 @@ export default {
   },
   data: function() {
     return {
-      keyword: "",
-      searchList: ["제목", "태그"],
+      keyword: '',
+      searchList: ['제목', '태그'],
       searchValue: 0,
       tabValue: 0,
       challengeAllList: null,
@@ -190,8 +188,8 @@ export default {
   },
   methods: {
     FeedMoreInfo: function() {
-      this.$store.commit("SETTMPFEED", this.feed);
-      this.$router.push("/feedcardlist");
+      this.$store.commit('SETTMPFEED', this.feed);
+      this.$router.push('/feedcardlist');
     },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
@@ -221,7 +219,7 @@ export default {
           this.challengeAllList = data;
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          alert('에러가 발생했습니다.');
         });
     },
     async FeedListSearch() {
@@ -234,7 +232,7 @@ export default {
           this.feedAllList = data;
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          alert('에러가 발생했습니다.');
         });
     },
 
@@ -286,7 +284,7 @@ export default {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     },
   },
