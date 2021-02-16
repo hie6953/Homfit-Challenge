@@ -395,7 +395,7 @@ public class UserController {
     }
     
     @PutMapping(value="/alarm")
-    public ResponseEntity<String> updateAlarmCheck(@RequestParam int alarm_id) {
+    public ResponseEntity<String> updateAlarmCheck(@RequestBody int alarm_id) {
         String msg = null;
         HttpStatus status = null;
 
