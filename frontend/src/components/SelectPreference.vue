@@ -278,7 +278,7 @@
             type="button"
             class="prefer-choice-btn-priority btn"
             value="선택완료"
-            :class="{ disabled: !canGoNext }"
+            :disabled="!canGoNext"
             @click="SelectPreferenceCheck"
             aria-disabled="true"
           />
