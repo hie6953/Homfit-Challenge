@@ -59,9 +59,7 @@
   
 }
 
-#bellDropdown.no_notices >.dropdown-menu{
-  width: 150px;
-}
+
 
 #bellIcon-number{
   position: absolute;
@@ -156,6 +154,8 @@
 
 #notice-title {
   font-size: medium;
+  font-weight: 600;
+  color:#E65C2E;
 }
 
 #notice-comment {

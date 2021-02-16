@@ -5,11 +5,11 @@
       <div class="col-12 mx-auto challenge-result-rate">
         <Progress
           strokeColor="#EAC03A"
-          :radius="50"
-          :strokeWidth="10"
+          :radius="graphRadius"
+          :strokeWidth="graphStrokeWidth"
           :value="average_rate"
         >
-          <div class="content">{{ average_rate }}%</div>
+          <div class="content challenge-result-graph-rate">{{ average_rate }}%</div>
         </Progress>
       </div>
     </div>
@@ -24,7 +24,25 @@ export default {
     Progress,
   },
   props: {
-    average_rate:Number
+    average_rate:Number,
+    isMobile:Boolean,
   },
+  data() {
+    return {
+      graphRadius:80,
+      graphStrokeWidth:20,
+    }
+  },
+  watch:{
+    isMobile:function(){
+      if(this.isMobile){
+          this.graphRadius = 50;
+          this.graphStrokeWidth= 10;
+      }else{
+          this.graphRadius = 80;
+          this.graphStrokeWidth= 20;
+      }
+    }
+  }
 };
 </script>
