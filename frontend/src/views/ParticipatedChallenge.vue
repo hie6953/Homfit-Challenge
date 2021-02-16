@@ -90,7 +90,6 @@ export default {
     },
     createInfo() {
     this.challenge_id = parseInt(this.$route.params.challenge_id);
-    console.log('!')
     axios
       .get(`${SERVER_URL}/challenge/detailManagement/${this.challenge_id}`, {
         params: {
@@ -98,7 +97,6 @@ export default {
         }
       })
       .then(({ data }) => {
-        console.log(data)
         this.certifyInfo = data;
         while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
           this.certifyInfo.imgList.push({

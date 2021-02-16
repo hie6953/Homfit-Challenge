@@ -41,16 +41,16 @@
       </b-tab>
       <b-tab :class="{active:tab == 3}" title="연령별/성별" value="3" @click="UpdateData()">
         <BodyPrefer
-          :sex="sex"
-          :age="age"
-          :total="statisticsData.total"
+          :sex="statisticsData.sex"
+          :age="statisticsData.age"
+          :people="statisticsData.people"
           :per="bodyPreferPercent"
         />
           <!-- :age="statisticsData.age" -->
         <CategoryPrefer
-          :sex="sex"
+          :sex="statisticsData.sex"
           :age="statisticsData.age"
-          :total="statisticsData.total"
+          :people="statisticsData.people"
           :per="categoryPreferPercent"
         />
       </b-tab>
@@ -103,7 +103,7 @@ export default {
         previous_average_rate: 0,
         sex: "w",
         age: 20,
-        total: 53,
+        people: 53,
       },
     }
   },
