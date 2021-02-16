@@ -1,8 +1,6 @@
 <template>
-  <div class="mt-3">
-    <hr id="hr-top" />
-
-    <div class="mx-auto col-8 profile-edit-container">
+  <div class="">
+    <div class="mx-auto col-11 col-md-8 col-lg-6 profile-edit-container">
       <b-tabs
         content-class="mt-3"
         align="center"
@@ -14,26 +12,31 @@
           <div class="personal-info">
             <!-- 이미지 -->
             <div class="form-group">
-              <div class="edit-user-photo">
-                <!-- <img class="user-img" :src="imgurl" /> -->
+              <div v-if="this.user_img == ''" class="edit-user-photo">
                 <img
-                  class="user-img"
+                  class="profiledeit-user-img"
                   src="@/assets/NavBar/anonimous_user.png"
                 />
+              </div>
+              <div v-else-if="changeuserimg" class="edit-user-photo">
+                <img class="profiledeit-user-img" :src="imgurl" />
+              </div>
+              <div v-else class="edit-user-photo">
+                <img class="profiledeit-user-img" :src="user_img" />
               </div>
               <div class="edit-user-photo">
                 <label class="input-file-button" for="input-file">
                   사진선택
                 </label>
-                <!-- <input
-              accept=".jpg, .jpeg, .png"
-              ref="imgurl"
-              @change="fileSelect()"
-              type="file"
-              id="input-file"
-              class="form-control-photo"
-            /> -->
-                <input type="file" id="input-file" class="form-control-photo" />
+                <input
+                  accept=".jpg, .jpeg, .png"
+                  ref="imgurl"
+                  @change="fileSelect"
+                  type="file"
+                  id="input-file"
+                  class="form-control-photo"
+                />
+                <!-- <input type="file" id="input-file" class="form-control-photo" /> -->
               </div>
             </div>
             <form class="edit-personal-info">
@@ -66,49 +69,19 @@
                       class="phonecode-btn"
                       @click="NicknameCheck()"
                     />
-                    <span class="error-text" v-if="nicknamecheck"
-                      >이미 동일한 별명이 존재합니다.</span
+                  </div>
+                  <span v-if="isDuplicate">
+                    <span class="error-text" v-if="errormsg.nick_name">{{
+                      errormsg.nick_name
+                    }}</span>
+                  </span>
+                  <span v-else class="correct-text">
+                    <span class="correct-text" v-if="nicknamecheck"
+                      >사용 가능한 닉네임입니다.</span
                     >
-                  </div>
+                  </span>
                 </div>
               </div>
-              <!-- <div class="form-group">
-                <label class="control-label">휴대폰번호</label>
-                <div class="control-input">
-                  <div class="input-group email-input">
-                    <select id="user_time_zone" class="form-control">
-                      <option value="010">010</option>
-                      <option value="011">011</option>
-                      <option value="012">012</option>
-                      <option value="013">013</option>
-                    </select>
-                    <span class="email-input__separator">-</span>
-                    <input class="form-control" type="text" />
-                    <span class="email-input__separator">-</span>
-                    <input class="form-control" type="text" />
-                  </div>
-                </div>
-              </div> -->
-              <!-- <div class="form-group">
-                <label class="control-label">성별</label>
-                <div class="control-input">
-                  <input class="form-control" type="text" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label">연령</label>
-                <div class="control-input">
-                  <div class="ui-select">
-                    <select id="age" class="form-control">
-                      <option value="10">10대</option>
-                      <option value="20">20대</option>
-                      <option value="30">30대</option>
-                      <option value="40">40대</option>
-                      <option value="50">50대</option>
-                    </select>
-                  </div>
-                </div>
-              </div> -->
 
               <!-- 버튼 -->
               <br />
@@ -213,8 +186,12 @@ export default {
       errormsg: [],
       nick_name: '',
       email: '',
-      nicknamecheck: false,
+      nicknamecheck: false, //닉네임 중복체크했나요?
+      isDuplicate: false, //닉네임이 중복되나요?
       imgurl: defaultImg,
+      user_img: '',
+      changeuserimg: false,
+      giveAlert: false,
     };
   },
   watch: {
@@ -234,6 +211,7 @@ export default {
       .post(`${SERVER_URL}/user`, { uid })
       .then(({ data }) => {
         this.email = data.email;
+        this.user_img = data.user_img;
         // console.log(data);
       })
       .catch(() => {
@@ -243,7 +221,8 @@ export default {
 
   methods: {
     fileSelect() {
-      this.imgurl = this.$refs.imgurl.files[0];
+      this.imgurl = document.getElementById('input-file').files[0];
+      this.changeuserimg = true;
     },
     checkPassword(value) {
       if (value.length < 8) {
@@ -262,19 +241,25 @@ export default {
         .then(({ data }) => {
           // console.log(data);
           if (data === true) {
+            this.isDuplicate = true;
+            this.errormsg['nick_name'] = `중복된 닉네임입니다.`;
+            this.correctmsg['nick_name'] = ``;
+          } else {
+            this.isDuplicate = false;
+            this.errormsg['nick_name'] = ``;
+            //console.log(this.nicknamecheck);
             this.nicknamecheck = true;
-          } else this.nicknamecheck = false;
-          //console.log(this.nicknamecheck);
+          }
         })
-        .catch(() => {
-          alert('에러가 발생했습니다.');
-        });
+        .catch(() => {});
     },
 
     UserProfileEdit() {
-      if (this.imgurl != defaultImg && this.imgurl.length > 0) {
+      let photo = document.getElementById('input-file').files[0];
+
+      if (photo != null) {
         const formData = new FormData();
-        formData.append('imgFile', this.imgurl);
+        formData.append('imgFile', photo);
         formData.append('uid', this.getUserUid);
 
         // for (let key of formData.entries()) {
@@ -290,8 +275,11 @@ export default {
 
           .then(({ data }) => {
             // console.log(data);
-            if (data == 'success') {
+            if (data.msg == 'success') {
               alert('회원정보가 변경되었습니다.');
+              this.giveAlert = true;
+              this.$store.commit('SETIMAGE', data.imgurl);
+              this.$router.push('/mypage');
             }
           })
           .catch(() => {
@@ -299,7 +287,11 @@ export default {
           });
       }
 
-      if (this.nicknamecheck == false) {
+      if (
+        this.isDuplicate == false &&
+        this.nicknamecheck == true &&
+        this.nick_name != ''
+      ) {
         axios
           .put(`${SERVER_URL}/user/updateDetail`, {
             uid: this.getUserUid,
@@ -308,13 +300,16 @@ export default {
 
           .then(({ data }) => {
             // console.log(data);
-            if (data == 'success') {
+            if (data == 'success' && !this.giveAlert) {
               alert('회원정보가 변경되었습니다.');
+              this.$router.push('/mypage');
             }
           })
           .catch(() => {
             alert('에러가 발생했습니다.');
           });
+      } else {
+        alert('닉네임 중복체크를 해주세요');
       }
     },
 

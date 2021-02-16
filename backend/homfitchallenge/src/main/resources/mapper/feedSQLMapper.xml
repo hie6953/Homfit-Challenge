@@ -3,94 +3,153 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.homfit.model.dao.FeedDAO">
-    <insert id="create" parameterType="feed">
-        insert into feed(feed_picture, maked_uid, challenge_id, register_date, feed_contents)
-        values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(), #{feed_contents})
-    </insert>
+	<insert id="create" parameterType="feed">
+		insert into feed(feed_picture, maked_uid, challenge_id, register_date,
+		feed_contents)
+		values (#{feed_picture}, #{maked_uid}, #{challenge_id}, now(),
+		#{feed_contents})
+	</insert>
 
-    <select id="searchAll" resultType="feed">
-        select f.*, c.challenge_title from feed f left outer join challenge c
-        on c.challenge_id = f.challenge_id
-        order by f.register_date desc
-        limit 0, 1000
-    </select>
+	<select id="searchAll" resultType="feed">
+		select f.*, c.challenge_title from feed f left outer join challenge c
+		on c.challenge_id = f.challenge_id
+		order by f.register_date desc
+		limit 0, 1000
+	</select>
 
-    <select id="searchCategory" parameterType="int" resultType="feed">
-        select f.*, c.challenge_title from feed f left outer join challenge c
-        on c.challenge_id = f.challenge_id
-        where c.fit_id = #{category}
-        order by f.register_date desc
-        limit 0, 1000
-    </select>
+	<select id="searchCategory" parameterType="int"
+		resultType="feed">
+		select f.*, c.challenge_title from feed f left outer join challenge c
+		on c.challenge_id = f.challenge_id
+		where c.fit_id = #{category}
+		order by f.register_date desc
+		limit 0, 1000
+	</select>
 
-    <select id="searchByUser" parameterType="String" resultType="feed">
-        select * from feed
-        where maked_uid = #{maked_uid}
-        order by register_date desc
-    </select>
-    
-    <select id="searchByFeedId" parameterType="int" resultType="feed">
-        select * from feed
-        where feed_id = #{feed_id}
-    </select>
+	<select id="searchByUserAll" parameterType="String" resultType="feed">
+		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
+		from feed f 
+			left outer join user u on f.maked_uid = u.uid
+			left outer join likes l on f.feed_id=l.feed_id
+		where f.maked_uid = #{uid} and (l.uid=#{uid} or l.uid is null)
+		order by f.register_date desc
+	</select>
 
-    <select id="searchByChallenge" parameterType="int" resultType="feed">
-        select * from feed
-        where challenge_id = #{challenge_id}
-        order by register_date desc
-    </select>
+	<select id="searchByUser" parameterType="String"
+		resultType="feed">
+		select f.* , c.challenge_title from feed f left outer join challenge c
+		on c.challenge_id = f.challenge_id
+		where maked_uid = #{maked_uid}
+		order by register_date desc
+		limit 0, 9
+	</select>
 
-    <insert id="createLikes">
-        insert into likes (uid, feed_id)
-        values (#{uid}, #{feed_id})
-    </insert>
+	<select id="searchByChallenge" parameterType="int"
+		resultType="feed">
+		select * from feed
+		where challenge_id = #{challenge_id}
+		order by register_date desc
+	</select>
 
-    <delete id="deleteLikes">
-        delete from likes
-        where uid = #{uid} and feed_id = #{feed_id}
-    </delete>
+	<select id="searchLikeCnt" parameterType="int" resultType="int">
+		select like_count from feed where feed_id = #{feed_id}
+	</select>
 
-    <update id="increaseLikes" parameterType="int">
-        update feed
-        set like_count = like_count + 1
-        where feed_id = #{feed_id}
-    </update>
+	<select id="searchByFeedId" parameterType="map"
+		resultType="feed">
+		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
+		from feed f 
+			left outer join user u on f.maked_uid = u.uid
+			left outer join likes l on f.feed_id=l.feed_id
+		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid is null)
+	</select>
+	
+	<select id="searchByChallengeNotFeedId" parameterType="map"
+		resultType="feed">
+		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked
+		from feed f 
+			left outer join user u on f.maked_uid = u.uid
+			left outer join likes l on f.feed_id=l.feed_id
+		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id} and (l.uid=#{uid} or l.uid is null)
+		order by f.register_date desc
+		limit 0, 100
+	</select>
 
-    <update id="decreaseLikes" parameterType="int">
-        update feed
-        set like_count = like_count - 1
-        where feed_id = #{feed_id}
-    </update>
+	<insert id="createLikes">
+		insert into likes (uid, feed_id)
+		values (#{uid}, #{feed_id})
+	</insert>
 
-    <update id="updateImg" parameterType="feed">
-        update feed
-        set feed_picture = #{feed_picture}
-        where feed_id = #{feed_id}
-    </update>
+	<delete id="deleteLikes">
+		delete from likes
+		where uid = #{uid} and feed_id = #{feed_id}
+	</delete>
 
-    <select id="searchByChallengeTitle" parameterType="String" resultType="feed">
-        select f.*, c.challenge_title from feed as f left outer join challenge as c
-        on f.challenge_id = c.challenge_id 
-        where c.challenge_title like concat('%', #{keyword}, '%')
-        order by f.register_date desc
-        limit 0, 1000
-    </select>
+	<update id="increaseLikes" parameterType="int">
+		update feed
+		set like_count = like_count + 1
+		where feed_id = #{feed_id}
+	</update>
 
-    <select id="searchByTag" resultType="feed">
-        select f.*, c.challenge_title from feed f left outer join challenge c
-        on f.challenge_id = c.challenge_id
-        where c.challenge_id in 
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
-        order by register_date desc
-    </select>
+	<update id="decreaseLikes" parameterType="int">
+		update feed
+		set like_count = like_count - 1
+		where feed_id = #{feed_id}
+	</update>
 
-    <select id="searchCidKeyword" parameterType="String" resultType="int">
-        select distinct tic.challenge_id
-        from tag_in_challenge as tic left outer join tag as t
-        on tic.tag_id = t.tag_id
-        where t.tag_name = #{keyword}
-    </select>
+	<update id="updateImg" parameterType="feed">
+		update feed
+		set feed_picture = #{feed_picture}
+		where feed_id = #{feed_id}
+	</update>
 
+	<select id="searchByChallengeTitle" parameterType="String"
+		resultType="feed">
+		select f.*, c.challenge_title from feed as f left outer join challenge as c
+		on f.challenge_id = c.challenge_id
+		where c.challenge_title like concat('%', #{keyword}, '%')
+		order by f.register_date desc
+		limit 0, 1000
+	</select>
+
+	<select id="searchByTag" resultType="feed">
+		select f.*, c.challenge_title from feed f left outer join challenge c
+		on f.challenge_id = c.challenge_id
+		where c.challenge_id in
+		<foreach collection="list" item="item" open="(" close=")"
+			separator=",">
+			#{item}
+		</foreach>
+		order by register_date desc
+	</select>
+
+	<select id="searchCidKeyword" parameterType="String"
+		resultType="int">
+		select distinct tic.challenge_id
+		from tag_in_challenge as tic left outer join tag as t
+		on tic.tag_id = t.tag_id
+		where t.tag_name = #{keyword}
+	</select>
+
+
+	<!-- 챌린지에서 사용 -->
+	<!--챌린지id에 해당하는 유저의 피드들 select -->
+	<!-- public int[] selectUserFeed (@Param("uid") String uid, @Param("challenge_id")int 
+		challenge_id); -->
+	<select id="selectUserFeed" resultType="int">
+		select feed_id
+		from feed
+		where maked_uid = #{uid} and challenge_id =
+		#{challenge_id}
+	</select>
+
+	<!--오늘찍은 피드 사진 url -->
+	<!-- public List<Feed> selectFeedImg (@Param("uid") String uid, @Param("challenge_id") 
+		int challenge_id); -->
+	<select id="selectFeedImg" resultType="Feed">
+		select *
+		from feed
+		where maked_uid = #{uid} and challenge_id = #{challenge_id} 
+		and <![CDATA[ curdate() <= register_date]]>
+	</select>
 </mapper>

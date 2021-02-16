@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.ChatDAO">
+    <insert id="save" parameterType="chatVO">
+        insert into chatlog(uid, challenge_id, content, regist_date)
+        values (#{uid}, #{challenge_id}, #{content}, now())
+    </insert>
+
+    <select id="findChatLog" parameterType="int" resultType="chatVO"> 
+        select c.uid, c.content, c.regist_date, u.nick_name, u.user_img from chatlog c left outer join user u
+        on c.uid = u.uid
+        where c.challenge_id = #{challenge_id}
+        order by chatlog_id desc
+        limit 0, 200
+    </select>
+</mapper>

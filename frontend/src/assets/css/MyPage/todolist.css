@@ -3,7 +3,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-} */
+}
 
 .content form > * {
   background: transparent;
@@ -51,7 +51,6 @@
 
 .content input[type='checkbox'] + label:hover {
   color: #bebebe;
-  /* background-color: gray; */
 }
 
 .content input[type='checkbox'] + label span.check {
@@ -119,4 +118,4 @@
 
 .plus-icon {
   color: #ffb510;
-}
+} */

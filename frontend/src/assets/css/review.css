@@ -1,0 +1,52 @@
+.review-whole{
+    min-height: 130px;
+    margin-top:15px;
+}
+
+.review-header{
+    height: 42px;
+}
+
+.review-user-image{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.review-user-image img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+
+
+.review-user{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.review-user-info-nick-name{
+    font-weight: 600;
+    color:#EAC03A;
+}
+
+.review-user-info-date{
+    font-size: x-small;
+    color:#aaaaaa;
+}
+
+.review-user-score{
+    font-size: small;
+}
+
+
+.color-black{
+    color:rgb(73, 73, 73);
+}
+
+.color-gray{
+    color:#eeeeee;
+}

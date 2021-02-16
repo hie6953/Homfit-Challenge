@@ -1,8 +1,7 @@
 <template>
-  <div class="mt-3">
-    <hr id="hr-top" />
+  <b-modal id="select-preference-modal" v-model="modalShow" size="lg" no-close-on-backdrop class="mt-3">
 
-    <div class="mx-auto col-8 select-prefer-container">
+    <div class=" select-prefer-container">
       <!-- 안내문구 -->
       <div class="prefer-info-text">
         <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
@@ -10,7 +9,7 @@
         <hr />
       </div>
       <!-- 관심운동 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           선호하는 운동 종류를 체크해주세요
         </div>
@@ -103,7 +102,7 @@
       </div>
 
       <!-- 관심부위 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           관심 있는 부위를 체크해주세요
         </div>
@@ -194,7 +193,7 @@
       </div>
 
       <!-- 선호요일 -->
-      <div class="col-12 col-md-8 pb-5 mx-auto prefer-question">
+      <div class="col-12 col-md-9 pb-5 mx-auto prefer-question">
         <div class="prefer-question-text">
           선호하는 요일을 체크해주세요
         </div>
@@ -203,7 +202,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="1"
+            :value="7"
             v-model="week"
             id="sunday"
           />
@@ -212,7 +211,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="2"
+            :value="1"
             v-model="week"
             id="monday"
           />
@@ -221,7 +220,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="3"
+            :value="2"
             v-model="week"
             id="tuesday"
           />
@@ -230,7 +229,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="4"
+            :value="3"
             v-model="week"
             id="wednesday"
           />
@@ -239,7 +238,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="5"
+            :value="4"
             v-model="week"
             id="thursday"
           />
@@ -248,7 +247,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="6"
+            :value="5"
             v-model="week"
             id="friday"
           />
@@ -257,7 +256,7 @@
             class="challenge-bodyList"
             type="checkbox"
             name="week"
-            :value="7"
+            :value="6"
             v-model="week"
             id="saturday"
           />
@@ -266,7 +265,6 @@
       </div>
 
       <!-- 버튼 -->
-      <router-link to="/">
         <div class="prefer-choice-submit-btn">
           <!-- <input
             type="button"
@@ -285,13 +283,12 @@
             aria-disabled="true"
           />
         </div>
-      </router-link>
     </div>
-  </div>
+  </b-modal>
 </template>
 
 <script>
-import '../assets/css/selectpreference.css';
+import '@/assets/css/selectpreference.css';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -303,9 +300,15 @@ export default {
       kindList: [],
       bodyList: [],
       week: [],
+      canGoNext:false,
     };
   },
-
+props:{
+  modalShow:Boolean,
+  fit:Array,
+  body:Array,
+  day:Array,
+},
   watch: {
     kindList: function() {
       this.CanGoNext();
@@ -316,6 +319,11 @@ export default {
     week: function() {
       this.CanGoNext();
     },
+    modalShow:function(){
+      this.kindList = this.fit;
+      this.bodyList = this.body;
+      this.week = this.day;
+    }
   },
   methods: {
     CanGoNext: function() {
@@ -336,9 +344,9 @@ export default {
       axios
         .put(`${SERVER_URL}/user/updateFavorite`, {
           uid: this.getUserUid,
-          fit_list: JSON.stringify(this.kindList),
-          body_list: JSON.stringify(this.bodyList),
-          day_list: JSON.stringify(this.week),
+          fit_list: JSON.stringify(this.kindList.sort()),
+          body_list: JSON.stringify(this.bodyList.sort()),
+          day_list: JSON.stringify(this.week.sort()),
           // fit_list: this.kindList,
           // body_list: this.bodyList,
           // day_list: this.week,
@@ -346,15 +354,16 @@ export default {
         .then(({ data }) => {
           console.log(JSON.stringify(this.kindList));
           if (data == 'success') {
-            alert('선호도 저장되었엉');
+            alert('선호도 정보가 저장되었습니다.');
+            this.$emit("modalClose");
           } else {
             alert('실패!!!');
           }
-          // console.log(data);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
+        window.location.reload();
     },
   },
 

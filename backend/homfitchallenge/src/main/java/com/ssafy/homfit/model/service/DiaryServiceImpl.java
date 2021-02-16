@@ -1,5 +1,7 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.List;
+
 import com.ssafy.homfit.model.Diary;
 import com.ssafy.homfit.model.dao.DiaryDAO;
 
@@ -47,6 +49,11 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public Diary search(Diary diary) throws Exception {
         return sqlSession.getMapper(DiaryDAO.class).search(diary);
+    }
+
+    @Override
+    public List<Diary> getMonthDiary(String uid, String date) throws Exception {
+        return sqlSession.getMapper(DiaryDAO.class).getMonthDiary(uid, date);
     }
 
 }

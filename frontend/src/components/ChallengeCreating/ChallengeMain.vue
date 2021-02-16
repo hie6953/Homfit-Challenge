@@ -6,7 +6,9 @@
       <b-container>
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
-            <span class="vertical-align-middle">챌린지 이름</span>
+            <span class="require-icon">*</span>
+            <span>챌린지 이름</span>
+            
           </b-col>
           <b-col sm="9">
             <b-form-input
@@ -24,7 +26,8 @@
 
         <b-row class="challenge-creating-row">
           <b-col sm="3" class="align-center">
-            <span class="vertical-align-middle">챌린지 설명</span>
+             <span class="require-icon">*</span>
+            <span>챌린지 설명</span>
           </b-col>
           <b-col sm="9">
             <TextEditor
@@ -33,33 +36,53 @@
             ></TextEditor>
           </b-col>
         </b-row>
+
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center ">
+            <span>대표 이미지</span>
+          </b-col>
+          <b-col sm="9">
+            <image-uploader
+            :props_challenge_img="props_challenge_img"
+            props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"
+            @imageUploaded="ImageUploaded"
+            ></image-uploader>
+          </b-col>
+        </b-row>
+
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+             <span class="require-icon">*</span>
+            <span>카테고리</span>
+          </b-col>
+          <b-col sm="9">
+            <div class="align-center mx-auto">
+              <input
+                class="challenge_kind"
+                type="radio"
+                name="kind"
+                :value="1"
+                id="fit_id_exercise"
+                v-model="kind"
+              />
+              <label for="fit_id_exercise">
+                <span data-hover="운동">운동</span>
+              </label>
+              <input
+                class="challenge_kind"
+                type="radio"
+                name="kind"
+                :value="2"
+                id="fit_id_diet"
+                v-model="kind"
+              />
+              <label for="fit_id_diet">
+                <span data-hover="식단">식단</span>
+              </label>
+            </div>
+          </b-col>
+        </b-row>
       </b-container>
-    </div>
-    <div>
-      <div class="align-center mx-auto">
-        <input
-          class="challenge_kind"
-          type="radio"
-          name="kind"
-          :value="1"
-          id="fit_id_exercise"
-          v-model="kind"
-        />
-        <label for="fit_id_exercise">
-          <span data-hover="운동">운동</span>
-        </label>
-        <input
-          class="challenge_kind"
-          type="radio"
-          name="kind"
-          :value="2"
-          id="fit_id_diet"
-          v-model="kind"
-        />
-        <label for="fit_id_diet">
-          <span data-hover="식단">식단</span>
-        </label>
-      </div>
     </div>
 
     <div v-if="kind == 1">
@@ -143,7 +166,7 @@
         <h4 class="challenge-creating-title">부위별 선택</h4>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="1"
           v-model="bodyList"
@@ -152,7 +175,7 @@
         <label for="bodyList_whole"> <span class="text">전신</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="2"
           v-model="bodyList"
@@ -161,7 +184,7 @@
         <label for="bodyList_upper"> <span class="text">상체</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="3"
           v-model="bodyList"
@@ -170,7 +193,7 @@
         <label for="bodyList_lower"> <span class="text">하체</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="4"
           v-model="bodyList"
@@ -179,7 +202,7 @@
         <label for="bodyList_chest"> <span class="text">가슴</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="5"
           v-model="bodyList"
@@ -188,7 +211,7 @@
         <label for="bodyList_arm"> <span class="text">팔</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="6"
           v-model="bodyList"
@@ -197,7 +220,7 @@
         <label for="bodyList_abdominal"> <span class="text">복부</span> </label
         ><input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="7"
           v-model="bodyList"
@@ -206,7 +229,7 @@
         <label for="bodyList_hip"> <span class="text">엉덩이</span> </label>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           :value="8"
           v-model="bodyList"
@@ -215,7 +238,7 @@
         <label for="bodyList_leg"> <span class="text">다리</span> </label>
         <input
           class="challenge-bodyList"
-          type="checkbox"
+          type="radio"
           name="bodyList"
           id="bodyList_etc"
           :value="9"
@@ -239,11 +262,13 @@
 </template>
 
 <script>
-import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
+import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
+import ImageUploader from "@/components/ImageUploader.vue";
 
 export default {
   components: {
     TextEditor,
+    ImageUploader
   },
 
   props: {
@@ -252,21 +277,23 @@ export default {
     props_bodyList: Array,
     props_challenge_title: String,
     props_challenge_contents: String,
+    props_challenge_img: Object,
   },
   data() {
     return {
       kind: 0,
       fit_id: 0,
-      bodyList: [],
-      challenge_title: '',
-      challenge_contents: '',
+      bodyList: [1],
+      challenge_title: "",
+      challenge_contents: "",
+      challenge_img:null,
       canGoNext: false,
     };
   },
   created() {
     this.kind = this.props_kind;
     this.fit_id = this.props_fit_id;
-    this.bodyList = this.props_bodyList;
+    this.bodyList = this.props_bodyList[0];
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
   },
@@ -275,7 +302,7 @@ export default {
       if (this.kind == 1) {
         this.fit_id = 1;
       } else {
-        this.bodyList = [];
+        this.bodyList = 1;
         this.fit_id = 9;
       }
     },
@@ -293,6 +320,9 @@ export default {
     },
   },
   methods: {
+    ImageUploaded:function(image){
+      this.challenge_img = image;
+    },
     FitId: function(num) {
       this.fit_id = num;
     },
@@ -303,8 +333,7 @@ export default {
       if (
         this.challenge_title.length > 0 &&
         this.challenge_title.length <= 20 &&
-        this.challenge_contents.length > 7 &&
-        ((this.kind != 0 && this.bodyList.length > 0) || this.kind == 2)
+        this.challenge_contents.length > 7
       ) {
         this.canGoNext = true;
       } else {
@@ -313,12 +342,13 @@ export default {
     },
     NextPage: function() {
       this.$emit(
-        'NextPage',
+        "NextPage",
         this.kind,
         this.fit_id,
-        this.bodyList,
+        [this.bodyList],
         this.challenge_title,
-        this.challenge_contents
+        this.challenge_contents,
+        this.challenge_img
       );
     },
   },

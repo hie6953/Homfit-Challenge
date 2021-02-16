@@ -3,6 +3,7 @@ ul.day-checkbox {
   list-style: none;
   padding: 0 5px;
   margin: 0 !important;
+  white-space: nowrap;
 }
 ul.day-checkbox li {
   display: inline;

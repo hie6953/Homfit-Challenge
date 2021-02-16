@@ -1,11 +1,3 @@
-#hr-top {
-  margin: 8px 0 !important;
-}
-
-.mt-3 {
-  margin-top: 0px;
-  padding-bottom: 3rem;
-}
 /* 
 a,
 button,
@@ -17,6 +9,10 @@ input[type='reset'] {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 } */
+
+.mypage-container {
+  margin: auto;
+}
 
 .user-img {
   width: 100%;
@@ -162,9 +158,8 @@ input[type='reset'] {
   display: flex;
 }
 .user-challenge-status {
-  border-right: 1px solid #eaebef;
-  padding: 10px 28px 10px;
-  margin-right: 10px;
+  /* border-right: 1px solid #eaebef; */
+  padding: 10px;
 }
 
 .label-challenge-status {
@@ -175,24 +170,50 @@ input[type='reset'] {
   text-align: center;
 }
 
-.status-list {
+.move-challenge-list {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.status-list-both {
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid #e2e2e2;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 10px;
   padding-right: 10px;
-  padding-top: 3px;
-  padding-bottom: 4px;
+  width: 25%;
+  /* padding: 15px; */
+}
+.status-list-right {
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid #e2e2e2;
+  padding-right: 10px;
+  width: 25%;
+  /* padding: 15px; */
+}
+.status-list-left {
+  display: inline-block;
+  text-align: center;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 10px;
+  width: 25%;
+  /* padding: 15px; */
 }
 
 .status {
-  float: left;
-  padding-right: 10px;
-  margin-right: 10px;
+  margin: auto;
   font-size: 15px;
   color: #828c94;
+  text-align: center;
 }
 
 .status-amount {
   font-size: 20px;
   font-weight: bold;
-  text-align: right;
+  text-align: center;
   color: #424242;
 }
 
@@ -210,7 +231,8 @@ input[type='reset'] {
 
 .myfeeds {
   padding-top: 30px;
-  margin-top: 40px;
+  margin-top: 35px;
+  margin-bottom: 35px;
   background-color: #fafafa;
   padding-bottom: 3rem;
 }
@@ -234,11 +256,18 @@ input[type='reset'] {
   text-align: right;
   margin-right: 15px;
   font-size: 13px;
+  cursor: pointer;
 }
 .mypage-myfeed {
-  border-bottom: 1px solid #eaebef;
-  padding-bottom: 10px;
 }
 .grid-feed {
   margin-top: 15px;
+}
+
+.thereisnomyfeed {
+  width: 100%;
+  font-size: 16px;
+  margin: auto;
+  text-align: center;
+  padding-top: 20px;
 }

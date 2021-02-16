@@ -1,17 +1,18 @@
 <template>
-  <div class="mt-3">
-    <hr id="hr-top" />
-
+  <div class="mypage-container">
     <!-- 사용자 프로필 div -->
-    <div class="mx-auto col-8 user-profile">
+    <div class="mx-auto col-12 col-md-8 user-profile">
       <div class="user-profile-edit">
         <router-link to="/editprofilepassconfirm" class="justtext">
           <b-icon icon="pencil-square" class="edit-icon"></b-icon>
         </router-link>
       </div>
       <div class="user-profile-container">
-        <div class="user-profile-image">
+        <div v-if="this.user.user_img == ''" class="user-profile-image">
           <img class="user-img" src="@/assets/NavBar/anonimous_user.png" />
+        </div>
+        <div v-else class="user-profile-image">
+          <img class="user-img" :src="this.user.user_img" />
         </div>
         <div class="user-profile-info">
           <div class="user-profile-nickname">
@@ -74,83 +75,93 @@
     </div>
 
     <!-- 챌린지 현황 -->
-    <div class="mx-auto col-8 user-status-todo">
+    <div class="mx-auto col-12 col-md-8 user-status-todo">
       <!-- 과제 -->
-      <div class="user-challenge-status">
+      <div class="col-12 user-challenge-status">
         <h3 class="label-challenge-status">챌린지 현황</h3>
-        <div class="move-challenge-list">
-          <div class="status-list">
+        <div class="col-12 move-challenge-list">
+          <div class="status-list-right">
+            <div class="status">
+              <span>오늘</span>
+            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.todayCnt }}</span>
+              </div>
+            </router-link>
+          </div>
+
+          <div class="status-list-both">
             <div class="status">
               <span>참가중</span>
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
-                <span>{{ challenge.ing }}</span>
+                <span>{{ ingingCnt }}</span>
               </div>
             </router-link>
           </div>
-          <div class="status-list">
+
+          <div class="status-list-both">
             <div class="status">
               <span>완료</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.done }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.endCnt }}</span>
+              </div>
+            </router-link>
           </div>
-          <div class="status-list">
+
+          <div class="status-list-left">
             <div class="status">
               <span>개설</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.create }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.makeCnt }}</span>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
-      <div class="vertical-bar-second"></div>
+      <!-- <div class="vertical-bar-second"></div> -->
       <!-- 나의 과제 -->
-      <div class="user-todo-list">
+      <!-- <div class="user-todo-list">
         <h3 class="label-today-todo">오늘의 과제</h3>
         <ToDoList />
-      </div>
+      </div> -->
     </div>
 
     <!-- 나의피드 -->
-    <div class="mx-auto col-8 myfeeds">
+    <div class="mx-auto col-12 col-md-8 myfeeds">
       <div class="mypage-myfeed">
         <h3 class="my-feed-label">나의 피드</h3>
-        <div class="my-feed-plus">
+        <div class="my-feed-plus" @click="MoveToMyWholeFeed">
           <p class="mb-2">
             <b-icon icon="plus"></b-icon>
             전체보기
           </p>
         </div>
         <div class="grid-feed">
+          <!-- <my-page-feed
+            v-for="(feed, index) in feedList"
+            class="col-12"
+            :key="`${index}_feed`"
+            :feed="feed"
+            @click="FeedMoreInfo"
+          >
+          </my-page-feed> -->
           <MyPageFeed />
         </div>
-        <br />
-      </div>
-      <br />
-
-      <!-- 나의눈바디 -->
-      <h3 class="my-body-label">나의 눈바디</h3>
-      <div class="my-feed-plus">
-        <p class="mb-2">
-          <b-icon icon="plus"></b-icon>
-          전체보기
-        </p>
-      </div>
-      <div class="grid-feed">
-        <MyPageBodyPhoto />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ToDoList from '../components/ToDoList.vue';
+// import ToDoList from '../components/ToDoList.vue';
 import MyPageFeed from '../components/MyPageFeed.vue';
-import MyPageBodyPhoto from '../components/MyPageBodyPhoto.vue';
 import '../assets/css/MyPage/mypage.css';
 import { mapGetters } from 'vuex';
 
@@ -160,9 +171,8 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: 'Mypage',
   components: {
-    ToDoList,
+    // ToDoList,
     MyPageFeed,
-    MyPageBodyPhoto,
   },
   data: function() {
     return {
@@ -170,13 +180,17 @@ export default {
         nick_name: '',
         point: '',
         grade: '',
+        user_img: '',
       },
       challenge: {
-        ing: '3',
-        done: '5',
-        create: '1',
+        endCnt: '',
+        ingCnt: '',
+        makeCnt: '',
+        preCnt: '',
+        todayCnt: '',
       },
       sum: '',
+      ingingCnt: '',
     };
   },
   created() {
@@ -206,8 +220,26 @@ export default {
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
+
+    axios
+      .get(`${SERVER_URL}/challenge/challengeStatus`, {
+        params: {
+          uid: uid,
+        },
+      })
+      .then(({ data }) => {
+        this.challenge = data;
+        this.ingingCnt = this.challenge.ingCnt + this.challenge.preCnt;
+        console.log(data);
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
   },
   methods: {
+    MoveToMyWholeFeed() {
+      this.$router.push('/mypagefeedtotal');
+    },
     // getUserInfo() {
     //   axios
     //     .post(`${SERVER_URL}/user`, {

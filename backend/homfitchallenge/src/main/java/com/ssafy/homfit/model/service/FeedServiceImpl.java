@@ -1,6 +1,8 @@
 package com.ssafy.homfit.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.Tag;
@@ -19,6 +21,9 @@ public class FeedServiceImpl implements FeedService {
 
     @Autowired
     TagService tagService;
+    
+    @Autowired
+    FeedDAO FeedDao;
 
     @Override
     public boolean create(Feed feed) throws Exception {
@@ -61,10 +66,12 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public Feed searchByFeedId(int feed_id) throws Exception {
+    public Feed searchByFeedId(int feed_id, String uid) throws Exception {
         Feed data = null;
-
-        data = sqlSession.getMapper(FeedDAO.class).searchByFeedId(feed_id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("feed_id", feed_id);
+        map.put("uid", uid);
+        data = sqlSession.getMapper(FeedDAO.class).searchByFeedId(map);
         return data;
     }
 
@@ -79,6 +86,17 @@ public class FeedServiceImpl implements FeedService {
     public List<Feed> searchByChallenge(int challenge_id) throws Exception {
         List<Feed> list = null;
         list = sqlSession.getMapper(FeedDAO.class).searchByChallenge(challenge_id);
+        return list;
+    }
+
+    @Override
+    public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id, String uid) throws Exception {
+        List<Feed> list = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("feed_id", feed_id);
+        map.put("uid", uid);
+        map.put("challenge_id", challenge_id);
+        list = sqlSession.getMapper(FeedDAO.class).searchByChallengeNotFeedId(map);
         return list;
     }
 
@@ -136,6 +154,27 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public  List<Feed> searchByChallengeTitle(String keyword) throws Exception{
         return sqlSession.getMapper(FeedDAO.class).searchByChallengeTitle(keyword);
+    }
+
+    /**챌린지에서 사용함 */
+	@Override
+	public int[] selectUserFeed(String uid, int challenge_id) {
+		return FeedDao.selectUserFeed(uid, challenge_id);
+	}
+
+	@Override
+	public List<Feed> selectFeedImg(String uid, int challenge_id) {
+		return FeedDao.selectFeedImg(uid, challenge_id);
+	}
+
+    @Override
+    public int searchLikeCnt(int feed_id) throws Exception {
+        return FeedDao.searchLikeCnt(feed_id);
+    }
+
+    @Override
+    public List<Feed> searchByUserAll(String uid) throws Exception {
+        return FeedDao.searchByUserAll(uid);
     }
 
 }

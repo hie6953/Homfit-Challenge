@@ -1,0 +1,331 @@
+.feedchat-border {
+  /* border: 15px solid #fff;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto; */
+}
+
+.feedchat-card {
+  background: #ffffff;
+  /* border: 2px solid #e2e2e2; */
+  border-radius: 7px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.feedchat-card-header {
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-right: 30px;
+}
+
+.feed-delete {
+  float: right;
+  display: inline;
+  margin-top: 15px;
+  margin-right: -10px;
+}
+
+.feed-delete-btn {
+  color: #6c757d !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  background: #fff;
+  box-shadow: none !important;
+  border: #fff;
+  outline-color: #fff;
+}
+
+.feedchat-card-user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  vertical-align: middle;
+  margin-top: 12px;
+}
+
+.feedchat-card-user-name {
+  font-weight: bold;
+  margin-left: 5px;
+  font-size: 17px;
+  color: #eac03a;
+  display: inline;
+}
+
+.feedchat-card-time {
+  color: #999;
+  margin-left: 52px;
+  margin-top: -21px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  font-size: 13px;
+}
+
+/* 글내용 이미지 */
+.feedchat-card-img-information {
+  padding-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+}
+.feedchat-card-image {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+/* 글내용 텍스트 */
+.feedchat-card-information {
+  padding-top: 10px;
+  margin-left: 30px;
+  margin-right: 20px;
+  display: flex;
+}
+
+/* 하단바 */
+.feedchat-card-hr {
+  border: none;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 10px;
+  margin: 5px;
+}
+
+/* 버튼 */
+.feedchat-icons {
+  font-weight: regular;
+  margin-right: 20px;
+  /* padding-bottom: 25px; */
+  margin-bottom: 15px;
+  margin-top: -11px;
+}
+
+.feedchat-icons .btn-secondary {
+  color: #6c757d !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  background: #fff;
+  box-shadow: none !important;
+  border: #fff;
+  outline-color: #fff;
+}
+
+.feedchat-icons .btn-secondary:active {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #fff;
+}
+.feedchat-icons .btn-secondary:hover {
+  color: #eac03a !important;
+  background-color: #fff;
+  border-color: #fff;
+  background: #fff;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
+}
+
+.feedchat-right {
+  float: right;
+  margin-right: 1px;
+  padding-top: 0px;
+  text-align: right;
+}
+
+.feedchat-card-button-left {
+  font-size: 14px;
+}
+
+.feedchat-card-button-right {
+  float: right;
+  font-size: 14px;
+}
+
+.feed-card-button-left {
+  /* float: left; */
+  font-size: 14px;
+}
+
+.feed-card-button-right {
+  float: right;
+  font-size: 14px;
+}
+
+.feedcard-v {
+  display: inline-block;
+}
+
+.howmany {
+  font-size: 15px;
+  margin-left: -7px;
+  margin-right: 5px;
+}
+
+/* 댓글 */
+.feedchat-card-comments {
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-bottom: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Comment-section {
+  vertical-align: middle;
+  padding-top: 15px;
+}
+
+.commenter-image {
+  padding-right: 5px;
+  float: left;
+  border-radius: 100%;
+}
+
+.comment-user {
+  font-weight: bold;
+  color: #4f5052;
+  font-size: 15px;
+}
+
+.comment {
+  color: #90949c;
+  font-size: 14px;
+}
+
+.comment-time {
+  color: #90949c;
+  font-size: 12px;
+  padding-left: 33px;
+}
+
+.write-comment {
+  /* padding-right: 12px;
+  padding-left: 12px;
+  padding-bottom: 2rem; */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.comment-input-box {
+  margin: 5px;
+}
+
+.comment-submit-btn {
+  color: white;
+  background-color: #eac03a;
+  border-color: #eac03a;
+  box-shadow: none;
+  border: #fff;
+  outline-color: #fff;
+}
+
+.write-comment input[type='text'] {
+  width: 75%;
+  padding: 15px;
+  height: 100%;
+  border: 1px solid #dadce0;
+  font-size: 15px;
+  padding-left: 10px;
+  display: inline;
+  outline: none;
+  box-sizing: border-box;
+  color: #70757c;
+}
+.write-comment input[type='button'] {
+  width: 25%;
+  height: 100%;
+  padding: 13.5px;
+  background-color: #eac03a;
+  border: none;
+  font-size: 1em;
+  color: white;
+  font-weight: bold;
+  outline: none;
+  display: inline;
+  margin-left: -10px;
+  box-sizing: border-box;
+}
+.write-comment input[type='button']:hover {
+  background-color: #eac03a;
+}
+
+.comment-delete {
+  float: right;
+  margin-top: -8px;
+}
+
+.comment-delete-btn .b-icon.bi {
+  width: 15x;
+  height: 15px;
+}
+
+/* 신고 */
+.d-modal-btn {
+  background: #eac03a;
+  border-radius: 4px;
+  border-color: #eac03a;
+  color: white;
+  text-align: center;
+  width: 10%;
+}
+
+.d-modal-btn-back {
+  background: white;
+  border-radius: 4px;
+  border-color: #eac03a;
+  color: black;
+  text-align: center;
+  outline-color: #eac03a;
+  box-shadow: none;
+  width: 10%;
+}
+
+.declaration-modal {
+  margin: auto;
+  padding: 10px;
+}
+
+.declaration-title {
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.declaration-info {
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  padding: 15px;
+}
+
+.declaration-radio-group {
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  padding-bottom: 25px;
+}
+
+.declaration-radio {
+  display: inline;
+  margin: 10px;
+  text-align: center;
+}
+
+.declaration-contents {
+  padding: 10px;
+  width: 85%;
+  /* border: #dee2e6; */
+}
+
+.declaration-contents-align {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+}

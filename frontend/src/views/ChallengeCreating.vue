@@ -1,6 +1,6 @@
 <template>
-  <div class="background-creating ">
-    <div class="component col-md-8 col-11 mx-auto">
+  <div class="background-creating col-12 col-md-8  mx-auto">
+    <div class="component">
       <div class="creating-progress-bar">
         <ul id="creating-progress-list">
           <li>
@@ -73,6 +73,7 @@
           :props_bodyList="challenge.bodyList"
           :props_challenge_title="challenge.challenge_title"
           :props_challenge_contents="challenge.challenge_contents"
+          :props_challenge_img="challenge.challenge_img"
           @NextPage="PageOneNext"
         ></ChallengeMain>
       </div>
@@ -106,7 +107,7 @@
           @CreateChallenge="CreateChallenge"
         ></ChallengeTag>
       </div>
-      
+
       <div v-if="page == 5">
         <h3 class="align-center">
           "{{ challenge.challenge_title }}"<br />개설이 완료되었습니다.
@@ -123,12 +124,17 @@
         </div>
       </div>
     </div>
-    <div v-if="isLoading"  class="loading">
+    <div v-if="isLoading" class="loading">
       <div id="loading-icon">
-        <b-icon icon="arrow-clockwise" animation="spin" font-scale="4" variant="warning"></b-icon>
-        <br>
+        <b-icon
+          icon="arrow-clockwise"
+          animation="spin"
+          font-scale="4"
+          variant="warning"
+        ></b-icon>
+        <br />
         <span>챌린지 등록 중...</span>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -163,21 +169,21 @@ export default {
       pageComplete_3: false,
       pageComplete_4: false,
       challenge_id: 0,
-      isLoading:false,
+      isLoading: false,
       challenge: {
-        kind: 0,
+        kind: 1,
         fit_id: 1,
-        bodyList: [],
+        bodyList: [1],
         challenge_title: "",
         challenge_contents: "",
-        challenge_img: "",
+        challenge_img: null,
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
         challenge_certify_contents: "",
-        good_img: "",
-        bad_img: "",
+        good_img: null,
+        bad_img: null,
         only_cam: 1,
         tagList: [],
         make_date: "",
@@ -188,27 +194,23 @@ export default {
     };
   },
 
-created(){
-  axios.interceptors.request.use(
-    config=>{
+  created() {
+    axios.interceptors.request.use((config) => {
       this.setLoading(true);
       return config;
-    },
-  ),
-  axios.interceptors.response.use(
-    response => {
-      this.setLoading(false);
-      return response;
-    },
-  )
-},
+    }),
+      axios.interceptors.response.use((response) => {
+        this.setLoading(false);
+        return response;
+      });
+  },
 
   computed: {
     ...mapGetters(["getUserUid"]),
   },
 
   methods: {
-    setLoading:function(value){
+    setLoading: function(value) {
       this.isLoading = value;
     },
     // 챌린지 개설
@@ -216,45 +218,56 @@ created(){
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
       this.challenge.make_uid = this.getUserUid;
+      if(this.challenge.challenge_img == null){
+        this.challenge.challenge_img = '';
+      }
+      if(this.challenge.good_img == null){
+        this.challenge.good_img = '';
+      }
+      if(this.challenge.bad_img == null){
+        this.challenge.bad_img = '';
+      }
 
       this.pageComplete_4 = true;
+
+      // // Object To FormData 변환
+      var formData = new FormData();
+      formData.append("challengeImgFile", this.challenge.challenge_img);
+      formData.append("goodImgFile", this.challenge.good_img);
+      formData.append("badImgFile", this.challenge.bad_img);
+      for(var i in this.challenge){
+        if(i == 'bad_img' || i == 'good_img' || i == 'challenge_img')
+          continue;
+        formData.append(i,this.challenge[i]);
+      }
+
+      // FormData의 key 확인
+      for (let key of formData.keys()) {
+        console.log(key + " " + formData.get(key));
+      }
+
+      // // FormData의 value 확인
+      // for (let value of formData.values()) {
+      //   console.log(value);
+      // }
+     
+    
       // 챌린지 개설 axios
-      console.log(this.challenge);
       axios
-        .post(`${SERVER_URL}/challenge`, this.challenge)
+        .post(`${SERVER_URL}/challenge`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then((success) => {
           this.page = 5;
-          this.challenge_id = success.data;
+          this.challenge_id = String(success.data);
+          console.log(this.challenge_id);
           alert("챌린지가 생성되었습니다.");
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           alert("등록 처리시 에러가 발생했습니다.");
         });
     },
-
-    // // Object To FormData 변환
-      // var formData = new FormData();
-      // formData.append("sj", this.scndhandReg.sj); // 컨트롤러 넘길 정보 예 1
-      // formData.append("area", this.scndhandReg.area); // 컨트롤러 넘길 정보 예 2
-      // // 이미지
-      // if (this.scndhandReg.imgFile != "") {
-      //   formData.append("imgFile", this.scndhandReg.imgFile); // 이미지 파일 ^^
-      // }
-      // // 파일업로드시 (경로,FormData,Header) 설정
-      // this.$axios
-      //   .post(url, formData, {
-      //     headers: { "Content-Type": "multipart/form-data" },
-      //   })
-      //   .then((response) => {
-      //     if (!!response && response.status === 200) {
-      //       commonUtils.$alert("감사합니다.\n정상등록되었습니다.");
-      //       this.scndhandReg = Object.assign({}, this.defScndhangReg);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     commonUtils.$alertUncatchedError(error);
-      //   });
 
     // 1페이지
     PageOneNext: function(
@@ -262,13 +275,15 @@ created(){
       fit_id,
       bodyList,
       challenge_title,
-      challenge_contents
+      challenge_contents,
+      challenge_img
     ) {
       this.challenge.kind = kind;
       this.challenge.fit_id = fit_id;
       this.challenge.bodyList = bodyList;
       this.challenge.challenge_title = challenge_title;
       this.challenge.challenge_contents = challenge_contents;
+      this.challenge.challenge_img = challenge_img;
       this.pageComplete_1 = true;
       this.NextPage();
     },
@@ -306,14 +321,28 @@ created(){
     },
 
     // 3페이지
-    PageThreePrev: function(challenge_certify_contents, only_cam) {
+    PageThreePrev: function(
+      challenge_certify_contents,
+      good_img,
+      bad_img,
+      only_cam
+    ) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
+      this.challenge.good_img = good_img;
+      this.challenge.bad_img = bad_img;
       this.PrevPage();
     },
-    PageThreeNext: function(challenge_certify_contents, only_cam) {
+    PageThreeNext: function(
+      challenge_certify_contents,
+      good_img,
+      bad_img,
+      only_cam
+    ) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
+      this.challenge.good_img = good_img;
+      this.challenge.bad_img = bad_img;
       this.pageComplete_3 = true;
       this.NextPage();
     },

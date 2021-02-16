@@ -3,9 +3,11 @@ package com.ssafy.homfit.model.service;
 import java.util.List;
 
 import com.ssafy.homfit.model.Favorite;
+import com.ssafy.homfit.model.Point;
 import com.ssafy.homfit.model.User;
 import com.ssafy.homfit.model.dao.BadgeDAO;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
+import com.ssafy.homfit.model.dao.PointDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
 import com.ssafy.homfit.util.UploadImg;
 import com.ssafy.homfit.util.Util;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     PointService pointService;
 
+    @Autowired
+    S3Service s3service;
+
     @Override
     public User getUid(String uid) throws Exception {
         return sqlSession.getMapper(UserDAO.class).getUid(uid);
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 break;
         }
         user.setUid(uidToken);
-
+        user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4");
         user.setGrade("bronze");
         user.setAdmin_check(false);
         if (user.getKakao_key() == "" || user.getKakao_key() == null) {
@@ -56,13 +61,19 @@ public class UserServiceImpl implements UserService {
         }
         // // 이메일 중복확인
         // if (user.getEmail()!= null && this.duplicateEmailCheck(user.getEmail()))
-        //     return false;
+        // return false;
         try {
             sqlSession.getMapper(UserDAO.class).signup(user);
             if (!favoriteService.init(user.getUid()))
                 new Exception();
             if (!badgeService.init(user.getUid()))
                 new Exception();
+            Point point = new Point();
+            point.setPoint(100);
+            point.setUid(user.getUid());
+            point.setTitle("뱃지");
+            point.setContent("첫 회원 가입");
+            sqlSession.getMapper(PointDAO.class).earn(point);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -144,17 +155,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateImg(String uid, MultipartFile imgFile) throws Exception {
+    public boolean updateImg(String uid, String imgURL) throws Exception {
         try {
-            if (uid != null && imgFile != null)
-                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, UploadImg.writeImg(imgFile));
-
-            return true;
-
+            if (uid != null && imgURL != null) {
+                sqlSession.getMapper(UserDAO.class).updateUserImg(uid, imgURL);
+                return true;
+            }
         } catch (Exception e) {
             return false;
         }
-
+        return false;
     }
 
     @Override

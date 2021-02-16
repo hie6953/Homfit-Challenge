@@ -10,57 +10,50 @@
         @click="DeleteBookmarkBtn"
       ></b-icon>
     </div>
+    <div class="cancel-icon cancel-disabled btn-sm btn-warning">
+      <div
+        class="challengeManage-btn"
+        @click="CancelChallengeManageBtn"
+      >취소</div>
+    </div>
+    <div class="delete-icon delete-disabled btn-sm btn-warning">
+      <div
+        class="challengeManage-btn"
+        @click="DeleteChallengeManageBtn"
+      >삭제</div>
+    </div>
     <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
+      :img-src="challenge.challenge_img"
       img-alt="Image"
+      img-height="150"
       img-top
       no-body
       tag="article"
-      style="max-width: 30rem;"
+      style="max-width: 30rem"
       class="mb-2 shadow"
       @click="ChallengeMoreInfo"
     >
       <div class="challenge-list-card-body">
-        <div id="list-card-title" ref="list_card_title" :class="{ellipsis:titleOversize}">
-          <span ref="list_card_title_content" >{{
+        <div id="list-card-title" ref="list_card_title">
+          <span ref="list_card_title_content">{{
             challenge.challenge_title
           }}</span>
         </div>
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
+        <img class="card-user-image" :src="challenge.user_img" />
         <span id="card-user-nick-name">{{ challenge.nick_name }}</span>
         <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">{{ challenge.period }}일</span>
+        <div class="card-day-info">
+          <span>{{ GetDayList() }}</span>
+          <span>{{ challenge.period }}일</span>
+         
+        </div>
       </div>
       <hr class="challenge-list-card-hr" />
       <div class="challenge-list-card-footer">
-        <span>{{ challenge.people }}명 참여중</span>
+        <span>{{ challenge.people }}명 참여</span>
+         <span class="card-check-date" :class="`check-date-${challenge.check_date}`">{{ checkDateList[challenge.check_date] }}</span>
       </div>
     </b-card>
-
-    <!-- <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-top
-      no-body
-      tag="article"
-      style="max-width: 30rem;"
-      class="mb-2 shadow"
-    >
-      <div class="challenge-list-card-body">
-        <span id="card-title">땅끄</span>
-        <br />
-        <img class="card-user-image" src="@/assets/NavBar/anonimous_user.png" />
-        <span id="card-user-nick-name">땅끄</span>
-        <br />
-        <span id="card-day">{{ GetDayList() }}</span>
-        <span id="card-period">22일</span>
-      </div>
-      <hr class="challenge-list-card-hr" />
-      <div class="challenge-list-card-footer">
-        <span>22명 참여중</span>
-      </div>
-    </b-card> -->
   </div>
 </template>
 
@@ -72,21 +65,31 @@ export default {
   props: {
     challenge: Object,
     isfromBookmark: Number,
+    isfromChallengeManage: Number,
+    cancelActive: Number,
+    deleteActive: Number,
   },
   data() {
     return {
-      titleOversize : false,
-    }
+      checkDateList: ["진행전", "진행중", "완료"],
+      
+    };
+  },
+  created() {
+    
+  },
+  watch: {
+    cancelActive() {
+      this.CancelUpdate()
+    },
+    deleteActive() {
+      this.DeleteUpdate();
+    },
   },
   mounted() {
-    let titleDiv = this.$refs.list_card_title.offsetWidth;
-    let titleSpan = this.$refs.list_card_title_content.offsetWidth;
-    if (titleDiv < titleSpan) {
-     this.titleOversize = true;
-    }
     if (this.isfromBookmark === 1) {
-      const bookmark = document.querySelector('.bookmark-disabled')
-      bookmark.classList.remove('bookmark-disabled')
+      const bookmark = document.querySelector(".bookmark-disabled");
+      bookmark.classList.remove("bookmark-disabled");
     }
   },
   methods: {
@@ -109,7 +112,35 @@ export default {
     },
     DeleteBookmarkBtn() {
       this.$emit("deleteBookmarkBtn", this.challenge.challenge_id);
-    }
-  },
-};
+    },
+    CancelChallengeManageBtn() {
+      this.$emit("cancelChallengeManage", this.challenge.challenge_id);
+    },
+    DeleteChallengeManageBtn() {
+      this.$emit("deleteChallengeManage", this.challenge.challenge_id);
+    },
+    CancelUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 활성화
+      const challengeManage = document.querySelectorAll('.cancel-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.cancelActive === 1) {
+          challengeManage[i].classList.remove('cancel-disabled')
+        } else {
+          challengeManage[i].classList.add('cancel-disabled')
+        }
+      }
+    },
+    DeleteUpdate() {
+      // 카테고리가 진행전 일때만 삭제 버튼 
+      const challengeManage = document.querySelectorAll('.delete-icon')
+      for (let i = 0; i<challengeManage.length; i++) {
+        if (this.deleteActive === 1) {
+          challengeManage[i].classList.remove('delete-disabled')
+        } else {
+          challengeManage[i].classList.add('delete-disabled')
+        }
+      }
+    },
+  }
+}
 </script>

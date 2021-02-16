@@ -25,6 +25,37 @@ public class Feed {
     private String feed_contents;
     private MultipartFile imgFile;
     private String challenge_title;
+    private String nick_name;
+    private String user_img;
+    private boolean user_liked;
+
+    public boolean isUser_liked() {
+        return this.user_liked;
+    }
+
+    public boolean getUser_liked() {
+        return this.user_liked;
+    }
+
+    public void setUser_liked(boolean user_liked) {
+        this.user_liked = user_liked;
+    }
+
+    public String getNick_name() {
+        return this.nick_name;
+    }
+
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
+
+    public String getUser_img() {
+        return this.user_img;
+    }
+
+    public void setUser_img(String user_img) {
+        this.user_img = user_img;
+    }
 
     public String getChallenge_title() {
         return this.challenge_title;

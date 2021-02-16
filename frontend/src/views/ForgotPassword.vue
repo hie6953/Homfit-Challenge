@@ -1,10 +1,10 @@
 <template>
-  <div class="user-background">
-    <div class="user-container col-sm-10 col-lg-6">
+  <div class="fp-user-background">
+    <div class="fp-user-container col-sm-10 col-lg-6">
       <form>
         <h3>비밀번호 재설정</h3>
 
-        <div class="mt-3 forgot-info">
+        <div class="forgot-info">
           비밀번호 재설정 인증번호를 이메일로 안내드리겠습니다.
         </div>
 

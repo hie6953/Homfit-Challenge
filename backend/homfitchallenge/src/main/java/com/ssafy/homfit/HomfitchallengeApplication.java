@@ -1,6 +1,9 @@
 package com.ssafy.homfit;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +14,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.ssafy.homfit.api.ChallengeRepository;
+import com.ssafy.homfit.api.TodayChallengeRepository;
 import com.ssafy.homfit.model.Challenge;
+import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.TodayChallenge;
 import com.ssafy.homfit.model.service.ChallengeService;
+import com.ssafy.homfit.model.service.FeedService;
 
 @SpringBootApplication
 @MapperScan(value = "com.ssafy.homfit.model.dao")
 @EnableCaching
+@EnableScheduling 
 public class HomfitchallengeApplication {
 
 	
@@ -30,22 +39,30 @@ public class HomfitchallengeApplication {
 	
 	@Autowired
 	ChallengeService challengeService;
-	
 	@Autowired
 	private ChallengeRepository challengeRepository;
-
+	@Autowired
+	private TodayChallengeRepository todayRepository;
+	@Autowired
+	private FeedService feedService;
 	
-	//서버 시작시 바로 캐시 등록 -> 테스트를 위해 잠시 보류
-//	@Bean
-//	public ApplicationRunner applicationRunner() {
-//		return new ApplicationRunner() {
-//			@Override
-//			public void run(ApplicationArguments args) throws Exception {
-//				challengeRepository.deleteAll(); //처음 등록된 캐시 다 지움
-//				List<Challenge> challengelist = challengeService.AllChallengeList();
-//				challengeRepository.saveAll(challengelist);
-//			}
-//		};
-//
-//	}
+	//임시적으로 서버 시작시 바로 batch작업 실행
+	@Bean
+	public ApplicationRunner applicationRunner() {
+		return new ApplicationRunner() {
+			@Override
+			public void run(ApplicationArguments args) throws Exception {
+
+				
+				
+			
+				// 4-4. cache 챌린지 리스트 업데이트
+				challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
+				List<Challenge> reloadList = challengeService.AllChallengeList();
+				challengeRepository.saveAll(reloadList);
+
+			}
+		};
+
+	}
 }
