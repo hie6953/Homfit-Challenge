@@ -26,8 +26,8 @@ public class AlarmServiceImpl implements AlarmService {
     }
     
     @Override
-    public void updateAlarmCheck(String uid) throws Exception {
-        sqlSession.getMapper(AlarmDAO.class).updateAlarmCheck(uid);;
+    public void updateAlarmCheck(int alarm_id) throws Exception {
+        sqlSession.getMapper(AlarmDAO.class).updateAlarmCheck(alarm_id);
     }
     
 }

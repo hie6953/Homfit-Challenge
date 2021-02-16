@@ -14,7 +14,7 @@
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
-        select nick_name, user_img, grade, email from user where uid=#{uid}
+        select nick_name, user_img, grade, email, sex, age from user where uid=#{uid}
     </select>
 
     <select id="getByEmail" parameterType="String" resultType="String">

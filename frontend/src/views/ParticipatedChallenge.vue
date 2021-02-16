@@ -1,25 +1,20 @@
 <template>
   <div>
-    <div class="row col-12 col-md-8 participated-menu-bar justify-content-center">
-      <div class="col-3 col-sm-2 border-right"><span class="tab-0 tab-cursor active" @click="tabValue(0)">달성률</span></div>
-      <div class="col-3 col-sm-2 border-left border-right"><span class="tab-1 tab-cursor" @click="tabValue(1)">인증샷</span></div>
-      <div class="col-3 col-sm-2 border-left"><span class="tab-2 tab-cursor" @click="tabValue(2)">대화</span></div>
-    </div>
-    <div v-if="tab === 0">
-      <Progress
+    <b-tabs class="participated-menu-bar">
+      <b-tab :class="{active:tab == 0}" title="달성률">
+        <Progress
         :challenge="certifyInfo.challenge"
         :certifyInfo="certifyInfo"
         :isMobile="isMobile"
-      />
-    </div>
-    <div v-if="tab === 1">
-      
-    </div>
-    <div v-if="tab === 2">
-      <ChatRoom 
+        />
+      </b-tab>
+      <b-tab :class="{active:tab == 1}" title="인증샷"></b-tab>
+      <b-tab :class="{active:tab == 2}" title="대화">
+         <ChatRoom 
         :challenge_id="certifyInfo.challenge.challenge_id"
       />
-    </div>
+      </b-tab>
+    </b-tabs>
     
   </div>
 </template>
@@ -90,11 +85,6 @@ export default {
   methods: {
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
-    },
-    tabValue(num) {
-      document.querySelector(`.tab-${this.tab}`).classList.remove("active")
-      document.querySelector(`.tab-${num}`).classList.add("active")
-      this.tab = num
     },
     createInfo() {
     this.challenge_id = this.$route.params.challenge_id;

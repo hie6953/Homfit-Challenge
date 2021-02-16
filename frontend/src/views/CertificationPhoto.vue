@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <div class="row col-12 col-md-8 certificationphoto-container">
       <!-- 인증사진 업로드 안내메시지 -->
       <div class="cert-upload-info">

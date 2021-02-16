@@ -2,6 +2,8 @@
   <div id="app">
     <div class="sticky-top">
       <NavBar class="navbar-first"></NavBar>
+    </div>
+    <div class="sticky-top-second">
       <NavBarSecond
         v-if="!isMobile"
         id="navbar-second"
@@ -92,12 +94,14 @@ export default {
       this.currentScrollPos = window.pageYOffset;
       if (!this.isMobile) {
         if (
-          document.location.href.includes("challenge-more-info") ||
+          document.location.href.includes("challenge-more-info") || //챌린지 상세 페이지
+          document.location.href.includes("challengemanage") || //나의 챌린지 페이지
           this.prevScrollpos >= this.currentScrollPos
         ) {
-          document.getElementById("navbar-second").style.top = "-2px";
+          //내릴 때
+          document.getElementById("navbar-second").style.top = "80px";
         } else {
-          document.getElementById("navbar-second").style.top = "-59px";
+          document.getElementById("navbar-second").style.top = "30px";
         }
       }
       this.prevScrollpos = this.currentScrollPos;
@@ -129,6 +133,13 @@ export default {
   z-index: 20;
 }
 
+.sticky-top-second{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 15;
+}
+
 .sticky-bottom {
   position: fixed;
   bottom: 0;
@@ -145,17 +156,46 @@ export default {
 /* NavbarSecondary*/
 .navbar-second {
   position: relative;
-  transition: top 0.5s;
-  z-index: 1;
+  top:80px;
+  transition: top 0.3s;
+  height:50px;
 }
 
 .main-view {
   z-index: 1;
 }
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  /* background-color: #e65c2e30; */
+  background-color: #EAC03A30;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+*::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+
+
+
 /* mobile */
 @media (max-width: 480px) {
   .main-view {
-    margin-bottom: 80px;
+    margin-bottom: 50px !important;
+  }
+}
+
+/* pc */
+@media (min-width: 480px) {
+.main-view {
+    margin-top: 80px !important;
   }
 }
 </style>
