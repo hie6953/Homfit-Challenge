@@ -18,4 +18,6 @@ public interface TagDAO {
 	public Tag[] selectChallengeInTag (int tagID);
 	public int deleteTagInChallenge (int challengeID);
 	
+	/*인기태그*/
+	public List<Tag> selectPopularTag ();
 }

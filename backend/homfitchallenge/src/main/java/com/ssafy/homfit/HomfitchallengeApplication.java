@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.ssafy.homfit.api.ChallengeRepository;
+import com.ssafy.homfit.api.TagRepository;
 import com.ssafy.homfit.api.TodayChallengeRepository;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Feed;
@@ -46,14 +47,16 @@ public class HomfitchallengeApplication {
 	@Autowired
 	private FeedService feedService;
 	
+	
 	//임시적으로 서버 시작시 바로 batch작업 실행
 	@Bean
 	public ApplicationRunner applicationRunner() {
 		return new ApplicationRunner() {
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
-		
-				// 4-4. cache 챌린지 리스트 업데이트
+
+			
+				//서버 구동전 챌린지 리스트 업데이트
 				challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
 				List<Challenge> reloadList = challengeService.AllChallengeList();
 				challengeRepository.saveAll(reloadList);

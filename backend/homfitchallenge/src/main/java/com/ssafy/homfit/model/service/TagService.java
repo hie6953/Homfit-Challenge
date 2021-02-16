@@ -17,4 +17,6 @@ public interface TagService {
 	public Tag[] selectTagInChallenge (int challengeID);
 	public Tag[] selectChallengeInTag (int tagID);
 	public boolean deleteTagInChallenge (int challengeID);
+	
+	public List<Tag> selectPopularTag ();
 }

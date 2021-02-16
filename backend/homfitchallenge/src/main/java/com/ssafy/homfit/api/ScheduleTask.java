@@ -16,11 +16,13 @@ import org.springframework.stereotype.Component;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Feed;
 import com.ssafy.homfit.model.Point;
+import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.TodayChallenge;
 import com.ssafy.homfit.model.UserRate;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.FeedService;
 import com.ssafy.homfit.model.service.PointService;
+import com.ssafy.homfit.model.service.TagService;
 
 /**
  * batch작업 진행
@@ -44,6 +46,13 @@ public class ScheduleTask {
 
 	@Autowired
 	private PointService PointService;
+	
+	@Autowired
+	TagService tagService;
+
+
+	@Autowired
+	private TagRepository tagRepository;
 
 	/**
 	 * 매일 밤 12시마다 할 batch 작업
@@ -152,5 +161,15 @@ public class ScheduleTask {
 		challengeRepository.saveAll(reloadList);
 
 	}
+	
+	//매일 1시간마다 배치작업 - 인기태그
+	@Scheduled(cron = "0 0 0/1 * * ? ", zone = "Asia/Seoul")
+	private void pup2() {
+		List<Tag> list = tagService.selectPopularTag();
+		tagRepository.deleteAll(); //한번 다 지우고 
+		tagRepository.saveAll(list); //태그 새로 저장
+	}
+	
+	
 
 }
