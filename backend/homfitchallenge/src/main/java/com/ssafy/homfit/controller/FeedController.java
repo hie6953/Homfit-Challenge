@@ -233,4 +233,20 @@ public class FeedController {
 
         return new ResponseEntity<String>(msg, status);
     }
+
+    @GetMapping("/search/challenge")
+    public ResponseEntity<List<Feed>> searchByChallenge(@RequestParam int challenge_id, @RequestParam String uid) {
+        List<Feed> result = null;
+        HttpStatus status = null;
+
+        try {
+            result = feedService.searchByChallenge(challenge_id, uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("나의 피드 목록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
 }
