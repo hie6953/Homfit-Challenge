@@ -182,6 +182,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.selectUidByChallenge(challenge_id);
 	}
 
+	//db날짜 받아옴
+	@Override
+	public String selectDate() {
+		return challengeDAO.selectDate();
+	}
+
 
 	
 

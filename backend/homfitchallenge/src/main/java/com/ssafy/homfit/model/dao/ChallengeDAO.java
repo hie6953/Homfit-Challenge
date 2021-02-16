@@ -45,6 +45,7 @@ public interface ChallengeDAO {
 
 	
 	/**batch 작업*/
+	public String selectDate();
 	public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id
 	public int [] selectIngToComp(); //진행중 -> 완료중으로 갈 c_id
 	public int updateChallengeStatus(Map<String, Object> map); //c_id를 받아 챌린지 상태 업데이트

@@ -112,7 +112,8 @@ public class ChallengeController {
 	public ResponseEntity<HashMap<String, Object>> testChallenge() throws Exception {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("test", "hi~");
+
+		System.out.println(challengeService.selectDate());
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
@@ -134,17 +135,7 @@ public class ChallengeController {
 			}
 		});
 		
-		List<Tag> returnList = new ArrayList<Tag>();
-		
-		if(cacheTag.size() < 5) 
-			returnList = cacheTag;
-		else {
-			for (int i = 0; i < 5; i++) {
-				returnList.add(cacheTag.get(i));
-			}
-		}
-		
-		return new ResponseEntity<List<Tag>> (returnList, HttpStatus.OK);
+		return new ResponseEntity<List<Tag>> (cacheTag, HttpStatus.OK);
 	}
 	
 	/** 챌린지 현황 갯수 반환 */
@@ -955,17 +946,23 @@ public class ChallengeController {
 				String[] fit_string = fit.substring(1, fit.length() - 1).split(",");
 				String[] body_string = body.substring(1, body.length() - 1).split(",");
 
-				// string[] -> int[]
-				int[] fit_arr = Arrays.asList(fit_string).stream().mapToInt(Integer::parseInt).toArray();
-				for (int i = 0; i < fit_arr.length; i++) {
-					int num = fit_arr[i];
-					favoriteFitList[num]++;
+				if(fit_string.length != 0) {
+					// string[] -> int[]
+					int[] fit_arr = Arrays.asList(fit_string).stream().mapToInt(Integer::parseInt).toArray();
+					for (int i = 0; i < fit_arr.length; i++) {
+						int num = fit_arr[i];
+						favoriteFitList[num]++;
+					}
 				}
-				int[] body_arr = Arrays.asList(body_string).stream().mapToInt(Integer::parseInt).toArray();
-				for (int i = 0; i < body_arr.length; i++) {
-					int num = body_arr[i];
-					favoriteBodyList[num]++;
+
+				if(body_string.length != 0) {
+					int[] body_arr = Arrays.asList(body_string).stream().mapToInt(Integer::parseInt).toArray();
+					for (int i = 0; i < body_arr.length; i++) {
+						int num = body_arr[i];
+						favoriteBodyList[num]++;
+					}
 				}
+				
 			}
 			 map.put("people", people);
 			 map.put("favoriteBodyList", favoriteBodyList);

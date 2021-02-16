@@ -1,8 +1,10 @@
 package com.ssafy.homfit.api;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +48,9 @@ public class ScheduleTask {
 
 	@Autowired
 	private PointService PointService;
-	
+
 	@Autowired
 	TagService tagService;
-
 
 	@Autowired
 	private TagRepository tagRepository;
@@ -96,26 +97,34 @@ public class ScheduleTask {
 			challengeService.updateChallengeStatus(map2);
 		}
 
+		// cache 전체 챌린지 리스트 업데이트
+		challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
+		List<Challenge> reloadList = challengeService.AllChallengeList();
+		challengeRepository.saveAll(reloadList);
+		
+		
 		// 4. 완료 후 할 것
+		//요일관련
 		// 4-1. 오늘 요일에 해당하는 챌린지 cache에 업데이트
 		Calendar cal = new GregorianCalendar(Locale.KOREA);
-		int date = cal.get(Calendar.DAY_OF_WEEK) - 1; // 요일 db테이블에 맞게 파싱
-		if (date == 0)
-			date = 7;
+		DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date data = dataFormat.parse(challengeService.selectDate()); //12시기준 날짜
+		cal.setTime(data);
+		
+		//db테이블 대로 세팅
+		int today = cal.get(Calendar.DAY_OF_WEEK) -1;
+		if(today == 0) today = 7;
+		
 		todayRepository.deleteAll(); // (기존꺼 지우고)
-		List<TodayChallenge> list = challengeService.selectTodayChallenge(date);
+		List<TodayChallenge> list = challengeService.selectTodayChallenge(today);
 		todayRepository.saveAll(list);
 
 		// 4-2. 완료된 챌린지 유저별 개인 달성률 insert, + 포인트적립
-		Calendar cal2 = new GregorianCalendar(Locale.KOREA);
-		cal2.add(Calendar.DATE, -1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷
-		String yesterday = sdf.format(cal2.getTime()); // String으로 저장
-
-		// 오늘 기준, 어제 완료된 챌린지 유저 달성률 등록
-		for (Challenge challenge : challengelist) {
-			if(challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {
-				boolean everyoneDoPerfect = true; //모두의 100프로 여부
+		int yesterday = today-1;
+		
+		for (Challenge challenge : challengelist) { // 오늘 기준, 어제 완료된 챌린지 유저 달성률 등록
+			if (challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {
+				boolean everyoneDoPerfect = true; // 모두의 100프로 여부
 				int compChallengeId = challenge.getChallenge_id();
 				double certification = challenge.getCertification();
 				String c_title = challenge.getChallenge_title();
@@ -124,27 +133,27 @@ public class ScheduleTask {
 				String user[] = challengeService.selectUidByChallenge(compChallengeId);
 				List<String> pointUser = new ArrayList<String>();
 				for (int i = 0; i < user.length; i++) {
-					 int size = feedService.selectUserFeed(user[i], compChallengeId).length;
-					 //유저 달성률 평균 
-					 int avg = (int)Math.round((size/certification) * 100); 
-					 challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
-					 if(avg == 100) {
-						 pointUser.add(user[i]); //달성률 100프로시
-					 }else {//한명이라도 100프로가 아니면 false
-						everyoneDoPerfect = false; 
-					 }
+					int size = feedService.selectUserFeed(user[i], compChallengeId).length;
+					// 유저 달성률 평균
+					int avg = (int) Math.round((size / certification) * 100);
+					challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
+					if (avg == 100) {
+						pointUser.add(user[i]); // 달성률 100프로시
+					} else {// 한명이라도 100프로가 아니면 false
+						everyoneDoPerfect = false;
+					}
 				}
-				//포인트 적립
-				if(pointUser.size() != 0) { //포인트 받을 유저가 있을 경우만
+				// 포인트 적립
+				if (pointUser.size() != 0) { // 포인트 받을 유저가 있을 경우만
 					int point = PointService.calcPoint(user.length, period, everyoneDoPerfect);
 					Point p = new Point();
 					p.setPoint(point);
 					p.setTitle("챌린지 100% 달성");
 					String content = "";
-					if(everyoneDoPerfect) {
-						 content = "참가자 모두 100% 달성";	
-					}else {
-						 content = "참가자 개인 100% 달성";
+					if (everyoneDoPerfect) {
+						content = "참가자 모두 100% 달성";
+					} else {
+						content = "참가자 개인 100% 달성";
 					}
 					p.setContent(content);
 					for (String pointUid : pointUser) {
@@ -155,20 +164,24 @@ public class ScheduleTask {
 			}
 		}
 
-		// 4-4. cache 챌린지 리스트 업데이트
-		challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
-		List<Challenge> reloadList = challengeService.AllChallengeList();
-		challengeRepository.saveAll(reloadList);
-
 	}
-	
-	//매일 1시간마다 배치작업 - 인기태그
+
+	// 매일 1시간마다 배치작업 - 인기태그
 	@Scheduled(cron = "0 0 0/1 * * ? ", zone = "Asia/Seoul")
 	private void pup2() {
 		List<Tag> list = tagService.selectPopularTag();
-		tagRepository.deleteAll(); //한번 다 지우고 
-		tagRepository.saveAll(list); //태그 새로 저장
+		tagRepository.deleteAll(); // 한번 다 지우고
+		tagRepository.saveAll(list); // 태그 새로 저장
 	}
+	
+	//혹시 모를 대비책으로 캐시 주기적 업데이트
+//	@Scheduled(cron = "0 0 0/6 * * ? ", zone = "Asia/Seoul")
+//	private void pup3() {
+//		
+//		challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
+//		List<Challenge> reloadList = challengeService.AllChallengeList();
+//		challengeRepository.saveAll(reloadList);
+//	}
 	
 	
 
