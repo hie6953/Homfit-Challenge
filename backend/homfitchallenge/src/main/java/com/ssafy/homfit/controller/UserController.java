@@ -386,14 +386,14 @@ public class UserController {
         HttpStatus status = null;
 
         try {
-            alarmService.getAlarm(uid);
+            list = alarmService.getAlarm(uid);
             alarmService.updateAlarmCheck(uid);
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<>(list, status);
+        return new ResponseEntity<List<Alarm>>(list, status);
     }
     
 }
