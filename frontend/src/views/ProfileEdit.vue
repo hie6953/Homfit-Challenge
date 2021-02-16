@@ -308,8 +308,6 @@ export default {
           .catch(() => {
             alert('에러가 발생했습니다.');
           });
-      } else {
-        alert('닉네임 중복체크를 해주세요');
       }
     },
 

@@ -157,10 +157,6 @@
             신고
           </b-button>
 
-          <!-- <button type="button" class="btm_image" id="img_btn">
-          <img src="@/assets/NavBar/anonimous_user.png" /> 신고
-        </button> -->
-
           <!-- 컴포넌트 MyModal -->
           <DeclarationModal @close="closeModal" v-if="modal">
             <!-- default 슬롯 콘텐츠 -->
@@ -336,14 +332,6 @@ export default {
       } else {
         alert('5자 이상 입력해주세요.');
       }
-
-      // if (this.message.length > 5) {
-      //   alert(this.message);
-      //   this.message = '';
-      //   this.closeModal();
-      // } else {
-      //   alert('5자 이상 입력해주세요.');
-      // }
     },
 
     // 챌린지바로가기이동
