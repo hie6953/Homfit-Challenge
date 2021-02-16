@@ -63,6 +63,12 @@
 			left outer join likes l on f.feed_id=l.feed_id
 		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid is null)
 	</select>
+
+	<select id="searchByFeedIdForUseAlarm" parameterType="int" resultType="feed">
+		select f.* , c.challenge_title from feed f left outer join challenge c
+		on c.challenge_id = f.challenge_id
+		where f.feed_id = #{feed_id}
+	</select>
 	
 	<select id="searchByChallengeNotFeedId" parameterType="map"
 		resultType="feed">

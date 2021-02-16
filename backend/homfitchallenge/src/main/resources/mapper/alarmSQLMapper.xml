@@ -19,4 +19,10 @@
         set alarm_check = true
         where alarm_id = #{alarm_id} and alarm_check = false
     </update>
+
+    <select id="alreadyExist" parameterType="String" resultType="boolean">
+        select if(count(*) = 1, 1, 0)
+        from alarm
+        where alarm_content = #{alarm_content} and alarm_check = false
+    </select>
 </mapper>

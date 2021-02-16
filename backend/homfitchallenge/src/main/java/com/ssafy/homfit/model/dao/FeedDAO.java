@@ -52,4 +52,6 @@ public interface FeedDAO {
 	public List<Feed> selectFeedImg(@Param("uid") String uid, @Param("challenge_id") int challenge_id);
 
 	public List<Feed> searchByUserAll(String uid) throws SQLException;
+
+	public Feed searchByFeedIdForUseAlarm(int feed_id) throws SQLException;
 }
