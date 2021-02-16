@@ -56,4 +56,9 @@ public class TagServiceImpl implements TagService {
 		return tagDao.deleteTagInChallenge(challengeID) >= 1;
 	}
 
+	@Override
+	public List<Tag> selectPopularTag() {
+		return tagDao.selectPopularTag();
+	}
+
 }

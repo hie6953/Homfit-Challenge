@@ -7,14 +7,6 @@
       <b-tab @click="tabValue(3)" title="완료"></b-tab>
       <b-tab @click="tabValue(4)" title="개설"></b-tab>
     </b-tabs>
-    <!-- <div class="row col-12 col-md-8 manage-menu-bar justify-content-center">
-      <div class="col-2 tab-pd border-right"><span class="tab-0 tab-cursor active" @click="tabValue(0)">오늘</span></div>
-      <div class="col-2 tab-pd border-left border-right"><span class="tab-1 tab-cursor" @click="tabValue(1)">진행전</span></div>
-      <div class="col-2 tab-pd border-left border-right"><span class="tab-2 tab-cursor" @click="tabValue(2)">진행중</span></div>
-      <div class="col-2 tab-pd border-left border-right"><span class="tab-3 tab-cursor" @click="tabValue(3)">완료</span></div>
-      <div class="col-2 tab-pd border-left"><span class="tab-4 tab-cursor" @click="tabValue(4)">개설</span></div>
-    </div> -->
-    <!-- 카테고리 -->
     <div>
       <div class="manage-category-background row mx-auto">
         <div class="manage-category mx-auto">
@@ -179,44 +171,10 @@ export default {
       tab: 0,
       category: 0,
       challengeList: [
-        { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 0, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 128, "challenge_title": "기초체력 홈트 15분 루틴", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 7, "nick_name": "우지니", "people": 3, "kind": 0, "daylist_string": "[1, 2, 3, 4, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 132, "challenge_title": "힙으뜸 8분 힙운동 따라하기", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 6, "check_date": 0, "period": 28, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[3, 5, 7]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 179, "challenge_title": "sad", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 29, "nick_name": "loco", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 131, "challenge_title": "키쑥쑥 성장운동", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 7, "check_date": 0, "period": 7, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[2, 4, 6]", "dayList": null, "tagList": null, "bodyList": null },
-        { "challenge_id": 178, "challenge_title": "챌린지개설", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 3, "nick_name": "닉네임", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
-      ],
-      
-      lists: [
-        [
-          { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        ],
-        [
-          { "challenge_id": 128, "challenge_title": "기초체력 홈트 15분 루틴", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 7, "nick_name": "우지니", "people": 3, "kind": 0, "daylist_string": "[1, 2, 3, 4, 5]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 132, "challenge_title": "힙으뜸 8분 힙운동 따라하기", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 6, "check_date": 0, "period": 28, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[3, 5, 7]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 179, "challenge_title": "sad", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 3, "check_date": 0, "period": 29, "nick_name": "loco", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        ],
-        [
-          { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 1, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        ],
-        [
-          { "challenge_id": 131, "challenge_title": "키쑥쑥 성장운동", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 7, "check_date": 2, "period": 7, "nick_name": "건강이", "people": 3, "kind": 0, "daylist_string": "[2, 4, 6]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 178, "challenge_title": "챌린지개설", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 2, "period": 3, "nick_name": "닉네임", "people": 2, "kind": 0, "daylist_string": "[4]", "dayList": null, "tagList": null, "bodyList": null },
-        ],
-        [
-          { "challenge_id": 183, "challenge_title": "진행전", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 184, "challenge_title": "진행중", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 1, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 185, "challenge_title": "완료", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 2, "period": 11, "nick_name": "관리자3", "people": 1, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 186, "challenge_title": "진행전, 다른참가자", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
-        ],
       ],
       items: [
-          { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 0, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
-          { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
+          // { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 0, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
+          // { "challenge_id": 183, "challenge_title": "원푸드 다이어트", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 9, "check_date": 0, "period": 11, "nick_name": "관리자3", "people": 2, "kind": 0, "daylist_string": "[1, 3, 5]", "dayList": null, "tagList": null, "bodyList": null },
         ],
       
     }
@@ -231,20 +189,6 @@ export default {
   },
   mounted() {
     this.UpdateData()
-        // 해당 리스트에 담기
-        // for (let i = 0; i<challengeList.length; i++) {
-        //   if (challengeList[i].check_date === 0) {
-        //     this.items[1].push(challengeList[i])
-        //   } else if (challengeList[i].check_date === 1) {
-        //     this.items[0].push(challengeList[i])
-        //   } else {
-        //     this.items[2].push(challengeList[i])
-        //   }
-        //   if (challengeList[i].make_uid === this.getUserUid) {
-        //     this.items[3].push(challengeList[i])
-        //   }
-        // }
-      
   },
   methods: {
     ChallengeMoreInfo: function(challenge_id) {
@@ -254,13 +198,13 @@ export default {
       const cancelConfirm = confirm("참여를 취소하시겠습니까?")
       if (cancelConfirm === false) return false
       // 취소 버튼 클릭시 리스트[1]에서 삭제
-      const itemToFind = this.lists[1].find(function(item) {return item.challenge_id === challenge_id})
+      const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
       if (itemToFind.nick_name === this.getUserNickName) {
         alert("챌린지 개설자는 참여 취소가 불가능합니다.")
         return false
       }
-      const idx = this.lists[1].indexOf(itemToFind)
-      if (idx > -1) this.lists[1].splice(idx, 1)
+      const idx = this.challengeList.indexOf(itemToFind)
+      if (idx > -1) this.challengeList.splice(idx, 1)
       // axios
       //   .delete(
       //     `${SERVER_URL}/user/bookmark/${this.getUserUid}/${challenge_id}`
@@ -276,7 +220,7 @@ export default {
       const deleteConfirm = confirm("챌린지를 삭제하시겠습니까?")
       if (deleteConfirm === false) return false
       // 삭제 버튼 클릭시 리스트[4]에서 삭제
-      const itemToFind = this.lists[4].find(function(item) {return item.challenge_id === challenge_id})
+      const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
       if (itemToFind.people > 1) {
         alert("챌린지 참여자 존재시 삭제할 수 없습니다.")
         return false
@@ -285,14 +229,12 @@ export default {
         alert("진행전 챌린지만 삭제 가능합니다.")
         return false
       }
-      const idx = this.lists[4].indexOf(itemToFind)
-      if (idx > -1) this.lists[4].splice(idx, 1)
+      const idx = this.challengeList.indexOf(itemToFind)
+      if (idx > -1) this.challengeList.splice(idx, 1)
     },
     tabValue(num) {
       // 탭 누르면 카테고리 0으로 초기화, 해당 탭내용으로 변경
       this.category = 0
-      // document.querySelector(`.tab-${this.tab}`).classList.remove("active")
-      // document.querySelector(`.tab-${num}`).classList.add("active")
       this.tab = num
       if (num === 1) {
         this.cancelActive = 1
@@ -304,24 +246,23 @@ export default {
         this.cancelActive = 0
         this.deleteActive = 0
       }
-      this.items = this.lists[num]
+      this.items = this.challengeList
       this.UpdateData()
     },
     updateCategory() {
       // 카테고리에 따른 데이터 정렬
       if (this.category > 0) {
         this.items = []
-        for (let i = 0; i<this.lists[this.tab].length; i++) {
-          if (this.lists[this.tab][i].fit_id == this.category) {
-            this.items.push(this.lists[this.tab][i])
+        for (let i = 0; i<this.challengeList.length; i++) {
+          if (this.challengeList[i].fit_id == this.category) {
+            this.items.push(this.challengeList[i])
           }
         }
       } else {
-        this.items = this.lists[this.tab]
+        this.items = this.challengeList
       }
     },
     UpdateData() {
-      console.log(this.tab)
       axios
       .get(`${SERVER_URL}/challenge/management/${this.tab}`, {
         params: {
@@ -330,7 +271,7 @@ export default {
       })
       .then((data) => {
         this.challengeList = data.data
-        console.log(data)
+        this.items = data.data
       })
       .catch(() => {
         alert("챌린지 목록을 불러오지 못했습니다.");
