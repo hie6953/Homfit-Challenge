@@ -200,7 +200,7 @@
 .comment-time {
   color: #90949c;
   font-size: 12px;
-  padding-left: 33px;
+  padding-left: 30px;
 }
 
 .write-comment {
@@ -224,7 +224,7 @@
   outline-color: #fff;
 }
 
-input[type='text'] {
+.write-comment input[type='text'] {
   width: 75%;
   padding: 15px;
   height: 100%;
@@ -236,7 +236,7 @@ input[type='text'] {
   box-sizing: border-box;
   color: #70757c;
 }
-input[type='button'] {
+.write-comment input[type='button'] {
   width: 25%;
   height: 100%;
   padding: 13.5px;
@@ -250,7 +250,7 @@ input[type='button'] {
   margin-left: -10px;
   box-sizing: border-box;
 }
-input[type='button']:hover {
+.write-comment input[type='button']:hover {
   background-color: #eac03a;
 }
 

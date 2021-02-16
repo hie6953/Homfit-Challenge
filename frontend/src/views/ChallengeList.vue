@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div>
     <!-- 카테고리 -->
     <!-- <hr id="category-hr-top" /> -->
     <div class="category-background row mx-auto">
@@ -191,6 +191,7 @@ import InfiniteLoading from "vue-infinite-loading";
 
 import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/challengelist.css";
+import "@/assets/css/infiniteloading.css";
 
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;

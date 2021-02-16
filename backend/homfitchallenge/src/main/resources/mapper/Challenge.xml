@@ -57,6 +57,14 @@
 		where uid= #{uid} and challenge_id = #{challenge_id}
 	</select>
 	
+	<!-- 챌린지에 참여한 유저들 select -->
+	<!-- public String[] selectUidByChallenge (int challenge_id); -->
+	<select id="selectUidByChallenge" resultType="String">
+		select uid
+		from participate
+		where challenge_id = #{challenge_id}
+	</select>
+	
 	<!-- 오늘 진행하는 챌린지 select -->
 	<!-- public int[] selectTodayChallenge(String uid); -->
 	<select id="selectTodayChallenge" resultType="TodayChallenge">
@@ -253,4 +261,12 @@
 		on c.challenge_id = r.challenge_id
 		where month(r.end_date) = #{month} and r.uid= #{uid}
 	</select>
+	
+	<!--완료된 챌린지 유저 개인달성률 insert -->
+	<!-- public int insertUserRate (UserRate userRate); //완료된 챌린지 개인달성률 -->
+	<insert id="insertUserRate" parameterType="UserRate">
+	insert into user_rate
+	(uid, challenge_id, achievement_rate, end_date ) values (#{uid}, #{challenge_id}, #{achievement_rate}, #{end_date})
+	</insert>
+	
 </mapper>

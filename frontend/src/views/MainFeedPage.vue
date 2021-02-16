@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <!-- 카테고리 -->
     <div class="category-background row mx-auto">
       <div class="category mx-auto">
@@ -137,8 +137,6 @@
       </main-feed>
       <!-- <MainFeed /> -->
     </div>
-
-    <div class="align-center">
       <infinite-loading
         ref="InfiniteLoading"
         @infinite="getData"
@@ -156,77 +154,105 @@
           불러오지 못했습니다.
         </div>
       </infinite-loading>
-    </div>
   </div>
 </template>
 
 <script>
-import '../assets/css/mainfeed/mainfeedpage.css';
-import MainFeed from '../components/MainFeed.vue';
-import InfiniteLoading from 'vue-infinite-loading';
-import axios from 'axios';
+import "../assets/css/mainfeed/mainfeedpage.css";
+import MainFeed from "../components/MainFeed.vue";
+import InfiniteLoading from "vue-infinite-loading";
+import "@/assets/css/infiniteloading.css";
+
+import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: 'MainFeedPage',
+  name: "MainFeedPage",
   components: {
     MainFeed,
     InfiniteLoading,
   },
   data: function() {
     return {
+      page: 1,
       category: 0,
       feedList: [],
+      feedAllList: null,
     };
-  },
-  created() {
-    this.GetFeed();
   },
   watch: {
     category: function() {
-      if (this.category == 0) {
-        this.GetFeed();
-      } else {
-        this.GetFeedbyCategory();
-      }
+      this.getNewData();
     },
   },
   methods: {
     FeedMoreInfo: function() {
-      this.$store.commit('SETTMPFEED', this.feed);
-      this.$router.push('/feedcardlist');
+      this.$store.commit("SETTMPFEED", this.feed);
+      this.$router.push("/feedcardlist");
     },
-    GetFeedbyCategory() {
-      axios
+    getNewData: function() {
+      this.page = 1;
+      this.feedAllList = null;
+      this.feedList = [];
+      if (this.$refs.InfiniteLoading) {
+        this.$refs.InfiniteLoading.stateChanger.reset();
+      }
+      // this.getAllData();
+    },
+    async GetFeedbyCategory() {
+      await axios
         .get(`${SERVER_URL}/feed/category`, {
           params: { category: this.category },
         })
         .then(({ data }) => {
-          console.log(data);
-          this.feedList = data;
+          // console.log(data);
+          this.feedAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          alert("에러가 발생했습니다.");
         });
     },
 
-    GetFeed() {
-      axios
+    async GetFeed() {
+      await axios
         .get(`${SERVER_URL}/feed/all`)
         .then(({ data }) => {
-          console.log(data);
-          this.feedList = data;
+          // console.log(data);
+          this.feedAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          alert("에러가 발생했습니다.");
         });
+    },
+
+    async getData($state) {
+      if (this.feedAllList == null) {
+        if (this.category == 0) {
+          await this.GetFeed();
+        } else {
+          await this.GetFeedbyCategory();
+        }
+      }
+      let getArray = this.feedAllList.slice(
+        (this.page - 1) * 10,
+        this.page * 10
+      );
+      setTimeout(() => {
+        if (getArray.length > 0) {
+          this.feedList = this.feedList.concat(getArray);
+          ++this.page;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }, 500);
     },
 
     scrollUp: function() {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     },
   },

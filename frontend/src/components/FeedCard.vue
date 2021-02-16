@@ -28,9 +28,18 @@
       <!-- 이미지 -->
       <!-- @/assets/NavBar/anonimous_user.png -->
       <!-- src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg" -->
+
       <div class="feed-card-img-information">
         <img :src="feed.feed_picture" class="feed-card-image" />
       </div>
+      <!-- <div class="thumbnail-wrappper">
+        <div class="feed-card-img-information">
+          <img
+            src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg"
+            class="feed-card-image"
+          />
+        </div>
+      </div> -->
 
       <!-- 챌린지바로가기? or 내용? -->
       <div class="feed-card-information">

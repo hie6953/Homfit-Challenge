@@ -319,7 +319,7 @@ export default {
       });
     },
     GoChallengeDoing: function() {
-      alert("참여중 페이지로 이동");
+      // alert("참여중 페이지로 이동");
       this.$router.push(`/participated/${this.challenge_id}`)
     },
     ChallengeApply: function() {
