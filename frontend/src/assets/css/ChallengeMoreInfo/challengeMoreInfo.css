@@ -258,12 +258,13 @@
 
 .apply-button:hover {
   background-color: #e4b724;
+  
 }
 .apply-button:focus,
 .apply-button:active {
   border: none;
   outline: none;
-  box-shadow: none;
+  box-shadow: none !important;
   background-color: #e4b724 !important;
 }
 
