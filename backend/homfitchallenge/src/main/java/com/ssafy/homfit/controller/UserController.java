@@ -395,12 +395,12 @@ public class UserController {
     }
     
     @PutMapping(value="/alarm")
-    public ResponseEntity<String> updateAlarmCheck(@RequestBody int alarm_id) {
+    public ResponseEntity<String> updateAlarmCheck(@RequestBody Alarm alarm_id) {
         String msg = null;
         HttpStatus status = null;
 
         try {
-            alarmService.updateAlarmCheck(alarm_id);
+            alarmService.updateAlarmCheck(alarm_id.getAlarm_id());
             msg = SUCCESS;
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
