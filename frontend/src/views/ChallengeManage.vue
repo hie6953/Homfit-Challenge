@@ -15,9 +15,9 @@
       <div class="col-2 tab-pd border-left"><span class="tab-4 tab-cursor" @click="tabValue(4)">개설</span></div>
     </div> -->
     <!-- 카테고리 -->
-    <div class="mt-3">
-      <div class="category-background row mx-auto">
-        <div class="category mx-auto">
+    <div>
+      <div class="manage-category-background row mx-auto">
+        <div class="manage-category mx-auto">
           <input
             class="checkbox-tools"
             type="radio"
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-8 mx-auto">
+    <div class="col-12 col-md-8 mx-auto mt-4">
       <div class="row list-card">
         <ChallengeListCard
           v-for="(challenge, index) in items"
