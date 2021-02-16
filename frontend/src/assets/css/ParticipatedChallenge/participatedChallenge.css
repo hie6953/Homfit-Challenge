@@ -5,7 +5,7 @@
     overflow: hidden;
   }
 
-  .participated-menu-bar ul{
+  .participated-menu-bar > div:first-child > ul{
     /* background-color: #eac03a; */
     height:50px;
     padding-top: 5px;
@@ -13,7 +13,7 @@
     margin-bottom:10px;
   }
 
-  .participated-menu-bar li{
+  .participated-menu-bar > div > ul > li{
     width:33%;
     margin:0px auto;
   }
@@ -98,7 +98,6 @@
 .apply-button{
     background-color: #EAC03A;
     border: none;
-    
 }
 
 .apply-button:hover{
@@ -122,6 +121,8 @@
     font-size: larger;
     font-weight: 600;
     padding:10px 30px;
+    width: 200px;
+    height: 60px;
 }
 .align-center{
     text-align: center;
