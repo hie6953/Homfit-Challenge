@@ -35,6 +35,7 @@ public interface ChallengeDAO {
 	public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid );
 	public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
 	public String selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);
+	public String[] selectUidByChallenge (int challenge_id);
 	
 	/** 챌린지 관리*/
 	public List<TodayChallenge> selectTodayChallenge(int day); //오늘할 챌린지 -> cache에 올림
@@ -53,4 +54,6 @@ public interface ChallengeDAO {
 	public int[] selectFitId(String uid); //완료된 참여한 모든 운동 카테고리
 	public int[] selectBodyId(String uid); //완료된 참여한 모든 부위 카테고리
 	public List<UserRate> selectMonthChallenge ( @Param("uid") String uid, @Param("month")int month);
+	public int insertUserRate (UserRate userRate); //완료된 챌린지 개인달성률
+
 }

@@ -4,6 +4,8 @@ import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.FeedDAO;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,11 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Override
 	public Favorite selectUserInfo(String uid) {
 		return favoriteDao.selectUserInfo(uid);
+	}
+
+	@Override
+	public List<Favorite> selectUserByAgeSex(int age, char sex) {
+		return favoriteDao.selectUserByAgeSex(age, sex);
 	}
 
     
