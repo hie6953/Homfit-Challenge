@@ -39,11 +39,19 @@
       <!-- 태그 -->
       <div class="row search-tag">
         <ul class="col-12 col-md-10 mx-auto s-tags">
+          <li
+            v-for="(tag, index) in returnList"
+            :key="index"
+            class="col-xs-2 s-tag"
+          >
+            {{ tag.tag_name }}
+          </li>
+
+          <!-- <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
           <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
-          <li><a href="#" class="col-xs-2 s-tag">#땅끄부부</a></li>
-          <li><a href="#" class="col-xs-2 s-tag">#인기태그</a></li>
-          <li><a href="#" class="col-xs-2 s-tag">#인기태그2</a></li>
-          <li><a href="#" class="col-xs-2 s-tag">#운동하자</a></li>
+          <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
+          <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li>
+          <li><a href="#" class="col-xs-2 s-tag">#홈트레이닝</a></li> -->
         </ul>
       </div>
 
@@ -167,6 +175,7 @@ export default {
       feedList: [],
       challengePage: 1,
       feedPage: 1,
+      returnList: [],
     };
   },
   watch: {
@@ -186,6 +195,19 @@ export default {
       }
     },
   },
+  created() {
+    axios
+      .get(`${SERVER_URL}/challenge/popularTag`)
+      .then(({ data }) => {
+        console.log(data);
+        console.log('하이루');
+        this.returnList = data;
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
+  },
+
   methods: {
     FeedMoreInfo: function() {
       this.$store.commit('SETTMPFEED', this.feed);

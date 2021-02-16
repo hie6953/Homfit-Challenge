@@ -62,4 +62,15 @@
 		where challenge_id = #{challenge_id}
 	</delete>
 	
+	
+	<!-- 인기태그 -->
+	<!-- public Tag[] selectPopularTag (); -->
+	<select id="selectPopularTag" resultType="Tag"> 
+		select c.tag_id, t.tag_name, count(c.tag_id) as tag_count
+        from tag_in_challenge as c join tag as t
+        on c.tag_id = t.tag_id
+		group by (c.tag_id)
+		order by tag_count desc
+	</select>
+	
 	</mapper>

@@ -54,4 +54,6 @@ public interface FeedDAO {
 	public List<Feed> searchByUserAll(String uid) throws SQLException;
 
 	public Feed searchByFeedIdForUseAlarm(int feed_id) throws SQLException;
+
+	public void deleteFeed(int feed_id) throws SQLException;
 }

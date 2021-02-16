@@ -158,4 +158,8 @@
 		where maked_uid = #{uid} and challenge_id = #{challenge_id} 
 		and <![CDATA[ curdate() <= register_date]]>
 	</select>
+
+	<delete id="deleteFeed" parameterType="int">
+		delete from feed where feed_id = #{feed_id}
+	</delete>
 </mapper>

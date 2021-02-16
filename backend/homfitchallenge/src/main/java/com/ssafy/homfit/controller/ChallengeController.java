@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.homfit.api.ChallengeRepository;
+import com.ssafy.homfit.api.TagRepository;
 import com.ssafy.homfit.api.TodayChallengeRepository;
 import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.Challenge;
@@ -98,6 +99,9 @@ public class ChallengeController {
 	private ChallengeRepository challengeRepository;
 	@Autowired
 	private TodayChallengeRepository todayRepository;
+	
+	@Autowired
+	private TagRepository tagRepository;
 
 	/**
 	 * 테스트코드
@@ -108,73 +112,41 @@ public class ChallengeController {
 	public ResponseEntity<HashMap<String, Object>> testChallenge() throws Exception {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-
-//		
-//		Calendar cal2 = new GregorianCalendar(Locale.KOREA);
-//		cal2.add(Calendar.DATE, -1);
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷
-//		String yesterday = sdf.format(cal2.getTime()); // String으로 저장
-//		
-//		//PointService.calcPoint(numberOfParticipants, numberOfDays, everyoneDoPerfect);
-//	
-//		// 오늘 기준, 어제 완료된 챌린지 유저 달성률 기록
-//		List<Challenge> challengelist = challengeService.AllChallengeList();
-//		for (Challenge challenge : challengelist) {
-//			if(challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {
-//				boolean everyoneDoPerfect = true; //모두의 100프로 여부
-//				int compChallengeId = challenge.getChallenge_id();
-//				double certification = challenge.getCertification();
-//				String c_title = challenge.getChallenge_title();
-//				String c_endDate = challenge.getEnd_date();
-//				int period = challenge.getPeriod();
-//				String user[] = challengeService.selectUidByChallenge(compChallengeId);
-//				List<String> pointUser = new ArrayList<String>();
-//				for (int i = 0; i < user.length; i++) {
-//					 int size = feedService.selectUserFeed(user[i], compChallengeId).length;
-//					 //유저 달성률 평균 
-//					 int avg = (int)Math.round((size/certification) * 100); 
-//					 challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
-//					 if(avg == 100) {
-//						 pointUser.add(user[i]); //달성률 100프로시
-//					 }else {//한명이라도 100프로가 아니면 false
-//						everyoneDoPerfect = false; 
-//					 }
-//				}
-//				//포인트 적립
-//				if(pointUser.size() != 0) { //포인트 받을 유저가 있을 경우만
-//					int point = PointService.calcPoint(user.length, period, everyoneDoPerfect);
-//					Point p = new Point();
-//					p.setPoint(point);
-//					p.setTitle("챌린지 100% 달성");
-//					String content = "";
-//					if(everyoneDoPerfect) {
-//						 content = "참가자 모두 100% 달성";	
-//					}else {
-//						 content = "참가자 개인 100% 달성";
-//					}
-//					p.setContent(content);
-//					for (String pointUid : pointUser) {
-//						p.setUid(pointUid);
-//						PointService.earn(p);
-//					}
-//				}
-//			}
-//		}
-//		map.put("cal Time zone", cal.getTimeZone());
-//		map.put("cal get Time", cal.getTime());
-//		map.put("cal date", cal.get(Calendar.DATE));
-//		map.put("cal hour", cal.get(Calendar.HOUR));
-//		map.put("cal MINUTE", cal.get(Calendar.MINUTE));
-//		map.put("cal SECOND", cal.get(Calendar.SECOND));
-//		
-//		System.out.println(cal.getTime());
-//		//System.out.println(cal2.get(Calendar.DAY_OF_WEEK));
-		// Calendar cal = Calendar.getInstance();
-		// int date = cal.get(Calendar.DAY_OF_WEEK); // 요일 db테이블에 맞게 파싱
-		// System.out.println(date);
+		map.put("test", "hi~");
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
+	/**검색시 인기태그 반영 */
+	@GetMapping("/popularTag")
+	public ResponseEntity<List<Tag>> popularTagList (){
+		
+		List<Tag> cacheTag = (List<Tag>) tagRepository.findAll();
+		
+		if(cacheTag.size() == 0) {
+			cacheTag = tagService.selectPopularTag();
+		}
+		
+		//인기순 정렬
+		Collections.sort(cacheTag, new Comparator<Tag>() {
+			@Override
+			public int compare(Tag o1, Tag o2) {
+				return o2.getTag_count() - o1.getTag_count();
+			}
+		});
+		
+		List<Tag> returnList = new ArrayList<Tag>();
+		
+		if(cacheTag.size() < 5) 
+			returnList = cacheTag;
+		else {
+			for (int i = 0; i < 5; i++) {
+				returnList.add(cacheTag.get(i));
+			}
+		}
+		
+		return new ResponseEntity<List<Tag>> (returnList, HttpStatus.OK);
+	}
+	
 	/** 챌린지 현황 갯수 반환 */
 	@GetMapping("/challengeStatus")
 	public ResponseEntity<HashMap<String, Object>> challengeStatus(@RequestParam String uid) {

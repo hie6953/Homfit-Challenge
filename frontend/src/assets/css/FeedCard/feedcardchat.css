@@ -195,8 +195,11 @@
 .comment {
   color: #90949c;
   font-size: 14px;
+  width: 100%;
+  white-space: break-spaces;
+  padding-left: 30px;
+  padding-right: 30px;
 }
-
 .comment-time {
   color: #90949c;
   font-size: 12px;
