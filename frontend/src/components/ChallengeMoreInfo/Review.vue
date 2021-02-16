@@ -2,7 +2,7 @@
     <div class="review-whole">
         <div class="review-header">
             <div class="review-user-image">
-                <img src="@/assets/NavBar/anonimous_user.png" alt="">
+                <img :src="review.user_img" alt="">
             </div>
             <div class="review-user ml-2">
                 <div class="review-user-info">
@@ -31,7 +31,6 @@ export default {
     computed:{
         getRegistTime:function(){
             let time = new Date(this.review.regist_time);
-            console.log(this.review.regist_time +" "+ new Date(this.review.regist_time));
             return time.getFullYear()+"년 "+(time.getMonth()+1)+"월 "+time.getDate()+"일 " + time.getUTCHours()+"시 "+time.getUTCMinutes()+"분";
         }
     },

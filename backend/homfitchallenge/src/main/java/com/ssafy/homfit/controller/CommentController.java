@@ -49,7 +49,7 @@ public class CommentController {
             if(list.size() > 0){
                 msg = SUCCESS;
             } else{
-                msg = FAIL;
+                msg = "empty";
             }
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
@@ -106,20 +106,20 @@ public class CommentController {
         return new ResponseEntity<String>(msg, status);
     }
     
-    @DeleteMapping("/delete/{feed_id}")
-    public ResponseEntity<String> delete(@PathVariable int feed_id) {
+    @DeleteMapping("/delete/{comment_id}")
+    public ResponseEntity<String> delete(@PathVariable int comment_id) {
         String msg = null;
         HttpStatus status = null;
 
         try {
-            if (commentService.delete(feed_id)) {
+            if (commentService.delete(comment_id)) {
                 msg = SUCCESS;
             } else {
                 msg = FAIL;
             }
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
-            logger.error("댓글 수정 실패 : {}", e);
+            logger.error("댓글 삭제 실패 : {}", e);
             msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }

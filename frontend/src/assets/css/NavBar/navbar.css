@@ -37,13 +37,97 @@
 
 /* 알림 */
 /* 종 아이콘 옆 화살표 지우기 */
+#bellDropdown > a {
+  padding:8px 0px !important;
+}
+
+#bellDropdown > a:focus,
+#bellDropdown > a:active {
+  outline: none !important;
+}
+
 #bellDropdown > a::after {
   display: none;
 }
 
 #bellDropdown > .dropdown-menu {
   width: 250px;
+  max-height: 400px;
+  overflow: auto;
+  padding:5px;
+  border: 1px solid rgba(0, 0, 0, 0.050) !important;
+  
 }
+
+#bellDropdown.no_notices >.dropdown-menu{
+  width: 150px;
+}
+
+#bellIcon-number{
+  position: absolute;
+  text-align:center;
+  border-radius: 50%;
+  vertical-align: middle;
+  padding-top:1px;
+  top:0;
+  left:12px;
+  width:15px;
+  height:15px;
+  background-color: #E65C2E;
+  box-shadow: 0px 0px 4px 0px rgba(115, 120, 146, 0.322);
+  color:white;
+  font-size: xx-small;
+}
+
+.nav-bar-no-notice{
+  text-align: center;
+  font-weight: 600;
+  margin:10px 0;
+}
+
+.nav-bar-notice-card-hr{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.nav-bar-notice-card-container{
+  margin:5px;
+  /* box-shadow: 0 2px 6px 0 rgba(63, 71, 77, 0.158); */
+}
+
+.nav-bar-notice-card-container.disabled{
+  color: rgb(228, 228, 228);
+}
+
+.nav-bar-notice-card-check-button.disabled:hover{
+  transform: none !important;
+  color:rgb(228, 228, 228) !important;
+}
+
+
+.nav-bar-notice-card-check-button{
+  float:right;
+  background: none !important;
+  color:rgb(209, 209, 209) !important;
+  border: none !important;
+  font-size: small !important;
+  padding: 0px 0px !important;
+  transition: all 0.3s;
+}
+
+.nav-bar-notice-card-check-button:hover{
+ transform:scale(1.1);
+ color:#E65C2E !important;
+}
+
+.nav-bar-notice-card-check-button:focus,
+.nav-bar-notice-card-check-button:active
+{
+  box-shadow: none !important;
+ }
+
+
+
 
 
 
@@ -89,6 +173,7 @@
   height: 30px;
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .myPageIconLink{

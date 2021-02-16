@@ -167,4 +167,14 @@ public class FeedServiceImpl implements FeedService {
 		return FeedDao.selectFeedImg(uid, challenge_id);
 	}
 
+    @Override
+    public int searchLikeCnt(int feed_id) throws Exception {
+        return FeedDao.searchLikeCnt(feed_id);
+    }
+
+    @Override
+    public List<Feed> searchByUserAll(String uid) throws Exception {
+        return FeedDao.searchByUserAll(uid);
+    }
+
 }

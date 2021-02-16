@@ -17,26 +17,23 @@
 <script>
 import '../assets/css/FeedCard/feedcardlist.css';
 import FeedCard from '../components/FeedCard.vue';
-import axios from 'axios';
 import { mapGetters } from 'vuex';
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: 'FeedCardList',
+  name: 'MyPageFeedTotal',
   components: {
     FeedCard,
   },
   computed: {
-    ...mapGetters(['getTmpFeed', 'getUserUid']),
+    ...mapGetters(['getUserUid']),
   },
   created() {
-    this.tmpfeed = this.getTmpFeed;
-
     axios
-      .get(`${SERVER_URL}/feed/all/focus/${this.tmpfeed.feed_id}`, {
+      .get(`${SERVER_URL}/feed/mypage/allFeed`, {
         params: {
           uid: this.getUserUid,
-          challenge_id: this.tmpfeed.challenge_id,
         },
       })
       .then(({ data }) => {
@@ -47,11 +44,9 @@ export default {
         alert('에러가 발생했습니다.');
       });
   },
-
   data: function() {
     return {
       feedList: [],
-      tmpfeed: {},
     };
   },
   methods: {},

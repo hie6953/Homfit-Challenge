@@ -23,7 +23,6 @@
 .background-creating {
   /* background-color: #eeeeee; */
   height: 100%;
-  padding-top: 40px;
 }
 
 .component {
@@ -86,6 +85,12 @@
 
 .creating-progress-bar li:last-child .creating-progress-check-icon::after {
   width: var(--progress-bar-width-half);
+}
+
+
+.require-icon{
+  color:#e65c2e;
+  vertical-align: top;
 }
 
 /* 챌린지 개설 소개 */

@@ -7,6 +7,7 @@ import com.ssafy.homfit.model.Feed;
 import io.lettuce.core.dynamic.annotation.Param;
 
 public interface FeedService {
+    public int searchLikeCnt(int feed_id) throws Exception;
 
     public boolean create(Feed feed) throws Exception;
 
@@ -38,5 +39,7 @@ public interface FeedService {
     public int[] selectUserFeed(String uid, int challenge_id);
 
     public List<Feed> selectFeedImg(String uid, int challenge_id);
+
+	public List<Feed> searchByUserAll(String uid) throws Exception;
 
 }

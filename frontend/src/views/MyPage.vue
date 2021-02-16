@@ -88,7 +88,7 @@
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
-                <span>{{ challenge.today }}</span>
+                <span>{{ challenge.todayCnt }}</span>
               </div>
             </router-link>
           </div>
@@ -99,7 +99,7 @@
             </div>
             <router-link to="/challengemanage">
               <div class="status-amount">
-                <span>{{ challenge.ing }}</span>
+                <span>{{ ingingCnt }}</span>
               </div>
             </router-link>
           </div>
@@ -108,18 +108,22 @@
             <div class="status">
               <span>완료</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.done }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.endCnt }}</span>
+              </div>
+            </router-link>
           </div>
 
           <div class="status-list-left">
             <div class="status">
               <span>개설</span>
             </div>
-            <div class="status-amount">
-              <span>{{ challenge.create }}</span>
-            </div>
+            <router-link to="/challengemanage">
+              <div class="status-amount">
+                <span>{{ challenge.makeCnt }}</span>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -135,13 +139,21 @@
     <div class="mx-auto col-12 col-md-8 myfeeds">
       <div class="mypage-myfeed">
         <h3 class="my-feed-label">나의 피드</h3>
-        <div class="my-feed-plus">
+        <div class="my-feed-plus" @click="MoveToMyWholeFeed">
           <p class="mb-2">
             <b-icon icon="plus"></b-icon>
             전체보기
           </p>
         </div>
         <div class="grid-feed">
+          <!-- <my-page-feed
+            v-for="(feed, index) in feedList"
+            class="col-12"
+            :key="`${index}_feed`"
+            :feed="feed"
+            @click="FeedMoreInfo"
+          >
+          </my-page-feed> -->
           <MyPageFeed />
         </div>
       </div>
@@ -173,12 +185,14 @@ export default {
         user_img: '',
       },
       challenge: {
-        today: '1',
-        ing: '3',
-        done: '5',
-        create: '1',
+        endCnt: '',
+        ingCnt: '',
+        makeCnt: '',
+        preCnt: '',
+        todayCnt: '',
       },
       sum: '',
+      ingingCnt: '',
     };
   },
   created() {
@@ -208,8 +222,26 @@ export default {
       .catch(() => {
         alert('에러가 발생했습니다.');
       });
+
+    axios
+      .get(`${SERVER_URL}/challenge/challengeStatus`, {
+        params: {
+          uid: uid,
+        },
+      })
+      .then(({ data }) => {
+        this.challenge = data;
+        this.ingingCnt = this.challenge.ingCnt + this.challenge.preCnt;
+        console.log(data);
+      })
+      .catch(() => {
+        alert('에러가 발생했습니다.');
+      });
   },
   methods: {
+    MoveToMyWholeFeed() {
+      this.$router.push('/mypagefeedtotal');
+    },
     // getUserInfo() {
     //   axios
     //     .post(`${SERVER_URL}/user`, {

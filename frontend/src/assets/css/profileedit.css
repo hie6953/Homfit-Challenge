@@ -1,5 +1,11 @@
-#hr-top {
-  margin: 8px 0 !important;
+@media (max-width: 480px) {
+  .profile-edit-container {
+    margin-top: 10px !important;
+  }
+
+  .personal-info {
+    width: 100% !important;
+  }
 }
 
 .profile-edit-container {
@@ -16,7 +22,7 @@
   padding-bottom: 10px;
 }
 
-.user-img {
+.profiledeit-user-img {
   width: 60%;
   height: 60%;
   border-radius: 100%;
@@ -141,6 +147,11 @@
 
 .error-text {
   color: red;
+  font-size: 12px;
+}
+
+.correct-text {
+  color: blue;
   font-size: 12px;
 }
 

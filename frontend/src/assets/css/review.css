@@ -13,9 +13,14 @@
 }
 
 .review-user-image img{
-    height:35px;
-    border-radius: 50%;;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
 }
+
+
 
 .review-user{
     display: inline-block;

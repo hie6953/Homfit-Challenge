@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedDAO {
 
+	public int searchLikeCnt(int feed_id) throws SQLException;
+
 	public void create(Feed feed) throws SQLException;
 
 	public List<Feed> searchByUser(String uid) throws SQLException;
@@ -48,4 +50,6 @@ public interface FeedDAO {
 
 	// 오늘 찍은 피드 img url
 	public List<Feed> selectFeedImg(@Param("uid") String uid, @Param("challenge_id") int challenge_id);
+
+	public List<Feed> searchByUserAll(String uid) throws SQLException;
 }

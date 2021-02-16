@@ -80,7 +80,7 @@
             <span
               ><img
                 id="title-user-image"
-                src="@/assets/NavBar/anonimous_user.png"
+                :src="user_img"
             /></span>
             <span class="ml-1">{{ nick_name }}</span>
           </td>
@@ -108,6 +108,7 @@ export default {
     daylist_string: String,
     people: Number,
     nick_name: String,
+    user_img:String,
     tagList: Array,
     bodyList: Array,
     check_date: Number,
@@ -130,10 +131,10 @@ export default {
         "기타",
       ],
       fitCategory: "",
-      titleImage:'',
     };
   },
   methods: {
+    
     // 날짜 숫자 -> 요일로 변경
     GetDayList: function() {
       if (this.daylist_string != null) {

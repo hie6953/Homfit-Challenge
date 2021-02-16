@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -91,8 +92,9 @@ public class FeedController {
 
     @ApiOperation(value = "좋아요 수정", notes = "회원이 피드를 좋아할 경우 좋아요 삭제, 아닐경우 좋아요 생성")
     @PutMapping(value = "/like")
-    public ResponseEntity<String> updateLikes(@RequestBody LikeVO like) {
-        String msg = null;
+    @Transactional
+    public ResponseEntity<Integer> updateLikes(@RequestBody LikeVO like) {
+        int count = -1;
         HttpStatus status = null;
 
         try {
@@ -101,15 +103,14 @@ public class FeedController {
             } else {
                 feedService.createLikes(like.getUid(), like.getFeed_id());
             }
-            msg = SUCCESS;
+            count = feedService.searchLikeCnt(like.getFeed_id());
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("좋아요 수정 실패 :{}", e);
-            msg = e.getMessage();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<String>(msg, status);
+        return new ResponseEntity<Integer>(count, status);
     }
 
     @GetMapping("/all")
@@ -175,6 +176,38 @@ public class FeedController {
             status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             logger.error("특정 피드 목록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<List<Feed>> mypageFeed(@RequestParam String uid) {
+        List<Feed> result = null;
+        HttpStatus status = null;
+
+        try {
+            result = feedService.searchByUser(uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("나의 피드 목록 검색 실패 : {}", e);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<List<Feed>>(result, status);
+    }
+
+    @GetMapping("/mypage/allFeed")
+    public ResponseEntity<List<Feed>> mypageAllFeed(@RequestParam String uid) {
+        List<Feed> result = null;
+        HttpStatus status = null;
+
+        try {
+            result = feedService.searchByUserAll(uid);
+            status = HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            logger.error("나의 피드 목록 검색 실패 : {}", e);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

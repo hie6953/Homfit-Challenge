@@ -14,9 +14,9 @@
         order by alarm_regist_date desc
     </select>
 
-    <update id="updateAlarmCheck" parameterType="String">
+    <update id="updateAlarmCheck" parameterType="int">
         update alarm
         set alarm_check = true
-        where uid = #{uid} and alarm_check = false
+        where alarm_id = #{alarm_id} and alarm_check = false
     </update>
 </mapper>

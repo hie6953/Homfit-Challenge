@@ -4,54 +4,100 @@
       <!-- 챌린지 명, 챌린지 이미지, 챌린지소개 -->
       <div>
         <h4 class="challenge-creating-title">챌린지 정보</h4>
-        <b-container>
-          <b-row class="challenge-creating-row">
-            <b-col sm="3" class="align-center">
-              <span class="vertical-align-middle">챌린지 이름</span>
-            </b-col>
-            <b-col sm="9">
-              <b-form-input
-                id="challenge_title_input"
-                type="text"
-                :state="challengeTitleState"
-                placeholder="챌린지 이름을 입력하세요(1~20자)"
-                v-model="challenge.challenge_title"
-              ></b-form-input>
-              <b-form-invalid-feedback id="challenge_title_input">
-                챌린지 이름을 20자 이내로 입력하세요.
-              </b-form-invalid-feedback>
-            </b-col>
-          </b-row>
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+            <span class="vertical-align-middle">챌린지 이름</span>
+          </b-col>
+          <b-col sm="9">
+            <b-form-input
+              id="challenge_title_input"
+              type="text"
+              :state="challengeTitleState"
+              placeholder="챌린지 이름을 입력하세요(1~20자)"
+              v-model="challenge.challenge_title"
+            ></b-form-input>
+            <b-form-invalid-feedback id="challenge_title_input">
+              챌린지 이름을 20자 이내로 입력하세요.
+            </b-form-invalid-feedback>
+          </b-col>
+        </b-row>
 
-          <b-row class="challenge-creating-row">
-            <b-col sm="3" class="align-center">
-              <span class="vertical-align-middle">챌린지 설명</span>
-            </b-col>
-            <b-col sm="9">
-              <text-editor
-                :props_content="challenge.challenge_contents"
-                :props_change="getChallenge"
-                @input="(data) => GetEditorContent(data)"
-              ></text-editor>
-            </b-col>
-          </b-row>
-        </b-container>
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center">
+            <span class="vertical-align-middle">챌린지 설명</span>
+          </b-col>
+          <b-col sm="9">
+            <text-editor
+              :props_content="challenge.challenge_contents"
+              :props_change="getChallenge"
+              @input="(data) => GetEditorContent(data)"
+            ></text-editor>
+          </b-col>
+        </b-row>
+
+        <b-row class="challenge-creating-row">
+          <b-col sm="3" class="align-center ">
+            <span>대표 이미지</span>
+          </b-col>
+          <b-col sm="9">
+            <image-uploader
+              :props_default_link="challenge.challenge_img"
+              props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"
+              :props_change="getChallenge"
+              @imageUploaded="ImageUploaded"
+            ></image-uploader>
+          </b-col>
+        </b-row>
       </div>
 
       <!-- 인증 방법 설명 -->
-      <div>
-        <br />
-        <h4 class="challenge-creating-title">인증 방법 설명</h4>
-        <span class="font-size-small"
-          ><b-icon icon="dot"></b-icon>챌린지 인증 방법을 적어주세요. 자세할
-          수록 좋습니다!</span
-        >
-        <text-editor
-          :props_content="challenge.challenge_certify_contents"
-          :props_change="getChallenge"
-          @input="(data) => GetEditorCertifyContent(data)"
-        ></text-editor>
-      </div>
+      <h4 class="challenge-creating-title">챌린지 인증 방법</h4>
+      <b-row class="challenge-creating-row">
+        <b-col sm="3" class="align-center">
+          <span class="require-icon">*</span>
+          <span>인증 방법 설명</span>
+        </b-col>
+        <b-col sm="9">
+          <text-editor
+            :props_content="challenge.challenge_certify_contents"
+            :props_change="getChallenge"
+            @input="(data) => GetEditorCertifyContent(data)"
+          ></text-editor>
+          <span class="font-size-small">
+            <b-icon icon="dot"></b-icon>챌린지 인증 방법을 적어주세요.
+            자세할수록 좋습니다!
+          </span>
+        </b-col>
+      </b-row>
+
+      <!-- 인증 예시 등록 -->
+      <b-row class="challenge-creating-row">
+        <b-col sm="3" class="align-center">
+          <span>좋은 인증샷</span>
+        </b-col>
+        <b-col sm="9">
+          <image-uploader
+            :props_default_link="challenge.good_img"
+            props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc"
+            :props_change="getChallenge"
+            @imageUploaded="GoodImageUploaded"
+          ></image-uploader>
+        </b-col>
+      </b-row>
+
+      <b-row class="challenge-creating-row">
+        <b-col sm="3" class="align-center">
+          <span>나쁜 인증샷</span>
+        </b-col>
+        <b-col sm="9">
+          <image-uploader
+            :props_default_link="challenge.bad_img"
+            props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520"
+            :props_change="getChallenge"
+            @imageUploaded="BadImageUploaded"
+          ></image-uploader>
+        </b-col>
+      </b-row>
 
       <!-- 인증 수단 -->
       <div class="challenge-certification-way align-center">
@@ -132,6 +178,7 @@
 <script>
 import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
 import Tag from "@/components/ChallengeCreating/Tag.vue";
+import ImageUploader from "@/components/ImageUploader.vue";
 
 import "@/assets/css/ChallengeCreating/challengecreating.css";
 import "@/assets/css/challengeedit.css";
@@ -144,6 +191,7 @@ export default {
   components: {
     TextEditor,
     Tag,
+    ImageUploader,
   },
   data() {
     return {
@@ -172,20 +220,14 @@ export default {
         check_date: 0,
         period: 0,
       },
+      new_challenge_img: "",
+      new_good_img: "",
+      new_bad_img: "",
     };
   },
   created() {
     this.challenge_id = this.$route.params.challenge_id;
-    axios
-      .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
-      .then(({ data }) => {
-        this.challenge = data.challenge;
-        this.getChallenge = !this.getChallenge;
-        this.checkTagListLength();
-      })
-      .catch(() => {
-        alert("챌린지 정보를 불러오지 못했습니다.");
-      });
+    this.GetChallnege();
     this.CanEdit();
   },
   watch: {
@@ -197,6 +239,28 @@ export default {
     },
   },
   methods: {
+    GetChallnege() {
+      axios
+        .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
+        .then(({ data }) => {
+          this.challenge = data.challenge;
+          this.getChallenge = !this.getChallenge;
+
+          this.checkTagListLength();
+        })
+        .catch(() => {
+          alert("챌린지 정보를 불러오지 못했습니다.");
+        });
+    },
+    ImageUploaded: function(image) {
+      this.new_challenge_img = image;
+    },
+    GoodImageUploaded: function(image) {
+      this.new_good_img = image;
+    },
+    BadImageUploaded: function(image) {
+      this.new_bad_img = image;
+    },
     GetEditorContent: function(data) {
       this.challenge.challenge_contents = data;
     },
@@ -232,7 +296,11 @@ export default {
     },
 
     checkTagListLength: function() {
-      if (this.challenge.tagList != null && this.challenge.tagList.length >= 5) {
+      if (this.challenge.tagList == null) {
+        //백엔드와의 통신, tagList가 null일 경우를 대비해서 바꿈
+        this.challenge.tagList = [];
+      }
+      if (this.challenge.tagList.length >= 5) {
         document.getElementById("tag-input").readOnly = true;
       } else {
         document.getElementById("tag-input").readOnly = false;
@@ -240,19 +308,67 @@ export default {
     },
 
     ChallengeEdit: function() {
-      if(this.challenge.tagList == null){
-        this.challenge.tagList = [];
-        }
-        console.log(this.challenge);
+      console.log(this.challenge);
+      console.log(this.new_challenge_img); //새로 불러오기 : file
+      console.log(this.new_good_img); //삭제 : null
+      console.log(this.new_bad_img); //손안댐 :undefined
+
+      // undefined 이거나 null인 경우 : default image
+      // file이 있을 경우 : 이미지 변경
+
+      if (this.new_challenge_img == null) {
+        this.challenge.challenge_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
+      }
+      if (this.new_good_img == null) {
+        this.challenge.good_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
+      }
+      if (this.new_bad_img == null) {
+        this.challenge.bad_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
+      }
+
+      // // Object To FormData 변환
+      var formData = new FormData();
+
+      for (let i in this.challenge) {
+        if (i == "dayList") continue;
+        formData.append(i, this.challenge[i]);
+      }
+      formData.append("challengeImgFile", this.new_challenge_img);
+      formData.append("goodImgFile", this.new_good_img);
+      formData.append("badImgFile", this.new_bad_img);
+
+      // FormData의 key 확인
+      // for (let key of formData.keys()) {
+      //   console.log(key+" "+formData.get(key));
+      // }
+
+      // // FormData의 value 확인
+      // for (let value of formData.values()) {
+      //   console.log(value);
+      // }
+
       axios
-        .put(`${SERVER_URL}/challenge/${this.challenge_id}`, this.challenge)
+        .put(`${SERVER_URL}/challenge/${this.challenge_id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then(() => {
           alert("챌린지가 수정되었습니다.");
           this.$router.push(`/challenge-more-info/${this.challenge_id}`);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           alert("등록 처리시 에러가 발생했습니다.");
         });
+
+      // axios
+      //   .put(`${SERVER_URL}/challenge/${this.challenge_id}`, this.challenge)
+      //   .then(() => {
+      //     alert("챌린지가 수정되었습니다.");
+      //     this.$router.push(`/challenge-more-info/${this.challenge_id}`);
+      //   })
+      //   .catch(() => {
+      //     alert("등록 처리시 에러가 발생했습니다.");
+      //   });
     },
   },
   computed: {

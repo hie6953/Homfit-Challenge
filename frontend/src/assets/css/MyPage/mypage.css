@@ -259,9 +259,18 @@ input[type='reset'] {
   text-align: right;
   margin-right: 15px;
   font-size: 13px;
+  cursor: pointer;
 }
 .mypage-myfeed {
 }
 .grid-feed {
   margin-top: 15px;
+}
+
+.thereisnomyfeed {
+  width: 100%;
+  font-size: 16px;
+  margin: auto;
+  text-align: center;
+  padding-top: 20px;
 }
