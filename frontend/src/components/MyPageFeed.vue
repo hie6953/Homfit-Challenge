@@ -11,8 +11,10 @@
         v-for="(feed, index) in feedList"
         :key="index"
       >
-        <img :src="feed.feed_picture" />
-        <!-- <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop"> -->
+        <div class="centered">
+        <img  class="feed-picture" :src="feed.feed_picture" />
+          <!-- <img class="feed-picture" src="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"> -->
+        </div>
         <div class="imageInfo">
           {{ feed.challenge_title }}
         </div>
@@ -54,13 +56,27 @@ export default {
           if (this.feedList.length == 0) {
             this.isdatathere = true;
           }
+          
           console.log(this.isdatathere);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
     },
+    // handleResize:function(){
+    //   // let value = document.getElementsByClassName('feed-picture')[0].clientWidth;
+    //   let arr = document.getElementById('feed-picture-0').clientWidth;
+    //   for(let i = 0; i<9;++i){
+    //     document.getElementById(`feed-picture-${i}`).style.height = arr;
+    //   }
+    //   console.log(document.getElementById(`feed-picture-0`).clientHeight + " "+document.getElementById('feed-picture-0').clientWidth);
+    // },
   },
+  // mounted() {
+  //   // 화면 너비 측정 이벤트 추가/
+  //   window.addEventListener("resize", this.handleResize);
+  //   this.handleResize();
+  // },
   computed: {
     ...mapGetters(['getUserUid']),
   },
