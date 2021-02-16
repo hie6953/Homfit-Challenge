@@ -91,10 +91,9 @@ export default {
         })
         .then(({ data }) => {
           console.log(data);
-          // if (data === true) {
-          // } else {
-          // }
-          //console.log(this.nicknamecheck);
+          if(data == "success"){
+            this.$router.push(`/participated/${this.$route.params.challenge_id}`)
+          }
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
