@@ -83,9 +83,12 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public List<Feed> searchByChallenge(int challenge_id) throws Exception {
+    public List<Feed> searchByChallenge(int challenge_id, String uid) throws Exception {
         List<Feed> list = null;
-        list = sqlSession.getMapper(FeedDAO.class).searchByChallenge(challenge_id);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("challenge_id", challenge_id);
+        map.put("uid", uid);
+        list = sqlSession.getMapper(FeedDAO.class).searchByChallenge(map);
         return list;
     }
 
