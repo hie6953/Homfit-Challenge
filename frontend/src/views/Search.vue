@@ -43,6 +43,7 @@
             v-for="(tag, index) in returnList"
             :key="index"
             class="col-xs-2 s-tag"
+            @click="gotoSearchbar(tag)"
           >
             {{ tag.tag_name }}
           </li>
@@ -58,7 +59,6 @@
       <!-- tab bar -->
       <div class="search-result">
         <b-tabs
-          content-class="mt-3"
           align="center"
           class="search-page-tab"
           v-model="tabValue"
@@ -200,7 +200,6 @@ export default {
       .get(`${SERVER_URL}/challenge/popularTag`)
       .then(({ data }) => {
         console.log(data);
-        console.log('하이루');
         this.returnList = data;
       })
       .catch(() => {
@@ -209,6 +208,10 @@ export default {
   },
 
   methods: {
+    gotoSearchbar(tag) {
+      // console.log(tag.tag_name);
+      this.keyword = tag.tag_name;
+    },
     FeedMoreInfo: function() {
       this.$store.commit('SETTMPFEED', this.feed);
       this.$router.push('/feedcardlist');
