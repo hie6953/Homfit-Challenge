@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="row col-12 col-lg-8 mx-auto">
+    <div class="row col-12 col-lg-8 mx-auto mt-4">
       <div class="col-12 info-main">
         <p id="challenge-contents" class="more-info-title">챌린지 설명</p>
         <challenge-contents
@@ -46,11 +46,13 @@
           :good_img="challenge.good_img"
           :bad_img="challenge.bad_img"
           :only_cam="challenge.only_cam"
+          
         ></challenge-certify-contents>
 
         <p id="challenge-result" class="more-info-title">챌린지 달성률</p>
         <challenge-result
           :average_rate="challenge.average_rate"
+          :isMobile="isMobile"
         ></challenge-result>
 
         <p

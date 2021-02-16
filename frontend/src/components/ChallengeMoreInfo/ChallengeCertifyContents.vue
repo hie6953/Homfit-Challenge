@@ -9,11 +9,11 @@
     <br />
     <p v-html="challenge_certify_contents"></p>
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-6 align-center">
         <p class="certify-content-img-title"><span>좋은 인증샷</span></p>
         <img class="certify-content-img" :src="good_img">
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-6 align-center">
         <p class="certify-content-img-title"><span>나쁜 인증샷</span></p>
         <img class="certify-content-img" :src="bad_img">
       </div>
