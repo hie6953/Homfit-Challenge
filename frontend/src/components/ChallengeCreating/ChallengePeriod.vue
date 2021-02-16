@@ -29,6 +29,7 @@
       <b-container>
         <b-row class="align-center mb-2">
           <b-col sm="3">
+             <span class="require-icon">*</span>
             <span class="vertical-align-middle">챌린지 요일</span>
           </b-col>
           <b-col sm="9" class="challenge-period-daylist">
@@ -41,6 +42,7 @@
         </b-row>
         <b-row class="align-center">
           <b-col sm="3">
+             <span class="require-icon">*</span>
             <span class="vertical-align-middle">하루 챌린지 횟수</span>
           </b-col>
           <b-col sm="9">

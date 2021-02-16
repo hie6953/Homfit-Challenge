@@ -3,7 +3,7 @@
     <challenge-title
       :equalNickName="challenge.nick_name === getUserNickName"
       :challenge_title="challenge.challenge_title"
-      :challenge_img="GetChallengeImg"
+      :challenge_img="challenge.challenge_img"
       :day_certify_count="challenge.day_certify_count"
       :start_date="challenge.start_date"
       :end_date="challenge.end_date"
@@ -15,6 +15,7 @@
       :bodyList="challenge.bodyList"
       :check_date="challenge.check_date"
       :nick_name="challenge.nick_name"
+      :user_img="challenge.user_img"
       :people="challenge.people"
       @challengeEdit="ChallengeEdit"
     ></challenge-title>
@@ -42,8 +43,8 @@
         </p>
         <challenge-certify-contents
           :challenge_certify_contents="challenge.challenge_certify_contents"
-          :good_img="GetGoodImg"
-          :bad_img="GetBadImg"
+          :good_img="challenge.good_img"
+          :bad_img="challenge.bad_img"
           :only_cam="challenge.only_cam"
         ></challenge-certify-contents>
 
@@ -60,10 +61,13 @@
           챌린지 후기
         </p>
         <challenge-review
-          v-if="challenge.check_date == 2"
+          v-if="challenge.check_date == 2 && reviewList.length > 0"
           :reviewList="reviewList"
           :avg_review="avg_review"
         ></challenge-review>
+        <div v-else>
+          <p>등록된 후기가 없습니다.</p>
+        </div>
       </div>
     </div>
 
@@ -206,15 +210,13 @@ export default {
         tagList: [],
         average_rate: 0,
         make_date: "",
+        nick_name:'',
         make_uid: "",
         check_date: 0,
         period: 0,
       },
       reviewList: [],
       avg_review: 0,
-      challenge_img:null,
-      good_img:null,
-      bad_img:null,
     };
   },
   created() {
@@ -226,7 +228,7 @@ export default {
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
-        console.log(data);
+        console.log(this.challenge);
         this.calculateCanParticipant();
       })
       .catch(() => {
@@ -253,6 +255,7 @@ export default {
     }
   },
   methods: {
+    
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
@@ -316,7 +319,7 @@ export default {
       });
     },
     GoChallengeDoing: function() {
-      alert("참여중 페이지로 이동");
+      // alert("참여중 페이지로 이동");
       this.$router.push(`/participated/${this.challenge_id}`)
     },
     ChallengeApply: function() {
@@ -395,33 +398,15 @@ export default {
   },
   computed: {
     ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
-    GetChallengeImg:function(){
-      let img = this.challenge.challenge_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    },
-    GetGoodImg:function(){
-      let img = this.challenge.good_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    },
-    GetBadImg:function(){
-      let img = this.challenge.bad_img;
-      // if(img == null || img == ''){
-
-      // }
-      return img;
-    }
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가/
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
-    
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

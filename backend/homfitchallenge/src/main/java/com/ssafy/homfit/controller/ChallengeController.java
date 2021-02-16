@@ -9,9 +9,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +36,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +45,7 @@ import com.ssafy.homfit.model.Bookmark;
 import com.ssafy.homfit.model.Challenge;
 import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.Feed;
+import com.ssafy.homfit.model.Point;
 import com.ssafy.homfit.model.Review;
 import com.ssafy.homfit.model.Tag;
 import com.ssafy.homfit.model.TodayChallenge;
@@ -53,9 +55,11 @@ import com.ssafy.homfit.model.service.BookmarkService;
 import com.ssafy.homfit.model.service.ChallengeService;
 import com.ssafy.homfit.model.service.FavoriteService;
 import com.ssafy.homfit.model.service.FeedService;
+import com.ssafy.homfit.model.service.PointService;
 import com.ssafy.homfit.model.service.ReviewService;
 import com.ssafy.homfit.model.service.S3Service;
 import com.ssafy.homfit.model.service.TagService;
+import com.ssafy.homfit.model.service.UserService;
 
 /**
  * @author 황다희
@@ -81,9 +85,12 @@ public class ChallengeController {
 	FavoriteService favoriteService;
 	@Autowired
 	FeedService feedService;
-
 	@Autowired
 	S3Service s3service;
+	@Autowired
+	PointService PointService;
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
@@ -95,12 +102,120 @@ public class ChallengeController {
 	/**
 	 * 테스트코드
 	 * 
-	 * @throws ParseException
+	 * @throws Exception
 	 */
 	@GetMapping("/test")
-	public ResponseEntity<String> testChallenge() throws ParseException {
+	public ResponseEntity<HashMap<String, Object>> testChallenge() throws Exception {
 
-		return new ResponseEntity<String>("hi", HttpStatus.NO_CONTENT);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+//		
+//		Calendar cal2 = new GregorianCalendar(Locale.KOREA);
+//		cal2.add(Calendar.DATE, -1);
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷
+//		String yesterday = sdf.format(cal2.getTime()); // String으로 저장
+//		
+//		//PointService.calcPoint(numberOfParticipants, numberOfDays, everyoneDoPerfect);
+//	
+//		// 오늘 기준, 어제 완료된 챌린지 유저 달성률 기록
+//		List<Challenge> challengelist = challengeService.AllChallengeList();
+//		for (Challenge challenge : challengelist) {
+//			if(challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {
+//				boolean everyoneDoPerfect = true; //모두의 100프로 여부
+//				int compChallengeId = challenge.getChallenge_id();
+//				double certification = challenge.getCertification();
+//				String c_title = challenge.getChallenge_title();
+//				String c_endDate = challenge.getEnd_date();
+//				int period = challenge.getPeriod();
+//				String user[] = challengeService.selectUidByChallenge(compChallengeId);
+//				List<String> pointUser = new ArrayList<String>();
+//				for (int i = 0; i < user.length; i++) {
+//					 int size = feedService.selectUserFeed(user[i], compChallengeId).length;
+//					 //유저 달성률 평균 
+//					 int avg = (int)Math.round((size/certification) * 100); 
+//					 challengeService.insertUserRate(new UserRate(user[i], compChallengeId, avg, c_endDate, c_title));
+//					 if(avg == 100) {
+//						 pointUser.add(user[i]); //달성률 100프로시
+//					 }else {//한명이라도 100프로가 아니면 false
+//						everyoneDoPerfect = false; 
+//					 }
+//				}
+//				//포인트 적립
+//				if(pointUser.size() != 0) { //포인트 받을 유저가 있을 경우만
+//					int point = PointService.calcPoint(user.length, period, everyoneDoPerfect);
+//					Point p = new Point();
+//					p.setPoint(point);
+//					p.setTitle("챌린지 100% 달성");
+//					String content = "";
+//					if(everyoneDoPerfect) {
+//						 content = "참가자 모두 100% 달성";	
+//					}else {
+//						 content = "참가자 개인 100% 달성";
+//					}
+//					p.setContent(content);
+//					for (String pointUid : pointUser) {
+//						p.setUid(pointUid);
+//						PointService.earn(p);
+//					}
+//				}
+//			}
+//		}
+//		map.put("cal Time zone", cal.getTimeZone());
+//		map.put("cal get Time", cal.getTime());
+//		map.put("cal date", cal.get(Calendar.DATE));
+//		map.put("cal hour", cal.get(Calendar.HOUR));
+//		map.put("cal MINUTE", cal.get(Calendar.MINUTE));
+//		map.put("cal SECOND", cal.get(Calendar.SECOND));
+//		
+//		System.out.println(cal.getTime());
+//		//System.out.println(cal2.get(Calendar.DAY_OF_WEEK));
+		// Calendar cal = Calendar.getInstance();
+		// int date = cal.get(Calendar.DAY_OF_WEEK); // 요일 db테이블에 맞게 파싱
+		// System.out.println(date);
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+	}
+
+	/** 챌린지 현황 갯수 반환 */
+	@GetMapping("/challengeStatus")
+	public ResponseEntity<HashMap<String, Object>> challengeStatus(@RequestParam String uid) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Challenge> cacheList = (List<Challenge>) challengeRepository.findAll();
+		List<TodayChallenge> todayList = (List<TodayChallenge>) todayRepository.findAll();
+
+		// 1. 참가중인수
+		// 진행전
+		int[] prelist = challengeService.selectPreChallenge(uid);
+		int preCnt = prelist.length;
+		map.put("preCnt", preCnt);
+		// 진행중
+		int[] inglist = challengeService.selectIngChallenge(uid);
+		int ingCnt = inglist.length;
+		map.put("ingCnt", ingCnt);
+
+		// 2. 오늘할 챌린지
+		int todayCnt = 0;
+		for (int i = 0; i < inglist.length; i++) {
+			if (todayRepository.findById(inglist[i]).isPresent()) {
+				todayCnt++;
+			}
+		}
+		map.put("todayCnt", todayCnt);
+
+		// 3. 완료 수
+		int[] endlist = challengeService.selectEndChallenge(uid);
+		int endCnt = endlist.length;
+		map.put("endCnt", endCnt);
+
+		// 4. 개설 수
+		int makeCnt = 0;
+		for (Challenge challenge : cacheList) {
+			if (challenge.getMake_uid().equals(uid)) {
+				makeCnt++;
+			}
+		}
+		map.put("makeCnt", makeCnt);
+		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
 	/** 챌린지 관리 페이지 */
@@ -362,8 +477,9 @@ public class ChallengeController {
 	/** 챌린지 등록 */
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
-			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
+	public ResponseEntity<String> insertChallenge(@ModelAttribute Challenge challenge,
+			@ModelAttribute MultipartFile challengeImgFile, @ModelAttribute MultipartFile badImgFile,
+			@ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -389,16 +505,25 @@ public class ChallengeController {
 				challenge.setCertification(cert_day);
 
 				// 1. 사진세팅 - 이미지가 null이 아닐경우만
-				if(goodImgFile != null) {
+				// null제외 이미지 기본 url 세팅
+				challenge.setGood_img(
+						"https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc");
+				challenge.setBad_img(
+						"https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520");
+				challenge.setChallenge_img(
+						"https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399");
+
+				// multipartfile로 받았을때는 해당 사진 url담음
+				if (goodImgFile != null) {
 					challenge.setGood_img(s3service.uploadImg(goodImgFile));
 				}
-				if(badImgFile != null) {
+				if (badImgFile != null) {
 					challenge.setBad_img(s3service.uploadImg(badImgFile));
 				}
-				if(challengeImgFile != null) {
+				if (challengeImgFile != null) {
 					challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 				}
-				
+
 				challengeService.writeChallenge(challenge); // 입력
 				int challengeId = challenge.getChallenge_id();
 
@@ -459,8 +584,9 @@ public class ChallengeController {
 	/** 챌린지 수정 */
 	@PutMapping("{challengeId}")
 	@Transactional
-	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge, @ModelAttribute MultipartFile challengeImgFile,
-			@ModelAttribute MultipartFile badImgFile, @ModelAttribute MultipartFile goodImgFile) {
+	public ResponseEntity<String> updateChallenge(@PathVariable int challengeId, @ModelAttribute Challenge challenge,
+			@ModelAttribute MultipartFile challengeImgFile, @ModelAttribute MultipartFile badImgFile,
+			@ModelAttribute MultipartFile goodImgFile) {
 
 		HttpStatus status = HttpStatus.OK;
 		String result = FAIL;
@@ -470,13 +596,13 @@ public class ChallengeController {
 
 		try {
 			// 1. 사진세팅 - 이미지가 null이 아닐경우만
-			if(goodImgFile != null) {
+			if (goodImgFile != null) {
 				challenge.setGood_img(s3service.uploadImg(goodImgFile));
 			}
-			if(badImgFile != null) {
+			if (badImgFile != null) {
 				challenge.setBad_img(s3service.uploadImg(badImgFile));
 			}
-			if(challengeImgFile != null) {
+			if (challengeImgFile != null) {
 				challenge.setChallenge_img(s3service.uploadImg(challengeImgFile));
 			}
 
@@ -783,64 +909,104 @@ public class ChallengeController {
 		return new ResponseEntity<List<Challenge>>(returnList, HttpStatus.OK);
 	}
 
-	/** 챌린지 통계 */
-	@GetMapping("/figures/{month}")
-	public ResponseEntity<HashMap<String, Object>> figures(@RequestParam String uid, @PathVariable int month) {
+	/** 챌린지 통계 
+	 * @throws Exception */
+	@GetMapping("/figures/{tap}/{month}")
+	public ResponseEntity<HashMap<String, Object>> figures(@RequestParam String uid, @PathVariable int month,
+			@PathVariable int tap) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		// 1. 월별챌린지
-		List<UserRate> monthList = challengeService.selectMonthChallenge(uid, month);
-		map.put("monthList", monthList);
+		
+		//월별 통계
+		if (tap == 1) { 
+			// 1. 월별챌린지
+			List<UserRate> monthList = challengeService.selectMonthChallenge(uid, month);
+			map.put("monthList", monthList);
 
-		// 1-1. 이번달 평균 담아서 주기.
-		int current_average_rate = 0;
-		int monthCnt = monthList.size();
-		double sum = 0.0;
-		for (UserRate userRate : monthList) {
-			sum += userRate.getAchievement_rate();
-		}
-		current_average_rate = (int) Math.round((sum / monthCnt)); // 소수 첫번째자리 반올림
-		map.put("current_average_rate", current_average_rate);
-
-		// 2. 지난달 나와의 비교 -> 지난달 평균 계산
-		int premonth = month - 1;
-		int previous_average_rate = 0;
-		if (premonth > 0) { // 1월 이전인 12월은 x
-			List<UserRate> preList = challengeService.selectMonthChallenge(uid, premonth);
-			int premonthCnt = preList.size();
-			double presum = 0.0;
-			for (UserRate userRate : preList) {
-				presum += userRate.getAchievement_rate();
+			// 1-1. 이번달 평균 담아서 주기.
+			int current_average_rate = 0;
+			int monthCnt = monthList.size();
+			double sum = 0.0;
+			for (UserRate userRate : monthList) {
+				sum += userRate.getAchievement_rate();
 			}
-			previous_average_rate = (int) Math.round((presum / premonthCnt)); // 소수 첫번째자리 반올림
-		}
-		map.put("previous_average_rate", previous_average_rate);
+			current_average_rate = (int) Math.round((sum / monthCnt)); // 소수 첫번째자리 반올림
+			map.put("current_average_rate", current_average_rate);
 
-		// 3. 완료된 참여한 운동 카테고리 별 갯수 반환
-		int fitList[] = new int[11];
-		int dbfitList[] = challengeService.selectFitId(uid);
-		for (int i = 0; i < dbfitList.length; i++) {
-			int num = dbfitList[i];
-			fitList[num]++;
+			// 2. 지난달 나와의 비교 -> 지난달 평균 계산
+			int premonth = month - 1;
+			int previous_average_rate = 0;
+			if (premonth > 0) { // 1월 이전인 12월은 x
+				List<UserRate> preList = challengeService.selectMonthChallenge(uid, premonth);
+				int premonthCnt = preList.size();
+				double presum = 0.0;
+				for (UserRate userRate : preList) {
+					presum += userRate.getAchievement_rate();
+				}
+				previous_average_rate = (int) Math.round((presum / premonthCnt)); // 소수 첫번째자리 반올림
+			}
+			map.put("previous_average_rate", previous_average_rate);
 		}
-		map.put("categoryList", fitList);
+		//참여 통계 -> 누적
+		else if (tap == 2) {
+			// 3. 완료된 참여한 운동 카테고리 별 갯수 반환
+			int fitList[] = new int[11];
+			int dbfitList[] = challengeService.selectFitId(uid);
+			for (int i = 0; i < dbfitList.length; i++) {
+				int num = dbfitList[i];
+				fitList[num]++;
+			}
+			map.put("categoryList", fitList);
 
-		// 4. 완료된 참여한 부위 별 갯수 반환
-		int bodyList[] = new int[10];
-		int dbbodyList[] = challengeService.selectBodyId(uid);
-		for (int i = 0; i < dbbodyList.length; i++) {
-			int num = dbbodyList[i];
-			bodyList[num]++;
+			// 4. 완료된 참여한 부위 별 갯수 반환
+			int bodyList[] = new int[10];
+			int dbbodyList[] = challengeService.selectBodyId(uid);
+			for (int i = 0; i < dbbodyList.length; i++) {
+				int num = dbbodyList[i];
+				bodyList[num]++;
+			}
+			map.put("bodyList", bodyList);
 		}
-		map.put("bodyList", bodyList);
+		//나이,성별 통계
+		else if (tap == 3) {
+			 User user = userService.getUid(uid);
+			 List<Favorite> favList = favoriteService.selectUserByAgeSex(user.getAge(), user.getSex());
+			 int favoriteBodyList [] = new int[10];
+			 int favoriteFitList[] = new int[11];
+			 int people = favList.size();
+			 
+			 for (Favorite favorite : favList) { //string -> int배열로 바꾸고 cnt세기
+				String fit = favorite.getFit_list();
+				String body = favorite.getBody_list();
+				
+				//string -> string []
+				String[] fit_string = fit.substring(1, fit.length() - 1).split(",");
+				String[] body_string = body.substring(1, body.length() - 1).split(",");
 
+				// string[] -> int[]
+				int[] fit_arr = Arrays.asList(fit_string).stream().mapToInt(Integer::parseInt).toArray();
+				for (int i = 0; i < fit_arr.length; i++) {
+					int num = fit_arr[i];
+					favoriteFitList[num]++;
+				}
+				int[] body_arr = Arrays.asList(body_string).stream().mapToInt(Integer::parseInt).toArray();
+				for (int i = 0; i < body_arr.length; i++) {
+					int num = body_arr[i];
+					favoriteBodyList[num]++;
+				}
+			}
+			 map.put("people", people);
+			 map.put("favoriteBodyList", favoriteBodyList);
+			 map.put("favoriteFitList", favoriteFitList);
+		}
+
+	
 		// 5. 다른 사람들과의 비교 top
-		// 나이, 연령대 선호하는 운동카테고리 (인기순 정렬)
+		// 총 몇명인지 줘야함.
+		// 나이, 연령대 선호하는 운동카테고리 
 		// - 회원의 성별, 나이 가져옴
-		// -
-		// 나이, 연령대 선호하는 부위 카테고리 (인기순 정렬)
+		// 나이, 연령대 선호하는 부위 카테고리
 
-		// 6. 나이,연령대 가장 많이 도전한 챌린지 -> 보류
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
@@ -853,7 +1019,7 @@ public class ChallengeController {
 
 		DateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date data = dataFormat.parse(date);
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
 		cal.setTime(data);
 
 		// int oneCnt = ch.getDay_certify_count();//하루 인증횟수

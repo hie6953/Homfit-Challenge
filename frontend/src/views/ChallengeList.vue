@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div>
     <!-- 카테고리 -->
     <!-- <hr id="category-hr-top" /> -->
     <div class="category-background row mx-auto">
@@ -158,7 +158,7 @@
         <challenge-list-card
           v-for="(challenge, index) in challengeList"
           :key="`${index}_challenge`"
-          class="col-6 col-md-4 col-xl-4 challenge-list-card"
+          class="col-6 col-md-4 col-xl-3 challenge-list-card"
           :challenge="challenge"
           @moreInfo="ChallengeMoreInfo"
         ></challenge-list-card>

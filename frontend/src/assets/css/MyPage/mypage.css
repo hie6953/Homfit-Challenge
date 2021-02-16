@@ -1,11 +1,3 @@
-#hr-top {
-  margin: 8px 0 !important;
-}
-
-.mt-3 {
-  margin-top: 0px;
-  padding-bottom: 3rem;
-}
 /* 
 a,
 button,
@@ -17,6 +9,10 @@ input[type='reset'] {
   -ms-touch-action: manipulation;
   touch-action: manipulation;
 } */
+
+.mypage-container {
+  margin: auto;
+}
 
 .user-img {
   width: 100%;
@@ -235,7 +231,8 @@ input[type='reset'] {
 
 .myfeeds {
   padding-top: 30px;
-  margin-top: 40px;
+  margin-top: 35px;
+  margin-bottom: 35px;
   background-color: #fafafa;
   padding-bottom: 3rem;
 }
@@ -259,9 +256,18 @@ input[type='reset'] {
   text-align: right;
   margin-right: 15px;
   font-size: 13px;
+  cursor: pointer;
 }
 .mypage-myfeed {
 }
 .grid-feed {
   margin-top: 15px;
+}
+
+.thereisnomyfeed {
+  width: 100%;
+  font-size: 16px;
+  margin: auto;
+  text-align: center;
+  padding-top: 20px;
 }

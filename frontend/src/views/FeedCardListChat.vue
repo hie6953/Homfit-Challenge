@@ -1,14 +1,14 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <!-- 피드 -->
     <div class="row col-12 col-lg-8 feedcardlist-container">
-      <!-- <feed-card
+      <!-- <feed-card-chat
         v-for="(feed, index) in feedList"
-        class="col-6 col-md-4 col-lg-3 challenge-list-feed"
+        class="col-12 challenge-list-feed"
         :key="`${index}_feed`"
         :feed="feed"
       >
-      </feed-card> -->
+      </feed-card-chat> -->
       <FeedCardChat />
     </div>
   </div>

@@ -2,7 +2,6 @@
   <div>
     <b-form-file
       v-model="challenge_img"
-      :state="Boolean(challenge_img)"
       accept="image/*"
       :capture="props_only_cam == 1"
       @change="previewImage"
@@ -10,7 +9,7 @@
       drop-placeholder="이미지를 내려놓으세요."
     ></b-form-file>
     
-    <div class="challenge-main-img" v-if="imageData.length > 0">
+    <div class="challenge-main-img">
       <img class="preview" :src="imageData" />
       <b-button @click="DeleteImage">
         <b-icon icon="x-circle"></b-icon>
@@ -28,6 +27,9 @@ export default {
       default: 1,
     },
     props_challenge_img:Object,
+    props_default_link:String,
+    props_default_img:String,
+    props_change:Boolean,
   },
   data() {
     return {
@@ -37,10 +39,14 @@ export default {
   },
   created() {
       this.challenge_img = this.props_challenge_img;
+      this.imageData = this.props_default_img;
   },
   watch:{
       challenge_img:function(){
           this.$emit("imageUploaded",this.challenge_img);
+      },
+      props_change:function(){
+        this.imageData = this.props_default_link;
       }
   },
   methods: {
@@ -63,7 +69,7 @@ export default {
     },
     DeleteImage: function() {
       this.challenge_img = null;
-      this.imageData = "";
+      this.imageData = this.props_default_img;
     },
   },
 };

@@ -1,16 +1,23 @@
 <template>
   <div class="manage-container">
-    <div class="row col-12 col-md-8 manage-menu-bar justify-content-center">
+    <b-tabs class="manage-menu-bar">
+      <b-tab @click="tabValue(0)" title="오늘"></b-tab>
+      <b-tab @click="tabValue(1)" title="진행전"></b-tab>
+      <b-tab @click="tabValue(2)" title="진행중"></b-tab>
+      <b-tab @click="tabValue(3)" title="완료"></b-tab>
+      <b-tab @click="tabValue(4)" title="개설"></b-tab>
+    </b-tabs>
+    <!-- <div class="row col-12 col-md-8 manage-menu-bar justify-content-center">
       <div class="col-2 tab-pd border-right"><span class="tab-0 tab-cursor active" @click="tabValue(0)">오늘</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-1 tab-cursor" @click="tabValue(1)">진행전</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-2 tab-cursor" @click="tabValue(2)">진행중</span></div>
       <div class="col-2 tab-pd border-left border-right"><span class="tab-3 tab-cursor" @click="tabValue(3)">완료</span></div>
       <div class="col-2 tab-pd border-left"><span class="tab-4 tab-cursor" @click="tabValue(4)">개설</span></div>
-    </div>
+    </div> -->
     <!-- 카테고리 -->
-    <div class="mt-3">
-      <div class="category-background row mx-auto">
-        <div class="category mx-auto">
+    <div>
+      <div class="manage-category-background row mx-auto">
+        <div class="manage-category mx-auto">
           <input
             class="checkbox-tools"
             type="radio"
@@ -134,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-8 mx-auto">
+    <div class="col-12 col-md-8 mx-auto mt-4">
       <div class="row list-card">
         <ChallengeListCard
           v-for="(challenge, index) in items"
@@ -290,8 +297,8 @@ export default {
     tabValue(num) {
       // 탭 누르면 카테고리 0으로 초기화, 해당 탭내용으로 변경
       this.category = 0
-      document.querySelector(`.tab-${this.tab}`).classList.remove("active")
-      document.querySelector(`.tab-${num}`).classList.add("active")
+      // document.querySelector(`.tab-${this.tab}`).classList.remove("active")
+      // document.querySelector(`.tab-${num}`).classList.add("active")
       this.tab = num
       if (num === 1) {
         this.cancelActive = 1

@@ -33,6 +33,7 @@ public interface ChallengeService {
 	public boolean joinChallenge(int challenge_id, String uid);
 	public boolean quitChallenge(int challenge_id, String uid);
 	public String selectParticipant(int challenge_id, String uid);
+	public String[] selectUidByChallenge (int challenge_id);
 	
 	/** 챌린지 관리*/
 	public List<TodayChallenge> selectTodayChallenge(int day); //오늘할 챌린지 -> cache에 올림
@@ -45,10 +46,11 @@ public interface ChallengeService {
 	public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id
 	public int [] selectIngToComp(); //진행중 -> 완료중으로 갈 c_id 
 	public boolean updateChallengeStatus(Map<String, Object> map); //c_id를 받아 챌린지 상태 업데이트
+	public boolean updateAverageRate(int challenge_id, int average_rate);
 	
 	/** 통계 */
 	public int[] selectFitId(String uid);
 	public int[] selectBodyId(String uid);
 	public List<UserRate> selectMonthChallenge(String uid, int month);
-
+	public boolean insertUserRate (UserRate userRate);
 }

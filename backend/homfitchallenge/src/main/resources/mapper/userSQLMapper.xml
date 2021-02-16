@@ -9,12 +9,12 @@
     </select>
 
     <insert id="signup" parameterType="user">
-        insert into user(uid, email, password, nick_name, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
-        values (#{uid},#{email},#{password},#{nick_name},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
+        insert into user(uid, email, password, nick_name, kakao_key, sex, age, grade, user_img, admin_check, provider_id, user_img)
+        values (#{uid},#{email},#{password},#{nick_name},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id},#{user_img})
     </insert>
 
     <select id="getUid" parameterType="String" resultType="user">
-        select nick_name, user_img, grade, email from user where uid=#{uid}
+        select nick_name, user_img, grade, email, sex, age from user where uid=#{uid}
     </select>
 
     <select id="getByEmail" parameterType="String" resultType="String">

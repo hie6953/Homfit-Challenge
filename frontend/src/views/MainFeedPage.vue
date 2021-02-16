@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <!-- 카테고리 -->
     <div class="category-background row mx-auto">
       <div class="category mx-auto">
@@ -132,6 +132,7 @@
         class="col-6 col-md-4 col-lg-3 challenge-list-feed"
         :key="`${index}_feed`"
         :feed="feed"
+        @click="FeedMoreInfo"
       >
       </main-feed>
       <!-- <MainFeed /> -->
@@ -191,6 +192,10 @@ export default {
     },
   },
   methods: {
+    FeedMoreInfo: function() {
+      this.$store.commit('SETTMPFEED', this.feed);
+      this.$router.push('/feedcardlist');
+    },
     GetFeedbyCategory() {
       axios
         .get(`${SERVER_URL}/feed/category`, {

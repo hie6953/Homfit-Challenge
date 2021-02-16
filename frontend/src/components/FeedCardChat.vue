@@ -1,117 +1,52 @@
 <template>
-  <!-- axios -->
-  <!-- <div class="gallery-item">
-    <img
-      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop"
-      class="responsive-image"
-      @click="ChallengeMoreInfo"
-    />
-    <div class="gallery-item-info">
-      <ul>
-        <li class="gallery-item-likes">
-          <span class="visually-hidden">{{ feedchat.challenge_title }}</span>
-        </li>
-      </ul>
-    </div>
-  </div> -->
-
   <div class="feedchat-border">
-    <div class="feedchat-card">
-      <div class="feedchat-card-header">
+    <!-- 댓글목록 -->
+    <hr class="feedchat-card-hr" />
+    <div class="feedchat-card-comments">
+      <div
+        class="Comment-section"
+        v-for="(comment, index) in commentList"
+        :key="index"
+      >
         <img
-          src="@/assets/NavBar/anonimous_user.png"
-          class="feedchat-card-user-image"
+          :src="comment.user_img"
+          class="commenter-image"
+          height="32px"
+          width="32px"
         />
-        <div class="feedchat-card-user-name">이건내이름이얌</div>
-        <!-- <div class="feed-delete">
-          <b-button class="feed-delete-btn">
-            <b-icon icon="trash"></b-icon>
-          </b-button>
-        </div> -->
-        <div class="feedchat-card-time">
-          2021년 02월 11일<i class="fa fa-globe"></i>
-        </div>
-      </div>
+        <div class="feedchat-div-tmp">
+          <div class="comment-delete">
+            <b-button
+              class="comment-delete-btn"
+              @click="DeleteComments(comment.comment_id)"
+            >
+              <b-icon icon="trash"></b-icon>
+            </b-button>
+          </div>
+          <div class="comment-user">{{ comment.nick_name }}</div>
 
-      <!-- 이미지 -->
-      <div class="feedchat-card-img-information">
-        <img
-          src="http://www.seriouseats.com/recipes/assets_c/2014/09/20140918-jamie-olivers-comfort-food-insanity-burger-david-loftus-thumb-1500xauto-411285.jpg"
-          class="feedchat-card-image"
-        />
-      </div>
-
-      <!-- 챌린지바로가기? or 내용? -->
-      <div class="feedchat-card-information">
-        <p>왜 벌써 3시야...</p>
-      </div>
-
-      <!-- 하단바_좋아요,댓글,바로가기,신고 -->
-
-      <hr class="feedchat-card-hr" />
-      <div class="col-12 feedchat-icons">
-        <!-- <a href="#"><span class="feedchat-card-button-left">좋아요</span></a> -->
-        <b-button class="feedchat-card-button-left">
-          <b-icon icon="heart" variant="warning" aria-hidden="true"></b-icon>
-          좋아요
-        </b-button>
-
-        <router-link to="/feedcardlist">
-          <b-button class="feedchat-card-button-left">
-            <b-icon
-              icon="chat-fill"
-              variant="warning"
-              aria-hidden="true"
-            ></b-icon>
-            댓글
-          </b-button>
-        </router-link>
-
-        <b-button class="feedchat-card-button-left">
-          <b-icon
-            icon="arrow-right-circle"
-            variant="warning"
-            aria-hidden="true"
-          ></b-icon>
-          바로가기
-        </b-button>
-
-        <b-button class="feedchat-card-button-right">
-          <b-icon icon="bell" variant="warning" aria-hidden="true"></b-icon>
-          신고
-        </b-button>
-      </div>
-
-      <!-- 댓글목록 -->
-      <hr class="feedchat-card-hr" />
-      <div class="feedchat-card-comments">
-        <div
-          class="Comment-section"
-          v-for="(comment, index) in commentList"
-          :key="index"
-        >
-          <img :src="comment.user_img" class="commenter-image" height="32px" />
-
-          <div class="feedchat-div-tmp">
-            <div class="user">{{ comment.nick_name }}</div>
-            <div class="comment">{{ comment.comment.contents }}</div>
-            <div class="comment-time">
-              {{ comment.comment.comment_regist_date }}
-            </div>
+          <div class="comment">{{ comment.contents }}</div>
+          <div class="comment-time">
+            {{ getFormatDate(comment.comment_regist_date) }}
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- 댓글작성 -->
-      <div class="write-comment">
-        <input type="text" class="comment-input-box" v-model="contents" />
-        <input
-          type="button"
-          value="작성"
-          class="comment-submit-btn"
-          @click="FeedCommentWrite"
-        />
-      </div>
+    <!-- 댓글작성 -->
+    <div class="write-comment">
+      <input
+        type="text"
+        class="comment-input-box"
+        v-model="contents"
+        @keyup.enter="FeedCommentWrite"
+      />
+      <input
+        type="button"
+        value="작성"
+        class="comment-submit-btn"
+        @click="FeedCommentWrite"
+      />
     </div>
   </div>
 </template>
@@ -121,11 +56,12 @@ import '../assets/css/FeedCard/feedcardchat.css';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
+import moment from 'moment';
 
 export default {
   name: 'FeedCardChat',
   props: {
-    feed: Object,
+    feed_id: Number,
   },
   data: function() {
     return {
@@ -137,16 +73,28 @@ export default {
     this.LoadComments();
   },
   methods: {
+    DeleteComments(comment_id) {
+      axios
+        .delete(`${SERVER_URL}/comment/delete/${comment_id}`)
+        .then(({ data }) => {
+          console.log(data);
+          this.LoadComments();
+        })
+        .catch(() => {
+          alert('에러가 발생했습니다.');
+        });
+    },
     FeedCommentWrite() {
       axios
         .post(`${SERVER_URL}/comment/create`, {
           uid: this.getUserUid,
           contents: this.contents,
-          feed_id: this.feed.feed_id,
+          feed_id: this.feed_id,
         })
         .then(({ data }) => {
           console.log(data);
-          this.feedList = data;
+          this.LoadComments();
+          this.contents = '';
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
@@ -155,14 +103,18 @@ export default {
 
     LoadComments() {
       axios
-        .get(`${SERVER_URL}/search/${this.feed.feed_id}`)
+        .get(`${SERVER_URL}/comment/search/${this.feed_id}`)
         .then(({ data }) => {
           console.log(data);
           this.commentList = data.list;
+          console.log(this.commentList);
         })
         .catch(() => {
           alert('에러가 발생했습니다.');
         });
+    },
+    getFormatDate(register_date) {
+      return moment(new Date(register_date)).format('YYYY.MM.DD HH:mm:ss');
     },
   },
   computed: {

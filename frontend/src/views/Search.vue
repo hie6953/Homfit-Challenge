@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div class="">
     <hr id="hr-top" />
 
     <div class="mx-auto col-12 col-md-8 search-tmp-container">
@@ -79,6 +79,7 @@
                   class="col-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
+                  @click="FeedMoreInfo"
                 >
                 </feed>
                 <!-- <Feed /> -->
@@ -114,6 +115,10 @@ export default {
     };
   },
   methods: {
+    FeedMoreInfo: function() {
+      this.$store.commit('SETTMPFEED', this.feed);
+      this.$router.push('/feedcardlist');
+    },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },

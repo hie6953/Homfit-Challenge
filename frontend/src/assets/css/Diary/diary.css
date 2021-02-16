@@ -1,5 +1,5 @@
 .diary-background{
-  margin-top:20px;
+  margin:20px 0px;
   padding:30px 20px;
   border-radius: 4px;
   border: 1px solid #dadce0;
@@ -21,6 +21,10 @@
 
 .diary-content-write{
   margin-top:20px;
+}
+
+.calendar-year-month{
+  font-weight: bold;
 }
 
 #diary-textarea{

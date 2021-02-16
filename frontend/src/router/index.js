@@ -59,6 +59,11 @@ const routes = [
     component: () => import('../views/MainFeedPage.vue'),
   },
   {
+    path: '/mypagefeedtotal',
+    name: 'MyPageFeedTotal',
+    component: () => import('../views/MyPageFeedTotal.vue'),
+  },
+  {
     path: '/feedcardlistchat',
     name: 'FeedCardListChat',
     component: () => import('../views/FeedCardListChat.vue'),
@@ -164,12 +169,6 @@ const routes = [
     path: '/participated/:challenge_id',
     name: 'ParticipatedChallenge',
     component: () => import('../views/ParticipatedChallenge.vue'),
-    beforeEnter: requireAuth(),
-  },
-  {
-    path: '/certify/:challenge_id',
-    name: 'Certify',
-    component: () => import('../views/Certify.vue'),
     beforeEnter: requireAuth(),
   },
   {

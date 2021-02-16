@@ -2,11 +2,15 @@
 .challenge-main-img{
     text-align: center;
   }
-  .challenge-main-img img{
+  .challenge-main-img img {
     display: inline-block;
-    margin:20px auto;
-    height:150px; 
+    margin: 20px auto;
+    height: 150px;
+    
+    border-radius: 10px;
+    box-shadow: 0 2px 4px 1px rgba(39, 44, 56, 0.2);
   }
+  
   
   .challenge-main-img button{
     border:none !important;
@@ -17,3 +21,11 @@
   .challenge-main-img button:hover{
     color:#EAC03A;
   }
+
+  .challenge-main-img button:focus,
+  .challenge-main-img button:active{
+    box-shadow: none !important;
+    border:none !important;
+    color:#EAC03A !important;
+  }
+  

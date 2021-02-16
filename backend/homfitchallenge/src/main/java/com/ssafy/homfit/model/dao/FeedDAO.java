@@ -2,6 +2,7 @@ package com.ssafy.homfit.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.homfit.model.Feed;
 
@@ -11,15 +12,17 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedDAO {
 
+	public int searchLikeCnt(int feed_id) throws SQLException;
+
 	public void create(Feed feed) throws SQLException;
 
 	public List<Feed> searchByUser(String uid) throws SQLException;
 
 	public List<Feed> searchByChallenge(int challenge_id) throws SQLException;
 
-	public List<Feed> searchByChallengeNotFeedId(int challenge_id, int feed_id) throws SQLException;
+	public List<Feed> searchByChallengeNotFeedId(Map<String, Object> map) throws SQLException;
 
-	public Feed searchByFeedId(int feed_id) throws SQLException;
+	public Feed searchByFeedId(Map<String, Object> map) throws SQLException;
 
 	public void updateImg(Feed feed) throws SQLException;
 
@@ -47,4 +50,6 @@ public interface FeedDAO {
 
 	// 오늘 찍은 피드 img url
 	public List<Feed> selectFeedImg(@Param("uid") String uid, @Param("challenge_id") int challenge_id);
+
+	public List<Feed> searchByUserAll(String uid) throws SQLException;
 }

@@ -1,5 +1,17 @@
-#hr-top {
-  margin: 8px 0 !important;
+@media (max-width: 480px) {
+  .table td,
+  .table th {
+    padding: 0.45rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font-size: 16px;
+  }
+
+  .mypoint-container {
+    margin: 20px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 .mypoint-info {
@@ -23,7 +35,7 @@
 .mypoint-container {
   margin: 20px auto;
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   /* border-radius: 0 0 5px 5px;
   box-shadow: 0 2.5px 5px #ccc; */
 }

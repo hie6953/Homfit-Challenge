@@ -141,7 +141,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	//해당 월 챌린지 데이터
 	@Override
-	public List<UserRate> selectMonthChallenge(String uid, int month) {
+	public List<UserRate> selectMonthChallenge(String uid, int month){
 		return challengeDAO.selectMonthChallenge(uid, month);
 	}
 
@@ -163,6 +163,27 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.updateChallengeStatus(map) > 0;
 	}
 
+
+	//챌린지별 평균 달성률 업데이트
+	@Override
+	public boolean updateAverageRate(int challenge_id, int average_rate) {
+		return challengeDAO.updateAverageRate(challenge_id, average_rate) == 1;
+	}
+
+	//완료된 챌린지 개인달성률 insert
+	@Override
+	public boolean insertUserRate(UserRate userRate) {
+		return challengeDAO.insertUserRate(userRate) == 1;
+	}
+
+	//챌린지 ID에 참여중인 userID목록
+	@Override
+	public String[] selectUidByChallenge(int challenge_id) {
+		return challengeDAO.selectUidByChallenge(challenge_id);
+	}
+
+
+	
 
 
 
