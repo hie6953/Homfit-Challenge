@@ -52,10 +52,7 @@ public class HomfitchallengeApplication {
 		return new ApplicationRunner() {
 			@Override
 			public void run(ApplicationArguments args) throws Exception {
-
-				
-				
-			
+		
 				// 4-4. cache 챌린지 리스트 업데이트
 				challengeRepository.deleteAll(); // 처음 등록된 캐시 다 지움
 				List<Challenge> reloadList = challengeService.AllChallengeList();
