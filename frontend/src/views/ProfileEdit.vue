@@ -18,13 +18,16 @@
                   src="@/assets/NavBar/anonimous_user.png"
                 />
               </div> -->
-              <div v-if="changeuserimg" class="edit-user-photo">
-                <img class="profiledeit-user-img" :src="imgurl" />
+              <div class="profileedit-tmp">
+                <div v-if="changeuserimg" class="edit-user-photo">
+                  <img class="profiledeit-user-img" :src="imgurl" />
+                </div>
+
+                <div v-else class="edit-user-photo">
+                  <img class="profiledeit-user-img" :src="user_img" />
+                </div>
               </div>
-              <div v-else class="edit-user-photo">
-                <img class="profiledeit-user-img" :src="user_img" />
-              </div>
-              <div class="edit-user-photo">
+              <div class="edit-user-photo-input">
                 <label class="input-file-button" for="input-file">
                   사진선택
                 </label>
@@ -220,7 +223,6 @@ export default {
     fileSelect: function(event) {
       var input = event.target;
       if (input.files && input.files[0]) {
-        
         var reader = new FileReader();
         reader.onload = (e) => {
           this.imgurl = e.target.result;
