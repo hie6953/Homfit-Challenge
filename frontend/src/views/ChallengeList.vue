@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div>
     <!-- 카테고리 -->
     <!-- <hr id="category-hr-top" /> -->
     <div class="category-background row mx-auto">
