@@ -86,8 +86,13 @@
   display: inline-block;
 }
 
+.navbar-second-icon.mobile *{
+  display: block;
+}
+
 .navbar-second-icon img{
   height: 25px;
+  margin: 0px auto;
 }
 
 .navbar-second-icon span{
