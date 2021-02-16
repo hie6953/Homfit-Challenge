@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="mypage-container">
     <!-- 사용자 프로필 div -->
     <div class="mx-auto col-12 col-md-8 user-profile">
       <div class="user-profile-edit">
