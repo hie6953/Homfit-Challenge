@@ -220,9 +220,9 @@ export default {
         check_date: 0,
         period: 0,
       },
-      new_challenge_img: "",
-      new_good_img: "",
-      new_bad_img: "",
+      new_challenge_img: null,
+      new_good_img: null,
+      new_bad_img: null,
     };
   },
   created() {
@@ -308,26 +308,27 @@ export default {
 
     ChallengeEdit: function() {
       console.log(this.challenge);
-      console.log(this.new_challenge_img); //새로 불러오기 : file
-      console.log(this.new_good_img); //삭제 : null
-      console.log(this.new_bad_img); //손안댐 :undefined
+      console.log(this.new_challenge_img); //새로 불러오기 : object
+      console.log(this.new_good_img); //삭제 : 안의 file == null
+      console.log(this.new_bad_img); //손안댐 :null
 
       // undefined 이거나 null인 경우 : default image
       // file이 있을 경우 : 이미지 변경
 
-      if (this.new_challenge_img == null && this.new_challenge_img != undefined) {
+      if (this.new_challenge_img != null && this.new_challenge_img.file == null) {
         this.challenge.challenge_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
       }
-      if (this.new_good_img == null  && this.new_good_img != undefined) {
+      if (this.new_good_img != null  && this.new_good_img.file == null) {
         this.challenge.good_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
       }
-      if (this.new_bad_img == null  && this.new_bad_img != undefined) {
+      if (this.new_bad_img != null  && this.new_bad_img.file == null) {
         this.challenge.bad_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
       }
 
+      
       // // Object To FormData 변환
       var formData = new FormData();
 
@@ -335,9 +336,9 @@ export default {
         if (i == "dayList") continue;
         formData.append(i, this.challenge[i]);
       }
-      formData.append("challengeImgFile", this.new_challenge_img);
-      formData.append("goodImgFile", this.new_good_img);
-      formData.append("badImgFile", this.new_bad_img);
+      formData.append("challengeImgFile", this.new_challenge_img != null? this.new_challenge_img.file :null);
+      formData.append("goodImgFile", this.new_good_img != null ? this.new_good_img.file : null);
+      formData.append("badImgFile", this.new_bad_img != null ? this.new_bad_img.file : null);
 
       // FormData의 key 확인
       // for (let key of formData.keys()) {

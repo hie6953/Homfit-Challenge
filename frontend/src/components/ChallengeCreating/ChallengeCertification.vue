@@ -28,8 +28,10 @@
       <b-col sm="9">
         <image-uploader
           :props_challenge_img="props_good_img"
+          :props_challenge_img_url="props_good_img_url"
           props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc"
           @imageUploaded="GoodImageUploaded"
+          @imageUrlUploaded="GoodImageUrlUploaded"
         ></image-uploader>
       </b-col>
     </b-row>
@@ -41,8 +43,10 @@
       <b-col sm="9">
         <image-uploader
           :props_challenge_img="props_bad_img"
+          :props_challenge_img_url="props_bad_img_url"
           props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520"
           @imageUploaded="BadImageUploaded"
+          @imageUrlUploaded="BadImageUrlUploaded"
         ></image-uploader>
       </b-col>
     </b-row>
@@ -97,6 +101,8 @@ export default {
     props_challenge_certify_contents: String,
     props_good_img: Object,
     props_bad_img: Object,
+    props_good_img_url: String,
+    props_bad_img_url: String,
     props_only_cam: Number,
   },
   data() {
@@ -104,12 +110,18 @@ export default {
       challenge_certify_contents: "",
       good_img: null,
       bad_img: null,
+      good_img_url: '',
+      bad_img_url: '',
       only_cam: 0,
       canGoNext: false,
     };
   },
   created() {
     this.challenge_certify_contents = this.props_challenge_certify_contents;
+    this.good_img = this.props_good_img;
+    this.bad_img = this.props_bad_img;
+    this.good_img_url = this.props_good_img_url;
+    this.bad_img_url = this.props_bad_img_url;
     this.only_cam = this.props_only_cam;
   },
   watch: {
@@ -134,6 +146,12 @@ export default {
     BadImageUploaded: function(image) {
       this.bad_img = image;
     },
+    GoodImageUrlUploaded: function(image) {
+      this.good_img_url = image;
+    },
+    BadImageUrlUploaded: function(image) {
+      this.bad_img_url = image;
+    },
     GetEditorContent: function(data) {
       this.challenge_certify_contents = data;
     },
@@ -146,10 +164,10 @@ export default {
     },
     // 페이지 이동
     PrevPage: function() {
-      this.$emit("PrevPage", this.challenge_certify_contents,this.good_img,this.bad_img, this.only_cam);
+      this.$emit("PrevPage", this.challenge_certify_contents,this.good_img,this.bad_img,this.good_img_url,this.bad_img_url, this.only_cam);
     },
     NextPage: function() {
-      this.$emit("NextPage", this.challenge_certify_contents,this.good_img,this.bad_img, this.only_cam);
+      this.$emit("NextPage", this.challenge_certify_contents,this.good_img,this.bad_img,this.good_img_url,this.bad_img_url, this.only_cam);
     },
   },
 };
