@@ -14,6 +14,11 @@ export default {
     dataList: Array,
     dist: Number,
   },
+  data() {
+    return {
+      noMean: "",
+    }
+  },
    watch:{
     update:function(){
       this.createChart();
@@ -25,12 +30,9 @@ export default {
       const myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
           labels: this.labels,
           datasets: [{
             label: '# of Votes',
-            // data: [12, 19, 3, 5, 2, 3,0,0],
-            
             data: this.dataList,
             backgroundColor: [
               'rgba(244, 67, 54, 0.2)',
@@ -61,7 +63,7 @@ export default {
         },
         options: {}
       })
-      console.log(myChart)
+      this.noMean = myChart.id
     },
     
   },
