@@ -204,11 +204,20 @@ export default {
     axios.interceptors.request.use((config) => {
       this.setLoading(true);
       return config;
-    }),
+    },
+     error=>{
+        this.setLoading(false);
+        return Promise.reject(error);
+      }),
       axios.interceptors.response.use((response) => {
         this.setLoading(false);
         return response;
-      });
+      },
+      error=>{
+        this.setLoading(false);
+        return Promise.reject(error);
+      }
+      );
   },
 
   computed: {
