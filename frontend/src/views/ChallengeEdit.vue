@@ -338,7 +338,7 @@ export default {
       }
       formData.append("challengeImgFile", this.new_challenge_img != null? this.new_challenge_img.file :null);
       formData.append("goodImgFile", this.new_good_img != null ? this.new_good_img.file : null);
-      formData.append("badImgFile", this.new_bad_img != null ? this.new_bad_img : null);
+      formData.append("badImgFile", this.new_bad_img != null ? this.new_bad_img.file : null);
 
       // FormData의 key 확인
       // for (let key of formData.keys()) {
