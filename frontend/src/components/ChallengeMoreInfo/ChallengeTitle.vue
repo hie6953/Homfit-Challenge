@@ -16,8 +16,8 @@
       <div class="col-12 col-md-6 my-auto">
         <div class="challenge-info">
           <span id="title-fit-category" class="ml-1">
-            <span v-if="kind != 2">{{ fitKind[kind] }}</span>
-            <span v-if="kind != 2" id="fit-category-arrow"> > </span>
+            <span v-if="fit_id != 9">운동</span>
+            <span v-if="fit_id != 9" id="fit-category-arrow"> > </span>
             <span>{{ fitList[fit_id] }}</span>
           </span>
           <br />
@@ -117,7 +117,7 @@ export default {
   data() {
     return {
       checkDateList: ["진행전", "진행중", "완료"],
-      fitKind: ["","운동", "식단"],
+      fitKind: ["운동", "식단"],
       fitList: [
         "",
         "요가",
