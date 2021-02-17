@@ -58,6 +58,7 @@
   .challenge-list-card-body {
     margin: 5px 10px;
   }
+
   
   .challenge-list-card-footer {
     margin: 5px 10px;
@@ -107,18 +108,30 @@
     padding: 0 !important;
  }
 
+
 /* ========================================================== */
 
 /* 반응형 */
 
 @media screen and (min-width: 769px) {
-    .carousel-mobile {
-        display: none;
-    }
+  .carousel-mobile {
+    display: none;
+
+  }
+
+  
+ 
 }
   
 @media screen and (max-width: 768px) {
-    .carousel-web {
-        display: none;
+  .carousel-web {
+    display: none;
+}
+    
+.carousel-cell{
+  width:100%;
+}
+    .flickity-viewport{
+      height: 314px !important;
     }
 }

@@ -7,14 +7,19 @@
         <div class="card-carousel--overflow-container">
           <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
             <div class="card-carousel-card col-4" v-for="(challenge, index) in mainPageList" :key="index" @click="ChallengeMoreInfo(challenge.challenge_id)">
-              <b-card
-                img-src="https://placehold.it/290x170"
+              <challenge-list-card
+              :challenge="challenge"
+              ></challenge-list-card>
+              
+              <!-- <b-card
+                :img-src="challenge.challenge_img"
                 img-alt="Image"
+                img-height="150"
                 img-top
                 no-body
                 tag="article"
                 style="max-width: 30rem;"
-                class="mb-2 shadow"
+                class="mb-2 shadow "
               >
                 <div class="challenge-list-card-body">
                   <span id="card-title">{{ challenge.challenge_title }}</span>
@@ -29,7 +34,7 @@
                 <div class="challenge-list-card-footer">
                   <span>{{ challenge.people }}명 참여중</span>
                 </div>
-              </b-card>
+              </b-card> -->
             </div>
           </div>
         </div>
@@ -39,9 +44,13 @@
     <!-- 모바일 캐러셀 -->
     <flickity ref="flickity" :options="flickityOptions" class="carousel-mobile">
       <div class="carousel-cell" v-for="(challenge, index) in items" :key="index">
-          <b-card
-            img-src="https://placehold.it/290x170"
+        <challenge-list-card
+          :challenge="challenge"
+        ></challenge-list-card>
+          <!-- <b-card
+            :img-src="challenge.challenge_img"
             img-alt="Image"
+            img-height="150"
             img-top
             style="width: 290px;"
             class="mb-2 shadow"
@@ -60,7 +69,7 @@
               <span class="footer-content col-8 ">{{ challenge.people }}명 참여중</span>
               <button class="btn footer-content col-3" @click="ChallengeMoreInfo(challenge.challenge_id)">more</button>
             </div>
-          </b-card>
+          </b-card> -->
       </div>
     </flickity>
   </div>
@@ -68,7 +77,7 @@
 
 <script>
 const dayList = ['', '월', '화', '수', '목', '금', '토', '일'];
-
+import ChallengeListCard from '@/components/ChallengeListCard.vue';
 import "@/assets/css/mainPageList.css"
 import Flickity from 'vue-flickity'
 
@@ -76,6 +85,7 @@ export default {
   name: 'MainPageList',
   components: {
     Flickity,
+    ChallengeListCard
   },
   props: {
     mainPageList: Array,
@@ -154,6 +164,7 @@ export default {
     },
     updateItems() {
       this.items = this.mainPageList
+      console.log(this.items);
     },
     ChallengeMoreInfo:function(challenge_id){
       this.$router.push(`/challenge-more-info/${challenge_id}`);
