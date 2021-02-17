@@ -315,15 +315,15 @@ export default {
       // undefined 이거나 null인 경우 : default image
       // file이 있을 경우 : 이미지 변경
 
-      if (this.new_challenge_img == null) {
+      if (this.new_challenge_img == null && this.new_challenge_img != undefined) {
         this.challenge.challenge_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
       }
-      if (this.new_good_img == null) {
+      if (this.new_good_img == null  && this.new_good_img != undefined) {
         this.challenge.good_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
       }
-      if (this.new_bad_img == null) {
+      if (this.new_bad_img == null  && this.new_bad_img != undefined) {
         this.challenge.bad_img =
           "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
       }
