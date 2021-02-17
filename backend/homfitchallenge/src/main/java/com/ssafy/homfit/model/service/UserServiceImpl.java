@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public boolean signup(User user) throws Exception {
         String uidToken = null;
         while (true) {
