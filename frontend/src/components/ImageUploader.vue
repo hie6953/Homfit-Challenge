@@ -3,7 +3,6 @@
     <b-form-file
       v-model="challenge_img"
       accept="image/*"
-      :capture="props_only_cam == 1"
       @change="previewImage"
       placeholder="이미지를 올려주세요."
       drop-placeholder="이미지를 내려놓으세요."
@@ -22,11 +21,8 @@
 import "@/assets/css/imageuploader.css";
 export default {
   props: {
-    props_only_cam: {
-      type: Number,
-      default: 1,
-    },
     props_challenge_img:Object,
+    props_challenge_img_url:String,
     props_default_link:String,
     props_default_img:String,
     props_change:Boolean,
@@ -38,37 +34,44 @@ export default {
     };
   },
   created() {
-      this.challenge_img = this.props_challenge_img;
+    if(this.props_challenge_img != null && this.props_challenge_img.file != null){
+       this.challenge_img = this.props_challenge_img.file;
+        this.imageData = this.props_challenge_img_url;
+    }
+    else{
+      this.challenge_img = null;
       this.imageData = this.props_default_img;
+    }
   },
   watch:{
-      challenge_img:function(){
-          this.$emit("imageUploaded",this.challenge_img);
-      },
+      challenge_img:{
+      deep: true,
+
+      handler(){
+        this.$emit("imageUploaded",{file:this.challenge_img});
+      }
+    },
       props_change:function(){
         this.imageData = this.props_default_link;
       }
   },
   methods: {
     previewImage: function(event) {
-      // Reference to the DOM input element
       var input = event.target;
-      // Ensure that you have a file before attempting to read it
       if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
         var reader = new FileReader();
-        // Define a callback function to run, when FileReader finishes its job
         reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
           this.imageData = e.target.result;
+      this.$emit("imageUrlUploaded",this.imageData);
         };
-        // Start the reader job - read file as a data url (base64 format)
         reader.readAsDataURL(input.files[0]);
       }
     },
     DeleteImage: function() {
-      this.challenge_img = null;
+      if(this.challenge_img == null){
+        this.$emit("imageUploaded",{file:this.challenge_img});
+      }
+      this.challenge_img =  null;
       this.imageData = this.props_default_img;
     },
   },

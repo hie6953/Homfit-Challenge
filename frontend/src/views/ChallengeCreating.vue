@@ -74,6 +74,7 @@
           :props_challenge_title="challenge.challenge_title"
           :props_challenge_contents="challenge.challenge_contents"
           :props_challenge_img="challenge.challenge_img"
+          :props_challenge_img_url="challenge.challenge_img_url"
           @NextPage="PageOneNext"
         ></ChallengeMain>
       </div>
@@ -95,6 +96,8 @@
           "
           :props_good_img="challenge.good_img"
           :props_bad_img="challenge.bad_img"
+          :props_good_img_url="challenge.good_img_url"
+          :props_bad_img_url="challenge.bad_img_url"
           :props_only_cam="challenge.only_cam"
           @PrevPage="PageThreePrev"
           @NextPage="PageThreeNext"
@@ -170,20 +173,23 @@ export default {
       pageComplete_4: false,
       challenge_id: 0,
       isLoading: false,
+      challenge_img_url:'',
+      good_img_url:'',
+      bad_img_url:'',
       challenge: {
         kind: 1,
         fit_id: 1,
         bodyList: [1],
         challenge_title: "",
         challenge_contents: "",
-        challenge_img: null,
+        challenge_img: {file:null},
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
         challenge_certify_contents: "",
-        good_img: null,
-        bad_img: null,
+        good_img: {file:null},
+        bad_img: {file:null},
         only_cam: 1,
         tagList: [],
         make_date: "",
@@ -232,18 +238,18 @@ export default {
 
       // // Object To FormData 변환
       var formData = new FormData();
-      formData.append("challengeImgFile", this.challenge.challenge_img);
-      formData.append("goodImgFile", this.challenge.good_img);
-      formData.append("badImgFile", this.challenge.bad_img);
+      formData.append("challengeImgFile", this.challenge.challenge_img.file);
+      formData.append("goodImgFile", this.challenge.good_img.file);
+      formData.append("badImgFile", this.challenge.bad_img.file);
       for (var i in this.challenge) {
         if (i == "bad_img" || i == "good_img" || i == "challenge_img") continue;
         formData.append(i, this.challenge[i]);
       }
 
       // FormData의 key 확인
-      for (let key of formData.keys()) {
-        console.log(key + " " + formData.get(key));
-      }
+      // for (let key of formData.keys()) {
+      //   console.log(key + " " + formData.get(key));
+      // }
 
       // // FormData의 value 확인
       // for (let value of formData.values()) {
@@ -258,7 +264,7 @@ export default {
         .then((success) => {
           this.page = 5;
           this.challenge_id = String(success.data);
-          console.log(this.challenge_id);
+          // console.log(this.challenge_id);
         })
         .catch((error) => {
           swal.error('오류가 발생했습니다.');
@@ -273,7 +279,8 @@ export default {
       bodyList,
       challenge_title,
       challenge_contents,
-      challenge_img
+      challenge_img,
+      challenge_img_url
     ) {
       this.challenge.kind = kind;
       this.challenge.fit_id = fit_id;
@@ -281,6 +288,8 @@ export default {
       this.challenge.challenge_title = challenge_title;
       this.challenge.challenge_contents = challenge_contents;
       this.challenge.challenge_img = challenge_img;
+      this.challenge.challenge_img_url = challenge_img_url;
+      
       this.pageComplete_1 = true;
       this.NextPage();
     },
@@ -322,24 +331,32 @@ export default {
       challenge_certify_contents,
       good_img,
       bad_img,
+      good_img_url,
+      bad_img_url,
       only_cam
     ) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
       this.challenge.good_img = good_img;
       this.challenge.bad_img = bad_img;
+      this.challenge.good_img_url = good_img_url;
+      this.challenge.bad_img_url = bad_img_url;
       this.PrevPage();
     },
     PageThreeNext: function(
       challenge_certify_contents,
       good_img,
       bad_img,
+      good_img_url,
+      bad_img_url,
       only_cam
     ) {
       this.challenge.challenge_certify_contents = challenge_certify_contents;
       this.challenge.only_cam = only_cam;
       this.challenge.good_img = good_img;
       this.challenge.bad_img = bad_img;
+       this.challenge.good_img_url = good_img_url;
+      this.challenge.bad_img_url = bad_img_url;
       this.pageComplete_3 = true;
       this.NextPage();
     },

@@ -44,8 +44,10 @@
           <b-col sm="9">
             <image-uploader
             :props_challenge_img="props_challenge_img"
+            :props_challenge_img_url="props_challenge_img_url"
             props_default_img="https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399"
             @imageUploaded="ImageUploaded"
+            @imageUrlUploaded="ImageUrlUploaded"
             ></image-uploader>
           </b-col>
         </b-row>
@@ -278,15 +280,17 @@ export default {
     props_challenge_title: String,
     props_challenge_contents: String,
     props_challenge_img: Object,
+    props_challenge_img_url:String ,
   },
   data() {
     return {
       kind: 0,
       fit_id: 0,
-      bodyList: [1],
+      bodyList: 1,
       challenge_title: "",
       challenge_contents: "",
       challenge_img:null,
+      challenge_img_url:'',
       canGoNext: false,
     };
   },
@@ -296,6 +300,8 @@ export default {
     this.bodyList = this.props_bodyList[0];
     this.challenge_title = this.props_challenge_title;
     this.challenge_contents = this.props_challenge_contents;
+    this.challenge_img = this.props_challenge_img;
+    this.challenge_img_url = this.props_challenge_img_url;
   },
   watch: {
     kind: function() {
@@ -323,6 +329,9 @@ export default {
     ImageUploaded:function(image){
       this.challenge_img = image;
     },
+     ImageUrlUploaded:function(image){
+      this.challenge_img_url = image;
+    },
     FitId: function(num) {
       this.fit_id = num;
     },
@@ -348,7 +357,8 @@ export default {
         [this.bodyList],
         this.challenge_title,
         this.challenge_contents,
-        this.challenge_img
+        this.challenge_img,
+        this.challenge_img_url
       );
     },
   },
