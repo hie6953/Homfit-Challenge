@@ -36,6 +36,7 @@
 
 <script>
 import '../assets/css/forgotpassword.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -56,13 +57,13 @@ export default {
         .then(({ data }) => {
           console.log(data);
           if (data != false) {
-            alert('인증번호 확인');
+            swal.success('인증번호 확인');
           } else {
-            alert('인증번호가 일치하지 않습니다.');
+            swal.error('인증번호가 일치하지 않습니다.');
           }
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
   },

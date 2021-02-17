@@ -16,6 +16,7 @@
 
 <script>
 import '../assets/css/FeedCard/feedcardlist.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import FeedCard from '../components/FeedCard.vue';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
@@ -41,7 +42,7 @@ export default {
         console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
   },
   data: function() {

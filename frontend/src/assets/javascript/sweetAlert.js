@@ -18,7 +18,14 @@ Swal.fire({
     showConfirmButton: false,
     timer: 1500,
   });
-
 }
 
-export default { error, success} ;
+function successButton(text1,text2){
+    Swal.fire(
+        text1,
+        text2,
+        'success'
+    );
+}
+
+export default { error, success,successButton} ;

@@ -42,6 +42,7 @@
 <script>
 import "@/assets/css/Diary/diary.css";
 import DiaryCalendar from "../components/DiaryCalendar.vue";
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 
 import axios from "axios";
@@ -89,7 +90,9 @@ export default {
           this.getData = !this.getData;
         })
         .catch(() => {
-          alert(" 기록 목록을 불러오지 못했습니다.");
+          
+swal.error('기록 목록을 불러오지 못했습니다.');
+
         });
     },
     choiceDate: function(year, month, date, haveDiary) {
@@ -152,7 +155,7 @@ export default {
           this.getInfo(this.currentYear,this.currentMonth);
         })
         .catch(() => {
-          alert(" 기록 목록을 저장하지 못했습니다.");
+          swal.error('기록 목록을 저장하지 못했습니다.');
         });
     },
     PutConnection:function(){
@@ -167,7 +170,7 @@ export default {
           this.getInfo(this.currentYear,this.currentMonth);
         })
         .catch(() => {
-          alert(" 기록 목록을 수정하지 못했습니다.");
+          swal.error('기록 목록을 수정하지 못했습니다.');
         });
     }
   },

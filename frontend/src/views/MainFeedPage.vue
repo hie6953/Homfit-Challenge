@@ -162,6 +162,7 @@ import "../assets/css/mainfeed/mainfeedpage.css";
 import MainFeed from "../components/MainFeed.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import "@/assets/css/infiniteloading.css";
+import swal from '@/assets/javascript/sweetAlert.js';
 
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -209,7 +210,7 @@ export default {
           this.feedAllList = data;
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          swal.error('오류가 발생했습니다.');
         });
     },
 
@@ -221,7 +222,7 @@ export default {
           this.feedAllList = data;
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          swal.error('오류가 발생했습니다.');
         });
     },
 

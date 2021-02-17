@@ -35,6 +35,7 @@
 import '../assets/css/FeedCard/feedcardlist.css';
 import FeedCard from '../components/FeedCard.vue';
 import InfiniteLoading from 'vue-infinite-loading';
+import swal from '@/assets/javascript/sweetAlert.js';
 import '@/assets/css/infiniteloading.css';
 
 import axios from 'axios';
@@ -71,7 +72,7 @@ export default {
           console.log(data);
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
 

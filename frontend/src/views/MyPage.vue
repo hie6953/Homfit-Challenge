@@ -165,7 +165,7 @@
 import MyPageFeed from '../components/MyPageFeed.vue';
 import '../assets/css/MyPage/mypage.css';
 import { mapGetters } from 'vuex';
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -210,7 +210,7 @@ export default {
         console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
 
     axios
@@ -219,7 +219,7 @@ export default {
         this.sum = data.sum;
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
 
     axios
@@ -234,7 +234,7 @@ export default {
         console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
   },
   methods: {

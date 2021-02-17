@@ -78,6 +78,7 @@
 
 <script>
 import '../assets/css/mypoint.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from 'vuex';
 import moment from 'moment';
 
@@ -106,7 +107,7 @@ export default {
         console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
   },
   methods: {
