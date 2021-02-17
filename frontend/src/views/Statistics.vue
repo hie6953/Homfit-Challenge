@@ -85,6 +85,7 @@ import BodyDonut from "../components/StatisticsPage/BodyDonut.vue";
 import BodyPrefer from "../components/StatisticsPage/BodyPrefer.vue";
 import CategoryPrefer from "../components/StatisticsPage/CategoryPrefer.vue";
 import { mapGetters } from "vuex";
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -196,7 +197,7 @@ export default {
           }
         })
         .catch(() => {
-          alert("챌린지 목록을 불러오지 못했습니다.");
+          swal.error('챌린지 목록을 불러오지 못했습니다.');
         });
 
       

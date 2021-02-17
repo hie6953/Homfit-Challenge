@@ -95,10 +95,10 @@ export default {
           swal.error('후기 등록이 실패했습니다.');
         });
     },
-    ReviewCancel() {
+    async ReviewCancel() {
       const challenge_id = this.$route.params.challenge_id;
       
-      const cancel = swal.confirm("후기 등록을 취소하시겠습니까?")
+      const cancel = await swal.confirm("후기 등록을 취소하시겠습니까?");
       if (cancel === false) return false
       this.$router.push(`/participated/${challenge_id}`)
     },
