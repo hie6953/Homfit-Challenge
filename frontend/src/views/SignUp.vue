@@ -42,6 +42,13 @@
               </select>
 
               <input
+                v-if="doemailcheck"
+                type="button"
+                value="이메일인증"
+                class="phonecode-btn"
+              />
+              <input
+                v-else
                 type="button"
                 value="이메일인증"
                 class="phonecode-btn"
@@ -250,6 +257,7 @@ export default {
       errormsg: [],
       correctmsg: [],
       emailcode: '',
+      doemailcheck: false,
     };
   },
   watch: {
@@ -287,6 +295,7 @@ export default {
         });
     },
     EmailCheck() {
+      this.doemailcheck = true;
       axios
         .post(`${SERVER_URL}/email/verify`, {
           email: this.emailid + '@' + this.emaildomain,
@@ -362,7 +371,10 @@ export default {
             console.log(data);
             if (data === 'success') {
               // msg = '회원등록이 완료되었습니다.';
-              swal.successButton('회원가입 완료','홈핏챌린지의 회원이 되신 것을 환영합니다:)');
+              swal.successButton(
+                '회원가입 완료',
+                '홈핏챌린지의 회원이 되신 것을 환영합니다:)'
+              );
             }
             this.$router.replace('/login');
           })
