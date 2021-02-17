@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import swal from '@/assets/javascript/sweetAlert.js';
 export default {
   data() {
     return {
@@ -48,7 +49,7 @@ export default {
       if (this.year === this.minYear && this.month < this.minMonth || this.year < this.minYear) {
         this.year = this.minYear
         this.month = this.minMonth
-        alert("통계가 존재하지 않습니다.")
+        swal.info('통계가 존재하지 않습니다.');
       } else {
         this.$emit("selectedMonth",this.month)
       }
@@ -63,7 +64,7 @@ export default {
       if (this.year === this.maxYear && this.month > this.maxMonth || this.year > this.maxYear) {
         this.year = this.maxYear
         this.month = this.maxMonth
-        alert("통계가 존재하지 않습니다.")
+        swal.info('통계가 존재하지 않습니다.');
       } else {
         this.$emit("selectedMonth",this.month)
       }

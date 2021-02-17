@@ -13,6 +13,11 @@ export default {
     labels: Array,
     dataList: Array,
   },
+  data() {
+    return {
+      noMean: "",
+    }
+  },
   watch:{
     update:function(){
       this.createChart();
@@ -20,16 +25,13 @@ export default {
   },
   methods: {
     createChart() {
-      // console.log(this.dataList);
       const ctx = document.getElementById("myChart-1")
       const myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
           labels: this.labels,
           datasets: [{
             label: '# of Votes',
-            // data: [12, 19, 3, 5, 2, 3,0,0],
             
             data: this.dataList,
             backgroundColor: [
@@ -61,7 +63,7 @@ export default {
         },
         options: {}
       })
-      console.log(myChart)
+      this.noMean = myChart.id
     },
   },
   mounted() {

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // import store from '@/store';
 import MainPage from '../views/MainPage';
+import swal from '@/assets/javascript/sweetAlert.js';
 
 Vue.use(VueRouter);
 
@@ -193,13 +194,15 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (
-    from.name == 'ChallengeCreating' &&
-    !confirm('나가시면 챌린지 개설이 종료됩니다.\n정말 나가시겠습니까?')
-  ) {
-    next(false);
-  } else {
+router.beforeEach(async function(to, from, next){
+  if (from.name == 'ChallengeCreating'){
+  var result = await swal.confirm('나가시면 챌린지 개설이 종료됩니다.\n정말 나가시겠습니까?');
+    if(result){
+      next();
+    }else{
+      next(false);
+    }
+  }else{
     next();
   }
 });

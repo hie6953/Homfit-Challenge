@@ -16,6 +16,11 @@ export default {
     favorite: Array,
     labels: Array,
   },
+  data() {
+    return {
+      noMean: "",
+    }
+  },
   watch:{
     update:function(){
       this.createChart();
@@ -38,7 +43,7 @@ export default {
         },
         options: {}
       })
-      console.log(myChart)
+      this.noMean = myChart.id
     },
   },
 }
