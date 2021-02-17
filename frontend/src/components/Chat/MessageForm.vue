@@ -8,6 +8,7 @@
         placeholder="보낼 메세지를 입력하세요"
         rows="2"
         max-rows="2"
+        style="resize:none;"
         @keyup.13="sendMessageFunc"
       ></b-form-textarea>
       <div class="col-2 col-sm-1 my-auto" @click="sendMessageFunc">

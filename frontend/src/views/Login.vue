@@ -16,7 +16,7 @@
             placeholder="이메일"
             autofocus="autofocus"
             class="sign-in-form__form__input form-control sign-in-form__form__email"
-            type="text"
+            type="email"
             id="user_email"
             v-model="user.email"
             required
