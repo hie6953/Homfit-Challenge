@@ -529,6 +529,8 @@ public class ChallengeController {
 				result = Integer.toString(challengeId); // 개설 성공시 challengeID반환
 
 				// 6. 캐시insert
+				User makeuser = userService.getUid(challenge.getMake_uid());
+				challenge.setUser_img(makeuser.getUser_img()); //유저 이미지 담기
 				challenge.setPeople(1); // 사람수
 				challenge.setNick_name(challengeService.selectUserNickname(challengeId)); // 닉네임
 				challengeRepository.save(challenge);

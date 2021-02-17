@@ -72,6 +72,7 @@
                   :key="`${index}_challenge`"
                   class="col-6 col-md-4 col-lg-3 challenge-list-card"
                   :challenge="challenge"
+                  @moreInfo="ChallengeMoreInfo"
                 ></challenge-list-card>
               </div>
             </div>
@@ -109,6 +110,7 @@
                   class="col-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
+                  @click="FeedMoreInfo"
                 >
                 </feed>
                 <!-- <Feed /> -->
