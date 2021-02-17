@@ -60,7 +60,7 @@ async function confirm(text){
     let val = false;
     await Swal.fire({
         icon:"warning",
-        title: text,
+        text: text,
         showDenyButton: true,
         confirmButtonText: `OK`,
         denyButtonText: `NO`,

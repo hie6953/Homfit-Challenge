@@ -139,7 +139,7 @@
 }
 .challenge-bodyList:checked + label span,
 .challenge-bodyList:not(:checked) + label span {
-  z-index: 6;
+  z-index: 10;
 }
 
 .challenge-bodyList:checked + label .text,
