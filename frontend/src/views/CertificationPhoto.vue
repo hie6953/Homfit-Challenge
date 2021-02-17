@@ -59,7 +59,7 @@
 
 <script>
 import "../assets/css/certificationphoto.css";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -105,13 +105,12 @@ export default {
           }
         })
         .catch(() => {
-          alert("에러가 발생했습니다.");
+          swal.error('오류가 발생했습니다.');
         });
     },
 
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
     },
     onReset(evt) {
       evt.preventDefault();

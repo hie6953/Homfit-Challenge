@@ -192,7 +192,7 @@ import InfiniteLoading from "vue-infinite-loading";
 import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/challengelist.css";
 import "@/assets/css/infiniteloading.css";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -269,7 +269,8 @@ export default {
           this.challengeAllList = data;
         })
         .catch(() => {
-          alert("챌린지 목록을 불러오지 못했습니다.");
+          swal.error('챌린지 목록을 불러오지 못했습니다.');
+
           this.challengeAllList = ChallengeListDummyData.challengeList;
         });
     },

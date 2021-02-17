@@ -144,7 +144,7 @@ import ChallengeMain from "@/components/ChallengeCreating/ChallengeMain.vue";
 import ChallengePeriod from "@/components/ChallengeCreating/ChallengePeriod.vue";
 import ChallengeCertification from "@/components/ChallengeCreating/ChallengeCertification.vue";
 import ChallengeTag from "@/components/ChallengeCreating/ChallengeTag.vue";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import "@/assets/css/ChallengeCreating/challengecreating.css";
 
 import { mapGetters } from "vuex";
@@ -218,14 +218,14 @@ export default {
       this.challenge.tagList = tagList;
       this.challenge.make_date = this.FormatedMakeDate();
       this.challenge.make_uid = this.getUserUid;
-      if(this.challenge.challenge_img == null){
-        this.challenge.challenge_img = '';
+      if (this.challenge.challenge_img == null) {
+        this.challenge.challenge_img = "";
       }
-      if(this.challenge.good_img == null){
-        this.challenge.good_img = '';
+      if (this.challenge.good_img == null) {
+        this.challenge.good_img = "";
       }
-      if(this.challenge.bad_img == null){
-        this.challenge.bad_img = '';
+      if (this.challenge.bad_img == null) {
+        this.challenge.bad_img = "";
       }
 
       this.pageComplete_4 = true;
@@ -235,10 +235,9 @@ export default {
       formData.append("challengeImgFile", this.challenge.challenge_img);
       formData.append("goodImgFile", this.challenge.good_img);
       formData.append("badImgFile", this.challenge.bad_img);
-      for(var i in this.challenge){
-        if(i == 'bad_img' || i == 'good_img' || i == 'challenge_img')
-          continue;
-        formData.append(i,this.challenge[i]);
+      for (var i in this.challenge) {
+        if (i == "bad_img" || i == "good_img" || i == "challenge_img") continue;
+        formData.append(i, this.challenge[i]);
       }
 
       // FormData의 key 확인
@@ -250,8 +249,7 @@ export default {
       // for (let value of formData.values()) {
       //   console.log(value);
       // }
-     
-    
+
       // 챌린지 개설 axios
       axios
         .post(`${SERVER_URL}/challenge`, formData, {
@@ -261,11 +259,10 @@ export default {
           this.page = 5;
           this.challenge_id = String(success.data);
           console.log(this.challenge_id);
-          alert("챌린지가 생성되었습니다.");
         })
         .catch((error) => {
+          swal.error('오류가 발생했습니다.');
           console.log(error);
-          alert("등록 처리시 에러가 발생했습니다.");
         });
     },
 

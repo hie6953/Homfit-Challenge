@@ -46,7 +46,6 @@
           :good_img="challenge.good_img"
           :bad_img="challenge.bad_img"
           :only_cam="challenge.only_cam"
-          
         ></challenge-certify-contents>
 
         <p id="challenge-result" class="more-info-title">챌린지 달성률</p>
@@ -163,7 +162,7 @@ import ChallengeReview from "@/components/ChallengeMoreInfo/ChallengeReview.vue"
 import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import ReviewMore from "@/components/ChallengeMoreInfo/ReviewMore.vue";
 import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 
 import axios from "axios";
@@ -212,7 +211,7 @@ export default {
         tagList: [],
         average_rate: 0,
         make_date: "",
-        nick_name:'',
+        nick_name: "",
         make_uid: "",
         check_date: 0,
         period: 0,
@@ -234,7 +233,8 @@ export default {
         this.calculateCanParticipant();
       })
       .catch(() => {
-        alert("챌린지 정보를 불러오지 못했습니다.");
+        swal.error('챌린지 정보를 불러오지 못했습니다.');
+
         this.challenge = ChallengeListDummyData.challengeList[0];
       });
 
@@ -252,12 +252,11 @@ export default {
           this.isParticipant = data.participant == "1";
         })
         .catch(() => {
-          alert("챌린지 관련 회원정보를 가져오지 못했습니다.");
+          swal.error('챌린지 관련 회원정보를 가져오지 못했습니다.');
         });
     }
   },
   methods: {
-    
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
       this.isMobile = window.innerWidth <= 480;
@@ -273,11 +272,11 @@ export default {
             uid: this.getUserUid,
           })
           .then(() => {
-            alert("북마크가 등록되었습니다.");
+            swal.success('북마크가 등록되었습니다.');
             this.isBookmarked = !this.isBookmarked;
           })
           .catch(() => {
-            alert("오류가 발생했습니다.");
+            swal.error('오류가 발생했습니다.');
           });
       } else {
         // 북마크 해제
@@ -288,11 +287,11 @@ export default {
             },
           })
           .then(() => {
-            alert("북마크가 해제되었습니다.");
+            swal.success('북마크가 해제되었습니다.');
             this.isBookmarked = !this.isBookmarked;
           })
           .catch(() => {
-            alert("오류가 발생했습니다.");
+            swal.error('오류가 발생했습니다.');
           });
       }
     },
@@ -321,8 +320,7 @@ export default {
       });
     },
     GoChallengeDoing: function() {
-      // alert("참여중 페이지로 이동");
-      this.$router.push(`/participated/${this.challenge_id}`)
+      this.$router.push(`/participated/${this.challenge_id}`);
     },
     ChallengeApply: function() {
       if (this.getAccessToken != null) {
@@ -331,11 +329,11 @@ export default {
             uid: this.getUserUid,
           })
           .then(() => {
-            alert("성공적으로 참여되었습니다.");
+            swal.success('성공적으로 참여되었습니다.');
             this.isParticipant = true;
           })
           .catch(() => {
-            alert("오류가 발생했습니다. 다시 한번 시도해주세요.");
+            swal.error('오류가 발생했습니다.');
           });
       } else {
         this.$router.push({

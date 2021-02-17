@@ -179,7 +179,7 @@
 import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
 import Tag from "@/components/ChallengeCreating/Tag.vue";
 import ImageUploader from "@/components/ImageUploader.vue";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import "@/assets/css/ChallengeCreating/challengecreating.css";
 import "@/assets/css/challengeedit.css";
 
@@ -245,11 +245,10 @@ export default {
         .then(({ data }) => {
           this.challenge = data.challenge;
           this.getChallenge = !this.getChallenge;
-
           this.checkTagListLength();
         })
         .catch(() => {
-          alert("챌린지 정보를 불러오지 못했습니다.");
+          swal.error('챌린지 정보를 불러오지 못했습니다.');
         });
     },
     ImageUploaded: function(image) {
@@ -317,13 +316,16 @@ export default {
       // file이 있을 경우 : 이미지 변경
 
       if (this.new_challenge_img == null) {
-        this.challenge.challenge_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
+        this.challenge.challenge_img =
+          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
       }
       if (this.new_good_img == null) {
-        this.challenge.good_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
+        this.challenge.good_img =
+          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
       }
       if (this.new_bad_img == null) {
-        this.challenge.bad_img = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
+        this.challenge.bad_img =
+          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
       }
 
       // // Object To FormData 변환
@@ -352,12 +354,12 @@ export default {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then(() => {
-          alert("챌린지가 수정되었습니다.");
+          swal.success('챌린지가 수정되었습니다.');
           this.$router.push(`/challenge-more-info/${this.challenge_id}`);
         })
         .catch((error) => {
           console.log(error);
-          alert("등록 처리시 에러가 발생했습니다.");
+          swal.error('등록 처리시 오류가 발생했습니다.');
         });
 
       // axios

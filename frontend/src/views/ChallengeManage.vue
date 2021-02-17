@@ -155,6 +155,7 @@
 
 <script>
 import "@/assets/css/ChallengeManage/challengeManage.css"
+import swal from '@/assets/javascript/sweetAlert.js';
 import ChallengeListCard from "../components/ChallengeListCard.vue";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -200,7 +201,7 @@ export default {
       // 취소 버튼 클릭시 리스트[1]에서 삭제
       const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
       if (itemToFind.nick_name === this.getUserNickName) {
-        alert("챌린지 개설자는 참여 취소가 불가능합니다.")
+        swal.error('챌린지 개설자는 참여 취소가 불가능합니다.');
         return false
       }
       const idx = this.challengeList.indexOf(itemToFind)
@@ -222,11 +223,11 @@ export default {
       // 삭제 버튼 클릭시 리스트[4]에서 삭제
       const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
       if (itemToFind.people > 1) {
-        alert("챌린지 참여자 존재시 삭제할 수 없습니다.")
+        swal.error('챌린지 참여자 존재시 삭제할 수 없습니다.');
         return false
       }
       if (itemToFind.check_date > 0) {
-        alert("진행전 챌린지만 삭제 가능합니다.")
+        swal.error('진행전 챌린지만 삭제 가능합니다.');
         return false
       }
       const idx = this.challengeList.indexOf(itemToFind)
@@ -274,7 +275,7 @@ export default {
         this.items = data.data
       })
       .catch(() => {
-        alert("챌린지 목록을 불러오지 못했습니다.");
+        swal.error('챌린지 목록을 불러오지 못했습니다.');
       });
     }
   }

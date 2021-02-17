@@ -97,7 +97,7 @@ import SelectPreference from "../components/SelectPreference.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import "@/assets/css/challengerecommend.css";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -197,7 +197,7 @@ methods: {
           this.modalShow = !data;
         })
         .catch(() => {
-          alert("선호도 정보를 불러오지 못했습니다.");
+          swal.error('선호도 정보를 불러오지 못했습니다.');
       });
     },
     async getAllData() {
