@@ -13,9 +13,13 @@ export default {
     sex: String,
     age: Number,
     people: Number,
-    bfavorite: Array,
-    cfavorite: Array,
+    favorite: Array,
     labels: Array,
+  },
+  data() {
+    return {
+      noMean: "",
+    }
   },
   watch:{
     update:function(){
@@ -31,23 +35,15 @@ export default {
           labels: this.labels,
           datasets: [{
             label: "운동",
-            data: this.bfavorite,
-            backgroundColor: 'rgba(230, 92, 46, 0.2)',
-            borderColor: 'rgba(230, 92, 46, 1)',
-            pointBackgroundColor: 'rgba(230, 92, 46, 1)',
-          },
-          {
-            label: "부위",
-            data: this.cfavorite,
+            data: this.favorite,
             backgroundColor: 'rgba(234, 192, 58, 0.2)',
             borderColor: 'rgba(234, 192, 58, 1)',
             pointBackgroundColor: 'rgba(234, 192, 58, 1)',
-          }
-          ]
+          }]
         },
         options: {}
       })
-      console.log(myChart)
+      this.noMean = myChart.id
     },
   },
 }

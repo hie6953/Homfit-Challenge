@@ -16,8 +16,8 @@
           <Calendar @selectedMonth="UpdateMonth" />
         </div>
         <div class="statistics-tip col-12 flex-wrap">
-          <b-icon icon="info-circle" scale="1"></b-icon>
-          <p>통계는 챌린지 완료일 기준이며, 인증률이 0%일 경우 데이터를 제공하지않습니다.</p>
+          <p><b-icon icon="info-circle" scale="1"></b-icon>
+          통계는 챌린지 완료일 기준이며, 인증률이 0%일 경우 데이터를 제공하지않습니다.</p>
         </div>
         <p class="statistics-title">월별 챌린지 인증률</p>
         <MonthGraph :monthList="statisticsData1.monthList" />
@@ -50,7 +50,8 @@
         title="연령별/성별"
         @click="UpdateData(3)"
       >
-        <!-- <CategoryPrefer
+        <div class="mx-auto col-12 col-md-6">
+        <CategoryPrefer
           :update="update3"
           :sex="sex"
           :age="statisticsData3.age"
@@ -58,6 +59,8 @@
           :labels="categoryLabel"
           :favorite="favoriteCategoryPercent"
         />
+        </div>
+        <div class="mx-auto col-12 col-md-6">
         <BodyPrefer
           :update="update3"
           :sex="sex"
@@ -65,16 +68,6 @@
           :people="statisticsData3.people"
           :labels="bodyLabel"
           :favorite="favoriteBodyPercent"
-        /> -->
-        <div class="mx-auto col-12 col-md-6">
-        <CategoryPrefer
-          :update="update3"
-          :sex="sex"
-          :age="statisticsData3.age"
-          :people="statisticsData3.people"
-          :labels="bothLabel"
-          :bfavorite="favoriteBodyPercent"
-          :cfavorite="favoriteCategoryPercent"
         />
         </div>
       </b-tab>
@@ -89,7 +82,7 @@ import MonthGraph from "../components/StatisticsPage/MonthGraph.vue";
 import AverageRate from "../components/StatisticsPage/AverageRate.vue";
 import CategoryDonut from "../components/StatisticsPage/CategoryDonut.vue";
 import BodyDonut from "../components/StatisticsPage/BodyDonut.vue";
-// import BodyPrefer from "../components/StatisticsPage/BodyPrefer.vue";
+import BodyPrefer from "../components/StatisticsPage/BodyPrefer.vue";
 import CategoryPrefer from "../components/StatisticsPage/CategoryPrefer.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -102,7 +95,7 @@ export default {
     AverageRate,
     CategoryDonut,
     BodyDonut,
-    // BodyPrefer,
+    BodyPrefer,
     CategoryPrefer,
   },
   data() {
@@ -117,18 +110,6 @@ export default {
       favoriteBodyPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       categoryPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       favoriteCategoryPercent: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      bothLabel: [
-        "요가",
-        "필라테스/전신",
-        "유산소/상체",
-        "댄스/하체",
-        "스트레칭/가슴",
-        "근력/팔",
-        "키즈/복부",
-        "복싱/엉덩이",
-        "식단/다리",
-        "기타",
-      ],
       bodyLabel: [
         "전신",
         "상체",
@@ -202,8 +183,6 @@ export default {
               break;
               case 3:
               this.statisticsData3= data.data;
-              console.log(this.statisticsData3)
-              
               break;
           }
           this.update2 = !this.update2;
@@ -215,7 +194,6 @@ export default {
             this.UpdateThirdTab();
             this.UpdateSex();
           }
-          console.log(data);
         })
         .catch(() => {
           alert("챌린지 목록을 불러오지 못했습니다.");
@@ -239,8 +217,6 @@ export default {
           ).toFixed(0);
         }
       }
-      console.log(this.statisticsData2.bodyList)
-      console.log(this.bodyPercent)
     },
     UpdateThirdTab() {
       for (let i = 1; i <= 10; i++) {
@@ -255,8 +231,6 @@ export default {
           ).toFixed(0);
         }
       }
-      console.log(this.favoriteBodyPercent)
-      console.log(this.favoriteCategoryPercent)
     },
     UpdateSex() {
       if (this.statisticsData3.sex === "m") {
