@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import swal from '@/assets/javascript/sweetAlert.js';
 
 Vue.use(Vuex);
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -68,7 +69,7 @@ export default new Vuex.Store({
           ] = `${response.data['access-token']}`;
           return response;
         } else {
-          alert('아이디 및 비밀번호를 다시 확인해주세요.');
+          swal.error('아이디 및 비밀번호를 다시 확인해주세요.');
         }
       });
     },

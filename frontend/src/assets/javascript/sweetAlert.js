@@ -28,4 +28,20 @@ function successButton(text1,text2){
     );
 }
 
-export default { error, success,successButton} ;
+function confirm(text){
+    Swal.fire({
+        title: text,
+        showDenyButton: true,
+        confirmButtonText: `OK`,
+        denyButtonText: `NO`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          return true;
+        } else if (result.isDenied) {
+          return false;
+        }
+      })
+}
+
+export default { error, success,successButton,confirm} ;

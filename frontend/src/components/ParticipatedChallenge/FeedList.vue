@@ -36,7 +36,7 @@ import '@/assets/css/FeedCard/feedcardlist.css';
 import FeedCard from '@/components/FeedCard.vue';
 import InfiniteLoading from "vue-infinite-loading";
 import "@/assets/css/infiniteloading.css";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 import { mapGetters } from 'vuex';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -71,7 +71,7 @@ export default {
         console.log(data);
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
     },
 

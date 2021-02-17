@@ -26,6 +26,7 @@
 <script>
 import '../assets/css/MyPage/mypagefeed.css';
 import '../assets/css/MyPage/mypagefeed.scss';
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
@@ -60,7 +61,7 @@ export default {
           console.log(this.isdatathere);
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
     // handleResize:function(){

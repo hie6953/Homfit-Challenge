@@ -37,6 +37,7 @@
 </template>
 <script>
 import "@/assets/css/Diary/diary.css";
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -86,17 +87,18 @@ export default {
             challenge_id: this.$route.params.challenge_id,
           })
         .then(() => {
-          alert("후기가 등록 되었습니다.")
+          swal.success('후기가 등록 되었습니다.');
           const challenge_id = this.$route.params.challenge_id;
           this.$router.push(`/participated/${challenge_id}`)
         })
         .catch(() => {
-          alert("후기 등록이 실패했습니다.");
+          swal.error('후기 등록이 실패했습니다.');
         });
     },
     ReviewCancel() {
       const challenge_id = this.$route.params.challenge_id;
-      const cancel = confirm("후기 등록을 취소하시겠습니까?")
+      
+      const cancel = swal.confirm("후기 등록을 취소하시겠습니까?")
       if (cancel === false) return false
       this.$router.push(`/participated/${challenge_id}`)
     },

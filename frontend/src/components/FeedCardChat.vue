@@ -55,6 +55,7 @@
 
 <script>
 import '../assets/css/FeedCard/feedcardchat.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
@@ -83,7 +84,7 @@ export default {
           this.LoadComments();
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
     FeedCommentWrite() {
@@ -99,7 +100,7 @@ export default {
           this.contents = '';
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
 
@@ -112,7 +113,7 @@ export default {
           console.log(this.commentList);
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
     getFormatDate(register_date) {

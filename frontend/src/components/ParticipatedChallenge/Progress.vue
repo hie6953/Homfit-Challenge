@@ -136,6 +136,7 @@
 <script>
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
 import Review from "@/components/ChallengeMoreInfo/Review.vue";
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -232,13 +233,13 @@ export default {
           }
         )
         .then(() => {
-          alert("인증이 삭제되었습니다.");
+          swal.success('인증이 삭제되었습니다.');
           this.certifyInfo.imgList[index].feed_picture = "https://picsum.photos/300/300/?image=24",
           this.certifyInfo.imgList[index].register_date = ""
           this.certifyInfo.user_cnt--
         })
         .catch(() => {
-          alert("오류가 발생했습니다.");
+          swal.error('오류가 발생했습니다.');
         });
     },
     dd() {

@@ -251,7 +251,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
 import moment from 'moment';
 import FeedCardChat from './FeedCardChat.vue';
-import Swal from 'sweetalert2';
+import swal from '@/assets/javascript/sweetAlert.js';
 
 export default {
   name: 'FeedCard',
@@ -301,7 +301,7 @@ export default {
           this.feed.like_count = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
     openC() {
@@ -329,34 +329,16 @@ export default {
             this.closeModal();
             this.message = '';
             this.declarationtype = '';
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: '신고 완료!',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.success('신고 완료!');
             // this.feedList = data;
           })
           .catch(() => {
             // alert('에러가 발생했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '에러가 발생했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('오류가 발생했습니다.');
           });
       } else {
         // alert('5자 이상 입력해주세요.');
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: '5자 이상 입력해주세요.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        swal.error('5자 이상 입력해주세요.');
       }
     },
 

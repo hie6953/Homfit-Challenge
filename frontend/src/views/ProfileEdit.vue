@@ -177,7 +177,7 @@ import '../assets/css/profileedit.css';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
-import Swal from 'sweetalert2';
+import swal from '@/assets/javascript/sweetAlert.js';
 
 export default {
   name: 'ProfileEdit',
@@ -218,13 +218,7 @@ export default {
       })
       .catch(() => {
         // alert('에러가 발생했습니다.');
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '에러가 발생했습니다.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        swal.error('오류가 발생했습니다.');
       });
   },
 
@@ -294,26 +288,14 @@ export default {
             if (data.msg == 'success') {
               // alert('회원정보가 변경되었습니다.');
               this.giveAlert = true;
+              swal.success('회원정보가 변경되었습니다.');
               this.$store.commit('SETIMAGE', data.imgurl);
               this.$router.push('/mypage');
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '회원정보가 변경되었습니다.',
-                showConfirmButton: false,
-                timer: 1500,
-              });
             }
           })
           .catch(() => {
             // alert('에러가 발생했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '에러가 발생했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('오류가 발생했습니다.');
           });
       }
 
@@ -332,25 +314,13 @@ export default {
             // console.log(data);
             if (data == 'success' && !this.giveAlert) {
               // alert('회원정보가 변경되었습니다.');
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '회원정보가 변경되었습니다.',
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              swal.success('회원정보가 변경되었습니다.');
               this.$router.push('/mypage');
             }
           })
           .catch(() => {
             // alert('에러가 발생했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '에러가 발생했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('오류가 발생했습니다.');
           });
       }
     },
@@ -371,25 +341,13 @@ export default {
             // console.log(data);
             if (data == 'success') {
               // alert('비밀번호가 변경되었습니다.');
+              swal.success('비밀번호가 변경되었습니다.');
               this.$router.push('/mypage');
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: '비밀번호가 변경되었습니다.',
-                showConfirmButton: false,
-                timer: 1500,
-              });
             }
           })
           .catch(() => {
             // alert('에러가 발생했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '에러가 발생했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('오류가 발생했습니다.');
           });
       }
     },

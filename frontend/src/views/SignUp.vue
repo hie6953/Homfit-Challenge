@@ -220,7 +220,7 @@
 import '../assets/css/signUp.css';
 import axios from 'axios';
 //import { isPassword } from '../util/usercheck';
-import Swal from 'sweetalert2';
+import swal from '@/assets/javascript/sweetAlert.js';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -283,13 +283,7 @@ export default {
         })
         .catch(() => {
           // alert('에러가 발생했습니다.');
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '에러가 발생했습니다.',
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          swal.error('오류가 발생했습니다.');
         });
     },
     EmailCheck() {
@@ -301,34 +295,16 @@ export default {
           // console.log(data);
           if (data == 'success') {
             // alert('메일을 발송했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: '이메일 발송 완료!',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.success('이메일 발송 완료!');
           } else {
             // alert('이미 가입된 이메일 주소입니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '이미 가입된 이메일입니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('이미 가입된 이메일입니다.');
           }
           //console.log(this.emailcheck);
         })
         .catch(() => {
           // alert('에러가 발생했습니다.');
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '이메일 도메인을 선택해주세요.',
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          swal.error('이메일 도메인을 선택해주세요.');
         });
     },
     EmailCodeCheck() {
@@ -341,35 +317,17 @@ export default {
           if (data != false) {
             this.emailcheck = true;
             // alert('인증번호 확인');
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: '이메일인증 성공!',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.success('이메일인증 성공!');
           } else {
             this.emailcheck = false;
             // alert('인증에 실패했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '인증에 실패했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('인증에 실패했습니다.');
           }
           //console.log(this.emailcheck);
         })
         .catch(() => {
           // alert('에러가 발생했습니다.');
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: '에러가 발생했습니다.',
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          swal.error('오류가 발생했습니다.');
         });
     },
     checkPassword(value) {
@@ -404,33 +362,17 @@ export default {
             console.log(data);
             if (data === 'success') {
               // msg = '회원등록이 완료되었습니다.';
-              Swal.fire(
-                '회원가입 완료',
-                '홈핏챌린지의 회원이 되신 것을 환영합니다:)',
-                'success'
-              );
+              swal.successButton('회원가입 완료','홈핏챌린지의 회원이 되신 것을 환영합니다:)');
             }
             this.$router.replace('/login');
           })
           .catch(() => {
             // alert('회원등록 처리시 에러가 발생했습니다.');
-            Swal.fire({
-              position: 'center',
-              icon: 'error',
-              title: '회원등록에 실패했습니다.',
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            swal.error('회원등록에 실패했습니다.');
           });
       } else {
         // alert('회원가입에 실패했습니다.');
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '회원등록에 실패했습니다.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        swal.error('회원등록에 실패했습니다.');
       }
     },
   },

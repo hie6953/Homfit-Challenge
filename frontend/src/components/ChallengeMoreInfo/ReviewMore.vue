@@ -44,7 +44,7 @@
 <script>
 import Pagination from "../Pagination.vue";
 import Review from "./Review.vue";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -85,7 +85,7 @@ export default {
           this.reviewAllList = data;
         })
         .catch(() => {
-          alert("후기 목록을 불러오지 못했습니다.");
+          swal.error('후기 목록을 불러오지 못했습니다.');
         });
     },
     async getData() {

@@ -150,7 +150,7 @@ import '../assets/css/search.scss';
 import Feed from '../components/Feed.vue';
 import ChallengeListCard from '../components/ChallengeListCard.vue';
 import InfiniteLoading from 'vue-infinite-loading';
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import '@/assets/css/infiniteloading.css';
 
 import axios from 'axios';
@@ -203,7 +203,7 @@ export default {
         this.returnList = data;
       })
       .catch(() => {
-        alert('에러가 발생했습니다.');
+        swal.error('오류가 발생했습니다.');
       });
   },
 
@@ -244,7 +244,7 @@ export default {
           this.challengeAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
     async FeedListSearch() {
@@ -257,7 +257,7 @@ export default {
           this.feedAllList = data;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
 

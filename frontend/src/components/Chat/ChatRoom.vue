@@ -12,6 +12,7 @@ import MessageList from "@/components/Chat/MessageList.vue";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
 import axios from "axios";
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from "vuex";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -100,7 +101,7 @@ export default {
           this.msgs.reverse();
         })
         .catch(() => {
-          alert("채팅 기록 불러오기 실패");
+          swal.error('채팅 기록 불러오기 실패');
         });
     },
     setChat() {

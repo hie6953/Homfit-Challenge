@@ -150,7 +150,7 @@
 
 <script>
 import NavBarNoticeCard from "@/components/NavBars/NavBarNoticeCard.vue";
-
+import swal from '@/assets/javascript/sweetAlert.js';
 import "@/assets/css/NavBar/navbar.css";
 
 import { mapGetters } from "vuex";
@@ -189,7 +189,7 @@ export default {
       this.$router.push("/login");
     },
     LogOut: function() {
-      alert("로그아웃!");
+      swal.success('로그아웃!');
       this.$store
         .dispatch("LOGOUT")
         .then(() => this.$router.replace("/").catch(() => {}));
@@ -207,7 +207,7 @@ export default {
           this.checkIdx = this.notices.length;
         })
         .catch(() => {
-          alert("알림 목록을 불러오지 못했습니다.");
+          swal.error('알림 목록을 불러오지 못했습니다.');
         });
     },
     AlarmCheck:function(alarm_id,index){
@@ -217,13 +217,12 @@ export default {
             alarm_id: alarm_id
         })
         .then(() => {
-          // alert("갱신");
           this.notices[index].alarm_check = true;
           let pick = this.notices.splice(index,1);
           this.checkedNotices.unshift(pick[0]);
         })
         .catch(() => {
-          alert("알림 정보를 갱신하지 못했습니다.");
+          swal.error('알림 정보를 갱신하지 못했습니다.');
         });
     },
     // 화면 너비에 따른 모바일 여부 판단

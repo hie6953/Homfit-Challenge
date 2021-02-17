@@ -289,6 +289,7 @@
 
 <script>
 import '@/assets/css/selectpreference.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -354,14 +355,14 @@ props:{
         .then(({ data }) => {
           console.log(JSON.stringify(this.kindList));
           if (data == 'success') {
-            alert('선호도 정보가 저장되었습니다.');
+            swal.success('선호도 정보가 저장되었습니다.');
             this.$emit("modalClose");
           } else {
-            alert('실패!!!');
+            swal.error('실패!!!');
           }
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
         window.location.reload();
     },

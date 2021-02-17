@@ -45,6 +45,7 @@
 
 <script>
 import '../assets/css/profileeditpasswordconfirm.css';
+import swal from '@/assets/javascript/sweetAlert.js';
 import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 import { mapGetters } from 'vuex';
@@ -71,7 +72,7 @@ export default {
           } else this.passwordconfirm = true;
         })
         .catch(() => {
-          alert('에러가 발생했습니다.');
+          swal.error('오류가 발생했습니다.');
         });
     },
   },
