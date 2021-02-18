@@ -65,4 +65,8 @@
         select * from user where uid = #{uid} and password = #{password}
     </select>
 
+    <insert id="test2">
+        insert into test(test) values (1)
+    </insert> 
+
 </mapper>

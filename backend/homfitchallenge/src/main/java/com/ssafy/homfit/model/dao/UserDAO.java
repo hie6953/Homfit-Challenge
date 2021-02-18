@@ -35,4 +35,7 @@ public interface UserDAO {
     public User duplicateNickNameCheck(String nick_name) throws SQLException;
     
     public User checkPassword(User user) throws SQLException;
+    
+    public void test2() throws SQLException;
+
 }
