@@ -1,17 +1,18 @@
 <template>
   <div class="col-12 col-md-8 bookmark-container">
     <p class="bookmark-title">챌린지 북마크</p>
-    <div class="row list-card">
+    <div class="row bookmark-list-card">
       <ChallengeListCard
         v-for="(challenge, index) in challengeList"
         :key="`${index}_bookmark`"
-        class="col-6 col-md-4 mb-2"
+        class="col-6 col-md-4 mb-2 bookmark-challenge-list-card"
         :challenge="challenge"
         :isfromBookmark="isfromBookmark"
         @moreInfo="ChallengeMoreInfo"
         @deleteBookmarkBtn="DeleteBookmark"
       />
     </div>
+    
   </div>
 </template>
 
@@ -111,29 +112,25 @@ export default {
   border-bottom: 2px solid #eac03a;
   display: inline;
 }
-.list-card {
+.bookmark-list-card {
   clear: both;
   padding-top: 15px;
   display: flex;
 }
 
-.challenge-list-card {
-  padding: 8px 8px !important;
+.bookmark-challenge-list-card {
+  padding: 4px 4px !important;
   transition: transform 200ms ease 100ms;
 }
 
-.list-card .challenge-list-card:hover {
-  transform: scale(1.2);
-  z-index: 2;
-}
 .bookmark-btn {
   color: #eac03a;
   position: absolute;
   width: 1em;
   height: 1em;
   z-index: 4;
-  left: 22px;
-  top: 10px;
+  left: 18px;
+  top: 18px;
 }
 .bookmark-btn:hover {
   cursor: pointer;

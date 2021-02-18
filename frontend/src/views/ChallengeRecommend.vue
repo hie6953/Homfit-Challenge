@@ -61,11 +61,11 @@
       <b-button id="challenge-recommend-edit-button" v-b-tooltip.hover.bottom="'선호정보 수정'" @click="modalShow = true"><b-icon icon="pencil"></b-icon></b-button>
       </span>
     </div>
-    <div class="row col-12 col-md-8  mx-auto list-card">
+    <div class="row mx-auto recommend-list-card">
       <challenge-list-card
         v-for="(challenge, index) in challengeList"
         :key="`${index}_challenge`"
-        class="col-6 col-md-4 col-xl-3 challenge-list-card"
+        class="col-6 col-md-4 col-xl-3 recommend-challenge-list-card"
         :challenge="challenge"
         @moreInfo="ChallengeMoreInfo"
       ></challenge-list-card>
@@ -187,6 +187,7 @@ export default {
   },
 methods: {
     async CheckFavoriteSurvey() {
+      let result = false;
       await axios
         .get(`${SERVER_URL}/user/favorite/isSetting`, {
           params: {
@@ -194,11 +195,12 @@ methods: {
           },
         })
         .then(({ data }) => {
-          this.modalShow = !data;
+          result = data;
         })
         .catch(() => {
           swal.error('선호도 정보를 불러오지 못했습니다.');
       });
+      return result;
     },
     async getAllData() {
       await axios
@@ -227,7 +229,13 @@ methods: {
     async getData($state) {
       if (!this.didSurvey) {
         //설문조사 했는지 판단
-        await this.CheckFavoriteSurvey();
+        this.didSurvey =  await this.CheckFavoriteSurvey();
+        if(this.didSurvey){ //설문조사 했으면
+          this.modalShow = false;
+        }else{   //설문 안했으면
+          this.modalShow = true;
+          return;
+        }
       }
       if (this.challengeAllList == null) {
         //챌린지 정보 불러오지 않았을 때

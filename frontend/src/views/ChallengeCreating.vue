@@ -201,6 +201,7 @@ export default {
   },
 
   created() {
+    // axios시 로딩처리
     axios.interceptors.request.use((config) => {
       this.setLoading(true);
       return config;
