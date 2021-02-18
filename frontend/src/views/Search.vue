@@ -87,7 +87,7 @@
                 ></b-button>
               </div>
               <div
-                v-if="keyword.length > 0"
+                v-if="challengeAllList != null"
                 class="infinite-loading-message"
                 slot="no-results"
               >
@@ -127,7 +127,7 @@
                 ></b-button>
               </div>
               <div
-                v-if="keyword.length > 0"
+                v-if="challengeAllList != null"
                 class="infinite-loading-message"
                 slot="no-results"
               >
