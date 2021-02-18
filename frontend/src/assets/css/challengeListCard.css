@@ -88,45 +88,51 @@
   .bookmark-disabled {
     display: none;
   }
-  .cancel-disabled {
+  .cancel_disabled {
     display: none;
   }
-  .delete-disabled {
+  .delete_disabled {
     display: none;
   }
+ 
+  @media (max-width: 480px) {
+    .cancel-icon {
+        padding: 4px;
+    }
+    .delete-icon  {
+        padding: 4px;
+    }
+    #list-card-title{
+      height:4.2em;
+    }
+  }
+
   .cancel-icon {
     color: white;
     position: absolute;
     width: 4em;
     height: 2em;
     z-index: 4;
-    right: 20px;
-    bottom: 12px;
+    right: 15px;
+    bottom: 15px;
     text-align: center;
     background: #EAC03A;
   }
-  @media (max-width: 480px) {
-    .cancel-icon {
-        padding: 4px;
-        width: 2.5em;
-    }
-    .delete-icon  {
-        padding: 4px;
-        width: 2.5em;
-    }
-  }
+
   .cancel-icon:hover {
     cursor: pointer;
     color: #E65C2E;
   }
+
+
   .delete-icon {
     color: white;
     position: absolute;
     width: 4em;
     height: 2em;
     z-index: 4;
-    right: 20px;
-    bottom: 12px;
+    right: 15px;
+    bottom: 15px;
     text-align: center;
     background: #EAC03A;
   }

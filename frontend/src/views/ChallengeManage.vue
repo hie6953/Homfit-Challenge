@@ -134,11 +134,11 @@
       </div>
     </div>
     <div class="col-12 col-md-8 mx-auto mt-4">
-      <div class="row list-card">
+      <div class="row">
         <ChallengeListCard
           v-for="(challenge, index) in items"
           :key="`${index}_challengemanage`"
-          class="col-6 col-md-4 challenge-list-card"
+          class="col-6 col-md-4 manage-list-card"
           :challenge="challenge"
           :isfromChallengeManage="isfromChallengeManage"
           :cancelActive="cancelActive"
@@ -195,8 +195,8 @@ export default {
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/participated/${challenge_id}`);
     },
-    CancelChallenge(challenge_id) {
-      const cancelConfirm = confirm("참여를 취소하시겠습니까?")
+    async CancelChallenge(challenge_id) {
+      const cancelConfirm = await swal.confirm("참여를 취소하시겠습니까?")
       if (cancelConfirm === false) return false
       // 취소 버튼 클릭시 리스트[1]에서 삭제
       const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
@@ -206,19 +206,23 @@ export default {
       }
       const idx = this.challengeList.indexOf(itemToFind)
       if (idx > -1) this.challengeList.splice(idx, 1)
-      // axios
-      //   .delete(
-      //     `${SERVER_URL}/user/bookmark/${this.getUserUid}/${challenge_id}`
-      //   )
-      //   .then(() => {
-      //     alert("북마크가 해제되었습니다.");
-      //   })
-      //   .catch(() => {
-      //     alert("오류가 발생했습니다.");
-      //   });
+      axios
+        .delete(
+          `${SERVER_URL}/challenge/join/${challenge_id}`,{
+            params:{
+              uid:this.getUserUid,
+            }
+          }
+        )
+        .then(() => {
+          swal.success("참여 취소되었습니다.");
+        })
+        .catch(() => {
+          swal.error("오류가 발생했습니다.");
+        });
     },
-    DeleteChallenge(challenge_id) {
-      const deleteConfirm = confirm("챌린지를 삭제하시겠습니까?")
+    async DeleteChallenge(challenge_id) {
+      const deleteConfirm = await swal.confirm("챌린지를 삭제하시겠습니까?")
       if (deleteConfirm === false) return false
       // 삭제 버튼 클릭시 리스트[4]에서 삭제
       const itemToFind = this.challengeList.find(function(item) {return item.challenge_id === challenge_id})
@@ -232,11 +236,22 @@ export default {
       }
       const idx = this.challengeList.indexOf(itemToFind)
       if (idx > -1) this.challengeList.splice(idx, 1)
+      axios
+        .delete(
+          `${SERVER_URL}/challenge/${challenge_id}`
+        )
+        .then(() => {
+          swal.success("챌린지가 삭제되었습니다.");
+        })
+        .catch(() => {
+          swal.error("오류가 발생했습니다.");
+        });
     },
     tabValue(num) {
       // 탭 누르면 카테고리 0으로 초기화, 해당 탭내용으로 변경
       this.category = 0
       this.tab = num
+        console.log(this.cancelActive +" "+this.deleteActive);
       if (num === 1) {
         this.cancelActive = 1
         this.deleteActive = 0
@@ -247,6 +262,7 @@ export default {
         this.cancelActive = 0
         this.deleteActive = 0
       }
+      console.log(this.cancelActive +" "+this.deleteActive);
       this.items = this.challengeList
       this.UpdateData()
     },

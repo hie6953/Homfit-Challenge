@@ -295,6 +295,7 @@ export default {
           });
       }
     },
+    // 스크롤 이동
     moveScroll: function(pos) {
       let dest = 0;
       switch (pos) {
@@ -313,15 +314,18 @@ export default {
       }
       window.scrollTo({ top: dest, behavior: "smooth" });
     },
+    // 로그인페이지로 가기
     GoLogin: function() {
       this.$router.push({
         name: "login",
         params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
       });
     },
+    // 챌린지 참여중 페이지로 이동
     GoChallengeDoing: function() {
       this.$router.push(`/participated/${this.challenge_id}`);
     },
+    // 챌린지 참여
     ChallengeApply: function() {
       if (this.getAccessToken != null) {
         axios
@@ -342,10 +346,11 @@ export default {
         });
       }
     },
+    // 챌린지 수정페이지로 이동
     ChallengeEdit: function() {
       this.$router.push(`/challenge-edit/${this.challenge_id}`);
     },
-    //참여가능여부 판단
+    //참여가능여부 판단(진행전이거나, 진행시작날일 때 참여가능)
     calculateCanParticipant: function() {
       let startTimeArr = this.challenge.start_date.split("-");
       let limitTime = new Date(
@@ -363,7 +368,7 @@ export default {
         this.canParticiapnt = true;
       }
     },
-
+    // 스크롤위치 계산
     calculateScroll: function() {
       let deviceOffset = 190;
       if (this.isMobile) {
@@ -400,12 +405,13 @@ export default {
     ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
   },
   mounted() {
-    // 화면 너비 측정 이벤트 추가/
+    // 화면 너비 측정 이벤트 추가
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
 
   beforeDestroy() {
+    // 화면 너비 측정 이벤트 제거
     window.removeEventListener("resize", this.handleResize);
   },
 };
