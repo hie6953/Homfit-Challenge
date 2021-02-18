@@ -61,7 +61,7 @@
       <b-button id="challenge-recommend-edit-button" v-b-tooltip.hover.bottom="'선호정보 수정'" @click="modalShow = true"><b-icon icon="pencil"></b-icon></b-button>
       </span>
     </div>
-    <div class="row mx-auto recommend-list-card">
+    <div class="row col-12 col-md-8 mx-auto recommend-list-card">
       <challenge-list-card
         v-for="(challenge, index) in challengeList"
         :key="`${index}_challenge`"
