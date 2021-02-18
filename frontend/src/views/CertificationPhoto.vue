@@ -59,7 +59,7 @@
 
 <script>
 import "../assets/css/certificationphoto.css";
-import swal from '@/assets/javascript/sweetAlert.js';
+import swal from "@/assets/javascript/sweetAlert.js";
 import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -67,7 +67,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 export default {
   name: "CertificationPhoto",
   components: {},
-  data: function() {
+  data: function () {
     return {
       form: {
         petName: "",
@@ -83,11 +83,18 @@ export default {
   created() {
     this.only_cam = this.$route.params.only_cam;
   },
-  watch:{
-
-  },
+  watch: {},
   methods: {
     UploadCertification() {
+      if (
+        document.getElementById("photo").files &&
+        document.getElementById("photo").files[0].size > 200 * 1024 * 1024
+      ) {
+        swal.error("파일 사이즈가 200mb를 넘습니다.");
+        document.getElementById("photo").value = null;
+        return;
+      }
+
       let frm = new FormData();
       frm.append("imgFile", document.getElementById("photo").files[0]);
       frm.append("maked_uid", this.getUserUid);
@@ -100,12 +107,14 @@ export default {
         })
         .then(({ data }) => {
           console.log(data);
-          if(data == "success"){
-            this.$router.push(`/participated/${this.$route.params.challenge_id}`)
+          if (data == "success") {
+            this.$router.push(
+              `/participated/${this.$route.params.challenge_id}`
+            );
           }
         })
         .catch(() => {
-          swal.error('오류가 발생했습니다.');
+          swal.error("오류가 발생했습니다.");
         });
     },
 
