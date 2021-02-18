@@ -91,7 +91,7 @@
       <h4 class="challenge-creating-title">운동종류 선택</h4>
       <div class="challenge-fit align-center">
         <b-button
-          :class="{ choice: fit_id == 1, 'not-choice': fit_id != 1 }"
+          :class="{ choice: EqualFitId(1), 'not-choice': NotEqualFitId(1)}"
           @click="FitId(1)"
         >
           <img src="@/assets/category/요가.png" />
@@ -99,7 +99,7 @@
           <span>요가</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 2, 'not-choice': fit_id != 2 }"
+          :class="{ choice: EqualFitId(2), 'not-choice': NotEqualFitId(2) }"
           @click="FitId(2)"
         >
           <img src="@/assets/category/필라테스.png" />
@@ -107,7 +107,7 @@
           <span>필라테스</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 3, 'not-choice': fit_id != 3 }"
+          :class="{ choice: EqualFitId(3), 'not-choice': NotEqualFitId(3) }"
           @click="FitId(3)"
         >
           <img src="@/assets/category/유산소.png" />
@@ -115,7 +115,7 @@
           <span>유산소</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 4, 'not-choice': fit_id != 4 }"
+          :class="{ choice: EqualFitId(4), 'not-choice': NotEqualFitId(4) }"
           @click="FitId(4)"
         >
           <img src="@/assets/category/댄스.png" />
@@ -123,7 +123,7 @@
           <span>댄스</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 5, 'not-choice': fit_id != 5 }"
+          :class="{ choice: EqualFitId(5), 'not-choice': NotEqualFitId(5) }"
           @click="FitId(5)"
         >
           <img src="@/assets/category/스트레칭.png" />
@@ -131,7 +131,7 @@
           <span>스트레칭</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 6, 'not-choice': fit_id != 6 }"
+          :class="{ choice: EqualFitId(6), 'not-choice': NotEqualFitId(6) }"
           @click="FitId(6)"
         >
           <img src="@/assets/category/근력.png" />
@@ -139,7 +139,7 @@
           <span>근력</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 7, 'not-choice': fit_id != 7 }"
+          :class="{ choice: EqualFitId(7), 'not-choice': NotEqualFitId(7) }"
           @click="FitId(7)"
         >
           <img src="@/assets/category/키즈.png" />
@@ -147,7 +147,7 @@
           <span>키즈</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 8, 'not-choice': fit_id != 8 }"
+          :class="{ choice: EqualFitId(8), 'not-choice': NotEqualFitId(8)}"
           @click="FitId(8)"
         >
           <img src="@/assets/category/복싱.png" />
@@ -155,7 +155,7 @@
           <span>복싱</span>
         </b-button>
         <b-button
-          :class="{ choice: fit_id == 10, 'not-choice': fit_id != 10 }"
+          :class="{ choice: EqualFitId(10), 'not-choice': NotEqualFitId(10) }"
           @click="FitId(10)"
         >
           <img src="@/assets/category/기타.png" />
@@ -304,14 +304,6 @@ export default {
     this.challenge_img_url = this.props_challenge_img_url;
   },
   watch: {
-    kind: function() {
-      if (this.kind == 1) {
-        this.fit_id = 1;
-      } else {
-        this.bodyList = 1;
-        this.fit_id = 9;
-      }
-    },
     fit_id: function() {
       this.CanGoNext();
     },
@@ -350,6 +342,7 @@ export default {
       }
     },
     NextPage: function() {
+     
       this.$emit(
         "NextPage",
         this.kind,
@@ -361,6 +354,12 @@ export default {
         this.challenge_img_url
       );
     },
+    EqualFitId:function(value){
+      return value == this.fit_id;
+    },
+    NotEqualFitId:function(value){
+       return value != this.fit_id;
+    },
   },
 
   computed: {
@@ -368,6 +367,7 @@ export default {
       if (this.challenge_title.length == 0) return null;
       return this.challenge_title.length <= 20;
     },
+    
   },
 };
 </script>

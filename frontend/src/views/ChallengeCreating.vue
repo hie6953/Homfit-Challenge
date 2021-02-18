@@ -225,14 +225,22 @@ export default {
   },
 
   methods: {
+    // 개설 시 로딩처리
     setLoading: function(value) {
       this.isLoading = value;
     },
     // 챌린지 개설
     CreateChallenge: function(tagList) {
-      this.challenge.tagList = tagList;
-      this.challenge.make_date = this.FormatedMakeDate();
-      this.challenge.make_uid = this.getUserUid;
+       if (this.kind == 2) { //식단 선택의 경우 bodyList=1, fit_id = 9로 처리
+        this.bodyList = [1];
+        this.fit_id = 9;
+      }
+
+      this.challenge.tagList = tagList; //태그리스트 넣기
+      this.challenge.make_date = this.FormatedMakeDate(); //개설날짜
+      this.challenge.make_uid = this.getUserUid;  //사용자 id
+
+      // 이미지 입력 여부
       if (this.challenge.challenge_img == null) {
         this.challenge.challenge_img = "";
       }
