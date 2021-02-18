@@ -94,7 +94,7 @@
             type="checkbox"
             name="kindList"
             id="kindList_etc"
-            :value="9"
+            :value="10"
             v-model="kindList"
           />
           <label for="kindList_etc"> <span class="text">기타</span> </label>
