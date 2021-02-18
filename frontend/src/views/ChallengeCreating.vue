@@ -285,7 +285,7 @@ export default {
           // console.log(this.challenge_id);
         })
         .catch((error) => {
-          swal.error('오류가 발생했습니다.');
+          swal.error('사진은 200MB이하로 올려주세요.');
           console.log(error);
         });
     },
