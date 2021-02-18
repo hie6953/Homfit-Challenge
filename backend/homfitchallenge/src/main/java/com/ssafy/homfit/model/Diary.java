@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "Diary : 기록", description = "특정일 해당 사용자의 별점과 일기 내용이 들어있다")
 public class Diary {
     @ApiModelProperty(value = "등록 일자")
-    private Date date;
+    private String date;
     @ApiModelProperty(value = "사용자 식별번호")
     private String uid;
     @ApiModelProperty(value = "별점")
@@ -16,11 +16,11 @@ public class Diary {
     @ApiModelProperty(value = "일기 내용")
     private String diary_contents;
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
