@@ -265,15 +265,6 @@ export default {
     },
 
     UserProfileEdit() {
-      if (
-        document.getElementById("photo").files &&
-        document.getElementById("photo").files[0].size > 200 * 1024 * 1024
-      ) {
-        swal.error("파일 사이즈가 200mb를 넘습니다.");
-        document.getElementById("photo").value = null;
-        return;
-      }
-
       let photo = document.getElementById('input-file').files[0];
 
       if (photo != null) {
