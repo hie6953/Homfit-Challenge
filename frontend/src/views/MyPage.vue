@@ -59,7 +59,7 @@
             </router-link>
           </div>
           <div class="short-cut-item">
-            <router-link to="/diary" class="justtext">
+            <a class="justtext">
               <div class="short-cut-icon">
                 <b-icon
                   icon="trophy-fill"
@@ -68,7 +68,7 @@
                 ></b-icon>
               </div>
               <div class="short-cut-text">뱃지</div>
-            </router-link>
+            </a>
           </div>
         </div>
       </div>
