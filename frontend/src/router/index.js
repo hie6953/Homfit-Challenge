@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import store from '@/store';
 import MainPage from '../views/MainPage';
 import swal from '@/assets/javascript/sweetAlert.js';
 
@@ -12,6 +11,7 @@ const requireAuth = () => (to, from, next) => {
     return next();
   } else next('/login' + nextRoute);
 };
+
 
 const routes = [
   {
@@ -63,6 +63,7 @@ const routes = [
     path: '/mypagefeedtotal',
     name: 'MyPageFeedTotal',
     component: () => import('../views/MyPageFeedTotal.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/feedcardlistchat',
@@ -130,6 +131,7 @@ const routes = [
     path: '/diary',
     name: 'Diary',
     component: () => import('../views/Diary.vue'),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/search',
@@ -146,6 +148,7 @@ const routes = [
     path: '/certificationphoto',
     name: 'CertificationPhoto',
     component: () => import('../views/CertificationPhoto.vue'),
+    beforeEnter: requireAuth(),
   },
 
   {
