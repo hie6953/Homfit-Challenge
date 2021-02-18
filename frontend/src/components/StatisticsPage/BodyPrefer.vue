@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="statistics-title">{{ age }}대 {{ sex }}들의 선호 부위</p>
+    <div class="statistics-box row">
+      <p class="statistics-title-center mt-5">{{ age }}대 {{ sex }}들의 선호 부위</p>
+    </div>
     <canvas id="myChart-4" width="100%" height="100%"></canvas>
   </div>
 </template>
@@ -16,11 +18,6 @@ export default {
     favorite: Array,
     labels: Array,
   },
-  data() {
-    return {
-      noMean: "",
-    }
-  },
   watch:{
     update:function(){
       this.createChart();
@@ -29,7 +26,7 @@ export default {
   methods: {
     createChart() {
       const ctx = document.getElementById("myChart-4")
-      const myChart = new Chart(ctx, {
+      new Chart(ctx, {
         type: 'radar',
         data: {
           labels: this.labels,
@@ -43,7 +40,6 @@ export default {
         },
         options: {}
       })
-      this.noMean = myChart.id
     },
   },
 }
