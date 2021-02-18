@@ -12,7 +12,23 @@
         @deleteBookmarkBtn="DeleteBookmark"
       />
     </div>
-    
+    <infinite-loading
+      ref="InfiniteLoading"
+      @infinite="getData"
+      spinner="waveDots"
+    >
+      <div class="infinite-loading-message" slot="no-more">
+        <b-button @click="scrollUp"
+          >마지막입니다 <b-icon icon="arrow-up-circle"></b-icon
+        ></b-button>
+      </div>
+      <div class="infinite-loading-message" slot="no-results">
+        북마크된 챌린지가 없습니다.
+      </div>
+      <div class="infinite-loading-message" slot="error">
+        불러오지 못했습니다.
+      </div>
+    </infinite-loading>
   </div>
 </template>
 
@@ -21,16 +37,21 @@ const dayList = ["", "월", "화", "수", "목", "금", "토", "일"];
 import { mapGetters } from "vuex";
 import axios from "axios";
 import ChallengeListCard from "../components/ChallengeListCard.vue";
-import swal from '@/assets/javascript/sweetAlert.js';
+import InfiniteLoading from "vue-infinite-loading";
+import "@/assets/css/infiniteloading.css";
+import swal from "@/assets/javascript/sweetAlert.js";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   components: {
     ChallengeListCard,
+    InfiniteLoading,
   },
   data() {
     return {
+      page: 1,
       isfromBookmark: 1,
+      challengeAllList: null,
       challengeList: [
         // 더미 데이터 (DB 없을 때 확인용)
         // { "challenge_id": 134, "challenge_title": "조싀앤바믜 마성의 링딩동 챌린지", "challenge_contents": null, "challenge_img": "", "challenge_certify_contents": null, "good_img": null, "bad_img": null, "day_certify_count": 0, "only_cam": 0, "start_date": null, "end_date": null, "make_date": null, "make_uid": null, "fit_id": 4, "check_date": 0, "period": 8, "nick_name": "이건내닉네임이얌", "people": 4, "kind": 0, "daylist_string": "[2, 4]", "dayList": null, "tagList": null, "bodyList": null },
@@ -45,20 +66,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getUserUid"]),
-  },
-  mounted() {
-    axios
-      .get(`${SERVER_URL}/challenge/bookmark`, {
-        params: {
-          uid: this.getUserUid,
-        },
-      })
-      .then((data) => {
-        this.challengeList = data.data;
-      })
-      .catch(() => {
-        swal.error('챌린지 목록을 불러오지 못했습니다.');
-      });
   },
   methods: {
     ChallengeMoreInfo(challenge_id) {
@@ -78,11 +85,6 @@ export default {
       return "";
     },
     DeleteBookmark(challenge_id) {
-      const itemToFind = this.challengeList.find(function(item) {
-        return item.challenge_id === challenge_id;
-      });
-      const idx = this.challengeList.indexOf(itemToFind);
-      if (idx > -1) this.challengeList.splice(idx, 1);
       axios
         .delete(`${SERVER_URL}/user/bookmark/${challenge_id}`, {
           params: {
@@ -90,11 +92,64 @@ export default {
           },
         })
         .then(() => {
-          swal.success('북마크가 해제되었습니다.');
+          swal.success("북마크가 해제되었습니다.");
+          const itemToFind = this.challengeList.find(function(item) {
+            return item.challenge_id === challenge_id;
+          });
+          const idx = this.challengeList.indexOf(itemToFind);
+          if (idx > -1) this.challengeList.splice(idx, 1);
+          if (this.challengeList.length == 0) this.getNewData();
         })
         .catch(() => {
-          swal.error('오류가 발생했습니다.');
+          swal.error("오류가 발생했습니다.");
         });
+    },
+    getNewData: function() {
+      this.page = 1;
+      this.challengeAllList = null;
+      this.challengeList = [];
+      if (this.$refs.InfiniteLoading) {
+        this.$refs.InfiniteLoading.stateChanger.reset();
+      }
+    },
+    async getAllData() {
+      await axios
+        .get(`${SERVER_URL}/challenge/bookmark`, {
+          params: {
+            uid: this.getUserUid,
+          },
+        })
+        .then((data) => {
+          this.challengeAllList = data.data;
+        })
+        .catch(() => {
+          swal.error("챌린지 목록을 불러오지 못했습니다.");
+        });
+    },
+    async getData($state) {
+      if (this.challengeAllList == null) {
+        await this.getAllData();
+      }
+      let getArray = this.challengeAllList.slice(
+        (this.page - 1) * 10,
+        this.page * 10
+      );
+      setTimeout(() => {
+        if (getArray.length > 0) {
+          this.challengeList = this.challengeList.concat(getArray);
+          ++this.page;
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      }, 500);
+    },
+    scrollUp: function() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     },
   },
 };
