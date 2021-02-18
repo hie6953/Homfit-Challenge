@@ -86,6 +86,7 @@
     </div>
     
     <!-- 오늘 인증하는 날일때 인증버튼(수정 필요), 완료면 후기버튼 -->
+    <div class="btn btn-primary col" @click="Certify">인증하기</div>
     <div v-if="!isMobile">
         <!-- v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1" -->
       <b-button-group
