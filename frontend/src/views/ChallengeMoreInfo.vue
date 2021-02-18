@@ -230,7 +230,8 @@ export default {
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
-        this.calculateCanParticipant();
+        this.calculateCanParticipant(); //참여가능여부 측정
+        
         console.log(this.challenge);
       })
       .catch(() => {
@@ -256,6 +257,7 @@ export default {
         });
     }
   },
+
   methods: {
     // 화면 너비에 따른 모바일 여부 판단
     handleResize: function() {
@@ -297,6 +299,7 @@ export default {
     },
     // 스크롤 이동
     moveScroll: function(pos) {
+      this.calculateScroll();
       let dest = 0;
       switch (pos) {
         case 1:
@@ -381,7 +384,6 @@ export default {
           .top +
         window.pageYOffset -
         deviceOffset;
-
       this.challengeCertifyContentsLocation =
         document
           .getElementById("challenge-certify-contents")
