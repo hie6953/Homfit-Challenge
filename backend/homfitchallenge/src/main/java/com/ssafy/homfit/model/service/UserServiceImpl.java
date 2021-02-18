@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean signup(User user) throws Exception {
         String uidToken = null;
         // while (true) {
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         // }
         user.setUid(uidToken);
         // user.setUid(user.getEmail());
-        user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4");
+        user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4"); //default이미지 세팅
         user.setGrade("bronze");
         user.setAdmin_check(false);
         if (user.getKakao_key() == "" || user.getKakao_key() == null) {
