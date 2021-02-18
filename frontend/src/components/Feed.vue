@@ -51,8 +51,7 @@ export default {
   },
   methods: {
     FeedMoreInfo: function() {
-      this.$store.commit('SETTMPFEED', this.feed);
-      this.$router.push('/feedcardlist');
+      this.$emit('feedMoreInfo');
     },
   },
 };

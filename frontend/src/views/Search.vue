@@ -110,7 +110,7 @@
                   class="col-12 col-lg-4 challenge-list-feed"
                   :key="`${index}_feed`"
                   :feed="feed"
-                  @click="FeedMoreInfo"
+                  @feedMoreInfo="FeedMoreInfo(feed)"
                 >
                 </feed>
                 <!-- <Feed /> -->
@@ -214,15 +214,15 @@ export default {
       // console.log(tag.tag_name);
       this.keyword = tag.tag_name;
     },
-    FeedMoreInfo: function() {
-      this.$store.commit('SETTMPFEED', this.feed);
-      this.$router.push('/feedcardlist');
+    FeedMoreInfo: function(feed) {
+      // this.$store.commit("SETTMPFEED", this.feed);
+      this.$router.push(`/feedcardlist/${feed.challenge_id}/${feed.feed_id}`);
     },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
     getNewData: function() {
-      console.log("들어옴");
+      console.log('들어옴');
       this.challengePage = 1;
       this.feedPage = 1;
       this.challengeAllList = null;
