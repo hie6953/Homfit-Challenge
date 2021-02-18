@@ -1,0 +1,35 @@
+.main-container {
+    margin: 0 auto;
+  }
+  
+  .main-component-margin {
+    margin-top: 40px;
+    padding: 0;
+  }
+  
+  .main-component-card-margin{
+    margin-top:100px;
+  }
+  
+  .main-content-margin {
+    margin-top: 20px;
+  }
+  .main-list-box {
+    padding: 0 16px;
+  }
+  @media screen and (max-width: 480px) {
+    .main-list-box {
+      padding: 0;
+    }
+  }
+  .main-list {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .main-more {
+    margin-top: 6px;
+    color: #EAC03A;
+  }
+  .main-more:hover {
+    text-decoration: none;
+  }

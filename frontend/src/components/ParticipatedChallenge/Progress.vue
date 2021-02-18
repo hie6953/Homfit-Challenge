@@ -55,16 +55,16 @@
         <!--  -->
         <div v-if="certifyInfo.today_cnt > 0">
           <div class="result-title">오늘 찍은 인증샷</div>
-          <div class="row">
+          <div class="row" v-if="certifyInfo.imgList.length > 0">
             <div v-for="(item, index) in certifyInfo.imgList" class="col-12 col-sm-4" :key="index">
-              <img v-if="item.register_date !== ''" :src="item.feed_picture" alt="certify" class="col-12 certify-mt px-0 mt-0">
-              <img v-else :src="item.feed_picture" alt="certify" class="col-12 certify-mt certify-default-img px-0 mt-0" @click="Certify">
+              <img v-if="item.register_date !== ''" :src="item.feed_picture" alt="certify" class="progress-img col-12 certify-mt px-0 mt-0">
+              <img v-else :src="item.feed_picture" alt="certify" class="progress-img col-12 certify-mt certify-default-img px-0 mt-0" @click="Certify">
               <div class="certify-mt col-12">
                 <div v-if="item.register_date !== ''" class="row mx-auto justify-content-between">
                   <li class="col-8 px-0 py-0 my-1">
-                    <span v-if="item.register_date.slice(11,13) < 13">오전 </span>
-                    <span v-else>오후 </span>
-                    {{ item.register_date.slice(11,13) }}시 {{ item.register_date.slice(14,16) }}분
+                    <span v-if="item.register_date.slice(11,13) < 13">오전 {{ item.register_date.slice(11,13) }}시</span>
+                    <span v-else>오후 {{ item.register_date.slice(11,13)-12 }}시</span>
+                     {{ item.register_date.slice(14,16) }}분
                   </li>
                   <div class="row col-4 mx-0 px-0 justify-content-end">
                     <!-- <button class="btn-sm certify-btn certify-edit-btn col-5">편집</button> -->
@@ -86,7 +86,7 @@
     </div>
     
     <!-- 오늘 인증하는 날일때 인증버튼(수정 필요), 완료면 후기버튼 -->
-    <div class="btn btn-primary col" @click="Certify">인증하기</div>
+    <!-- <div class="btn btn-primary col" @click="Certify">인증하기</div> -->
     <div v-if="!isMobile">
         <!-- v-if="certifyInfo.today_cnt > 0 & challenge.check_date === 1" -->
       <b-button-group
@@ -138,6 +138,7 @@
 import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
 import Review from "@/components/ChallengeMoreInfo/Review.vue";
 import swal from '@/assets/javascript/sweetAlert.js';
+import '@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css'
 import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
@@ -175,6 +176,7 @@ export default {
     }
   },
   created() {
+    console.log(this.certifyInfo);
     // console.log(this.getUserUid)
     // console.log(this.challenge.challenge_id)
     // axios
@@ -235,7 +237,8 @@ export default {
         )
         .then(() => {
           swal.success('인증이 삭제되었습니다.');
-          this.certifyInfo.imgList[index].feed_picture = "https://picsum.photos/300/300/?image=24",
+          // this.certifyInfo.imgList[index].feed_picture = "https://picsum.photos/300/300/?image=24",
+          this.certifyInfo.imgList[index].feed_picture = "https://homfitimage.s3.ap-northeast-2.amazonaws.com/e078c32b25d4a47db670fa010674a09a1613652950622",
           this.certifyInfo.imgList[index].register_date = ""
           this.certifyInfo.user_cnt--
         })
@@ -251,5 +254,8 @@ export default {
 </script>
 
 <style>
-
+.progress-img{
+  height: 260px;
+  object-fit: fill;
+}
 </style>

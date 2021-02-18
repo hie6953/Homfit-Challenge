@@ -717,7 +717,7 @@ public class ChallengeController {
 			map.put("review", reviewList);
 
 			// 후기 총 평점 계산
-			List<Review> allReviewList = reviewService.selectAllReview(230);
+			List<Review> allReviewList = reviewService.selectAllReview(challengeId);
 			int avg_review = 0;
 			int size = allReviewList.size();
 			if (size != 0) {

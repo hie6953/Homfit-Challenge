@@ -70,6 +70,7 @@ export default {
         imgList: [
           {
             feed_picture: "https://picsum.photos/300/300/?image=25",
+            // feed_picture: "@/assets/Upload.png",
             register_date: "2021.03.12 00:00:00",
           },
         ],
@@ -102,7 +103,8 @@ export default {
         this.certifyInfo = data;
         while (this.certifyInfo.today_cnt > this.certifyInfo.imgList.length) {
           this.certifyInfo.imgList.push({
-            feed_picture: "https://picsum.photos/300/300/?image=24",
+            // feed_picture: "https://picsum.photos/300/300/?image=24",
+            feed_picture: "https://homfitimage.s3.ap-northeast-2.amazonaws.com/e078c32b25d4a47db670fa010674a09a1613652950622",
             register_date: "",
           })
         }
