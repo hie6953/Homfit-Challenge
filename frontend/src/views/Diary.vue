@@ -67,7 +67,7 @@ export default {
       textAreaFocusOff: true,
       currentYear: 0,
       currentMonth: 0,
-      currentDate: new Date().getUTCDate(),
+      currentDate: new Date().getDate(),
       getData: false,
     };
   },
@@ -142,18 +142,16 @@ export default {
     PostConnection: function() {
       console.log(this.getUserUid);
       console.log(
-        new Date(
           this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-        )
       );
       console.log(this.starPoint);
       console.log(this.textDiary);
       axios
         .post(`${SERVER_URL}/diary/create`, {
           uid: this.getUserUid,
-          date: new Date(
+          date: 
             this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-          ),
+          ,
           star_point: this.starPoint,
           diary_contents: this.textDiary,
         })
@@ -168,18 +166,17 @@ export default {
     PutConnection: function() {
       console.log(this.getUserUid);
       console.log(
-        new Date(
           this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-        )
+        
       );
       console.log(this.starPoint);
       console.log(this.textDiary);
       axios
         .put(`${SERVER_URL}/diary/update`, {
           uid: this.getUserUid,
-          date: new Date(
+          date:
             this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-          ),
+          ,
           star_point: this.starPoint,
           diary_contents: this.textDiary,
         })

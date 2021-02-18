@@ -76,8 +76,8 @@ export default {
   data() {
     return {
       weekDay: ["일", "월", "화", "수", "목", "금", "토"],
-      currentYear: new Date().getUTCFullYear(),
-      currentMonth: new Date().getUTCMonth() + 1,
+      currentYear: new Date().getFullYear(),
+      currentMonth: new Date().getMonth() + 1,
       choiceDate: 0,
       currentMonthDateMatrix: [],
       haveDiary: [],
@@ -108,8 +108,8 @@ export default {
       let diaryListIdx = 0;
       let diaryListLength = this.diaryList.length;
       let date = 1;
-      let firstDay = new Date(this.currentYear, this.currentMonth, 1).getUTCDay();
-      let lastDate = new Date(this.currentYear, this.currentMonth, 0).getUTCDate();
+      let firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+      let lastDate = new Date(this.currentYear, this.currentMonth, 0).getDate();
       let calendarRow = [];
       for (let i = 0; i < firstDay; ++i) {
         calendarRow[i] = " ";
@@ -125,7 +125,7 @@ export default {
             this.haveDiary[date] = temp;
             //기록 있는지 계산
             if(diaryListIdx < diaryListLength){
-              let diaryDate = new Date(this.diaryList[diaryListIdx].date).getUTCDate();
+              let diaryDate = new Date(this.diaryList[diaryListIdx].date).getDate();
               if(date == diaryDate){  //i일에 기록이 있으면
                 this.haveDiary[date].have  = true;
                 this.haveDiary[date].dateIdx = diaryListIdx;
