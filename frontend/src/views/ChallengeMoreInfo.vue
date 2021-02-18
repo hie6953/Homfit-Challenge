@@ -226,15 +226,15 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
+        
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
-        console.log(this.challenge);
         this.calculateCanParticipant();
+        console.log(this.challenge);
       })
       .catch(() => {
         swal.error('챌린지 정보를 불러오지 못했습니다.');
-
         this.challenge = ChallengeListDummyData.challengeList[0];
       });
 
@@ -352,10 +352,11 @@ export default {
     },
     //참여가능여부 판단(진행전이거나, 진행시작날일 때 참여가능)
     calculateCanParticipant: function() {
+      // console.log(this.challenge.start_date);
       let startTimeArr = this.challenge.start_date.split("-");
       let limitTime = new Date(
         startTimeArr[0],
-        startTimeArr[1],
+        startTimeArr[1]-1,
         startTimeArr[2],
         23,
         59,

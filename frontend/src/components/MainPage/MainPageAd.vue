@@ -16,7 +16,7 @@
             class="d-block img-fluid"
             width="1110"
             height="600"
-            src="@/assets/ad/ad2.jpg"
+            src="@/assets/ad/homfit_ad1.png"
             alt="image slot"
           >
         </template>
