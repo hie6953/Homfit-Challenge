@@ -110,6 +110,7 @@
   margin-right: 20px;
   margin-bottom: -15px;
   display: flex;
+  white-space: normal;
 }
 
 /* 하단바 */
