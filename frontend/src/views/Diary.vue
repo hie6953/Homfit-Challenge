@@ -67,7 +67,7 @@ export default {
       textAreaFocusOff: true,
       currentYear: 0,
       currentMonth: 0,
-      currentDate: new Date().getDate(),
+      currentDate: new Date().getUTCDate(),
       getData: false,
     };
   },

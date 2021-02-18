@@ -226,13 +226,13 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
+        console.log(data);
         
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
         this.calculateCanParticipant(); //참여가능여부 측정
         
-        console.log(this.challenge);
       })
       .catch(() => {
         swal.error('챌린지 정보를 불러오지 못했습니다.');

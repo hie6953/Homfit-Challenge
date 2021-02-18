@@ -31,7 +31,7 @@ export default {
     computed:{
         getRegistTime:function(){
             let time = new Date(this.review.regist_time);
-            return time.getFullYear()+"년 "+(time.getMonth()+1)+"월 "+time.getDate()+"일 " + time.getUTCHours()+"시 "+time.getUTCMinutes()+"분";
+            return time.getUTCFullYear()+"년 "+(time.getUTCMonth()+1)+"월 "+time.getUTCDate()+"일 " + time.getUTCHours()+"시 "+time.getUTCMinutes()+"분";
         }
     },
 }
