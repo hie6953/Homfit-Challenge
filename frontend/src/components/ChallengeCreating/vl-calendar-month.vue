@@ -93,9 +93,9 @@ export default {
         }
       }
 
-      // if (new Date(this.year, this.month, day) < new Date()) {
-      //   classes.push('disabled');
-      // }
+      if (new Date(this.year, this.month, day) < new Date()) {
+        classes.push('disabled');
+      }
 
       if (this.isDisabled && this.isDisabled(date)) {
         classes.push('disabled');
