@@ -2,21 +2,16 @@ package com.ssafy.homfit.model.service;
 
 import java.util.List;
 
-import com.ssafy.homfit.model.Favorite;
 import com.ssafy.homfit.model.Point;
 import com.ssafy.homfit.model.User;
-import com.ssafy.homfit.model.dao.BadgeDAO;
-import com.ssafy.homfit.model.dao.FavoriteDAO;
 import com.ssafy.homfit.model.dao.PointDAO;
 import com.ssafy.homfit.model.dao.UserDAO;
-import com.ssafy.homfit.util.UploadImg;
 import com.ssafy.homfit.util.Util;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,14 +37,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean signup(User user) throws Exception {
-        // String uidToken = null;
+        String uidToken = null;
         // while (true) {
-        //     uidToken = Util.generateToken();
+            uidToken = Util.generateToken(user.getEmail());
         //     if (this.getUid(uidToken) == null)
         //         break;
         // }
-        // user.setUid(uidToken);
-        user.setUid(user.getEmail());
+        user.setUid(uidToken);
+        // user.setUid(user.getEmail());
         user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4");
         user.setGrade("bronze");
         user.setAdmin_check(false);
