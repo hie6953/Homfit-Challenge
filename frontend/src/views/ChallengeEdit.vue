@@ -182,7 +182,7 @@ import ImageUploader from "@/components/ImageUploader.vue";
 import swal from '@/assets/javascript/sweetAlert.js';
 import "@/assets/css/ChallengeCreating/challengecreating.css";
 import "@/assets/css/challengeedit.css";
-
+import { mapGetters } from "vuex";
 import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
@@ -239,12 +239,18 @@ export default {
     },
   },
   methods: {
+    // 챌린지 정보 조회
     GetChallnege() {
       axios
         .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
         .then(({ data }) => {
           this.challenge = data.challenge;
-          this.getChallenge = !this.getChallenge;
+          console.log(this.challenge.nick_name+" "+this.getUserNickName);
+          if(this.challenge.nick_name != this.getUserNickName){
+            swal.error('권한이 없습니다!');
+            this.$router.go(-1);
+          }
+            this.getChallenge = !this.getChallenge;
           this.checkTagListLength();
         })
         .catch(() => {
@@ -356,7 +362,7 @@ export default {
         })
         .then(() => {
           swal.success('챌린지가 수정되었습니다.');
-          this.$router.push(`/challenge-more-info/${this.challenge_id}`);
+          this.$router.replace(`/challenge-more-info/${this.challenge_id}`);
         })
         .catch((error) => {
           console.log(error);
@@ -379,6 +385,7 @@ export default {
       if (this.challenge.challenge_title.length == 0) return null;
       return this.challenge.challenge_title.length <= 20;
     },
+    ...mapGetters(["getUserNickName"]),
   },
 };
 </script>
