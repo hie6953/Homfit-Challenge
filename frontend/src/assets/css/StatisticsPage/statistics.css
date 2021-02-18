@@ -156,15 +156,25 @@
   /* 제목 */
 .statistics-title {
     display: inline-block;
-  
     margin: 10px 0px;
     padding: 5px 10px;
-  
     background-color: #eac13a50;
     border-radius: 10px;
-  
     font-size: larger;
     font-weight: 600;
+}
+.statistics-title-center {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: #eac13a50;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: 600;
+}
+.statistics-box {
+    margin:0 auto;
 }
 .selected-challeng-name {
     font-size: large;

@@ -66,7 +66,7 @@
           :reviewList="reviewList"
           :avg_review="avg_review"
         ></challenge-review>
-        <div v-else>
+        <div v-else-if="challenge.check_date == 2 && reviewList.length == 0">
           <p>등록된 후기가 없습니다.</p>
         </div>
       </div>

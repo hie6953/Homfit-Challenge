@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p class="statistics-title">운동별 선호 챌린지</p>
+    <div class="statistics-box row">
+      <p class="statistics-title-center">운동별 선호 챌린지</p>
+    </div>
     <canvas id="myChart-1" width="100%" height="100%"></canvas>
   </div>
 </template>
@@ -13,11 +15,6 @@ export default {
     labels: Array,
     dataList: Array,
   },
-  data() {
-    return {
-      noMean: "",
-    }
-  },
   watch:{
     update:function(){
       this.createChart();
@@ -26,7 +23,7 @@ export default {
   methods: {
     createChart() {
       const ctx = document.getElementById("myChart-1")
-      const myChart = new Chart(ctx, {
+      new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: this.labels,
@@ -63,7 +60,6 @@ export default {
         },
         options: {}
       })
-      this.noMean = myChart.id
     },
   },
   mounted() {
