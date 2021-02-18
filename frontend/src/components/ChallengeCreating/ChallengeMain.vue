@@ -167,7 +167,7 @@
       <div class="align-center col-12 col-md-8 pb-5 mx-auto">
         <h4 class="challenge-creating-title">부위별 선택</h4>
         <input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="1"
@@ -176,7 +176,7 @@
         />
         <label for="bodyList_whole"> <span class="text">전신</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="2"
@@ -185,7 +185,7 @@
         />
         <label for="bodyList_upper"> <span class="text">상체</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="3"
@@ -194,7 +194,7 @@
         />
         <label for="bodyList_lower"> <span class="text">하체</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="4"
@@ -203,7 +203,7 @@
         />
         <label for="bodyList_chest"> <span class="text">가슴</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="5"
@@ -212,7 +212,7 @@
         />
         <label for="bodyList_arm"> <span class="text">팔</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="6"
@@ -221,7 +221,7 @@
         />
         <label for="bodyList_abdominal"> <span class="text">복부</span> </label
         ><input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="7"
@@ -230,7 +230,7 @@
         />
         <label for="bodyList_hip"> <span class="text">엉덩이</span> </label>
         <input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           :value="8"
@@ -239,7 +239,7 @@
         />
         <label for="bodyList_leg"> <span class="text">다리</span> </label>
         <input
-          class="challenge-bodyList"
+          class="challenge-body"
           type="radio"
           name="bodyList"
           id="bodyList_etc"
