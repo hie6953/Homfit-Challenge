@@ -49,35 +49,34 @@ public class UserServiceImpl implements UserService {
         //         break;
         // }
         // user.setUid(uidToken);
-        // user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4");
-        // user.setGrade("bronze");
-        // user.setAdmin_check(false);
-        // if (user.getKakao_key() == "" || user.getKakao_key() == null) {
-        //     user.setProvider_id(false);
-
-        // } else {
-        //     user.setProvider_id(true);
-        // }
-        // // // 이메일 중복확인
-        // // if (user.getEmail()!= null && this.duplicateEmailCheck(user.getEmail()))
-        // // return false;
-        // try {
-        //     sqlSession.getMapper(UserDAO.class).signup(user);
-        //     if (!favoriteService.init(user.getUid()))
-        //         new Exception();
-        //     if (!badgeService.init(user.getUid()))
-        //         new Exception();
-        //     Point point = new Point();
-        //     point.setPoint(100);
-        //     point.setUid(user.getUid());
-        //     point.setTitle("뱃지");
-        //     point.setContent("첫 회원 가입");
-        //     sqlSession.getMapper(PointDAO.class).earn(point);
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        //     return false;
-        // }
-            sqlSession.getMapper(UserDAO.class).test2();
+        user.setUid(user.getEmail());
+        user.setUser_img("https://homfitimage.s3.ap-northeast-2.amazonaws.com/a50148c1b3f70141c7969e9c00d50af4");
+        user.setGrade("bronze");
+        user.setAdmin_check(false);
+        if (user.getKakao_key() == "" || user.getKakao_key() == null) {
+            user.setProvider_id(false);
+        } else {
+            user.setProvider_id(true);
+        }
+        // // 이메일 중복확인
+        // if (user.getEmail()!= null && this.duplicateEmailCheck(user.getEmail()))
+        // return false;
+        try {
+            sqlSession.getMapper(UserDAO.class).signup(user);
+            if (!favoriteService.init(user.getUid()))
+                new Exception();
+            if (!badgeService.init(user.getUid()))
+                new Exception();
+            Point point = new Point();
+            point.setPoint(100);
+            point.setUid(user.getUid());
+            point.setTitle("뱃지");
+            point.setContent("첫 회원 가입");
+            sqlSession.getMapper(PointDAO.class).earn(point);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 
         return true;
     }
