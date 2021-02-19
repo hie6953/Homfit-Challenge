@@ -95,7 +95,7 @@ export default {
   },
   created() {
     let uid = this.getUserUid;
-    console.log(uid);
+    // console.log(uid);
     axios
       .post(`${SERVER_URL}/point/inquiry`, { uid })
       .then(({ data }) => {
@@ -104,7 +104,7 @@ export default {
         }
 
         this.sum = data.sum;
-        console.log(data);
+        // console.log(data);
       })
       .catch(() => {
         swal.error('오류가 발생했습니다.');

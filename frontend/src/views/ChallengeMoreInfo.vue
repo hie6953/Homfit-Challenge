@@ -154,22 +154,22 @@
   </div>
 </template>
 <script>
-import ChallengeTitle from "@/components/ChallengeMoreInfo/ChallengeTitle.vue";
-import ChallengeContents from "@/components/ChallengeMoreInfo/ChallengeContents.vue";
-import ChallengeCertifyContents from "@/components/ChallengeMoreInfo/ChallengeCertifyContents.vue";
-import ChallengeResult from "@/components/ChallengeMoreInfo/ChallengeResult.vue";
-import ChallengeReview from "@/components/ChallengeMoreInfo/ChallengeReview.vue";
-import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
-import ReviewMore from "@/components/ChallengeMoreInfo/ReviewMore.vue";
-import "@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css";
+import ChallengeTitle from '@/components/ChallengeMoreInfo/ChallengeTitle.vue';
+import ChallengeContents from '@/components/ChallengeMoreInfo/ChallengeContents.vue';
+import ChallengeCertifyContents from '@/components/ChallengeMoreInfo/ChallengeCertifyContents.vue';
+import ChallengeResult from '@/components/ChallengeMoreInfo/ChallengeResult.vue';
+import ChallengeReview from '@/components/ChallengeMoreInfo/ChallengeReview.vue';
+import ChallengeListDummyData from '@/assets/dummyData/challengeDummyData.json';
+import ReviewMore from '@/components/ChallengeMoreInfo/ReviewMore.vue';
+import '@/assets/css/ChallengeMoreInfo/challengeMoreInfo.css';
 import swal from '@/assets/javascript/sweetAlert.js';
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
-import axios from "axios";
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: "ChallengeMoreInfo",
+  name: 'ChallengeMoreInfo',
   components: {
     ChallengeTitle,
     ChallengeContents,
@@ -197,22 +197,22 @@ export default {
         kind: 0,
         fit_id: 1,
         bodyList: [],
-        challenge_title: "",
-        challenge_contents: "",
-        challenge_img: "",
+        challenge_title: '',
+        challenge_contents: '',
+        challenge_img: '',
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
-        challenge_certify_contents: "",
-        good_img: "",
-        bad_img: "",
+        challenge_certify_contents: '',
+        good_img: '',
+        bad_img: '',
         only_cam: 1,
         tagList: [],
         average_rate: 0,
-        make_date: "",
-        nick_name: "",
-        make_uid: "",
+        make_date: '',
+        nick_name: '',
+        make_uid: '',
         check_date: 0,
         period: 0,
       },
@@ -226,13 +226,12 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
       .then(({ data }) => {
-        console.log(data);
-        
+        // console.log(data);
+
         this.challenge = data.challenge;
         this.reviewList = data.review;
         this.avg_review = data.avg_review;
         this.calculateCanParticipant(); //참여가능여부 측정
-        
       })
       .catch(() => {
         swal.error('챌린지 정보를 불러오지 못했습니다.');
@@ -249,8 +248,8 @@ export default {
         })
         .then(({ data }) => {
           // console.log(data);
-          this.isBookmarked = data.bookmark == "1";
-          this.isParticipant = data.participant == "1";
+          this.isBookmarked = data.bookmark == '1';
+          this.isParticipant = data.participant == '1';
         })
         .catch(() => {
           swal.error('챌린지 관련 회원정보를 가져오지 못했습니다.');
@@ -315,12 +314,12 @@ export default {
           dest = this.challengeReviewLocation;
           break;
       }
-      window.scrollTo({ top: dest, behavior: "smooth" });
+      window.scrollTo({ top: dest, behavior: 'smooth' });
     },
     // 로그인페이지로 가기
     GoLogin: function() {
       this.$router.push({
-        name: "login",
+        name: 'login',
         params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
       });
     },
@@ -344,7 +343,7 @@ export default {
           });
       } else {
         this.$router.push({
-          name: "login",
+          name: 'login',
           params: { nextRoute: `challenge-more-info/${this.challenge_id}` },
         });
       }
@@ -356,10 +355,10 @@ export default {
     //참여가능여부 판단(진행전이거나, 진행시작날일 때 참여가능)
     calculateCanParticipant: function() {
       // console.log(this.challenge.start_date);
-      let startTimeArr = this.challenge.start_date.split("-");
+      let startTimeArr = this.challenge.start_date.split('-');
       let limitTime = new Date(
         startTimeArr[0],
-        startTimeArr[1]-1,
+        startTimeArr[1] - 1,
         startTimeArr[2],
         23,
         59,
@@ -380,24 +379,24 @@ export default {
       }
 
       this.challengeContentsLocation =
-        document.getElementById("challenge-contents").getBoundingClientRect()
+        document.getElementById('challenge-contents').getBoundingClientRect()
           .top +
         window.pageYOffset -
         deviceOffset;
       this.challengeCertifyContentsLocation =
         document
-          .getElementById("challenge-certify-contents")
+          .getElementById('challenge-certify-contents')
           .getBoundingClientRect().top +
         window.pageYOffset -
         deviceOffset;
       this.challengeResultLocation =
-        document.getElementById("challenge-result").getBoundingClientRect()
+        document.getElementById('challenge-result').getBoundingClientRect()
           .top +
         window.pageYOffset -
         deviceOffset;
       if (this.challenge.check_date == 2) {
         this.challengeReviewLocation =
-          document.getElementById("challenge-review").getBoundingClientRect()
+          document.getElementById('challenge-review').getBoundingClientRect()
             .top +
           window.pageYOffset -
           deviceOffset;
@@ -405,17 +404,17 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUserUid", "getAccessToken", "getUserNickName"]),
+    ...mapGetters(['getUserUid', 'getAccessToken', 'getUserNickName']),
   },
   mounted() {
     // 화면 너비 측정 이벤트 추가
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize);
     this.handleResize();
   },
 
   beforeDestroy() {
     // 화면 너비 측정 이벤트 제거
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
   },
 };
 </script>

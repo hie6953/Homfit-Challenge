@@ -58,22 +58,22 @@
 </template>
 
 <script>
-import "../assets/css/certificationphoto.css";
-import swal from "@/assets/javascript/sweetAlert.js";
-import { mapGetters } from "vuex";
-import axios from "axios";
+import '../assets/css/certificationphoto.css';
+import swal from '@/assets/javascript/sweetAlert.js';
+import { mapGetters } from 'vuex';
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: "CertificationPhoto",
+  name: 'CertificationPhoto',
   components: {},
-  data: function () {
+  data: function() {
     return {
       form: {
-        petName: "",
+        petName: '',
         file: null,
         //   desc: ''
-        content: "",
+        content: '',
       },
       show: true,
       previewImageData: null,
@@ -86,27 +86,26 @@ export default {
   watch: {},
   methods: {
     UploadCertification() {
-
       let frm = new FormData();
-      frm.append("imgFile", document.getElementById("photo").files[0]);
-      frm.append("maked_uid", this.getUserUid);
-      frm.append("challenge_id", this.$route.params.challenge_id);
-      frm.append("feed_contents", this.form.content);
+      frm.append('imgFile', document.getElementById('photo').files[0]);
+      frm.append('maked_uid', this.getUserUid);
+      frm.append('challenge_id', this.$route.params.challenge_id);
+      frm.append('feed_contents', this.form.content);
 
       axios
         .post(`${SERVER_URL}/feed/create`, frm, {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }) => {
-          console.log(data);
-          if (data == "success") {
+          // console.log(data);
+          if (data == 'success') {
             this.$router.push(
               `/participated/${this.$route.params.challenge_id}`
             );
           }
         })
         .catch(() => {
-          swal.error("오류가 발생했습니다.");
+          swal.error('오류가 발생했습니다.');
         });
     },
 
@@ -116,8 +115,8 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset
-      this.form.petName = "";
-      this.form.file = "";
+      this.form.petName = '';
+      this.form.file = '';
       //   this.form.desc = '';
       this.show = false;
       this.$nextTick(() => {
@@ -138,7 +137,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getUserUid"]),
+    ...mapGetters(['getUserUid']),
   },
 };
 </script>

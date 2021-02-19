@@ -55,7 +55,7 @@ export default {
           email: this.email,
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           if (data != false) {
             swal.success('인증번호 확인');
           } else {

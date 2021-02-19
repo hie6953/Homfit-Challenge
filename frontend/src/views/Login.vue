@@ -93,7 +93,7 @@ export default {
   methods: {
     login: function() {
       //콘솔 확인
-      console.log(this.user.email);
+      // console.log(this.user.email);
 
       if (this.auto_login) {
         this.$cookie.set('auto_login', this.user.email);
@@ -106,7 +106,7 @@ export default {
       this.$store
         .dispatch('LOGIN', this.user)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           if (response.data.message == 'success')
             this.$router.replace(`/${this.nextRoute}`);
         })

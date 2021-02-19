@@ -39,7 +39,7 @@ export default {
       })
       .then(({ data }) => {
         this.feedList = data;
-        console.log(data);
+        // console.log(data);
       })
       .catch(() => {
         swal.error('오류가 발생했습니다.');

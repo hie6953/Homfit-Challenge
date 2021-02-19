@@ -176,18 +176,18 @@
 </template>
 
 <script>
-import TextEditor from "@/components/ChallengeCreating/TextEditor.vue";
-import Tag from "@/components/ChallengeCreating/Tag.vue";
-import ImageUploader from "@/components/ImageUploader.vue";
+import TextEditor from '@/components/ChallengeCreating/TextEditor.vue';
+import Tag from '@/components/ChallengeCreating/Tag.vue';
+import ImageUploader from '@/components/ImageUploader.vue';
 import swal from '@/assets/javascript/sweetAlert.js';
-import "@/assets/css/ChallengeCreating/challengecreating.css";
-import "@/assets/css/challengeedit.css";
-import { mapGetters } from "vuex";
-import axios from "axios";
+import '@/assets/css/ChallengeCreating/challengecreating.css';
+import '@/assets/css/challengeedit.css';
+import { mapGetters } from 'vuex';
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
-  name: "ChallengeEdit",
+  name: 'ChallengeEdit',
   components: {
     TextEditor,
     Tag,
@@ -196,27 +196,27 @@ export default {
   data() {
     return {
       challenge_id: 0,
-      input: "",
+      input: '',
       getChallenge: false,
       canEdit: false,
       challenge: {
         kind: 0,
         fit_id: 1,
         bodyList: [],
-        challenge_title: "",
-        challenge_contents: "",
-        challenge_img: "",
+        challenge_title: '',
+        challenge_contents: '',
+        challenge_img: '',
         start_date: null,
         end_date: null,
         dayList: [],
         day_certify_count: 1,
-        challenge_certify_contents: "",
-        good_img: "",
-        bad_img: "",
+        challenge_certify_contents: '',
+        good_img: '',
+        bad_img: '',
         only_cam: 1,
         tagList: [],
-        make_date: "",
-        make_uid: "",
+        make_date: '',
+        make_uid: '',
         check_date: 0,
         period: 0,
       },
@@ -245,12 +245,12 @@ export default {
         .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
         .then(({ data }) => {
           this.challenge = data.challenge;
-          console.log(this.challenge.nick_name+" "+this.getUserNickName);
-          if(this.challenge.nick_name != this.getUserNickName){
+          // console.log(this.challenge.nick_name+" "+this.getUserNickName);
+          if (this.challenge.nick_name != this.getUserNickName) {
             swal.error('권한이 없습니다!');
             this.$router.go(-1);
           }
-            this.getChallenge = !this.getChallenge;
+          this.getChallenge = !this.getChallenge;
           this.checkTagListLength();
         })
         .catch(() => {
@@ -286,10 +286,10 @@ export default {
     },
     // 태그 추가
     addTag: function() {
-      this.input = this.input.replace(" ", "");
-      if (this.input != "") {
+      this.input = this.input.replace(' ', '');
+      if (this.input != '') {
         this.challenge.tagList.unshift(this.input);
-        this.input = "";
+        this.input = '';
       }
       this.checkTagListLength();
     },
@@ -306,45 +306,56 @@ export default {
         this.challenge.tagList = [];
       }
       if (this.challenge.tagList.length >= 5) {
-        document.getElementById("tag-input").readOnly = true;
+        document.getElementById('tag-input').readOnly = true;
       } else {
-        document.getElementById("tag-input").readOnly = false;
+        document.getElementById('tag-input').readOnly = false;
       }
     },
 
     ChallengeEdit: function() {
-      console.log(this.challenge);
-      console.log(this.new_challenge_img); //새로 불러오기 : object
-      console.log(this.new_good_img); //삭제 : 안의 file == null
-      console.log(this.new_bad_img); //손안댐 :null
+      // console.log(this.challenge);
+      // console.log(this.new_challenge_img); //새로 불러오기 : object
+      // console.log(this.new_good_img); //삭제 : 안의 file == null
+      // console.log(this.new_bad_img); //손안댐 :null
 
       // undefined 이거나 null인 경우 : default image
       // file이 있을 경우 : 이미지 변경
 
-      if (this.new_challenge_img != null && this.new_challenge_img.file == null) {
+      if (
+        this.new_challenge_img != null &&
+        this.new_challenge_img.file == null
+      ) {
         this.challenge.challenge_img =
-          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399";
+          'https://homfitimage.s3.ap-northeast-2.amazonaws.com/d42ee9bafd0856a5a0b6bd481415f399';
       }
-      if (this.new_good_img != null  && this.new_good_img.file == null) {
+      if (this.new_good_img != null && this.new_good_img.file == null) {
         this.challenge.good_img =
-          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc";
+          'https://homfitimage.s3.ap-northeast-2.amazonaws.com/182165c5919612baffdfcd8091cfe7bc';
       }
-      if (this.new_bad_img != null  && this.new_bad_img.file == null) {
+      if (this.new_bad_img != null && this.new_bad_img.file == null) {
         this.challenge.bad_img =
-          "https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520";
+          'https://homfitimage.s3.ap-northeast-2.amazonaws.com/14b28a4957875f43d9f3aed789d2d520';
       }
 
-      
       // // Object To FormData 변환
       var formData = new FormData();
 
       for (let i in this.challenge) {
-        if (i == "dayList") continue;
+        if (i == 'dayList') continue;
         formData.append(i, this.challenge[i]);
       }
-      formData.append("challengeImgFile", this.new_challenge_img != null? this.new_challenge_img.file :null);
-      formData.append("goodImgFile", this.new_good_img != null ? this.new_good_img.file : null);
-      formData.append("badImgFile", this.new_bad_img != null ? this.new_bad_img.file : null);
+      formData.append(
+        'challengeImgFile',
+        this.new_challenge_img != null ? this.new_challenge_img.file : null
+      );
+      formData.append(
+        'goodImgFile',
+        this.new_good_img != null ? this.new_good_img.file : null
+      );
+      formData.append(
+        'badImgFile',
+        this.new_bad_img != null ? this.new_bad_img.file : null
+      );
 
       // FormData의 key 확인
       // for (let key of formData.keys()) {
@@ -358,14 +369,14 @@ export default {
 
       axios
         .put(`${SERVER_URL}/challenge/${this.challenge_id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(() => {
           swal.success('챌린지가 수정되었습니다.');
           this.$router.replace(`/challenge-more-info/${this.challenge_id}`);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          // console.log(error);
           swal.error('등록 처리시 오류가 발생했습니다.');
         });
 
@@ -385,7 +396,7 @@ export default {
       if (this.challenge.challenge_title.length == 0) return null;
       return this.challenge.challenge_title.length <= 20;
     },
-    ...mapGetters(["getUserNickName"]),
+    ...mapGetters(['getUserNickName']),
   },
 };
 </script>

@@ -196,7 +196,7 @@ export default {
   },
   created() {
     let uid = this.getUserUid;
-    console.log(uid);
+    // console.log(uid);
     axios
       .post(
         `${SERVER_URL}/user`,
@@ -207,7 +207,7 @@ export default {
       )
       .then(({ data }) => {
         this.user = data;
-        console.log(data);
+        // console.log(data);
       })
       .catch(() => {
         swal.error('오류가 발생했습니다.');
@@ -231,7 +231,7 @@ export default {
       .then(({ data }) => {
         this.challenge = data;
         this.ingingCnt = this.challenge.ingCnt + this.challenge.preCnt;
-        console.log(data);
+        // console.log(data);
       })
       .catch(() => {
         swal.error('오류가 발생했습니다.');

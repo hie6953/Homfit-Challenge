@@ -102,11 +102,14 @@ export default {
           })
 
           .then(({ data }) => {
-            console.log(data);
+            // console.log(data);
             if (data == 'success') {
               // alert('비밀번호가 변경되었습니다.');
 
-              swal.successButton('비밀번호 변경 완료','변경된 비밀번호로 로그인해주세요:)');
+              swal.successButton(
+                '비밀번호 변경 완료',
+                '변경된 비밀번호로 로그인해주세요:)'
+              );
               this.$router.replace('/login');
             }
           })

@@ -66,7 +66,7 @@ export default {
           uid: this.getUserUid,
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           if (data === true) {
             this.$router.push(`/editprofile`);
           } else this.passwordconfirm = true;

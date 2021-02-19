@@ -40,12 +40,12 @@
   </div>
 </template>
 <script>
-import "@/assets/css/Diary/diary.css";
-import DiaryCalendar from "../components/DiaryCalendar.vue";
-import swal from "@/assets/javascript/sweetAlert.js";
-import { mapGetters } from "vuex";
+import '@/assets/css/Diary/diary.css';
+import DiaryCalendar from '../components/DiaryCalendar.vue';
+import swal from '@/assets/javascript/sweetAlert.js';
+import { mapGetters } from 'vuex';
 
-import axios from "axios";
+import axios from 'axios';
 const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
@@ -53,17 +53,17 @@ export default {
   data() {
     return {
       starList: [
-        { icon: "star" },
-        { icon: "star" },
-        { icon: "star" },
-        { icon: "star" },
-        { icon: "star" },
-        { icon: "star" },
+        { icon: 'star' },
+        { icon: 'star' },
+        { icon: 'star' },
+        { icon: 'star' },
+        { icon: 'star' },
+        { icon: 'star' },
       ],
       diaryList: [],
       isHave: false,
       starPoint: 0,
-      textDiary: "",
+      textDiary: '',
       textAreaFocusOff: true,
       currentYear: 0,
       currentMonth: 0,
@@ -74,23 +74,23 @@ export default {
   methods: {
     getInfo: function(year, month) {
       if (month < 10) {
-        month = "0" + month;
+        month = '0' + month;
       }
       axios
         .get(`${SERVER_URL}/diary/search/month`, {
           params: {
             uid: this.getUserUid,
-            date: year + "-" + month,
+            date: year + '-' + month,
           },
         })
         .then(({ data }) => {
           // console.log(data);
           this.diaryList = data;
-          
+
           this.getData = !this.getData;
         })
         .catch(() => {
-          swal.error("기록 목록을 불러오지 못했습니다.");
+          swal.error('기록 목록을 불러오지 못했습니다.');
         });
     },
     choiceDate: function(year, month, date, haveDiary) {
@@ -98,7 +98,7 @@ export default {
       this.currentMonth = month;
       this.currentDate = date;
       this.isHave = haveDiary.have;
-      this.textDiary = "";
+      this.textDiary = '';
       this.starPoint = 0;
       this.DisplayStar();
       if (this.isHave) {
@@ -109,7 +109,7 @@ export default {
       }
     },
     Blur: function() {
-      console.log('blur');
+      // console.log('blur');
       this.textAreaFocusOff = true;
       //통신
       if (this.isHave) {
@@ -123,10 +123,10 @@ export default {
     },
     DisplayStar: function() {
       for (let i = 1; i <= this.starPoint; ++i) {
-        this.starList[i].icon = "star-fill";
+        this.starList[i].icon = 'star-fill';
       }
       for (let i = this.starPoint + 1; i <= 5; ++i) {
-        this.starList[i].icon = "star";
+        this.starList[i].icon = 'star';
       }
     },
     ClickStar: function(index) {
@@ -140,18 +140,17 @@ export default {
       }
     },
     PostConnection: function() {
-      console.log(this.getUserUid);
-      console.log(
-          this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-      );
-      console.log(this.starPoint);
-      console.log(this.textDiary);
+      // console.log(this.getUserUid);
+      // console.log(
+      //     this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
+      // );
+      // console.log(this.starPoint);
+      // console.log(this.textDiary);
       axios
         .post(`${SERVER_URL}/diary/create`, {
           uid: this.getUserUid,
-          date: 
-            this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-          ,
+          date:
+            this.currentYear + '-' + this.currentMonth + '-' + this.currentDate,
           star_point: this.starPoint,
           diary_contents: this.textDiary,
         })
@@ -160,23 +159,22 @@ export default {
           this.getInfo(this.currentYear, this.currentMonth);
         })
         .catch(() => {
-          swal.error("기록 목록을 저장하지 못했습니다.");
+          swal.error('기록 목록을 저장하지 못했습니다.');
         });
     },
     PutConnection: function() {
-      console.log(this.getUserUid);
-      console.log(
-          this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-        
-      );
-      console.log(this.starPoint);
-      console.log(this.textDiary);
+      // console.log(this.getUserUid);
+      // console.log(
+      //     this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
+
+      // );
+      // console.log(this.starPoint);
+      // console.log(this.textDiary);
       axios
         .put(`${SERVER_URL}/diary/update`, {
           uid: this.getUserUid,
           date:
-            this.currentYear + "-" + this.currentMonth + "-" + this.currentDate
-          ,
+            this.currentYear + '-' + this.currentMonth + '-' + this.currentDate,
           star_point: this.starPoint,
           diary_contents: this.textDiary,
         })
@@ -184,12 +182,12 @@ export default {
           this.getInfo(this.currentYear, this.currentMonth);
         })
         .catch(() => {
-          swal.error("기록 목록을 수정하지 못했습니다.");
+          swal.error('기록 목록을 수정하지 못했습니다.');
         });
     },
   },
   computed: {
-    ...mapGetters(["getUserUid"]),
+    ...mapGetters(['getUserUid']),
   },
 };
 </script>
