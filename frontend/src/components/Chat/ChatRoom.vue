@@ -73,14 +73,12 @@ export default {
         {},
         (frame) => {
           this.connected = true;
-          console.log(frame);
           this.stompClient.subscribe(`/sub/${this.challenge_id}`, (tick) => {
             this.msgs.push(JSON.parse(tick.body));
           });
           this.getChat();
         },
         (error) => {
-          console.log(error);
           this.connected = false;
         }
       );
@@ -92,12 +90,10 @@ export default {
       this.connected = false;
     },
     getChat() {
-      console.log(this.challenge_id)
       axios
         .get(`${SERVER_URL}/chat/log/${this.challenge_id}`)
         .then(({ data }) => {
           this.msgs = data;
-          console.log(this.msgs)
           this.msgs.reverse();
         })
         .catch(() => {
