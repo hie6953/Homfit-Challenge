@@ -89,10 +89,13 @@ export default {
       challenge_certify_contents:'',
       good_img:'',
       bad_img:'',
+      challenge_id: 0,
     };
   },
   created() {
     this.only_cam = this.$route.params.only_cam;
+    this.challenge_id = this.$route.params.challenge_id;
+    this.getChallengeInfo();
   },
   watch: {},
   methods: {
@@ -146,6 +149,19 @@ export default {
         this.previewImageData = null;
       }
     },
+    getChallengeInfo(){
+      axios
+        .get(`${SERVER_URL}/challenge/${this.challenge_id}`)
+        .then(({ data }) => {
+          // console.log(data);
+            this.challenge_certify_contents = data.challenge.challenge_certify_contents;
+            this.good_img = data.challenge.good_img;
+            this.bad_img = data.challenge.bad_img;
+        })
+        .catch(() => {
+          swal.error('오류가 발생했습니다.');
+        });
+    }
   },
   computed: {
     ...mapGetters(['getUserUid']),
