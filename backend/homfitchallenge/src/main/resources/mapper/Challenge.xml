@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.homfit.model.dao.ChallengeDAO">
+
+	<!--오늘 날짜 select -->
+	<!-- public String selectDate(); -->
+	<select id="selectDate" resultType="String">
+		select date(now())
+	</select>
+
+	<!-- 챌린지 전체 리스트 조회 -->
+	<!-- public List<Challenge> selectAllChallenge(); -->
+	<select id="selectAllChallenge" resultType="Challenge">
+		select
+		c.*, u.nick_name, u.user_img, count(p.uid) as people
+		from
+		challenge as c
+		join participate as p on c.challenge_id = p.challenge_id
+		join user as u on c.make_uid = u.uid
+		group by challenge_id
+		order by challenge_id desc
+	</select>
+
+
+	<!-- 챌린지 상세 조회 -->
+	<!-- public Challenge selectChallengeByid(int challenge_id); -->
+	<select id="selectChallengeByid" parameterType="int"
+		resultType="Challenge">
+		select a.*, u.nick_name,u.user_img
+		from challenge as a
+		join user as u
+		on
+		a.make_uid = u.uid
+		where a.challenge_id = #{challenge_id}
+	</select>
+
+	<!-- 챌린지 개설자 nickname select -->
+	<!-- public String selectUserNickname (int challenge_id); -->
+	<select id="selectUserNickname" resultType="String">
+		select u.nick_name
+		from challenge as c join user as u
+		on c.make_uid = u.uid
+		where challenge_id = #{challenge_id}
+	</select>
+
+	<!-- 해당 챌린지 부위리스트 select -->
+	<!-- public int[] selectBodyPart(int ChallengeId); -->
+	<select id="selectBodyPart" resultType="int">
+		select body_id
+		from
+		search_body
+		where challenge_id = #{chchallenge_id}
+	</select>
+	
+	<!--해당 챌린지 참여자 select-->
+	<!-- public Challenge selectParticipant(@Param("challenge_id") int challenge_id, @Param("uid") String uid);-->
+	<select id="selectParticipant" resultType="String">
+		select uid
+		from participate
+		where uid= #{uid} and challenge_id = #{challenge_id}
+	</select>
+	
+	<!-- 챌린지에 참여한 유저들 select -->
+	<!-- public String[] selectUidByChallenge (int challenge_id); -->
+	<select id="selectUidByChallenge" resultType="String">
+		select uid
+		from participate
+		where challenge_id = #{challenge_id}
+	</select>
+	
+	<!-- 오늘 진행하는 챌린지 select -->
+	<!-- public int[] selectTodayChallenge(String uid); -->
+	<select id="selectTodayChallenge" resultType="TodayChallenge">
+		select c.challenge_id
+		from challenge as c join challenge_day as d
+		on c.challenge_id = d.challenge_id
+		where d.day_id = #{day} and c.check_date = 1
+	</select>
+	
+	<!-- 회원의 완료된 챌린지 select -->
+	<!-- public List<Challenge> selectEndChallenge(String uid); -->
+	<select id="selectEndChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 2
+	</select>
+	
+	<!-- 회원의 진행전 챌린지 select -->
+	<!-- public List<Challenge> selectPreChallenge(String uid); //진행전 -->
+	<select id="selectPreChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 0
+	</select>
+	
+	<!-- 회원의 진행중 챌린지 select -->
+	<!-- public List<Challenge> selectIngChallenge(String uid); -->
+	<select id="selectIngChallenge" resultType="int">
+		select c.challenge_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where p.uid = #{uid} and c.check_date = 1
+	</select>
+
+	
+	<!-- 챌린지 정보 등록 -->
+	<!-- public int insertChallenge(Challenge challenge); -->
+	<insert id="insertChallenge" parameterType="Challenge"
+		useGeneratedKeys="true" keyProperty="challenge_id">
+		insert into
+		challenge
+		(challenge_title, challenge_contents, challenge_img,
+		challenge_certify_contents,
+		good_img, bad_img, day_certify_count,
+		only_cam, start_date, end_date,
+		make_date, make_uid, fit_id,
+		check_date, period, daylist_string,bodylist_string, certification )
+		values(#{challenge_title},
+		#{challenge_contents}, #{challenge_img},
+		#{challenge_certify_contents},#{good_img}, #{bad_img},
+		#{day_certify_count}, #{only_cam}, #{start_date}, #{end_date},
+		#{make_date}, #{make_uid}, #{fit_id}, #{check_date}, #{period},
+		#{daylist_string}, #{bodylist_string}, #{certification})
+	</insert>
+
+	<!-- 챌린지 요일 등록 -->
+	<!--public int insertChallengeDay(Challenge_day c_day); -->
+	<insert id="insertChallengeDay" parameterType="Map">
+		insert into challenge_day
+		(challenge_id, day_id) values
+		<foreach collection="list" item="item" separator=" , ">
+			(#{challenge_id}, #{item})
+		</foreach>
+	</insert>
+
+	<!--챌린지 부위 등록 -->
+	<!--public int insertChallengeBody (HashMap<String, Integer> map); -->
+	<insert id="insertChallengeBody" parameterType="HashMap">
+		insert
+		into
+		search_body
+		(challenge_id, body_id)
+		values (#{challenge_id}, #{body_id})
+	</insert>
+
+	<!--챌린지 참여 등록 -->
+	<!--public int joinChallenge(@Param("challenge_id") int challenge_id, @Param("uid") 
+		String uid ); -->
+	<insert id="joinChallenge">
+		insert
+		into participate
+		(challenge_id, uid)
+		values
+		(#{challenge_id}, #{uid})
+	</insert>
+	
+	
+	<!-- 챌린지 정보 삭제 -->
+	<!-- public int deleteChallenge(int challenge_id); -->
+	<delete id="deleteChallenge" parameterType="int">
+		delete
+		from challenge
+		where challenge_id = #{challenge_id}
+	</delete>
+
+	<!--챌린지 참여 삭제 -->
+	<!--public int quitChallenge(@Param("challenge_id") int challenge_id, @Param("uid") 
+		String uid); -->
+	<delete id="quitChallenge">
+		delete
+		from participate
+		where challenge_id =
+		#{challenge_id} and uid = #{uid}
+	</delete>
+
+	<!-- 챌린지 테이블 정보 수정 -->
+	<!-- public int updateChallenge(Challenge challenge); -->
+	<update id="updateChallenge" parameterType="Challenge">
+		update challenge
+		set
+		challenge_title = #{challenge_title},
+		challenge_contents = #{challenge_contents},
+		challenge_img = #{challenge_img},
+		challenge_certify_contents = #{challenge_certify_contents},
+		good_img = #{good_img},
+		bad_img = #{bad_img},
+		only_cam = #{only_cam}
+		where
+		challenge_id = #{challenge_id}
+	</update>
+	
+	<!-- batch작업 -->
+	<!-- 챌린지 별 평균달성률 update -->
+	<!-- public int updateAverageRate(@Param("challenge_id")int challenge_id, @Param("average_rate") int average_rate); //챌린지 id별 평균달성률 업데이트 -->
+	<update id="updateAverageRate">
+		update challenge
+		set average_rate = #{average_rate}
+		where challenge_id = #{challenge_id}
+	</update>
+	
+	
+	<!-- public int [] selectBefoToIng(); //시작전 -> 진행중으로 갈 c_id -->
+	<select id="selectBefoToIng" resultType="int">
+		select challenge_id
+		from challenge
+		where check_date=0 and start_date = curdate()
+	</select>
+	
+	<!-- public int [] selectIngToComp(); //진행중 -> 완료중으로 갈 c_id  -->
+	<select id="selectIngToComp" resultType="int">
+		select challenge_id
+		from challenge
+		where end_date = (curdate()-interval 1 day)
+		and check_date = 1;
+	</select>
+	
+	<!-- 챌린지 id 받아 상태변경  -->
+	<!-- public int updateChallengeStatus(Map<String, Object> map); //c_id를 받아 챌린지 상태 업데이트 -->
+	<update id="updateChallengeStatus" parameterType="Map">
+		update challenge
+		<set>
+			<if test="checkDate==1">
+				check_date = 1
+			</if>
+			<if test="checkDate==2">
+				check_date = 2
+			</if>
+		</set>
+		where challenge_id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+	
+	
+	
+	<!-- 통계 -->
+	<!-- 완료된 참여한 모든 운동카테고리 리스트 -->
+	<!-- public int[] selectFitId(String uid); //완료된 참여한 모든 운동 카테고리 -->
+	<select id="selectFitId" resultType="int">
+		select c.fit_id
+		from challenge as c join participate as p
+		on c.challenge_id = p.challenge_id
+		where c.check_date=2 and p.uid = #{uid}
+	</select>
+	
+	<!-- 완료된 참여한 모든 부위 카테고리 리스트 -->
+	<!-- public int[] selectBodyId(String uid); -->
+	<select id="selectBodyId" resultType="int">
+		select b.body_id
+		from challenge as c 
+		join participate as p on c.challenge_id = p.challenge_id
+		join search_body as b on c.challenge_id = b.challenge_id
+		where c.check_date=2 and p.uid = #{uid}
+	</select>
+	
+	<!-- 해당월의 유저의 챌린지 달성률 리스트 -->
+	<!-- public List<UserRate> selectMonthChallenge(String uid, int month); -->
+	<select id="selectMonthChallenge" resultType="UserRate">
+		select r.challenge_id, r.end_date, r.achievement_rate, c.challenge_title
+		from challenge as c join user_rate as r
+		on c.challenge_id = r.challenge_id
+		where month(r.end_date) = #{month} and r.uid= #{uid}
+	</select>
+	
+	<!--완료된 챌린지 유저 개인달성률 insert -->
+	<!-- public int insertUserRate (UserRate userRate); //완료된 챌린지 개인달성률 -->
+	<insert id="insertUserRate" parameterType="UserRate">
+	insert into user_rate
+	(uid, challenge_id, achievement_rate, end_date ) values (#{uid}, #{challenge_id}, #{achievement_rate}, #{end_date})
+	</insert>
+	
+</mapper>

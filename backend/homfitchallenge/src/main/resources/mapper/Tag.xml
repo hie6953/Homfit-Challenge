@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.ssafy.homfit.model.dao.TagDAO">
+	
+	<!--태그 등록-->
+	<!--public int insertTag (Tag tag);  -->
+	<insert id="insertTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="tag_id" >
+		insert into
+		tag (tag_name)
+		values (#{tag_name})
+	</insert>
+	
+	<!--조건에 맞는 태그 하나 select-->
+	<!--public String selectTag(String tag_name);-->
+	<select id="selectTag" parameterType="String" resultType="Tag">
+		select *
+		from tag
+		where tag_name = #{tag_name}
+	</select>
+	
+	<!--challenge_id에 맞는 태그 리스트(챌린지 상세보기)-->
+	<!--public Tag[] selectTagInChallenge (int challengeID);-->
+	<select id="selectTagInChallenge" resultType="Tag">
+		select c.challenge_id, c.tag_id, t.tag_name 
+		from  tag_in_challenge as c join tag as t
+		on c.tag_id =t.tag_id 
+		where challenge_id = #{challengeId};
+	</select>
+	
+	<!--해당 tag_id를 가지고 있는 챌린지ID 리스트 -->
+	<!-- public Tag[] selectChallengeInTag (int tagID); -->
+	<select id="selectChallengeInTag" resultType="Tag">
+		select *
+		from tag_in_challenge
+		where tag_id = #{tag_id}
+	</select>
+	
+	<!--전체 태그 리스트-->
+	<!--public List<Tag> selectAllTag ();  -->
+	<select id="selectAllTag" resultType="String">
+		select tag_name
+		from tag
+		order by tag_name
+	</select>
+	
+	<!--tag in challenge에 태그와 챌린지 등록  -->
+	<!--public int insertTagInChallenge (HashMap<String,Integer> map);-->
+	<insert id="insertTagInChallenge" parameterType="HashMap">
+		insert into
+		tag_in_challenge
+		(challenge_id, tag_id)
+		values (#{challenge_id}, #{tag_id})
+	</insert>
+	
+	<!-- tag in challenge 삭제 -->
+	<!-- public int deleteTagInChallenge (int challengeID); -->
+	<delete id="deleteTagInChallenge" parameterType="int">
+		delete from
+		tag_in_challenge
+		where challenge_id = #{challenge_id}
+	</delete>
+	
+	
+	<!-- 인기태그 -->
+	<!-- public Tag[] selectPopularTag (); -->
+	<select id="selectPopularTag" resultType="Tag"> 
+		select c.tag_id, t.tag_name, count(c.tag_id) as tag_count
+        from tag_in_challenge as c join tag as t
+        on c.tag_id = t.tag_id
+		group by (c.tag_id)
+		order by tag_count desc
+		limit 5
+	</select>
+	
+	</mapper>

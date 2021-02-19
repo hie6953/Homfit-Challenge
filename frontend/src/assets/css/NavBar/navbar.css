@@ -1,0 +1,257 @@
+#navbar-boundary {
+  margin: 0px 0px !important;
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+
+  .navbar-main{
+    height:65px;
+  }
+
+  #logo-image {
+    height: 35px;
+    margin: 10px 0px 3px 10px;
+  }
+
+  .navbar-right {
+    margin-right: 0px;
+  }
+}
+
+/* PC */
+@media (min-width: 480px) {
+  .navbar-main{
+    height:80px;
+  }
+
+  #logo-image {
+    height: 50px;
+    margin: 10px 0px 3px 7vw;
+  }
+
+  .navbar-right {
+    margin-right: 7vw;
+  }
+}
+
+/* 알림 */
+/* 종 아이콘 옆 화살표 지우기 */
+#bellDropdown > a {
+  padding:8px 0px !important;
+}
+
+#bellDropdown > a:focus,
+#bellDropdown > a:active {
+  outline: none !important;
+}
+
+#bellDropdown > a::after {
+  display: none;
+}
+
+#bellDropdown > .dropdown-menu {
+  width: 250px;
+  max-height: 400px;
+  overflow: auto;
+  padding:5px;
+  border: 1px solid rgba(0, 0, 0, 0.050) !important;
+  
+}
+
+
+
+#bellIcon-number{
+  position: absolute;
+  text-align:center;
+  border-radius: 50%;
+  vertical-align: middle;
+  padding-top:1px;
+  top:0;
+  left:12px;
+  width:15px;
+  height:15px;
+  background-color: #E65C2E;
+  box-shadow: 0px 0px 4px 0px rgba(115, 120, 146, 0.322);
+  color:white;
+  font-size: xx-small;
+}
+
+.nav-bar-no-notice{
+  text-align: center;
+  font-weight: 600;
+  margin:10px 0;
+}
+
+.nav-bar-notice-card-hr{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.nav-bar-notice-card-container{
+  margin:5px;
+  /* box-shadow: 0 2px 6px 0 rgba(63, 71, 77, 0.158); */
+}
+
+.nav-bar-notice-card-container.disabled{
+  color: rgb(228, 228, 228);
+}
+
+.nav-bar-notice-card-check-button.disabled:hover{
+  transform: none !important;
+  color:rgb(228, 228, 228) !important;
+}
+
+
+.nav-bar-notice-card-check-button{
+  float:right;
+  background: none !important;
+  color:rgb(209, 209, 209) !important;
+  border: none !important;
+  font-size: small !important;
+  padding: 0px 0px !important;
+  transition: all 0.3s;
+}
+
+.nav-bar-notice-card-check-button:hover{
+ transform:scale(1.1);
+ color:#E65C2E !important;
+}
+
+.nav-bar-notice-card-check-button:focus,
+.nav-bar-notice-card-check-button:active
+{
+  box-shadow: none !important;
+ }
+
+
+
+
+
+
+#myPageDropdown > a::after {
+  display: none;
+}
+
+#myPageDropdown > .dropdown-menu {
+  width: 100px;
+}
+
+#myPageButton{
+  background: none;
+  border:none;
+  outline: none;
+  padding : 0px !important;
+}
+
+#myPageDropdown__BV_toggle_{
+  padding : 8px 0px !important;
+}
+
+.notice-dropdown {
+  padding-right: 15px;
+}
+
+#notice-title {
+  font-size: medium;
+  font-weight: 600;
+  color:#E65C2E;
+}
+
+#notice-comment {
+  font-size: small;
+}
+
+/* 아이콘 간격 */
+.main-menu {
+  padding-right: 20px;
+}
+
+/* 마이페이지 아이콘 */
+.circle-user-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.myPageIconLink{
+  text-decoration: none;
+  color:black;
+}
+
+.myPageIconLink:hover{
+  text-decoration: none;
+  color:#E65C2E;
+}
+
+#logoutButton{
+  background: none;
+  outline: none;
+  border:none;
+  padding:0px !important;
+}
+
+#logoutButton:hover{
+  color:#E65C2E;
+}
+
+
+
+
+/* PC 로그인 버튼 */
+.login-button {
+  margin-right: 20px;
+
+  background: #fc6d3d;
+  color: white;
+
+  padding: 10px 20px;
+
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+
+  border: none;
+  border-radius: 20px;
+
+  display: inline-block;
+  width: auto;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  transform: scale(1.1);
+  box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 모바일 로그인 버튼 */
+.login-button-mobile {
+  margin-right: 20px;
+
+  background: #fc6d3d;
+  color: white;
+
+  padding: 5px 9px;
+
+  font-size: 1rem;
+  text-align: center;
+
+  border: none;
+  border-radius: 25%;
+
+  display: inline-block;
+  width: auto;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}

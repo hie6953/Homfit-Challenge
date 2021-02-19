@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.DiaryDAO">
+    <insert id="create" parameterType="diary">
+        insert into diary(date, uid, star_point, diary_contents)
+        values (date(#{date}), #{uid}, #{star_point}, #{diary_contents})
+    </insert>
+
+    <update id="updateStarPoint" parameterType="diary">
+        update diary
+        set star_point = #{star_point}
+        where uid = #{uid} and date = date(#{date})
+    </update>
+
+    <update id="updateDiaryContents" parameterType="diary">
+        update diary
+        set diary_contents = #{diary_contents}
+        where uid = #{uid} and date = date(#{date})
+    </update>
+
+    <delete id="delete" parameterType="diary">
+        delete from diary
+        where uid = #{uid} and date = date(#{date})
+    </delete>
+
+    <select id="search" parameterType="diary" resultType="diary"> 
+        select * from diary
+        where uid = #{uid} and date = date(#{date})
+    </select>
+
+    <select id="getMonthDiary" parameterType="String" resultType="diary">
+        select * from diary
+        where uid=#{uid} and date_format(date, '%Y-%m') = #{date}
+        order by date asc
+    </select>
+</mapper>

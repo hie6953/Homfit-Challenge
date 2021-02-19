@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.ReportDAO">
+    <insert id="report" parameterType="report">
+        insert into report(report_date, uid, feed_id, comment_id, report_type, report_content)
+        values (now(), #{uid}, #{feed_id}, #{comment_id}, #{report_type}, #{report_content})
+    </insert>
+
+    <select id="searchAll" resultType="report">
+        select * from report
+        order by report_date desc
+    </select>
+
+    <delete id="ignore" parameterType="int">
+        delete from report
+        where report_id = #{report_id}
+    </delete>
+</mapper>

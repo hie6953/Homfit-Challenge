@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <clipPath id="clip-맞춤형_크기_1">
+      <rect width="60" height="60"/>
+    </clipPath>
+  </defs>
+  <g id="맞춤형_크기_1" data-name="맞춤형 크기 – 1" clip-path="url(#clip-맞춤형_크기_1)">
+    <rect id="사각형_14" data-name="사각형 14" width="60" height="60" fill="none"/>
+    <circle id="타원_1" data-name="타원 1" cx="30" cy="30" r="30" fill="#eac03a"/>
+    <path id="빼기_12" data-name="빼기 12" d="M47.785,69.973h0L37.459,60H57.416l-9.629,9.971ZM36.677,59.246h0L10,33.481,22.014,21.036,52.167,50.155a30.329,30.329,0,0,1-7,5.7,29.8,29.8,0,0,1-8.492,3.4Z" transform="translate(0)" fill="#e65c2e"/>
+    <path id="빼기_11" data-name="빼기 11" d="M71.552,89,28.562,60H30c-.528,0-1.031-.016-1.5-.039l-.5-.34L39.821,42.1l12.192,8.224A30.1,30.1,0,0,1,42.2,57.39,29.57,29.57,0,0,1,30.005,60H60V55.709L83.373,71.474,71.552,89Z" transform="translate(0)" fill="#e65c2e"/>
+    <path id="빼기_6" data-name="빼기 6" d="M64.179,73.9h0L43.571,60H60V45.751l15.923,10.74L64.18,73.9ZM40.652,58.033,20.627,44.526,32.37,27.115,56.741,43.553A30.321,30.321,0,0,1,40.653,58.033Z" transform="translate(0)" fill="#e65c2e"/>
+    <path id="빼기_13" data-name="빼기 13" d="M47.789,75.437h0L31.8,60h24.9l3.1,2.992L47.79,75.436ZM31.752,59.95,10,38.945,22.018,26.5,49.339,52.884a30.1,30.1,0,0,1-8.1,4.918,29.642,29.642,0,0,1-9.486,2.149Z" transform="translate(0)" fill="#e65c2e"/>
+    <path id="빼기_7" data-name="빼기 7" d="M61.16,76h0L44.593,60H60V50.829L73.178,63.555,61.161,76ZM41.987,57.484,23.371,39.507,35.389,27.063,55.211,46.2A30.2,30.2,0,0,1,41.987,57.484Z" transform="translate(0)" fill="#e65c2e"/>
+    <path id="빼기_5" data-name="빼기 5" d="M75.789,69.973h0L60,54.726l0-24.052L87.807,57.529,75.79,69.972ZM53.563,48.51h0L38,33.481,50.018,21.036l9.975,9.633a29.665,29.665,0,0,1-1.809,9.585,30,30,0,0,1-4.62,8.256Z" transform="translate(0)" fill="#e65c2e"/>
+    <g id="패스_1" data-name="패스 1" transform="translate(10 21)" fill="#707070">
+      <path d="M 5.5 17.5 L 0.5 17.5 L 0.5 0.5 L 5.5 0.5 L 5.5 17.5 Z" stroke="none"/>
+      <path d="M 1 1 L 1 17 L 5 17 L 5 1 L 1 1 M 0 0 L 6 0 L 6 18 L 0 18 L 0 0 Z" stroke="none" fill="#707070"/>
+    </g>
+    <g id="사각형_1" data-name="사각형 1" transform="translate(16 21)" fill="#303030" stroke="#303030" stroke-width="1">
+      <rect width="6" height="18" stroke="none"/>
+      <rect x="0.5" y="0.5" width="5" height="17" fill="none"/>
+    </g>
+    <g id="사각형_2" data-name="사각형 2" transform="translate(22 28)" fill="#303030" stroke="#303030" stroke-width="1">
+      <rect width="16" height="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="15" height="3" fill="none"/>
+    </g>
+    <g id="사각형_3" data-name="사각형 3" transform="translate(38 21)" fill="#303030" stroke="#303030" stroke-width="1">
+      <rect width="6" height="18" stroke="none"/>
+      <rect x="0.5" y="0.5" width="5" height="17" fill="none"/>
+    </g>
+    <g id="사각형_4" data-name="사각형 4" transform="translate(44 21)" fill="#707070" stroke="#707070" stroke-width="1">
+      <rect width="6" height="18" stroke="none"/>
+      <rect x="0.5" y="0.5" width="5" height="17" fill="none"/>
+    </g>
+    <rect id="사각형_5" data-name="사각형 5" width="2" height="3" rx="1" transform="translate(25 27)" fill="#ffd7ce"/>
+    <rect id="이미지_1" data-name="이미지 1" width="890" height="512" transform="translate(-415 -226)" fill="none"/>
+    <rect id="사각형_6" data-name="사각형 6" width="2" height="4" rx="1" transform="translate(28 27)" fill="#ffd7ce"/>
+    <rect id="사각형_7" data-name="사각형 7" width="2" height="4" rx="1" transform="translate(31 27)" fill="#ffd7ce"/>
+    <rect id="사각형_8" data-name="사각형 8" width="2" height="3" rx="1" transform="translate(34 27)" fill="#ffd7ce"/>
+    <path id="사각형_9" data-name="사각형 9" d="M0,0H11a0,0,0,0,1,0,0V0A3,3,0,0,1,8,3H2A2,2,0,0,1,0,1V0A0,0,0,0,1,0,0Z" transform="translate(25 32)" fill="#ffd7ce"/>
+    <rect id="사각형_10" data-name="사각형 10" width="7" height="27" transform="translate(27 33)" fill="#ffd7ce"/>
+    <path id="사각형_11" data-name="사각형 11" d="M1,0H1A1,1,0,0,1,2,1V1A0,0,0,0,1,2,1H0A0,0,0,0,1,0,1V1A1,1,0,0,1,1,0Z" transform="translate(26 31)" fill="#ffd7ce"/>
+  </g>
+</svg>

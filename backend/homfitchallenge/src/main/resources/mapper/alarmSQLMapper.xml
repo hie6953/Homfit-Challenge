@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.AlarmDAO">
+    <insert id="create" parameterType="alarm">
+        insert into alarm(alarm_title, alarm_content, alarm_regist_date, uid)
+        values (#{alarm_title}, #{alarm_content}, now(), #{uid})
+    </insert>
+
+    <select id="getAlarm" parameterType="String" resultType="alarm">
+        select * from alarm
+        where uid = #{uid} and alarm_check = false
+        order by alarm_regist_date desc
+    </select>
+
+    <update id="updateAlarmCheck" parameterType="int">
+        update alarm
+        set alarm_check = true
+        where alarm_id = #{alarm_id} and alarm_check = false
+    </update>
+
+    <select id="alreadyExist" parameterType="String" resultType="boolean">
+        select if(count(*) = 1, 1, 0)
+        from alarm
+        where alarm_content = #{alarm_content} and alarm_check = false
+    </select>
+</mapper>

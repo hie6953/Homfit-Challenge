@@ -1,0 +1,102 @@
+/* 리스트 폼 */
+.me {
+    text-align: right;
+}
+.other {
+    text-align: left;
+}
+.my-chat-msg {
+    text-align: left;
+    background-color: #EAC03A;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    color: #303030;
+    font-weight: 700;
+    white-space: normal;
+}
+.other-chat-msg {
+    text-align: left;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    color: #303030;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: normal;
+}
+.my-chat-register-date {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.other-chat-register-date {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+
+.chat-box {
+    background: #f2f2f2;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px;
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 0 !important;
+}
+.user-img {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    box-shadow: 1px 1px #999;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+/* 입력폼 */
+.textarea-web {
+    padding: 0.5rem;
+    background:#EAC03A;
+}
+.send-icon {
+    width: 100%;
+}
+@media (max-width: 480px) {
+    .textarea-bg{
+        position:fixed;
+        bottom:50px;
+        width: 100%;
+        height: 78px;
+        z-index:5;
+    }
+    .textarea-web {
+        box-shadow:0px 0px 2px rgba(1, 1, 1, 0.1);
+        background-color: #EAC03A;
+    }
+    .chat-box {
+        min-height: 562px;
+        padding-bottom: 78px;
+    }
+}
+@media (min-width: 480px) {
+    .textarea-bg{
+        position: fixed;
+        margin: 0 auto;
+        width: 100%;
+        height:100px;
+        bottom : -22px;
+        z-index:5;
+    }
+    .textarea-web {
+        box-shadow:0px 0px 2px rgba(1, 1, 1, 0.1);
+        background-color: #EAC03A;
+    }
+    .textarea-mg {
+        background-color: #fff;
+    }
+    .chat-box {
+        min-height: 1084px;
+        padding-bottom: 82px;
+    }
+}

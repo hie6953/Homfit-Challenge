@@ -1,0 +1,58 @@
+.category-rows {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: stretch;
+    padding: 0 45px;
+}
+
+.category-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+}
+
+/* 마우스 호버시 밑줄 제거 */
+.category-box:hover {
+    text-decoration: none;
+}
+
+/* 텍스트 가운데 정렬 및 폰트굵기 */
+.category-name {
+    color: black;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+/* 이미지 길이 및 투명도 */
+.category-circle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    transition-duration: 0.2s;
+    opacity: 0.75;
+}
+
+/* 호버시 투명도  */
+.category-circle:hover {
+    opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .category-rows {
+        padding: 0;
+    }
+}
+@media screen and (max-width: 480px) {
+    .category-name {
+        font-size: 0.85rem;
+    }
+    .category-row {
+        padding: 0 !important;
+    }
+}
+

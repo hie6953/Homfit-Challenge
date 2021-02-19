@@ -1,0 +1,47 @@
+.filter-title {
+  text-align: center;
+}
+
+.list-filter-period {
+  width: 90%;
+  margin-top: 30px;
+}
+
+/* VueSlider */
+.vue-slider-rail {
+  background-color: #e6b2a1;
+}
+
+.vue-slider-process {
+  background-color: #e65c2e;
+  border-radius: 15px;
+}
+
+.vue-slider-dot-handle {
+  background-color: #e65c2e;
+}
+
+.vue-slider-dot-handle::after {
+  background-color: #e65c2e49;
+}
+
+.vue-slider-dot-tooltip-inner {
+  background-color: #e65c2e;
+}
+
+.challenge-list-filter {
+  margin: 0px 10px;
+}
+
+.float-right {
+  float: right;
+}
+
+.challenge-list-filter-send-button {
+  background-color: #eac03a;
+  outline: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}

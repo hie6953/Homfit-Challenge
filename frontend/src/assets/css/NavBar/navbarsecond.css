@@ -1,0 +1,103 @@
+#navbar-second-boundary {
+  margin: 0px 0px !important;
+}
+
+.navbar-second-menu {
+  background-color: white;
+  height:50px;
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  /* 기본 메뉴 */
+  .second-menu {
+    font-weight: 700;
+    font-size: medium;
+    color: black;
+    padding:0px 7px;
+  }
+}
+
+/* PC */
+@media (min-width: 480px) {
+  /* 기본 메뉴 */
+  .second-menu {
+    font-weight: 700;
+    font-size: large;
+    color: black;
+    padding: 5px 2vw;
+  }
+}
+
+/* hover시 메뉴 색 변경 */
+.second-menu:hover {
+  text-decoration: none;
+  color: #e65c2e;
+  transition: all 0.3s ease;
+}
+
+.second-menu > span {
+  position: relative;
+}
+
+/*밑줄넣기 부분*/
+.second-menu > span::after {
+  content: '';
+  width: 0%;
+  left: 50%;
+  height: 1px;
+  display: block;
+  position: absolute;
+  margin-top: 3px;
+  border-bottom: 2px solid #e65c2e;
+  transition: all 0.3s ease;
+}
+.second-menu:hover > span::after {
+  content: '';
+  width: 100%;
+  left: 0px;
+  height: 1px;
+  display: block;
+  position: absolute;
+  margin-top: 3px;
+  border-bottom: 2px solid #e65c2e;
+  transition: all 0.3s ease;
+}
+
+.navbar-second-menu.mobile{
+  padding:8px 16px 4px 16px !important;
+}
+
+.navbar-second-menu-inside{
+  width:100%;
+}
+
+.second-menu-mobile{
+  color:black;
+  text-align: center;
+  width:20%;
+}
+
+.second-menu-mobile:hover{
+  color:black;
+}
+
+.navbar-second-icon{
+  display: inline-block;
+}
+
+.navbar-second-icon.mobile *{
+  display: block;
+}
+
+.navbar-second-icon img{
+  height: 25px;
+  margin: 0px auto;
+}
+
+.navbar-second-icon span{
+  font-size:xx-small;
+  white-space: nowrap;
+  color:#808080;
+}
+

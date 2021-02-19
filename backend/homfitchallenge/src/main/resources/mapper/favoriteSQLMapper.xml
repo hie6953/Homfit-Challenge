@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.FavoriteDAO">
+    <insert id="init" parameterType="String">
+        insert into favorite(uid)
+        values (#{uid})
+    </insert>
+
+    <update id="updateFavorite" parameterType="favorite">
+        update favorite
+        set fit_list = #{fit_list},
+            body_list = #{body_list},
+            day_list = #{day_list},
+            setting_first = true
+        where uid = #{uid}
+    </update>
+
+    <select id="isSetting" parameterType="String" resultType="boolean">
+        select setting_first from favorite
+        where uid = #{uid}
+    </select>
+    
+    <!-- User 정보 select  -->
+    <!--  public Favorite selectUserInfo (String uid); -->
+    <select id="selectUserInfo" resultType="Favorite">
+    	select uid, fit_list, body_list, day_list
+    	from favorite
+    	where uid = #{uid}
+    </select>
+    
+    <!-- 유저의 선호도 select -->
+    <!--   public List<Favorite> selectUserByAgeSex (@Param("age") int age , @Param("sex") char sex ); -->
+    <select id="selectUserByAgeSex" resultType="Favorite">
+    	select f.uid, f.fit_list, f.body_list, f.day_list
+		from favorite as f join user as u
+		on f.uid = u.uid
+		where sex = #{sex} and age = #{age} and setting_first = 1
+    </select>
+    
+</mapper>

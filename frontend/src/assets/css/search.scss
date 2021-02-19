@@ -1,0 +1,246 @@
+@media (max-width: 480px) {
+  .search-tmp-container {
+    margin-top: 20px;
+  }
+}
+
+/* 검색바 */
+.search-container {
+  padding-top: 10px;
+  display: block;
+  margin: 0 auto;
+  // border-radius: 10px;
+}
+.search-dropdown .btn-outline-dark:not(:disabled):not(.disabled).active,
+.search-dropdown .btn-outline-dark:not(:disabled):not(.disabled):active,
+.show > .btn-outline-dark.dropdown-toggle {
+  color: #fff;
+  background-color: #eac03a;
+  border-color: #eac03a;
+}
+
+.search-dropdown .btn-outline-dark {
+  color: #fff;
+  border-color: #eac03a;
+  background-color: #eac03a;
+}
+
+.search-dropdown .btn-outline-dark:hover {
+  color: #fff;
+  border-color: #eac03a;
+  background-color: #eac03a;
+}
+
+.search-dropdown .btn-outline-dark.focus,
+.search-dropdown .btn-outline-dark:focus {
+  box-shadow: none;
+}
+
+.search-container {
+  white-space: nowrap;
+  margin: auto;
+  width: 100%;
+}
+
+.search-container .search-dropdown {
+  box-shadow: none !important;
+}
+
+.search-dropdown {
+  display: inline-block;
+}
+
+.search-align-input {
+  display: inline-block;
+  width: 84%;
+}
+
+@media (min-width: 480px) {
+  input#search-bar {
+    width: 100%;
+  }
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  input#search-bar {
+    width: 200px;
+  }
+
+  .search-align-input {
+    display: inline-block;
+    width: 75%;
+  }
+}
+
+input#search-bar {
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border-radius: 7px 7px 10px 10px;
+  border: 1px solid #d0cfce;
+  outline: none;
+  &:hover {
+    box-shadow: 0 0 0 1px #eac03a;
+  }
+  &:focus {
+    box-shadow: 0 0 0 1px #eac03a, inset 0 2px 5px -1px rgba(0, 0, 0, 0.25);
+    border: 1px solid #eac03a;
+    transition: 0.35s ease;
+    color: #008abf;
+    &::-webkit-input-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+    &:-ms-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+}
+
+// .search-icon {
+//   position: relative;
+//   float: right;
+//   width: 75px;
+//   height: 75px;
+//   top: -62px;
+//   right: -10px;
+// }
+
+.search-icon {
+  position: relative;
+  float: right;
+  width: 27px;
+  height: 27px;
+  top: -36px;
+  right: 11px;
+}
+
+/* 태그 */
+
+@media screen and (min-width: 300px) {
+  .search-tag {
+    width: 100%;
+    //font-size: 8px;
+    cursor: pointer;
+    // width: calc(100% / 3);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .search-tag {
+    width: 100%;
+  }
+}
+
+.search-tag {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.s-tags {
+  list-style: none;
+  margin: auto;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+}
+
+.s-tags li {
+  display: inline-block;
+  text-align: center;
+  font-size: 13px;
+}
+
+.s-tag {
+  background: #eee;
+  border-radius: 3px 0 0 3px;
+  color: #999;
+  display: inline-block;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 20px 0 23px;
+  position: relative;
+  margin: 0 10px 10px 0;
+  text-decoration: none;
+  -webkit-transition: color 0.2s;
+}
+
+.s-tag::before {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+  content: '';
+  height: 6px;
+  left: 10px;
+  position: absolute;
+  width: 6px;
+  top: 10px;
+}
+
+.s-tag::after {
+  background: #fff;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid #eee;
+  border-top: 13px solid transparent;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.s-tag:hover {
+  background-color: #fc6d3d;
+  // background-color: #eac03a;
+  color: white;
+}
+
+.s-tag:hover::after {
+  border-left-color: #fc6d3d;
+  // background-color: #eac03a;
+}
+
+// 탭
+.search-result div .nav-link {
+  color: #dbdbdb;
+}
+
+.search-result div .nav-link.active {
+  color: #eac03a;
+  font-weight: bold;
+}
+
+.search-page-tab {
+  padding-top: 0px;
+}
+
+/* 피드 */
+.mainfeedpage-container {
+  clear: both;
+  padding-top: 15px;
+  padding-bottom: 3rem;
+  display: flex;
+}
+
+.challenge-list-feed {
+  padding: 4px 4px !important;
+  /* transition: transform 300ms ease 100ms; */
+}
+
+.mainfeedpage-container .challenge-list-feed:hover {
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.search-feed {
+  text-align: center;
+  margin: auto;
+}

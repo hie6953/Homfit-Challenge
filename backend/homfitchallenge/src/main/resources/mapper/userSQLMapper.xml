@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.homfit.model.dao.UserDAO">
+
+    <select id="login" parameterType="user" resultType="user">
+        select * from user where email= #{email} and password=#{password}
+    </select>
+
+    <insert id="signup" parameterType="user">
+        insert into user(uid, email, password, nick_name, kakao_key, sex, age, grade, user_img, admin_check, provider_id)
+        values (#{uid},#{email},#{password},#{nick_name},#{kakao_key},#{sex},#{age},#{grade},#{user_img},#{admin_check},#{provider_id})
+    </insert>
+
+    <select id="getUid" parameterType="String" resultType="user">
+        select nick_name, user_img, grade, email, sex, age from user where uid=#{uid}
+    </select>
+
+    <select id="getByEmail" parameterType="String" resultType="String">
+        select uid from user where email=#{email}
+    </select>
+
+    <select id="findPassword" parameterType="String" resultType="user">
+        select password from user where email=#{email}
+    </select>
+
+    <select id="duplicateEmailCheck" parameterType="String" resultType="user">
+        select uid from user where email=#{email}
+    </select>
+
+    <select id="duplicateNickNameCheck" parameterType="String" resultType="user">
+        select uid from user where nick_name=#{nick_name}
+    </select>
+
+    <update id="updateUserImg" parameterType="String">
+        update user
+        set user_img = #{user_img}
+        where uid = #{uid}
+    </update>
+
+    <update id="updatePassword" parameterType="user">
+        update user
+        set password = #{password}
+        where uid = #{uid}
+    </update>
+
+    <update id="updateNickName" parameterType="user">
+        update user
+        set nick_name = #{nick_name}
+        where uid = #{uid}
+    </update>
+
+    <update id="updateGrade" parameterType="user">
+        update user
+        set grade = #{grade}
+        where uid = #{uid}
+    </update>
+
+    <select id="test" resultType="user">
+        select * from user
+    </select>
+
+    <select id="checkPassword" parameterType="user" resultType="user">
+        select * from user where uid = #{uid} and password = #{password}
+    </select>
+
+</mapper>

@@ -1,0 +1,205 @@
+/* 전체 박스 */
+.statistics-background{
+    margin-top:40px;
+    padding:0 20px;
+    border-radius: 4px;
+    border: 1px solid #dadce0;
+    box-shadow: 0 2px 4px 0 rgba(63, 71, 77, 0.06);
+}
+
+/* 탭 */
+.statistics-menu-bar {
+    z-index: 5;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .statistics-menu-bar:first-child  ul{
+    /* background-color: #eac03a; */
+    height:50px;
+    padding-top: 5px;
+    width:100%;
+  }
+
+  .statistics-menu-bar:first-child ul li{
+    width:33%;
+    margin:0px auto;
+  }
+  .statistics-menu-bar:first-child  ul a{
+    border-color: #eed891 #eed891 #eed891 #eed891 !important;
+    background-color: #eed891;
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    text-align: center;
+    /* padding:4px 0px !important; */
+    height:40px;
+    margin-top:4px !important;
+    color:#7a6f4b;
+  }
+
+  .statistics-menu-bar:first-child  ul a.active{
+    border-color: #dee2e6 #dee2e6  #ffffff !important;
+    background-color:  #ffffff !important;
+    /* padding:6px 0px !important; */
+    height:45px;
+    margin-top:0px !important;
+    color:black;
+    font-weight: bold;
+  }
+
+/* 월 선택 바 */
+.month-top{
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+.month-move-button,
+.month-move-button:focus{
+    background: none !important;
+    box-shadow: none !important;
+    border: none;
+    color:#EAC03A;
+    translate: 0.3s ease 0.1s;
+}
+.month-move-button:hover{
+    background: none;
+    box-shadow: none !important;
+    color:#EAC03A;
+    transform: scale(1.2);
+}
+.month-move-button:active{
+    background: none !important;
+    box-shadow: none !important;
+    color:#E65C2E !important;
+}
+.year-month-box {
+    display: inline-block;
+    margin:0px auto;
+    color:#EAC03A;
+    cursor: default;
+}
+
+/* 차트 */
+.chart {
+    --scale: 100;
+  
+    /* Setup the grid */
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: repeat(var(--scale), minmax(0, 1fr)) 1.4rem;
+    grid-column-gap: 5px;
+  
+    /* Generate background guides */
+    /* (sub-pixel rounding errors make this imperfect) */
+    --line-every: 10;
+    background-image: linear-gradient(to bottom, #ccc 1px, transparent 1px);
+    background-size: 100% calc((100% - 1.4rem) / var(--scale) * var(--line-every));
+    
+    /* other styles… */
+    margin: 2em auto 0;
+    padding: 0 1em;
+    position: relative;
+    max-width: 70vw;
+    height: calc(30vh - 3em);
+}
+.chart::after {
+    background: #fff;
+    bottom: 0;
+    content: ' ';
+    height: 1.5rem;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+.date {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    grid-row-start: -2;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    max-width: 10vw;
+ }
+.bar {
+    grid-row: var(--start) / -1;
+    opacity: 0.9;
+    /* Background-Color */
+    background-image: linear-gradient(to right, #E65C2E, #EAC03A, rgb(255, 255, 182));
+    background-size: 1600% 100%;
+    background-position: calc(var(--start) * 1%) 0;
+    /* Other styles… */
+    max-width: 10vw;
+    border-radius: 5px 5px 0 0;
+    color: #000;
+    list-style: none;
+    position: relative;
+}
+.value {
+    font-size: 1vw;
+    bottom: 100%;  
+    display: inline-block;
+    left: 50%;
+    padding: 0 0.4em;
+    position: absolute;
+    transform: translate(-50%, -1px);
+}
+.selected {
+    opacity: 1;
+    border: 1px solid black;
+}
+/* 차트 없을 때 */
+.no-month-graph {
+      font-size: medium;
+      font-weight: 700;
+}
+  /* 제목 */
+.statistics-title {
+    display: inline-block;
+    margin: 10px 0px;
+    padding: 5px 10px;
+    background-color: #eac13a50;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: 600;
+}
+.statistics-title-center {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: #eac13a50;
+    border-radius: 10px;
+    font-size: larger;
+    font-weight: 600;
+}
+.statistics-box {
+    margin:0 auto;
+}
+.selected-challeng-name {
+    font-size: large;
+    font-weight: 700;
+    text-align: center;
+    color: #E65C2E;
+}
+
+
+  /* 프로그래스바 */
+.progress-background {
+    background: linear-gradient(30deg, rgba(234,192,58,1) 15%, rgba(230,92,46,1) 85%);
+    font-size: 1.5rem;
+}
+.progress-box {
+    height: 2rem;
+    margin-bottom: 20px;
+}
+.statistics-tip {
+    white-space: break-spaces;
+    margin-top: 20px;
+    font-size: small;
+    text-align: center;
+}
+
+.statistics-donut > div{
+    display: block;
+}

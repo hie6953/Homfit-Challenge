@@ -1,0 +1,63 @@
+@media (max-width: 480px) {
+  .table td,
+  .table th {
+    padding: 0.45rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font-size: 16px;
+  }
+
+  .mypoint-container {
+    margin: 20px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.mypoint-info {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.mypoint-user {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.mypoint-total-point {
+  font-weight: bold;
+  font-size: 23px;
+  padding-top: 13px;
+  text-align: right;
+}
+
+.mypoint-container {
+  margin: 20px auto;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  /* border-radius: 0 0 5px 5px;
+  box-shadow: 0 2.5px 5px #ccc; */
+}
+
+.mypoint-table {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  /* border-top: 3px solid #eac03a; */
+  /* border-radius: 0 0 5px 5px;
+  box-shadow: 0 2.5px 5px #ccc; */
+}
+
+.point-text {
+  color: #eac03a;
+  font-weight: bold;
+}
+
+table.mypoint-table thead {
+  /* color: #eac03a; */
+  /* font-weight: bold; */
+  background-color: rgba(234, 192, 58, 0.2);
+  /* background-color: #fafbfc; */
+  /* border-bottom: 3px solid #eac03a; */
+}

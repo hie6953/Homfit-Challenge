@@ -1,0 +1,142 @@
+/* PC */
+@media (min-width: 480px) {
+  #challenge-img {
+    height: 270px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+  #challenge-img {
+    height: 150px;
+  }
+}
+
+.challenge-title-background {
+  background-color: #fafafa;
+  padding: 30px 0 20px 0;
+}
+
+
+.edit-menu{
+  text-align: right;
+}
+
+#go-challenge-edit{
+  background:none;
+  border:none;
+  transition:0.3s;
+}
+
+#go-challenge-edit:hover{
+  transform: scale(1.2);
+}
+
+
+#challenge-img {
+  width: 100%;
+  object-fit: fill;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px 1px rgba(39, 44, 56, 0.2);
+}
+
+
+.challenge-info {
+  margin: 10px 0;
+  white-space: normal;
+}
+
+
+
+#title-fit-category {
+  height: 24px;
+}
+
+#fit-category-arrow {
+  display: inline-block;
+  color: #bbb;
+  font-size: x-small;
+  vertical-align: middle;
+  margin:0 3px;
+}
+
+#title-main-title {
+  font-size: xx-large;
+  font-weight: 700;
+}
+
+#title-check-date {
+  display:inline-block;
+  color: white;
+  font-size: small;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 5px;
+  margin-left:3px;
+  vertical-align: middle;
+}
+
+.check-date-todo {
+  background-color: #eac03a;
+}
+
+.check-date-doing {
+  background-color: #e65c2e;
+}
+
+.check-date-done {
+  background-color: #aaa;
+}
+
+
+#title-user-image {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#title-info-ul {
+  margin: 8px 0px;
+  padding: 0 0 0 20px;
+}
+
+.text-emphasize {
+  font-size: larger;
+  font-weight: 600;
+}
+
+.text-not-emphasize {
+  font-size: smaller;
+}
+
+.title-tag {
+    display:inline-block;
+  background-color: #eac13a4d;
+  padding: 3px 6px;
+  margin: 3px 3px;
+  border-radius: 10px;
+}
+
+.challenge-people-background {
+  background-color: #fafafa;;
+  /* background-color: #EAC03A;
+  color:white; */
+  margin:3px 0 0 0;
+  padding:10px 0;
+
+}
+
+.align-center {
+  text-align: center;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.font-wight-600{
+  font-weight: 600;
+}
