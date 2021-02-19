@@ -270,7 +270,6 @@ export default {
         })
         .catch(() => {
           swal.error('챌린지 목록을 불러오지 못했습니다.');
-
           this.challengeAllList = ChallengeListDummyData.challengeList;
         });
     },

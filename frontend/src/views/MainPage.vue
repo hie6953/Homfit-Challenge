@@ -51,6 +51,7 @@ axios.defaults.paramsSerializer = function (paramObj) {
 import MainPageAd from "../components/MainPage/MainPageAd.vue";
 import MainPageCategory from "../components/MainPage/MainPageCategory.vue";
 import MainPageList from "../components/MainPage/MainPageList.vue";
+import ChallengeListDummyData from "@/assets/dummyData/challengeDummyData.json";
 import swal from '@/assets/javascript/sweetAlert.js';
 import '@/assets/css/mainpage.css';
 import axios from "axios";
@@ -82,6 +83,7 @@ export default {
         })
         .catch(() => {
           swal.error('챌린지 목록을 불러오지 못했습니다.');
+           this.newChallengeList = ChallengeListDummyData.challengeList.slice(0,20);
         });
     axios
         .get(`${SERVER_URL}/challenge/main`, {
@@ -94,6 +96,7 @@ export default {
         })
         .catch(() => {
           swal.error('챌린지 목록을 불러오지 못했습니다.');
+          this.popularChallengeList = ChallengeListDummyData.challengeList.slice(20,40);
         });
     }
 }
