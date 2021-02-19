@@ -315,6 +315,7 @@ export default {
             if (data == 'success' && !this.giveAlert) {
               // alert('회원정보가 변경되었습니다.');
               swal.success('회원정보가 변경되었습니다.');
+              this.$store.commit('SETNICKNAME', this.nick_name);
               this.$router.push('/mypage');
             }
           })
