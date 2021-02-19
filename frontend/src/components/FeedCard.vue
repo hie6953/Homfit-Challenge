@@ -295,7 +295,7 @@ export default {
           user_liked: this.feed.user_liked, //boolean 값
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           // this.feedList = data;
           this.feed.user_liked = !this.feed.user_liked;
           this.feed.like_count = data;
@@ -324,8 +324,8 @@ export default {
             report_type: this.declarationtype,
             report_content: this.message,
           })
-          .then(({ data }) => {
-            console.log(data);
+          .then(() => {
+            // console.log(data);
             this.closeModal();
             this.message = '';
             this.declarationtype = '';

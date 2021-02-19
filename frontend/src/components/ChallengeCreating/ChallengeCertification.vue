@@ -5,7 +5,7 @@
     <!-- 인증 방법 설명 -->
     <b-row class="challenge-creating-row">
       <b-col sm="3" class="align-center">
-         <span class="require-icon">*</span>
+        <span class="require-icon">*</span>
         <span>인증 방법 설명</span>
       </b-col>
       <b-col sm="9">
@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import ImageUploader from "../ImageUploader.vue";
-import TextEditor from "./TextEditor.vue";
+import ImageUploader from '../ImageUploader.vue';
+import TextEditor from './TextEditor.vue';
 export default {
   components: {
     TextEditor,
@@ -107,7 +107,7 @@ export default {
   },
   data() {
     return {
-      challenge_certify_contents: "",
+      challenge_certify_contents: '',
       good_img: null,
       bad_img: null,
       good_img_url: '',
@@ -156,18 +156,31 @@ export default {
       this.challenge_certify_contents = data;
     },
     CanGoNext: function() {
-      if (
-        this.challenge_certify_contents.length > 7
-      )
-        this.canGoNext = true;
+      if (this.challenge_certify_contents.length > 7) this.canGoNext = true;
       else this.canGoNext = false;
     },
     // 페이지 이동
     PrevPage: function() {
-      this.$emit("PrevPage", this.challenge_certify_contents,this.good_img,this.bad_img,this.good_img_url,this.bad_img_url, this.only_cam);
+      this.$emit(
+        'PrevPage',
+        this.challenge_certify_contents,
+        this.good_img,
+        this.bad_img,
+        this.good_img_url,
+        this.bad_img_url,
+        this.only_cam
+      );
     },
     NextPage: function() {
-      this.$emit("NextPage", this.challenge_certify_contents,this.good_img,this.bad_img,this.good_img_url,this.bad_img_url, this.only_cam);
+      this.$emit(
+        'NextPage',
+        this.challenge_certify_contents,
+        this.good_img,
+        this.bad_img,
+        this.good_img_url,
+        this.bad_img_url,
+        this.only_cam
+      );
     },
   },
 };

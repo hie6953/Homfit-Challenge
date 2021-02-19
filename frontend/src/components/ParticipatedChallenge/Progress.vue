@@ -176,7 +176,7 @@ export default {
     }
   },
   created() {
-    console.log(this.certifyInfo);
+    // console.log(this.certifyInfo);
     // console.log(this.getUserUid)
     // console.log(this.challenge.challenge_id)
     // axios
@@ -247,7 +247,7 @@ export default {
         });
     },
     dd() {
-      console.log(this.certifyInfo.imgList.length)
+      // console.log(this.certifyInfo.imgList.length)
     }
   }
 }

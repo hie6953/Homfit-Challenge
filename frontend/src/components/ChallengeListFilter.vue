@@ -83,7 +83,7 @@ export default {
 
   methods: {
     checkEqual: function() {
-      console.log(this.day.toString);
+      // console.log(this.day.toString);
       if (
         this.period.toString() === this.prevPeriod.toString() &&
         this.day.toString() === this.prevDay.toString()

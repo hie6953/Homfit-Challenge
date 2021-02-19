@@ -52,13 +52,13 @@ export default {
           },
         })
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           this.feedList = data;
           if (this.feedList.length == 0) {
             this.isdatathere = true;
           }
 
-          console.log(this.isdatathere);
+          // console.log(this.isdatathere);
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');

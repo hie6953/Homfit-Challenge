@@ -1,6 +1,11 @@
 <template>
-  <b-modal id="select-preference-modal" v-model="modalShow" size="lg" no-close-on-backdrop class="mt-3">
-
+  <b-modal
+    id="select-preference-modal"
+    v-model="modalShow"
+    size="lg"
+    no-close-on-backdrop
+    class="mt-3"
+  >
     <div class=" select-prefer-container">
       <!-- 안내문구 -->
       <div class="prefer-info-text">
@@ -265,8 +270,8 @@
       </div>
 
       <!-- 버튼 -->
-        <div class="prefer-choice-submit-btn">
-          <!-- <input
+      <div class="prefer-choice-submit-btn">
+        <!-- <input
             type="button"
             class="prefer-choice-btn-priority btn"
             value="선택완료"
@@ -274,15 +279,15 @@
             @click="canGoNext"
             aria-disabled="true"
           /> -->
-          <input
-            type="button"
-            class="prefer-choice-btn-priority btn"
-            value="선택완료"
-            :disabled="!canGoNext"
-            @click="SelectPreferenceCheck"
-            aria-disabled="true"
-          />
-        </div>
+        <input
+          type="button"
+          class="prefer-choice-btn-priority btn"
+          value="선택완료"
+          :disabled="!canGoNext"
+          @click="SelectPreferenceCheck"
+          aria-disabled="true"
+        />
+      </div>
     </div>
   </b-modal>
 </template>
@@ -301,15 +306,15 @@ export default {
       kindList: [],
       bodyList: [],
       week: [],
-      canGoNext:false,
+      canGoNext: false,
     };
   },
-props:{
-  modalShow:Boolean,
-  fit:Array,
-  body:Array,
-  day:Array,
-},
+  props: {
+    modalShow: Boolean,
+    fit: Array,
+    body: Array,
+    day: Array,
+  },
   watch: {
     kindList: function() {
       this.CanGoNext();
@@ -320,11 +325,11 @@ props:{
     week: function() {
       this.CanGoNext();
     },
-    modalShow:function(){
+    modalShow: function() {
       this.kindList = this.fit;
       this.bodyList = this.body;
       this.week = this.day;
-    }
+    },
   },
   methods: {
     CanGoNext: function() {
@@ -353,10 +358,10 @@ props:{
           // day_list: this.week,
         })
         .then(({ data }) => {
-          console.log(JSON.stringify(this.kindList));
+          // console.log(JSON.stringify(this.kindList));
           if (data == 'success') {
             swal.success('선호도 정보가 저장되었습니다.');
-            this.$emit("modalClose");
+            this.$emit('modalClose');
           } else {
             swal.error('실패!!!');
           }
@@ -364,7 +369,7 @@ props:{
         .catch(() => {
           swal.error('오류가 발생했습니다.');
         });
-        window.location.reload();
+      window.location.reload();
     },
   },
 

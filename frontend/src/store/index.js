@@ -34,7 +34,7 @@ export default new Vuex.Store({
   },
   mutations: {
     LOGIN(state, payload) {
-      console.log('payload = ' + payload);
+      // console.log('payload = ' + payload);
       state.accessToken = payload['access-token'];
       state.userEmail = payload['user-email'];
       state.userNickName = payload['nickName'];
@@ -63,7 +63,7 @@ export default new Vuex.Store({
   actions: {
     LOGIN(context, user) {
       return axios.post(`${SERVER_URL}/user/login`, user).then((response) => {
-        console.log(response.data.message);
+        // console.log(response.data.message);
         if (response.data.message == 'success') {
           context.commit('LOGIN', response.data);
           document.cookie = `access-token=${response.data['access-token']}`;

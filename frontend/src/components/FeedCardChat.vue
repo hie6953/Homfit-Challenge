@@ -79,8 +79,8 @@ export default {
     DeleteComments(comment_id) {
       axios
         .delete(`${SERVER_URL}/comment/delete/${comment_id}`)
-        .then(({ data }) => {
-          console.log(data);
+        .then(() => {
+          // console.log(data);
           this.LoadComments();
         })
         .catch(() => {
@@ -94,8 +94,8 @@ export default {
           contents: this.contents,
           feed_id: this.feed_id,
         })
-        .then(({ data }) => {
-          console.log(data);
+        .then(() => {
+          // console.log(data);
           this.LoadComments();
           this.contents = '';
         })
@@ -108,9 +108,9 @@ export default {
       axios
         .get(`${SERVER_URL}/comment/search/${this.feed_id}`)
         .then(({ data }) => {
-          console.log(data);
+          // console.log(data);
           this.commentList = data.list;
-          console.log(this.commentList);
+          // console.log(this.commentList);
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');

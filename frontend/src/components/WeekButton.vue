@@ -76,7 +76,7 @@ export default {
       this.$emit('change', this.day);
     },
     props_day_change_toggle: function() {
-      console.log(this.props_day);
+      // console.log(this.props_day);
       this.day = this.props_day;
     },
   },
