@@ -58,7 +58,12 @@ export default {
             borderWidth: 1
           }]
         },
-        options: {}
+        options: {
+          legend: {
+            position: "left",
+            align: "middle",
+          },
+        }
       })
     },
     

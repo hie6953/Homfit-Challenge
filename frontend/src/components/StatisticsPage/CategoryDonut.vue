@@ -23,6 +23,8 @@ export default {
   methods: {
     createChart() {
       const ctx = document.getElementById("myChart-1")
+      // Chart.defaults.global.defaultFontStyle = 'Bold'
+      Chart.defaults.global.defaultFontSize = 16
       new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -58,7 +60,12 @@ export default {
             borderWidth: 1
           }]
         },
-        options: {}
+        options: {
+          legend: {
+            position: "left",
+            align: "middle",
+          },
+        }
       })
     },
   },
