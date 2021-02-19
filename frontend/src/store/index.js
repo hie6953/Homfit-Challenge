@@ -56,6 +56,9 @@ export default new Vuex.Store({
     SETIMAGE(state, img) { 
       state.userImg = img;
     },
+    SETNICKNAME(state, nick_name) { 
+      state.userNickName = nick_name;
+    },
   },
   actions: {
     LOGIN(context, user) {
