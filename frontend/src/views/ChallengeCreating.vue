@@ -289,7 +289,7 @@ export default {
           // console.log(this.challenge_id);
         })
         .catch(() => {
-          swal.error('사진은 200MB이하로 올려주세요.');
+          swal.error('챌린지 개설을 실패했습니다.');
           // console.log(error);
         });
     },

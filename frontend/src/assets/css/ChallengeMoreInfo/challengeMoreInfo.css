@@ -160,7 +160,7 @@
 }
 
 /* 챌린지 인증방법 */
-.certify-contents-onlycam span {
+/* .certify-contents-onlycam span {
   margin-left: 3px;
 }
 
@@ -178,7 +178,7 @@
   height:180px;
   width:100%;
   object-fit: contain;
-}
+} */
 
 /* 챌린지 달성률 */
 .challenge-result-rate {

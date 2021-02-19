@@ -9,6 +9,12 @@
           >사진과 글로 챌린지 후기를 자세히 작성해주세요.</span
         >
       </div>
+      <challenge-certify-contents
+          :challenge_certify_contents="challenge_certify_contents"
+          :good_img="good_img"
+          :bad_img="bad_img"
+          :only_cam="only_cam"
+        ></challenge-certify-contents>
       <!-- 업로드 -->
       <!-- :state="Boolean(form.file)" -->
       <b-form-group>
@@ -58,6 +64,8 @@
 </template>
 
 <script>
+
+import ChallengeCertifyContents from '../components/ChallengeMoreInfo/ChallengeCertifyContents.vue';
 import '../assets/css/certificationphoto.css';
 import swal from '@/assets/javascript/sweetAlert.js';
 import { mapGetters } from 'vuex';
@@ -66,7 +74,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL;
 
 export default {
   name: 'CertificationPhoto',
-  components: {},
+  components: {ChallengeCertifyContents},
   data: function() {
     return {
       form: {
@@ -78,6 +86,9 @@ export default {
       show: true,
       previewImageData: null,
       only_cam: 0,
+      challenge_certify_contents:'',
+      good_img:'',
+      bad_img:'',
     };
   },
   created() {
@@ -141,3 +152,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* .certify-content-img-title{
+  margin-top: 0px !important;
+} */
+</style>

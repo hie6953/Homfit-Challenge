@@ -32,3 +32,25 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.certify-contents-onlycam span {
+  margin-left: 3px;
+}
+
+.certify-content-img-title{
+  margin-top:10px;
+}
+
+.certify-content-img-title span{
+  font-weight: 600;
+  color: #eac13a;
+  border-radius: 10px;
+}
+
+.certify-content-img{
+  height:180px;
+  width:100%;
+  object-fit: contain;
+}
+</style>
