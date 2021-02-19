@@ -71,14 +71,14 @@ export default {
       this.stompClient = Stomp.over(this.socket);
       this.stompClient.connect(
         {},
-        (frame) => {
+        () => {
           this.connected = true;
           this.stompClient.subscribe(`/sub/${this.challenge_id}`, (tick) => {
             this.msgs.push(JSON.parse(tick.body));
           });
           this.getChat();
         },
-        (error) => {
+        () => {
           this.connected = false;
         }
       );
