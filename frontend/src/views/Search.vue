@@ -202,7 +202,7 @@ export default {
     axios
       .get(`${SERVER_URL}/challenge/popularTag`)
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         this.returnList = data;
       })
       .catch(() => {
@@ -274,20 +274,20 @@ export default {
 
     async getChallengeData($state) {
       if (this.keyword.length == 0) {
-        console.log('결과가 없습니다');
+        // console.log('결과가 없습니다');
         $state.complete();
         return;
       }
       if (this.challengeAllList == null) {
-        console.log('가져오기');
+        // console.log('가져오기');
         await this.ChallengeListSearch();
       }
-      console.log(this.challengeAllList);
+      // console.log(this.challengeAllList);
       let getArray = this.challengeAllList.slice(
         (this.challengePage - 1) * 10,
         this.challengePage * 10
       );
-      console.log(getArray);
+      // console.log(getArray);
       setTimeout(() => {
         if (getArray.length > 0) {
           this.challengeList = this.challengeList.concat(getArray);
