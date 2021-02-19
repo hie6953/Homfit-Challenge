@@ -208,7 +208,7 @@ export default {
   },
   created() {
     let uid = this.getUserUid;
-    console.log(uid);
+    // console.log(uid);
     axios
       .post(`${SERVER_URL}/user`, { uid })
       .then(({ data }) => {
