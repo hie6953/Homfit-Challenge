@@ -246,7 +246,7 @@ export default {
         } else {
           $state.complete();
         }
-      }, 500);
+      }, 100);
     },
 
     scrollUp: function() {

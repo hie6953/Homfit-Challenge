@@ -289,7 +289,7 @@ export default {
         } else {
           $state.complete();
         }
-      }, 500);
+      }, 100);
     },
     async getFeedData($state) {
       if (this.keyword.length == 0) {
@@ -311,7 +311,7 @@ export default {
         } else {
           $state.complete();
         }
-      }, 500);
+      }, 100);
     },
     scrollUp: function() {
       window.scrollTo({

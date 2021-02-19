@@ -291,7 +291,7 @@ export default {
         } else {
           $state.complete();
         }
-      }, 500);
+      }, 100);
     },
     ChallengeMoreInfo: function(challenge_id) {
       this.$router.push(`/challenge-more-info/${challenge_id}`);

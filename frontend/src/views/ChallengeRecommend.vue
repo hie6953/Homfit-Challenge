@@ -253,7 +253,7 @@ methods: {
         } else {
           $state.complete();
         }
-      }, 500);
+      }, 100);
     },
      StringToNumberList:function(list){
       for (let index = 0; index < list.length; index++) {
