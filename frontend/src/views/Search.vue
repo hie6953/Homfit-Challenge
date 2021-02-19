@@ -178,6 +178,7 @@ export default {
       challengePage: 1,
       feedPage: 1,
       returnList: [],
+      searching:false,
     };
   },
   watch: {
@@ -222,7 +223,9 @@ export default {
       this.$router.push(`/challenge-more-info/${challenge_id}`);
     },
     getNewData: function() {
-      console.log('들어옴');
+      if(this.searching)
+        return;
+      this.searching = true;
       this.challengePage = 1;
       this.feedPage = 1;
       this.challengeAllList = null;
@@ -246,9 +249,11 @@ export default {
         .then(({ data }) => {
           // console.log(data);
           this.challengeAllList = data;
+          this.searching = false;
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');
+          this.searching = false;
         });
     },
     async FeedListSearch() {
@@ -259,9 +264,11 @@ export default {
         .then(({ data }) => {
           // console.log(data);
           this.feedAllList = data;
+          this.searching = false;
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');
+          this.searching = false;
         });
     },
 
