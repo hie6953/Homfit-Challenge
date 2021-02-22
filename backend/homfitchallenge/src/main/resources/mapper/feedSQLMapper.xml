@@ -31,7 +31,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.maked_uid = #{uid} and (l.uid=#{uid} or l.uid is null)
+		where f.maked_uid = #{uid}
 		order by f.register_date desc
 	</select>
 
@@ -57,7 +57,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.challenge_id = #{challenge_id} and (l.uid=#{uid} or l.uid is null)
+		where f.challenge_id = #{challenge_id}
 		order by f.register_date desc
 		limit 0, 100
 	</select>
@@ -72,7 +72,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid is null)
+		where f.feed_id = #{feed_id}
 	</select>
 
 	<select id="searchByFeedIdForUseAlarm" parameterType="int" resultType="feed">
@@ -87,7 +87,7 @@
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id} and (l.uid=#{uid} or l.uid is null)
+		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id}
 		order by f.register_date desc
 		limit 0, 100
 	</select>
