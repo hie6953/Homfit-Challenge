@@ -161,6 +161,7 @@
 import "../assets/css/mainfeed/mainfeedpage.css";
 import MainFeed from "../components/MainFeed.vue";
 import InfiniteLoading from "vue-infinite-loading";
+import FeedDummyData from "@/assets/dummyData/feedDummyData.json";
 import "@/assets/css/infiniteloading.css";
 import swal from '@/assets/javascript/sweetAlert.js';
 
@@ -211,6 +212,7 @@ export default {
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');
+          this.feedAllList = FeedDummyData.feedList;
         });
     },
 
@@ -223,6 +225,7 @@ export default {
         })
         .catch(() => {
           swal.error('오류가 발생했습니다.');
+          this.feedAllList = FeedDummyData.feedList;
         });
     },
 
