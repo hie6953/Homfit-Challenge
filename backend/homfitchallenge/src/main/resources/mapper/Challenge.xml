@@ -10,6 +10,10 @@
 		select date(now())
 	</select>
 
+	<!-- db기준 어제날짜 select -->
+	<select id="selectYesterday" resultType="String">
+		select current_date() - interval 1 day
+	</select>
 	<!-- 챌린지 전체 리스트 조회 -->
 	<!-- public List<Challenge> selectAllChallenge(); -->
 	<select id="selectAllChallenge" resultType="Challenge">

@@ -27,11 +27,11 @@
 	</select>
 
 	<select id="searchByUserAll" parameterType="String" resultType="feed">
-		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
+		select distinct f.feed_id, f.feed_picture, f.like_count, f. maked_uid, f.challenge_id, f.register_date, f.feed_contents, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.maked_uid = #{uid} and (l.uid=#{uid} or l.uid is null)
+		where f.maked_uid = #{uid}
 		order by f.register_date desc
 	</select>
 
@@ -53,11 +53,11 @@
 
 	<select id="searchByChallengeForFeed" parameterType="map"
 		resultType="feed">
-		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked
+		select distinct f.feed_id, f.feed_picture, f.like_count, f. maked_uid, f.challenge_id, f.register_date, f.feed_contents, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.challenge_id = #{challenge_id} and (l.uid=#{uid} or l.uid is null)
+		where f.challenge_id = #{challenge_id}
 		order by f.register_date desc
 		limit 0, 100
 	</select>
@@ -68,11 +68,11 @@
 
 	<select id="searchByFeedId" parameterType="map"
 		resultType="feed">
-		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
+		select distinct f.feed_id, f.feed_picture, f.like_count, f. maked_uid, f.challenge_id, f.register_date, f.feed_contents, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked 
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.feed_id = #{feed_id} and (l.uid=#{uid} or l.uid is null)
+		where f.feed_id = #{feed_id} and (l.uid = #{uid} or l.uid is null)
 	</select>
 
 	<select id="searchByFeedIdForUseAlarm" parameterType="int" resultType="feed">
@@ -83,11 +83,11 @@
 	
 	<select id="searchByChallengeNotFeedId" parameterType="map"
 		resultType="feed">
-		select f.*, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked
+		select distinct f.feed_id, f.feed_picture, f.like_count, f. maked_uid, f.challenge_id, f.register_date, f.feed_contents, u.nick_name, u.user_img, if(l.uid=#{uid}, true, false) as user_liked
 		from feed f 
 			left outer join user u on f.maked_uid = u.uid
 			left outer join likes l on f.feed_id=l.feed_id
-		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id} and (l.uid=#{uid} or l.uid is null)
+		where f.challenge_id = #{challenge_id} and f.feed_id != #{feed_id}
 		order by f.register_date desc
 		limit 0, 100
 	</select>
