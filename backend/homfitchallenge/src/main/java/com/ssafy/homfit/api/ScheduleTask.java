@@ -121,7 +121,7 @@ public class ScheduleTask {
 		 todayRepository.saveAll(list);
 
 		 // 4-2. 완료된 챌린지 유저별 개인 달성률 insert, + 포인트적립
-		 int yesterday = today-1;
+		 String yesterday = challengeService.selectYesterday();
 		
 		 for (Challenge challenge : challengelist) { // 오늘 기준, 어제 완료된 챌린지 유저 달성률 등록
 		 	if (challenge.getCheck_date() == 2 && challenge.getEnd_date().equals(yesterday)) {

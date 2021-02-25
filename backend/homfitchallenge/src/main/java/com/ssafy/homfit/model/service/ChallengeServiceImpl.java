@@ -188,6 +188,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeDAO.selectDate();
 	}
 
+	@Override
+	public String selectYesterday() {
+		return challengeDAO.selectYesterday();
+	}
+
 
 	
 

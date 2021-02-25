@@ -113,7 +113,7 @@ public class ChallengeController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		System.out.println(challengeService.selectDate());
+		
 		return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 	}
 
