@@ -1,10 +1,8 @@
 # 홈핏챌린지
 
----
 
 ## 📃프로젝트 개요
 
----
 
 - **개발 기간** : 2021.01.11 ~ 2021.02.19 (총 7주)
 - **개발 환경** : Vue.js, SpringBoot, MySQL, GitLab, Jira
@@ -14,9 +12,8 @@
 
 ## 🔆팀원
 
----
 
-![document/팀원소개.png](document/팀원소개.png)
+![팀원소개.png](document/팀원소개.png)
 
 **[황다희](https://github.com/ekgml3765)**
 
@@ -30,7 +27,6 @@
 
 ## 📖개발기록
 
----
 
 - 기획
 - Git Commit 규칙
@@ -52,9 +48,8 @@
 
 ## 🛠기술스택
 
----
 
-![document/기술스택.png](document/기술스택.png)
+![기술스택.png](document/기술스택.png)
 
 - frontend 사용 라이브러리
     - [bootstrap-vue](https://bootstrap-vue.org/)
@@ -68,7 +63,6 @@
 
 ## 🎈주요기능
 
----
 
 ### Challenge
 
@@ -124,197 +118,195 @@
 
 ## 😎 페이지소개
 
----
 
 **메인페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(4).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(4).png)
+![메인페이지.png](document/메인페이지.png)
 
 **챌린지 리스트**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(5).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(5).png)
+![챌린지리스트.png](document/챌린지리스트.png)
 
 **챌린지 상세 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310.png)
+![챌린지_상세_페이지.png](document/챌린지_상세_페이지.png)
 
 **로그인 전**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%202.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%202.png)
+![로그인 전.png](document/로그인_전.png)
 
 **미참여 챌린지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%203.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%203.png)
+![미참여 챌린지.png](document/미참여_챌린지.png)
 
 **참여 챌린지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%204.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%204.png)
+![참여 챌린지.png](document/참여_챌린지.png)
 
 **참여불가 챌린지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%205.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%205.png)
+![참여불가 챌린지.png](document/참여불가_챌린지.png)
 
 **피드**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(6).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(6).png)
+![피드.png](document/피드.png)
 
 **피드 hover시**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/_.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/_.png)
+![피드 hover시.png](document/피드_hover시.png)
 
 **피드 상세 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(3).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(3).png)
+![피드 상세 페이지.png](document/피드_상세_페이지.png)
 
 **좋아요, 댓글**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%206.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%206.png)
+![좋아요_댓글.png](document/좋아요_댓글.png)
 
 **신고**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%207.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%207.png)
+![신고.png](document/신고.png)
 
 **챌린지 개설**
 
 **소개**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating.png)
+![소개.png](document/소개.png)
 
 **기간**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(1).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(1).png)
+![기간.png](document/기간.png)
 
 **인증**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(2).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(2).png)
+![인증.png](document/인증.png)
 
 **태그**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(3).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(3).png)
+![태그.png](document/태그.png)
 
 **챌린지 개설 로딩**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59.png)
+![챌린지_개설_로딩.png](document/챌린지_개설_로딩.png)
 
 **챌린지 개설 완료**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(2).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(2).png)
+![챌린지_개설_완료.png](document/챌린지_개설_완료.png)
 
 **추천챌린지**
 
 **선호도 조사**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(4).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-more-info_310_(4).png)
+![선호도 조사.png](document/선호도_조사.png)
 
 **추천 챌린지 리스트**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(4).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-creating_(4).png)
+![추천_챌린지_리스트.png](document/추천_챌린지_리스트.png)
 
 **나의 챌린지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(1).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(1).png)
+![나의_챌린지.png](document/나의_챌린지.png)
 
 **참여한 챌린지 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(11).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(11).png)
+![참여한_챌린지_페이지.png](document/참여한_챌린지_페이지.png)
 
 **인증 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(12).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(12).png)
+![인증_페이지.png](document/인증.png)
 
 **인증샷 리스트 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(10).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(10).png)
+![인증샷_리스트_페이지.png](document/인증샷_리스트_페이지.png)
 
 **대화 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(7).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(7).png)
+![대화_페이지.png](document/대화.png)
 
 **검색**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(5).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(5).png)
+![검색.png](document/검색.png)
 
 **로그인페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login.png)
+![로그인페이지.png](document/로그인페이지.png)
 
 **비밀번호 재설정**
 
 **인증번호**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(1).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(1).png)
+![인증번호.png](document/인증번호.png)
 
 **비밀번호 변경**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(2).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(2).png)
+![비밀번호_변경.png](document/비밀번호_변경.png)
 
 **회원가입**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(3).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_login_(3).png)
+![회원가입.png](document/회원가입.png)
 
 **마이페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend.png)
+![마이페이지.png](document/마이페이지.png)
 
 **포인트내역 조회**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%208.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%208.png)
+![포인트내역_조회.png](document/포인트내역_조회.png)
 
 **개인정보 조회**
 
 **비밀번호 인증**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(4).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(4).png)
+![비밀번호 인증.png](document/비밀번호_인증.png)
 
 **회원정보 수정**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(5).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(5).png)
+![회원정보 수정.png](document/회원정보_수정.png)
 
 **비밀번호 변경**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(6).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(6).png)
+![비밀번호 변경.png](document/비밀번호_변경.png)
 
 **기록**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(2).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/localhost_8081_challenge-recommend_(2).png)
+![기록.png](document/기록.png)
 
 **북마크 페이지**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(1).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(1).png)
+![북마크 페이지.png](document/북마크_페이지.png)
 
 **알림**
 
 **알림이 있을 경우**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%209.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%209.png)
+![알림이_있을_경우.png](document/알림이_있을_경우.png)
 
 **알림이 없을 경우**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2010.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2010.png)
+![알림이_없을_경우.png](document/알림이_없을_경우.png)
 
 **통계**
 
 **월별통계**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/ddd.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/ddd.png)
+![월별통계.png](document/월별통계.png)
 
 **참여통계**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(2).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(2).png)
+![참여통계.png](document/참여통계.png)
 
 **연령별/성별**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(3).png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/i4c107.p.ssafy.io_challenge-recommend_(3).png)
+![연령별_성별.png](document/연령별_성별.png)
 
 **모바일**
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2011.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2011.png)
+![모바일1.png](document/모바일1.png)
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2012.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%2012.png)
+![모바일2.png](document/모바일2.png)
 
 ## 최종산출물
 
----
 
 - [와이어프레임](https://drive.google.com/file/d/1yUr9eifAJbWc3SAUMdauceqrAFji9P1a/view?usp=sharing)
 - [frontend 기능명세](https://drive.google.com/file/d/18Iw9DFrD5QWSYs7O5VqkNMcMcPSUFr5A/view?usp=sharing)
