@@ -16,6 +16,9 @@
 
 ---
 
+
+<img src="document/팀원소개.png" >
+
 ![document/팀원소개.png](document/팀원소개.png)
 
 **[황다희](https://github.com/ekgml3765)**
