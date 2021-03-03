@@ -13,7 +13,7 @@
 ## 🔆팀원
 
 
-![팀원소개.png](document/팀원소개.png)
+![팀원소개.png](document/image/팀원소개.png)
 
 **[황다희](https://github.com/ekgml3765)**
 
@@ -49,7 +49,7 @@
 ## 🛠기술스택
 
 
-![기술스택.png](document/기술스택.png)
+![기술스택.png](document/image/기술스택.png)
 
 - frontend 사용 라이브러리
     - [bootstrap-vue](https://bootstrap-vue.org/)
@@ -121,195 +121,196 @@
 
 **메인페이지**
 
-![메인페이지.png](document/메인페이지.png)
+![메인페이지.png](document/image/메인페이지.png)
 
 **챌린지 리스트**
 
-![챌린지리스트.png](document/챌린지리스트.png)
+![챌린지리스트.png](document/image/챌린지리스트.png)
 
 **챌린지 상세 페이지**
 
-![챌린지_상세_페이지.png](document/챌린지_상세_페이지.png)
+![챌린지_상세_페이지.png](document/image/챌린지_상세_페이지.png)
 
 **로그인 전**
 
-![로그인 전.png](document/로그인_전.png)
+![로그인 전.png](document/image/로그인_전.png)
 
 **미참여 챌린지**
 
-![미참여 챌린지.png](document/미참여_챌린지.png)
+![미참여 챌린지.png](document/image/미참여_챌린지.png)
 
 **참여 챌린지**
 
-![참여 챌린지.png](document/참여_챌린지.png)
+![참여 챌린지.png](document/image/참여_챌린지.png)
 
 **참여불가 챌린지**
 
-![참여불가 챌린지.png](document/참여불가_챌린지.png)
+![참여불가 챌린지.png](document/image/참여불가_챌린지.png)
 
 **피드**
 
-![피드.png](document/피드.png)
+![피드.png](document/image/피드.png)
 
 **피드 hover시**
 
-![피드 hover시.png](document/피드_hover시.png)
+![피드 hover시.png](document/image/피드_hover시.png)
 
 **피드 상세 페이지**
 
-![피드 상세 페이지.png](document/피드_상세_페이지.png)
+![피드 상세 페이지.png](document/image/피드_상세_페이지.png)
 
 **좋아요, 댓글**
 
-![좋아요_댓글.png](document/좋아요_댓글.png)
+![좋아요_댓글.png](document/image/좋아요_댓글.png)
 
 **신고**
 
-![신고.png](document/신고.png)
+![신고.png](document/image/신고.png)
 
 **챌린지 개설**
 
 **소개**
 
-![소개.png](document/소개.png)
+![소개.png](document/image/소개.png)
 
 **기간**
 
-![기간.png](document/기간.png)
+![기간.png](document/image/기간.png)
 
 **인증**
 
-![인증.png](document/인증.png)
+![인증.png](document/image/인증.png)
 
 **태그**
 
-![태그.png](document/태그.png)
+![태그.png](document/image/태그.png)
 
 **챌린지 개설 로딩**
 
-![챌린지_개설_로딩.png](document/챌린지_개설_로딩.png)
+![챌린지_개설_로딩.png](document/image/챌린지_개설_로딩.png)
 
 **챌린지 개설 완료**
 
-![챌린지_개설_완료.png](document/챌린지_개설_완료.png)
+![챌린지_개설_완료.png](document/image/챌린지_개설_완료.png)
 
 **추천챌린지**
 
 **선호도 조사**
 
-![선호도 조사.png](document/선호도_조사.png)
+![선호도 조사.png](document/image/선호도_조사.png)
 
 **추천 챌린지 리스트**
 
-![추천_챌린지_리스트.png](document/추천_챌린지_리스트.png)
+![추천_챌린지_리스트.png](document/image/추천_챌린지_리스트.png)
 
 **나의 챌린지**
 
-![나의_챌린지.png](document/나의_챌린지.png)
+![나의_챌린지.png](document/image/나의_챌린지.png)
 
 **참여한 챌린지 페이지**
 
-![참여한_챌린지_페이지.png](document/참여한_챌린지_페이지.png)
+![참여한_챌린지_페이지.png](document/image/참여한_챌린지_페이지.png)
 
 **인증 페이지**
 
-![인증_페이지.png](document/인증.png)
+![인증_페이지.png](document/image/인증.png)
 
 **인증샷 리스트 페이지**
 
-![인증샷_리스트_페이지.png](document/인증샷_리스트_페이지.png)
+![인증샷_리스트_페이지.png](document/image/인증샷_리스트_페이지.png)
 
 **대화 페이지**
 
-![대화_페이지.png](document/대화.png)
+![대화_페이지.png](document/image/대화.png)
 
 **검색**
 
-![검색.png](document/검색.png)
+![검색.png](document/image/검색.png)
 
 **로그인페이지**
 
-![로그인페이지.png](document/로그인페이지.png)
+![로그인페이지.png](document/image/로그인페이지.png)
 
 **비밀번호 재설정**
 
 **인증번호**
 
-![인증번호.png](document/인증번호.png)
+![인증번호.png](document/image/인증번호.png)
 
 **비밀번호 변경**
 
-![비밀번호_변경.png](document/비밀번호_변경.png)
+![비밀번호_변경.png](document/image/비밀번호_변경.png)
 
 **회원가입**
 
-![회원가입.png](document/회원가입.png)
+![회원가입.png](document/image/회원가입.png)
 
 **마이페이지**
 
-![마이페이지.png](document/마이페이지.png)
+![마이페이지.png](document/image/마이페이지.png)
 
 **포인트내역 조회**
 
-![포인트내역_조회.png](document/포인트내역_조회.png)
+![포인트내역_조회.png](document/image/포인트내역_조회.png)
 
 **개인정보 조회**
 
 **비밀번호 인증**
 
-![비밀번호 인증.png](document/비밀번호_인증.png)
+![비밀번호 인증.png](document/image/비밀번호_인증.png)
 
 **회원정보 수정**
 
-![회원정보 수정.png](document/회원정보_수정.png)
+![회원정보 수정.png](document/image/회원정보_수정.png)
 
 **비밀번호 변경**
 
-![비밀번호 변경.png](document/비밀번호_변경.png)
+![비밀번호 변경.png](document/image/비밀번호_변경.png)
 
 **기록**
 
-![기록.png](document/기록.png)
+![기록.png](document/image/기록.png)
 
 **북마크 페이지**
 
-![북마크 페이지.png](document/북마크_페이지.png)
+![북마크 페이지.png](document/image/북마크_페이지.png)
 
 **알림**
 
 **알림이 있을 경우**
 
-![알림이_있을_경우.png](document/알림이_있을_경우.png)
+![알림이_있을_경우.png](document/image/알림이_있을_경우.png)
 
 **알림이 없을 경우**
 
-![알림이_없을_경우.png](document/알림이_없을_경우.png)
+![알림이_없을_경우.png](document/image/알림이_없을_경우.png)
 
 **통계**
 
 **월별통계**
 
-![월별통계.png](document/월별통계.png)
+![월별통계.png](document/image/월별통계.png)
 
 **참여통계**
 
-![참여통계.png](document/참여통계.png)
+![참여통계.png](document/image/참여통계.png)
 
 **연령별/성별**
 
-![연령별_성별.png](document/연령별_성별.png)
+![연령별_성별.png](document/image/연령별_성별.png)
 
 **모바일**
 
-![모바일1.png](document/모바일1.png)
+![모바일1.png](document/image/모바일1.png)
 
-![모바일2.png](document/모바일2.png)
+![모바일2.png](document/image/모바일2.png)
 
 ## 최종산출물
 
 
 - [와이어프레임](https://drive.google.com/file/d/1yUr9eifAJbWc3SAUMdauceqrAFji9P1a/view?usp=sharing)
 - [frontend 기능명세](https://drive.google.com/file/d/18Iw9DFrD5QWSYs7O5VqkNMcMcPSUFr5A/view?usp=sharing)
+- [backend 기능명세](https://drive.google.com/file/d/19V0EcWYsFjongmLaPZHZNDnAaI2WDWOC/view?usp=sharing)
 - [ERD](https://drive.google.com/file/d/1nnx7Ydc3gvJIBk96gWPSJj1WETexUep8/view?usp=sharing)
 - [중간발표 pdf](https://drive.google.com/file/d/1JCwQNlw5taa8ZX9fH2uNn4neIREscxSS/view?usp=sharing)
 - [중간발표 시연영상](https://youtu.be/60zaC1oXmRU)
