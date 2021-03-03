@@ -16,17 +16,17 @@
 
 ---
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled.png)
+![document/팀원소개.png](document/팀원소개.png)
 
 **[황다희](https://github.com/ekgml3765)**
 
 **[김민중](https://github.com/kimmj0920)**
 
-[**남우진**](https://github.com/NamWoojin)
+**[남우진](https://github.com/NamWoojin)**
 
 **[박은수](https://github.com/eunsu27)**
 
-[**이종희**](https://github.com/hie6953)
+**[이종희](https://github.com/hie6953)**
 
 ## 📖개발기록
 
@@ -54,7 +54,7 @@
 
 ---
 
-![%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%201.png](%E1%84%92%E1%85%A9%E1%86%B7%E1%84%91%E1%85%B5%E1%86%BA%E1%84%8E%E1%85%A2%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B5%20dfd493b142b842e1b5f3dd0d678abe59/Untitled%201.png)
+![document/기술스택.png](document/기술스택.png)
 
 - frontend 사용 라이브러리
     - [bootstrap-vue](https://bootstrap-vue.org/)
