@@ -27,24 +27,53 @@
 
 ## 📖개발기록
 
+<details>
+<summary>기획</summary>
+<ul>
+    <li><a href="document/DevLog/01.11_팀회의_기록.md">01.11 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.12_팀회의_기록.md">01.12 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.13_팀회의_기록.md">01.13 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.14_팀회의_기록.md">01.14 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.18_팀회의_기록.md">01.18 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.19_팀회의_기록.md">01.19 팀회의 기록</a></li>
+    <li><a href="document/DevLog/01.20_팀회의_기록.md">01.20 팀회의 기록</a></li>
+</ul>
+</details>
+<details>
+<summary>Git Commit 규칙</summary>
+<ul>
+    <li><a href="document/DevLog/git_commit_message_규칙.md">Git Commit Message 규칙</a></li>
+</ul>
+</details>
+<details>
+<summary>ERD</summary>
+<ul>
+    <li><a href="document/DevLog/erd_질문답변.md">ERD 질문답변</a></li></ul>
+</details>
+<details>
+<summary>Backend</summary>
+<ul>
+    <li><a href="document/DevLog/Backend.md">Backend</a></li></ul>
+</details>
+<details>
+<summary>Frontend</summary>
+<ul>
+    <li><a href="document/DevLog/Sub3_1주차_frontend_계획.md">Sub3 1주차 frontend 계획</a></li>
+    <li><a href="document/DevLog/Sub3_2주차_frontend_계획.md">Sub3 2주차 frontend 계획</a></li>
+</ul>
+</details>
+<details>
+<summary>최종 발표 준비</summary>
+<ul>
+    <li><a href="document/DevLog/최종발표_스크립트.md">최종발표 스크립트</a></li>
+    <li><a href="document/DevLog/최종_마무리_계획.md">최종 마무리 계획</a></li>
+    <li><a href="document/DevLog/최종_ppt_설계.md">최종 PPT 설계</a></li>
+    <li><a href="document/DevLog/최종_ucc_설계.md">최종 UCC 설계</a></li>
+    <li><a href="document/DevLog/데이터_설계.md">최종 데이터 설계</a></li>
+    <li><a href="document/DevLog/최종_시연영상_설계.md">최종 시연영상 설계</a></li>
+</ul>
+</details>
 
-- 기획
-- Git Commit 규칙
-- ERD
-
-    [ERD](https://www.notion.so/ERD-32864fe7a7c3402f9cfba27d592d0405)
-
-- Backend
-
-    [백앤드 기능명세서](https://www.notion.so/5ea0872be4314d8b921352eaea8532cc)
-
-- Frontend
-
-    [프론트 기능명세서](https://www.notion.so/c671c35fb43a42e3b82837969d2d8d13)
-
-- 최종 발표 준비
-
-    [최종발표 스크립트](https://www.notion.so/150c2cf0205445fea3a3d17b28ff65fc)
 
 ## 🛠기술스택
 
