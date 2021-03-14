@@ -339,7 +339,7 @@
 
 - [와이어프레임](https://drive.google.com/file/d/1yUr9eifAJbWc3SAUMdauceqrAFji9P1a/view?usp=sharing)
 - [frontend 기능명세](https://drive.google.com/file/d/18Iw9DFrD5QWSYs7O5VqkNMcMcPSUFr5A/view?usp=sharing)
-- [backend 기능명세](https://drive.google.com/file/d/19V0EcWYsFjongmLaPZHZNDnAaI2WDWOC/view?usp=sharing)
+- [backend 기능명세](https://docs.google.com/spreadsheets/d/1dkul2HPC8_M0bImjtj6Kts70chAfKKs0NuSfNX9WZbU/edit?usp=sharing)
 - [ERD](https://drive.google.com/file/d/1nnx7Ydc3gvJIBk96gWPSJj1WETexUep8/view?usp=sharing)
 - [중간발표 pdf](https://drive.google.com/file/d/1JCwQNlw5taa8ZX9fH2uNn4neIREscxSS/view?usp=sharing)
 - [중간발표 시연영상](https://youtu.be/60zaC1oXmRU)
